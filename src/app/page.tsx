@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Badge } from "@/components/ui/badge"
+import { format } from "date-fns"
 import {
   Sidebar,
   SidebarContent,
@@ -44,14 +45,24 @@ import UnitConverter from "../components/tools/unit-converter"
 import AreaCalculator from "../components/tools/area-calculator"
 import TipCalculator from "../components/tools/tip-calculator"
 import GoalTracker from "../components/tools/goal-tracker"
+import CreditCardEMICalculator from "@/components/tools/credit-card-emi-calculator"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { format } from "date-fns"
+
 
 const tools = [
   {
+    id: "credit-card-emi",
+    name: "Credit Card EMI Calculator",
+    description: "Break down your credit card EMI with interest, GST, and fees included",
+    icon: Calculator,
+    category: "Financial",
+    popular: true,
+    component: CreditCardEMICalculator,
+  },
+  {
     id: "emi-calculator",
     name: "EMI Calculator",
-    description: "Calculate your loan EMI with interest rates and tenure",
+    description: "Quickly estimate monthly EMIs for any loan with interest and tenure",
     icon: Calculator,
     category: "Financial",
     popular: true,
@@ -69,7 +80,7 @@ const tools = [
   {
     id: "gst-calculator",
     name: "GST Calculator",
-    description: "Calculate GST amount and total price with tax",
+    description: "Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals",
     icon: Percent,
     category: "Financial",
     popular: false,
@@ -108,7 +119,7 @@ const tools = [
     description: "Convert between different units of measurement",
     icon: Scale,
     category: "Conversion",
-    popular: true,
+    popular: false,
     component: UnitConverter,
   },
   {
@@ -123,7 +134,7 @@ const tools = [
   {
     id: "tip-calculator",
     name: "Tip Calculator",
-    description: "Calculate tip amount and split bills easily",
+    description: "Calculate restaurant tips and split bills effortlessly with friends",
     icon: DollarSign,
     category: "Financial",
     popular: false,
@@ -132,7 +143,7 @@ const tools = [
   {
     id: "goal-tracker",
     name: "Goal Tracker",
-    description: "Track progress towards your financial goals",
+    description: "Plan and monitor your savings journey toward financial goals.s",
     icon: Target,
     category: "Planning",
     popular: false,
@@ -278,7 +289,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <Button variant="outline" onClick={handleCloseTool} size="sm">
-                    <X/>
+                    <X />
                     Close Tool
                   </Button>
                 </div>
