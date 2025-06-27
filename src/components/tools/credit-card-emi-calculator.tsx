@@ -439,7 +439,6 @@ export default function CreditCardEMICalculator() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="lg:flex lg:gap-6">
-                {/* Left: EMI Breakdown */}
                 <div className="flex-1 space-y-4">
                   <div className="flex justify-between items-center p-4 bg-linear-to-r from-primary/5 to-primary/10 rounded-xl border border-primary/20">
                     <span className="font-medium">Monthly EMI</span>
