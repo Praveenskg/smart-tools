@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,8 +21,11 @@ import {
   Link,
   FileText,
   Smartphone,
+  Image as ImageIcon,
+  X,
 } from "lucide-react";
 import QRCode from "qrcode";
+
 export default function QRCodeGenerator() {
   const [text, setText] = useState("");
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
@@ -32,6 +35,10 @@ export default function QRCodeGenerator() {
   const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
   const [isGenerating, setIsGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [logoImage, setLogoImage] = useState<string | null>(null);
+  const [logoSize, setLogoSize] = useState([20]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const errorCorrectionLevels = [
     { value: "L", label: "Low (7%)", description: "Recovers 7% of data" },
     { value: "M", label: "Medium (15%)", description: "Recovers 15% of data" },
@@ -42,11 +49,31 @@ export default function QRCodeGenerator() {
     },
     { value: "H", label: "High (30%)", description: "Recovers 30% of data" },
   ];
+
+  const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setLogoImage(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeLogo = () => {
+    setLogoImage(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   const generateQRCode = useCallback(async () => {
     if (!text.trim()) {
       setQrCodeDataUrl("");
       return;
     }
+
     setIsGenerating(true);
     try {
       const options = {
@@ -58,17 +85,64 @@ export default function QRCodeGenerator() {
         },
         errorCorrectionLevel: errorCorrection as "L" | "M" | "Q" | "H",
       };
+
       const dataUrl = await QRCode.toDataURL(text, options);
-      setQrCodeDataUrl(dataUrl);
+
+      // If logo is present, overlay it on the QR code
+      if (logoImage) {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          canvas.width = size[0];
+          canvas.height = size[0];
+
+          // Draw QR code
+          const qrImg = new Image();
+          qrImg.onload = () => {
+            ctx.drawImage(qrImg, 0, 0, size[0], size[0]);
+
+            // Draw logo in center
+            const logoImg = new Image();
+            logoImg.onload = () => {
+              const logoWidth = (size[0] * logoSize[0]) / 100;
+              const logoHeight = (size[0] * logoSize[0]) / 100;
+              const logoX = (size[0] - logoWidth) / 2;
+              const logoY = (size[0] - logoHeight) / 2;
+
+              // Add white background for logo
+              ctx.fillStyle = backgroundColor;
+              ctx.fillRect(logoX - 2, logoY - 2, logoWidth + 4, logoHeight + 4);
+
+              ctx.drawImage(logoImg, logoX, logoY, logoWidth, logoHeight);
+              setQrCodeDataUrl(canvas.toDataURL());
+              setIsGenerating(false);
+            };
+            logoImg.src = logoImage;
+          };
+          qrImg.src = dataUrl;
+        }
+      } else {
+        setQrCodeDataUrl(dataUrl);
+        setIsGenerating(false);
+      }
     } catch (error) {
       console.error("Error generating QR code:", error);
-    } finally {
       setIsGenerating(false);
     }
-  }, [text, size, errorCorrection, foregroundColor, backgroundColor]);
+  }, [
+    text,
+    size,
+    errorCorrection,
+    foregroundColor,
+    backgroundColor,
+    logoImage,
+    logoSize,
+  ]);
+
   useEffect(() => {
     generateQRCode();
   }, [generateQRCode]);
+
   const downloadQRCode = () => {
     if (!qrCodeDataUrl) return;
     const link = document.createElement("a");
@@ -199,6 +273,62 @@ export default function QRCodeGenerator() {
                     />
                   </div>
                 </div>
+              </div>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Logo Overlay</Label>
+                  <div className="space-y-2">
+                    {logoImage ? (
+                      <div className="flex items-center gap-2">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={logoImage}
+                          alt="Logo preview"
+                          className="w-12 h-12 rounded border"
+                        />
+                        <span className="text-sm text-muted-foreground flex-1">
+                          Logo uploaded
+                        </span>
+                        <Button
+                          onClick={removeLogo}
+                          variant="outline"
+                          size="sm"
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ) : (
+                      <Button
+                        onClick={() => fileInputRef.current?.click()}
+                        variant="outline"
+                        className="w-full"
+                      >
+                        <ImageIcon className="h-4 w-4 mr-2" />
+                        Upload Logo
+                      </Button>
+                    )}
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleLogoUpload}
+                      className="hidden"
+                    />
+                  </div>
+                </div>
+                {logoImage && (
+                  <div className="space-y-2">
+                    <Label>Logo Size: {logoSize[0]}%</Label>
+                    <Slider
+                      value={logoSize}
+                      onValueChange={setLogoSize}
+                      max={30}
+                      min={5}
+                      step={1}
+                      className="w-full"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </CardContent>
