@@ -1,13 +1,18 @@
-"use client"
-
-import { useState } from "react"
-import { Plus, Trash2, Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Progress } from "@/components/ui/progress"
-import { Badge } from "@/components/ui/badge"
+"use client";
+import { useState, useEffect } from "react";
+import { Plus, Trash2, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
@@ -15,24 +20,32 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 interface Goal {
-  id: string
-  title: string
-  description: string
-  targetAmount: number
-  currentAmount: number
-  category: string
-  deadline: string
-  createdAt: string
+  id: string;
+  title: string;
+  description: string;
+  targetAmount: number;
+  currentAmount: number;
+  category: string;
+  deadline: string;
+  createdAt: string;
 }
-
+const STORAGE_KEY = "smart-tools-goals";
 export default function GoalTracker() {
-  const [goals, setGoals] = useState<Goal[]>([])
-  const [isAddingGoal, setIsAddingGoal] = useState(false)
+  const [goals, setGoals] = useState<Goal[]>([]);
+  const [isAddingGoal, setIsAddingGoal] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isClearAllDialogOpen, setIsClearAllDialogOpen] = useState(false);
+  const [goalToDelete, setGoalToDelete] = useState<Goal | null>(null);
   const [newGoal, setNewGoal] = useState({
     title: "",
     description: "",
@@ -40,13 +53,56 @@ export default function GoalTracker() {
     currentAmount: "",
     category: "",
     deadline: "",
-  })
-
-  const categories = ["Financial", "Health & Fitness", "Career", "Education", "Personal", "Travel", "Business", "Other"]
-
+  });
+  const categories = [
+    "Financial",
+    "Health & Fitness",
+    "Career",
+    "Education",
+    "Personal",
+    "Travel",
+    "Business",
+    "Other",
+  ];
+  const saveToLocalStorage = (goalsToSave: Goal[]) => {
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(goalsToSave));
+        console.log("Saved goals to localStorage:", goalsToSave);
+      } catch (error) {
+        console.error("Error saving goals to localStorage:", error);
+      }
+    }
+  };
+  const loadFromLocalStorage = () => {
+    if (typeof window !== "undefined") {
+      const savedGoals = localStorage.getItem(STORAGE_KEY);
+      if (savedGoals) {
+        try {
+          const parsedGoals = JSON.parse(savedGoals);
+          setGoals(parsedGoals);
+          console.log("Loaded goals from localStorage:", parsedGoals);
+          return parsedGoals;
+        } catch (error) {
+          console.error("Error loading goals from localStorage:", error);
+          localStorage.removeItem(STORAGE_KEY);
+        }
+      } else {
+        console.log("No saved goals found in localStorage");
+      }
+    }
+    return [];
+  };
+  useEffect(() => {
+    loadFromLocalStorage();
+  }, []);
+  useEffect(() => {
+    if (goals.length > 0) {
+      saveToLocalStorage(goals);
+    }
+  }, [goals]);
   const addGoal = () => {
-    if (!newGoal.title || !newGoal.targetAmount) return
-
+    if (!newGoal.title || !newGoal.targetAmount) return;
     const goal: Goal = {
       id: Date.now().toString(),
       title: newGoal.title,
@@ -56,9 +112,10 @@ export default function GoalTracker() {
       category: newGoal.category,
       deadline: newGoal.deadline,
       createdAt: new Date().toISOString(),
-    }
-
-    setGoals([...goals, goal])
+    };
+    const updatedGoals = [...goals, goal];
+    setGoals(updatedGoals);
+    saveToLocalStorage(updatedGoals);
     setNewGoal({
       title: "",
       description: "",
@@ -66,44 +123,61 @@ export default function GoalTracker() {
       currentAmount: "",
       category: "",
       deadline: "",
-    })
-    setIsAddingGoal(false)
-  }
-
+    });
+    setIsAddingGoal(false);
+  };
   const updateGoalProgress = (goalId: string, newAmount: number) => {
-    setGoals(goals.map((goal) => (goal.id === goalId ? { ...goal, currentAmount: newAmount } : goal)))
-  }
-
+    const updatedGoals = goals.map((goal) =>
+      goal.id === goalId ? { ...goal, currentAmount: newAmount } : goal
+    );
+    setGoals(updatedGoals);
+    saveToLocalStorage(updatedGoals);
+  };
   const deleteGoal = (goalId: string) => {
-    setGoals(goals.filter((goal) => goal.id !== goalId))
-  }
-
+    const updatedGoals = goals.filter((goal) => goal.id !== goalId);
+    setGoals(updatedGoals);
+    saveToLocalStorage(updatedGoals);
+    setIsDeleteDialogOpen(false);
+    setGoalToDelete(null);
+  };
+  const clearAllGoals = () => {
+    setGoals([]);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+    setIsClearAllDialogOpen(false);
+  };
+  const handleDeleteGoal = () => {
+    if (goalToDelete) {
+      deleteGoal(goalToDelete.id);
+    }
+  };
   const getProgressPercentage = (current: number, target: number) => {
-    return Math.min((current / target) * 100, 100)
-  }
-
+    return Math.min((current / target) * 100, 100);
+  };
   const getDaysRemaining = (deadline: string) => {
-    if (!deadline) return null
-    const today = new Date()
-    const deadlineDate = new Date(deadline)
-    const diffTime = deadlineDate.getTime() - today.getTime()
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-    return diffDays
-  }
-
-  const getStatusColor = (current: number, target: number, deadline: string) => {
-    const progress = getProgressPercentage(current, target)
-    const daysRemaining = getDaysRemaining(deadline)
-
-    if (progress >= 100) return "text-green-600"
-    if (daysRemaining !== null && daysRemaining < 0) return "text-red-600"
-    if (daysRemaining !== null && daysRemaining < 30) return "text-yellow-600"
-    return "text-blue-600"
-  }
-
+    if (!deadline) return null;
+    const today = new Date();
+    const deadlineDate = new Date(deadline);
+    const diffTime = deadlineDate.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+  const getStatusColor = (
+    current: number,
+    target: number,
+    deadline: string
+  ) => {
+    const progress = getProgressPercentage(current, target);
+    const daysRemaining = getDaysRemaining(deadline);
+    if (progress >= 100) return "text-green-600";
+    if (daysRemaining !== null && daysRemaining < 0) return "text-red-600";
+    if (daysRemaining !== null && daysRemaining < 30) return "text-yellow-600";
+    return "text-blue-600";
+  };
   return (
     <div className="space-y-8">
-      <div>
+      <div className="flex justify-between items-center">
         <Dialog open={isAddingGoal} onOpenChange={setIsAddingGoal}>
           <DialogTrigger asChild>
             <Button className="modern-button">
@@ -114,7 +188,9 @@ export default function GoalTracker() {
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Add New Goal</DialogTitle>
-              <DialogDescription>Create a new goal to track your progress towards achieving it.</DialogDescription>
+              <DialogDescription>
+                Create a new goal to track your progress towards achieving it.
+              </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
               <div className="space-y-2">
@@ -123,7 +199,9 @@ export default function GoalTracker() {
                   id="title"
                   placeholder="Enter goal title"
                   value={newGoal.title}
-                  onChange={(e) => setNewGoal({ ...newGoal, title: e.target.value })}
+                  onChange={(e) =>
+                    setNewGoal({ ...newGoal, title: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -132,7 +210,9 @@ export default function GoalTracker() {
                   id="description"
                   placeholder="Describe your goal"
                   value={newGoal.description}
-                  onChange={(e) => setNewGoal({ ...newGoal, description: e.target.value })}
+                  onChange={(e) =>
+                    setNewGoal({ ...newGoal, description: e.target.value })
+                  }
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -143,7 +223,9 @@ export default function GoalTracker() {
                     type="number"
                     placeholder="Target value"
                     value={newGoal.targetAmount}
-                    onChange={(e) => setNewGoal({ ...newGoal, targetAmount: e.target.value })}
+                    onChange={(e) =>
+                      setNewGoal({ ...newGoal, targetAmount: e.target.value })
+                    }
                   />
                 </div>
                 <div className="space-y-2">
@@ -153,13 +235,20 @@ export default function GoalTracker() {
                     type="number"
                     placeholder="Current value"
                     value={newGoal.currentAmount}
-                    onChange={(e) => setNewGoal({ ...newGoal, currentAmount: e.target.value })}
+                    onChange={(e) =>
+                      setNewGoal({ ...newGoal, currentAmount: e.target.value })
+                    }
                   />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label>Category</Label>
-                <Select value={newGoal.category} onValueChange={(value) => setNewGoal({ ...newGoal, category: value })}>
+                <Select
+                  value={newGoal.category}
+                  onValueChange={(value) =>
+                    setNewGoal({ ...newGoal, category: value })
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
@@ -178,7 +267,9 @@ export default function GoalTracker() {
                   id="deadline"
                   type="date"
                   value={newGoal.deadline}
-                  onChange={(e) => setNewGoal({ ...newGoal, deadline: e.target.value })}
+                  onChange={(e) =>
+                    setNewGoal({ ...newGoal, deadline: e.target.value })
+                  }
                 />
               </div>
               <Button onClick={addGoal} className="w-full">
@@ -187,9 +278,67 @@ export default function GoalTracker() {
             </div>
           </DialogContent>
         </Dialog>
+        {goals.length > 0 && (
+          <Button
+            variant="outline"
+            onClick={() => setIsClearAllDialogOpen(true)}
+            className="text-destructive hover:text-destructive"
+          >
+            <Trash2 className="h-4 w-4 mr-2" />
+            Clear All Goals
+          </Button>
+        )}
       </div>
-
-      {}
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Delete Goal</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete &quot;{goalToDelete?.title}&quot;?
+              This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end space-x-2 pt-4">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsDeleteDialogOpen(false);
+                setGoalToDelete(null);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={handleDeleteGoal}>
+              Delete Goal
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        open={isClearAllDialogOpen}
+        onOpenChange={setIsClearAllDialogOpen}
+      >
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Clear All Goals</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete all {goals.length} goals? This
+              action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end space-x-2 pt-4">
+            <Button
+              variant="outline"
+              onClick={() => setIsClearAllDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={clearAllGoals}>
+              Clear All Goals
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
       {goals.length === 0 ? (
         <Card>
           <CardContent className="flex flex-col items-center justify-center py-12">
@@ -207,22 +356,35 @@ export default function GoalTracker() {
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {goals.map((goal) => {
-            const progress = getProgressPercentage(goal.currentAmount, goal.targetAmount)
-            const daysRemaining = getDaysRemaining(goal.deadline)
-            const statusColor = getStatusColor(goal.currentAmount, goal.targetAmount, goal.deadline)
-
+            const progress = getProgressPercentage(
+              goal.currentAmount,
+              goal.targetAmount
+            );
+            const daysRemaining = getDaysRemaining(goal.deadline);
+            const statusColor = getStatusColor(
+              goal.currentAmount,
+              goal.targetAmount,
+              goal.deadline
+            );
             return (
               <Card key={goal.id} className="modern-card relative">
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <CardTitle className="text-lg gradient-text">{goal.title}</CardTitle>
-                      <CardDescription className="mt-1">{goal.description}</CardDescription>
+                      <CardTitle className="text-lg gradient-text">
+                        {goal.title}
+                      </CardTitle>
+                      <CardDescription className="mt-1">
+                        {goal.description}
+                      </CardDescription>
                     </div>
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => deleteGoal(goal.id)}
+                      onClick={() => {
+                        setIsDeleteDialogOpen(true);
+                        setGoalToDelete(goal);
+                      }}
                       className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"
                     >
                       <Trash2 className="h-4 w-4" />
@@ -241,7 +403,9 @@ export default function GoalTracker() {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span>Progress</span>
-                      <span className={statusColor}>{progress.toFixed(1)}%</span>
+                      <span className={statusColor}>
+                        {progress.toFixed(1)}%
+                      </span>
                     </div>
                     <Progress value={progress} className="h-2" />
                     <div className="flex justify-between text-sm text-muted-foreground">
@@ -249,7 +413,6 @@ export default function GoalTracker() {
                       <span>{goal.targetAmount.toLocaleString()}</span>
                     </div>
                   </div>
-
                   {goal.deadline && (
                     <div className="text-sm">
                       <span className="text-muted-foreground">Deadline: </span>
@@ -261,15 +424,14 @@ export default function GoalTracker() {
                             {daysRemaining > 0
                               ? `${daysRemaining} days left`
                               : daysRemaining === 0
-                                ? "Due today"
-                                : `${Math.abs(daysRemaining)} days overdue`}
+                              ? "Due today"
+                              : `${Math.abs(daysRemaining)} days overdue`}
                             )
                           </span>
                         )}
                       </span>
                     </div>
                   )}
-
                   <div className="flex gap-2">
                     <Input
                       type="number"
@@ -277,10 +439,12 @@ export default function GoalTracker() {
                       className="flex-1"
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
-                          const value = Number.parseFloat((e.target as HTMLInputElement).value)
+                          const value = Number.parseFloat(
+                            (e.target as HTMLInputElement).value
+                          );
                           if (!isNaN(value)) {
-                            updateGoalProgress(goal.id, value)
-                            ;(e.target as HTMLInputElement).value = ""
+                            updateGoalProgress(goal.id, value);
+                            (e.target as HTMLInputElement).value = "";
                           }
                         }
                       }}
@@ -288,11 +452,12 @@ export default function GoalTracker() {
                     <Button
                       size="sm"
                       onClick={(e) => {
-                        const input = e.currentTarget.previousElementSibling as HTMLInputElement
-                        const value = Number.parseFloat(input.value)
+                        const input = e.currentTarget
+                          .previousElementSibling as HTMLInputElement;
+                        const value = Number.parseFloat(input.value);
                         if (!isNaN(value)) {
-                          updateGoalProgress(goal.id, value)
-                          input.value = ""
+                          updateGoalProgress(goal.id, value);
+                          input.value = "";
                         }
                       }}
                     >
@@ -301,12 +466,10 @@ export default function GoalTracker() {
                   </div>
                 </CardContent>
               </Card>
-            )
+            );
           })}
         </div>
       )}
-
-      {}
       {goals.length > 0 && (
         <Card>
           <CardHeader>
@@ -316,12 +479,22 @@ export default function GoalTracker() {
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div className="text-center p-4 border rounded-xl modern-card">
-                <div className="text-2xl font-bold gradient-text">{goals.length}</div>
+                <div className="text-2xl font-bold gradient-text">
+                  {goals.length}
+                </div>
                 <div className="text-sm text-muted-foreground">Total Goals</div>
               </div>
               <div className="text-center p-4 border rounded-xl modern-card">
                 <div className="text-2xl font-bold text-green-500">
-                  {goals.filter((g) => getProgressPercentage(g.currentAmount, g.targetAmount) >= 100).length}
+                  {
+                    goals.filter(
+                      (g) =>
+                        getProgressPercentage(
+                          g.currentAmount,
+                          g.targetAmount
+                        ) >= 100
+                    ).length
+                  }
                 </div>
                 <div className="text-sm text-muted-foreground">Completed</div>
               </div>
@@ -329,8 +502,11 @@ export default function GoalTracker() {
                 <div className="text-2xl font-bold text-blue-600">
                   {
                     goals.filter((g) => {
-                      const progress = getProgressPercentage(g.currentAmount, g.targetAmount)
-                      return progress > 0 && progress < 100
+                      const progress = getProgressPercentage(
+                        g.currentAmount,
+                        g.targetAmount
+                      );
+                      return progress > 0 && progress < 100;
                     }).length
                   }
                 </div>
@@ -341,18 +517,25 @@ export default function GoalTracker() {
                   {goals.length > 0
                     ? (
                         goals.reduce(
-                          (sum, goal) => sum + getProgressPercentage(goal.currentAmount, goal.targetAmount),
-                          0,
+                          (sum, goal) =>
+                            sum +
+                            getProgressPercentage(
+                              goal.currentAmount,
+                              goal.targetAmount
+                            ),
+                          0
                         ) / goals.length
                       ).toFixed(1) + "%"
                     : "0%"}
                 </div>
-                <div className="text-sm text-muted-foreground">Average Progress</div>
+                <div className="text-sm text-muted-foreground">
+                  Average Progress
+                </div>
               </div>
             </div>
           </CardContent>
         </Card>
       )}
     </div>
-  )
+  );
 }
