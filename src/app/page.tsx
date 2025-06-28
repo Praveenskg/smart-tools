@@ -14,6 +14,7 @@ import {
   TrendingUp,
   X,
   Sparkles,
+  QrCode,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -51,6 +52,7 @@ import AreaCalculator from "../components/tools/area-calculator";
 import TipCalculator from "../components/tools/tip-calculator";
 import GoalTracker from "../components/tools/goal-tracker";
 import CreditCardEMICalculator from "@/components/tools/credit-card-emi-calculator";
+import QRCodeGenerator from "@/components/tools/qr-code-generator";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useDynamicTitle } from "@/hooks/use-dynamic-title";
 import Footer from "@/components/footer";
@@ -66,6 +68,15 @@ const tools = [
     category: "Financial",
     popular: true,
     component: CreditCardEMICalculator,
+  },
+  {
+    id: "qr-code-generator",
+    name: "QR Code Generator",
+    description: "Create custom QR codes for URLs, text, emails, and more",
+    icon: QrCode,
+    category: "Utility",
+    popular: true,
+    component: QRCodeGenerator,
   },
   {
     id: "emi-calculator",
@@ -102,7 +113,7 @@ const tools = [
     description: "Calculate Body Mass Index and health status",
     icon: Heart,
     category: "Health",
-    popular: true,
+    popular: false,
     component: BMICalculator,
   },
   {
@@ -160,6 +171,7 @@ const tools = [
     popular: false,
     component: GoalTracker,
   },
+ 
 ];
 
 const categories = [
@@ -184,6 +196,10 @@ const categories = [
   {
     name: "Planning",
     count: tools.filter((t) => t.category === "Planning").length,
+  },
+  {
+    name: "Utility",
+    count: tools.filter((t) => t.category === "Utility").length,
   },
 ];
 
