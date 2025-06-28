@@ -23,12 +23,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import {
   Sidebar,
@@ -59,6 +54,7 @@ import CreditCardEMICalculator from "@/components/tools/credit-card-emi-calculat
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useDynamicTitle } from "@/hooks/use-dynamic-title";
 import Footer from "@/components/footer";
+import { LiveClock } from "@/components/clock";
 
 const tools = [
   {
@@ -230,7 +226,9 @@ function AppSidebar({
                         : "hover:bg-muted/50"
                     }`}
                   >
-                    <span className="text-xs sm:text-sm font-medium">{category.name}</span>
+                    <span className="text-xs sm:text-sm font-medium">
+                      {category.name}
+                    </span>
                     <Badge
                       variant="secondary"
                       className={`text-xs ${
@@ -306,32 +304,8 @@ export default function Dashboard() {
               </div>
 
               <div className="flex items-center gap-1 sm:gap-2">
-                {selectedTool && (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={handleCloseTool}
-                        className="hover:bg-muted/50 transition-all duration-200 hover:scale-105 h-8 w-8 sm:h-10 sm:w-10"
-                      >
-                        <X className="h-3 w-3 sm:h-4 sm:w-4" />
-                        <span className="sr-only">Close tool</span>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Back to dashboard</p>
-                    </TooltipContent>
-                  </Tooltip>
-                )}
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <ThemeToggle />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Toggle dark mode</p>
-                  </TooltipContent>
-                </Tooltip>
+                <LiveClock />
+                <ThemeToggle />
               </div>
             </div>
           </header>
@@ -395,7 +369,9 @@ export default function Dashboard() {
                   style={{ animationDelay: "0.2s" }}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                    <h3 className="text-lg sm:text-xl font-semibold">Popular Tools</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold">
+                      Popular Tools
+                    </h3>
                     <Badge
                       variant="outline"
                       className="bg-primary/10 text-primary border-primary/20 w-fit"
@@ -448,7 +424,9 @@ export default function Dashboard() {
                   style={{ animationDelay: "0.4s" }}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                    <h3 className="text-lg sm:text-xl font-semibold">All Tools</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold">
+                      All Tools
+                    </h3>
                     <div className="text-xs sm:text-sm text-muted-foreground">
                       {filteredTools.length} tools available
                     </div>
