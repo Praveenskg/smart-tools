@@ -53,6 +53,7 @@ import TipCalculator from "../components/tools/tip-calculator";
 import GoalTracker from "../components/tools/goal-tracker";
 import CreditCardEMICalculator from "@/components/tools/credit-card-emi-calculator";
 import QRCodeGenerator from "@/components/tools/qr-code-generator";
+import CurrencyConverter from "@/components/tools/currency-converter";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useDynamicTitle } from "@/hooks/use-dynamic-title";
 import Footer from "@/components/footer";
@@ -171,7 +172,15 @@ const tools = [
     popular: false,
     component: GoalTracker,
   },
- 
+  {
+    id: "currency-converter",
+    name: "Currency Converter",
+    description: "Convert between different currencies with real-time exchange rates",
+    icon: DollarSign,
+    category: "Financial",
+    popular: true,
+    component: CurrencyConverter,
+  },
 ];
 
 const categories = [
