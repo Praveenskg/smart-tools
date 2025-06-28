@@ -314,7 +314,7 @@ export default function EMICalculator() {
   return (
     <div className="space-y-8">
       <div className="grid gap-8 lg:grid-cols-2">
-        {/* Input Section */}
+        
         <Card className="modern-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -405,7 +405,6 @@ export default function EMICalculator() {
             </div>
           </CardContent>
         </Card>
-        {/* Results Section */}
         {result && (
           <Card className="modern-card animate-in fade-in slide-in-from-bottom-2 duration-500 shadow-md">
             <CardHeader>

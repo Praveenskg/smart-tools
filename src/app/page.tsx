@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 import {
   Calculator,
   Calendar,
@@ -13,12 +13,23 @@ import {
   Target,
   TrendingUp,
   X,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Badge } from "@/components/ui/badge"
-import { format } from "date-fns"
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Badge } from "@/components/ui/badge";
+import { format } from "date-fns";
 import {
   Sidebar,
   SidebarContent,
@@ -32,28 +43,27 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
-
-import EMICalculator from "../components/tools/emi-calculator"
-import AgeCalculator from "../components/tools/age-calculator"
-import GSTCalculator from "../components/tools/gst-calculator"
-import BMICalculator from "../components/tools/bmi-calculator"
-import DOBCalculator from "../components/tools/dob-calculator"
-import PercentageCalculator from "../components/tools/percentage-calculator"
-import UnitConverter from "../components/tools/unit-converter"
-import AreaCalculator from "../components/tools/area-calculator"
-import TipCalculator from "../components/tools/tip-calculator"
-import GoalTracker from "../components/tools/goal-tracker"
-import CreditCardEMICalculator from "@/components/tools/credit-card-emi-calculator"
-import { ThemeToggle } from "@/components/theme-toggle"
-
+import EMICalculator from "../components/tools/emi-calculator";
+import AgeCalculator from "../components/tools/age-calculator";
+import GSTCalculator from "../components/tools/gst-calculator";
+import BMICalculator from "../components/tools/bmi-calculator";
+import DOBCalculator from "../components/tools/dob-calculator";
+import PercentageCalculator from "../components/tools/percentage-calculator";
+import UnitConverter from "../components/tools/unit-converter";
+import AreaCalculator from "../components/tools/area-calculator";
+import TipCalculator from "../components/tools/tip-calculator";
+import GoalTracker from "../components/tools/goal-tracker";
+import CreditCardEMICalculator from "@/components/tools/credit-card-emi-calculator";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const tools = [
   {
     id: "credit-card-emi",
     name: "Credit Card EMI Calculator",
-    description: "Break down your credit card EMI with interest, GST, and fees included",
+    description:
+      "Break down your credit card EMI with interest, GST, and fees included",
     icon: Calculator,
     category: "Financial",
     popular: true,
@@ -62,7 +72,8 @@ const tools = [
   {
     id: "emi-calculator",
     name: "EMI Calculator",
-    description: "Quickly estimate monthly EMIs for any loan with interest and tenure",
+    description:
+      "Quickly estimate monthly EMIs for any loan with interest and tenure",
     icon: Calculator,
     category: "Financial",
     popular: true,
@@ -80,7 +91,8 @@ const tools = [
   {
     id: "gst-calculator",
     name: "GST Calculator",
-    description: "Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals",
+    description:
+      "Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals",
     icon: Percent,
     category: "Financial",
     popular: false,
@@ -134,7 +146,8 @@ const tools = [
   {
     id: "tip-calculator",
     name: "Tip Calculator",
-    description: "Calculate restaurant tips and split bills effortlessly with friends",
+    description:
+      "Calculate restaurant tips and split bills effortlessly with friends",
     icon: DollarSign,
     category: "Financial",
     popular: false,
@@ -143,28 +156,47 @@ const tools = [
   {
     id: "goal-tracker",
     name: "Goal Tracker",
-    description: "Plan and monitor your savings journey toward financial goals.s",
+    description:
+      "Plan and monitor your savings journey toward financial goals.s",
     icon: Target,
     category: "Planning",
     popular: false,
     component: GoalTracker,
   },
-]
+];
 
 const categories = [
   { name: "All Tools", count: tools.length },
-  { name: "Financial", count: tools.filter((t) => t.category === "Financial").length },
-  { name: "Health", count: tools.filter((t) => t.category === "Health").length },
-  { name: "Date & Time", count: tools.filter((t) => t.category === "Date & Time").length },
+  {
+    name: "Financial",
+    count: tools.filter((t) => t.category === "Financial").length,
+  },
+  {
+    name: "Health",
+    count: tools.filter((t) => t.category === "Health").length,
+  },
+  {
+    name: "Date & Time",
+    count: tools.filter((t) => t.category === "Date & Time").length,
+  },
   { name: "Math", count: tools.filter((t) => t.category === "Math").length },
-  { name: "Conversion", count: tools.filter((t) => t.category === "Conversion").length },
-  { name: "Planning", count: tools.filter((t) => t.category === "Planning").length },
-]
+  {
+    name: "Conversion",
+    count: tools.filter((t) => t.category === "Conversion").length,
+  },
+  {
+    name: "Planning",
+    count: tools.filter((t) => t.category === "Planning").length,
+  },
+];
 
 function AppSidebar({
   selectedCategory,
   onCategorySelect,
-}: { selectedCategory: string; onCategorySelect: (category: string) => void }) {
+}: {
+  selectedCategory: string;
+  onCategorySelect: (category: string) => void;
+}) {
   return (
     <Sidebar className="bg-background">
       <SidebarHeader>
@@ -174,7 +206,9 @@ function AppSidebar({
           </div>
           <div className="flex flex-col">
             <span className="font-semibold text-sm">Smart Tools</span>
-            <span className="text-xs text-muted-foreground">Calculator Suite</span>
+            <span className="text-xs text-muted-foreground">
+              Calculator Suite
+            </span>
           </div>
         </div>
       </SidebarHeader>
@@ -201,49 +235,55 @@ function AppSidebar({
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
-  )
+  );
 }
 
 export default function Dashboard() {
-  const [selectedCategory, setSelectedCategory] = useState("All Tools")
-  const [selectedTool, setSelectedTool] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState("All Tools");
+  const [selectedTool, setSelectedTool] = useState<string | null>(null);
   const year = format(new Date(), "yyyy");
 
   const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category)
-    setSelectedTool(null)
-  }
+    setSelectedCategory(category);
+    setSelectedTool(null);
+  };
 
   const handleToolLaunch = (toolId: string) => {
-    setSelectedTool(toolId)
-  }
+    setSelectedTool(toolId);
+  };
 
   const handleCloseTool = () => {
-    setSelectedTool(null)
-  }
+    setSelectedTool(null);
+  };
 
   const filteredTools =
-    selectedCategory === "All Tools" ? tools : tools.filter((tool) => tool.category === selectedCategory)
+    selectedCategory === "All Tools"
+      ? tools
+      : tools.filter((tool) => tool.category === selectedCategory);
 
-  const popularTools = tools.filter((tool) => tool.popular)
+  const popularTools = tools.filter((tool) => tool.popular);
 
-  const currentTool = tools.find((tool) => tool.id === selectedTool)
-  const currentToolName = currentTool ? currentTool.name : "Smart Tools"
+  const currentTool = tools.find((tool) => tool.id === selectedTool);
+  const currentToolName = currentTool ? currentTool.name : "Smart Tools";
 
-  const ToolComponent = currentTool?.component
+  const ToolComponent = currentTool?.component;
 
   return (
     <TooltipProvider>
       <SidebarProvider>
-        <AppSidebar selectedCategory={selectedCategory} onCategorySelect={handleCategorySelect} />
+        <AppSidebar
+          selectedCategory={selectedCategory}
+          onCategorySelect={handleCategorySelect}
+        />
         <SidebarInset>
-          {/* Header */}
           <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
             <div className="flex h-16 items-center justify-between px-6">
               <div className="flex items-center gap-4">
                 <SidebarTrigger />
                 <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-bold gradient-text">{currentToolName}</h1>
+                  <h1 className="text-2xl font-bold gradient-text">
+                    {currentToolName}
+                  </h1>
                 </div>
               </div>
 
@@ -251,7 +291,11 @@ export default function Dashboard() {
                 {selectedTool && (
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" onClick={handleCloseTool}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={handleCloseTool}
+                      >
                         <X className="h-4 w-4" />
                         <span className="sr-only">Close tool</span>
                       </Button>
@@ -273,10 +317,10 @@ export default function Dashboard() {
             </div>
           </header>
 
-          {/* Main Content */}
+          {}
           <main className="flex-1 p-6">
             {selectedTool && ToolComponent ? (
-              // Tool View
+              
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -284,8 +328,12 @@ export default function Dashboard() {
                       <currentTool.icon className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h2 className="text-xl font-semibold">{currentTool.name}</h2>
-                      <p className="text-sm text-muted-foreground">{currentTool.description}</p>
+                      <h2 className="text-xl font-semibold">
+                        {currentTool.name}
+                      </h2>
+                      <p className="text-sm text-muted-foreground">
+                        {currentTool.description}
+                      </p>
                     </div>
                   </div>
                   <Button variant="outline" onClick={handleCloseTool} size="sm">
@@ -302,18 +350,19 @@ export default function Dashboard() {
               </div>
             ) : (
               <div className="space-y-8">
-                {/* Hero Section */}
+                {}
                 <div className="text-center space-y-4">
                   <h2 className="text-3xl font-bold tracking-tight sm:text-4xl gradient-text">
                     Professional Calculator Suite
                   </h2>
                   <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                    Access a comprehensive collection of calculators and utilities designed for professionals, students,
-                    and everyday use.
+                    Access a comprehensive collection of calculators and
+                    utilities designed for professionals, students, and everyday
+                    use.
                   </p>
                 </div>
 
-                {/* Popular Tools Section */}
+                {}
                 <section className="space-y-4">
                   <div className="flex items-center gap-2">
                     <h3 className="text-xl font-semibold">Popular Tools</h3>
@@ -321,7 +370,7 @@ export default function Dashboard() {
                   </div>
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {popularTools.map((tool) => {
-                      const IconComponent = tool.icon
+                      const IconComponent = tool.icon;
                       return (
                         <Card
                           key={tool.id}
@@ -345,25 +394,31 @@ export default function Dashboard() {
                             </CardTitle>
                           </CardHeader>
                           <CardContent className="pt-0">
-                            <CardDescription className="text-sm mb-4">{tool.description}</CardDescription>
-                            <Button className="w-full modern-button">Launch Tool</Button>
+                            <CardDescription className="text-sm mb-4">
+                              {tool.description}
+                            </CardDescription>
+                            <Button className="w-full modern-button">
+                              Launch Tool
+                            </Button>
                           </CardContent>
                         </Card>
-                      )
+                      );
                     })}
                   </div>
                 </section>
 
-                {/* All Tools Section */}
+                {}
                 <section className="space-y-4">
                   <div className="flex items-center justify-between">
                     <h3 className="text-xl font-semibold">All Tools</h3>
-                    <div className="text-sm text-muted-foreground">{filteredTools.length} tools available</div>
+                    <div className="text-sm text-muted-foreground">
+                      {filteredTools.length} tools available
+                    </div>
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {filteredTools.map((tool) => {
-                      const IconComponent = tool.icon
+                      const IconComponent = tool.icon;
                       return (
                         <Card
                           key={tool.id}
@@ -389,7 +444,9 @@ export default function Dashboard() {
                             </CardTitle>
                           </CardHeader>
                           <CardContent className="pt-0">
-                            <CardDescription className="text-sm mb-3 line-clamp-2">{tool.description}</CardDescription>
+                            <CardDescription className="text-sm mb-3 line-clamp-2">
+                              {tool.description}
+                            </CardDescription>
                             <div className="flex items-center justify-between">
                               <Badge variant="outline" className="text-xs">
                                 {tool.category}
@@ -404,24 +461,38 @@ export default function Dashboard() {
                             </div>
                           </CardContent>
                         </Card>
-                      )
+                      );
                     })}
                   </div>
                 </section>
 
-                {/* Footer */}
+                {}
                 <footer className="border-t pt-8 mt-12 bg-background text-muted-foreground">
                   <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center text-sm space-y-1">
-                      <p>© {year} Smart Tools. Built with modern web technologies.</p>
-                      <p>Powerful & user-friendly calculators for everyday needs.</p>
+                      <p>
+                        © {year} Smart Tools. Built with modern web
+                        technologies.
+                      </p>
+                      <p>
+                        Powerful & user-friendly calculators for everyday needs.
+                      </p>
                     </div>
                     <div className="mt-4 flex justify-center space-x-4 text-xs text-muted-foreground/70">
-                      <a href="/privacy" className="hover:underline">Privacy Policy</a>
+                      <a href="/privacy" className="hover:underline">
+                        Privacy Policy
+                      </a>
                       <span>·</span>
-                      <a href="/terms" className="hover:underline">Terms of Service</a>
+                      <a href="/terms" className="hover:underline">
+                        Terms of Service
+                      </a>
                       <span>·</span>
-                      <a href="mailto:support@smarttools.com" className="hover:underline">Contact</a>
+                      <a
+                        href="mailto:support@smarttools.com"
+                        className="hover:underline"
+                      >
+                        Contact
+                      </a>
                     </div>
                   </div>
                 </footer>
@@ -431,5 +502,5 @@ export default function Dashboard() {
         </SidebarInset>
       </SidebarProvider>
     </TooltipProvider>
-  )
+  );
 }

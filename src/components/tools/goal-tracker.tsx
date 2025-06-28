@@ -103,7 +103,6 @@ export default function GoalTracker() {
 
   return (
     <div className="space-y-8">
-      {/* Add Goal Button */}
       <div>
         <Dialog open={isAddingGoal} onOpenChange={setIsAddingGoal}>
           <DialogTrigger asChild>
@@ -190,7 +189,7 @@ export default function GoalTracker() {
         </Dialog>
       </div>
 
-      {/* Goals Grid */}
+      {}
       {goals.length === 0 ? (
         <Card>
           <CardContent className="flex flex-col items-center justify-center py-12">
@@ -307,7 +306,7 @@ export default function GoalTracker() {
         </div>
       )}
 
-      {/* Summary Stats */}
+      {}
       {goals.length > 0 && (
         <Card>
           <CardHeader>

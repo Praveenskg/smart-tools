@@ -185,7 +185,7 @@ export default function BMICalculator() {
         )}
       </div>
 
-      {/* BMI Categories Reference */}
+      
       <Card>
         <CardHeader>
           <CardTitle>BMI Categories</CardTitle>
