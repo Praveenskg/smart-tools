@@ -13,6 +13,7 @@ import {
   Target,
   TrendingUp,
   X,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,7 +30,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
 import {
   Sidebar,
   SidebarContent,
@@ -58,6 +58,7 @@ import GoalTracker from "../components/tools/goal-tracker";
 import CreditCardEMICalculator from "@/components/tools/credit-card-emi-calculator";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useDynamicTitle } from "@/hooks/use-dynamic-title";
+import Footer from "@/components/footer";
 
 const tools = [
   {
@@ -158,7 +159,7 @@ const tools = [
     id: "goal-tracker",
     name: "Goal Tracker",
     description:
-      "Plan and monitor your savings journey toward financial goals.s",
+      "Plan and monitor your savings journey toward financial goals",
     icon: Target,
     category: "Planning",
     popular: false,
@@ -199,33 +200,44 @@ function AppSidebar({
   onCategorySelect: (category: string) => void;
 }) {
   return (
-    <Sidebar className="bg-background">
-      <SidebarHeader>
-        <div className="flex items-center gap-2 px-2 py-1">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Calculator className="h-4 w-4" />
+    <Sidebar>
+      <SidebarHeader className="border-b border-border/50">
+        <div className="flex items-center gap-2 px-4 py-3">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80">
+            <Sparkles className="h-4 w-4 text-primary-foreground" />
           </div>
           <div className="flex flex-col">
-            <span className="font-semibold text-sm">Smart Tools</span>
-            <span className="text-xs text-muted-foreground">
-              Calculator Suite
-            </span>
+            <h2 className="text-sm font-semibold text-foreground">Smart Tools</h2>
+            <p className="text-xs text-muted-foreground">Calculator Suite</p>
           </div>
         </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Categories</SidebarGroupLabel>
+          <SidebarGroupLabel className="px-4 text-xs font-medium text-muted-foreground">
+            Categories
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {categories.map((category) => (
                 <SidebarMenuItem key={category.name}>
                   <SidebarMenuButton
-                    isActive={selectedCategory === category.name}
                     onClick={() => onCategorySelect(category.name)}
+                    className={`w-full justify-between transition-all duration-200 ${
+                      selectedCategory === category.name
+                        ? "bg-primary/10 text-primary border-r-2 border-primary"
+                        : "hover:bg-muted/50"
+                    }`}
                   >
-                    <span>{category.name}</span>
-                    <Badge variant="secondary" className="ml-auto">
+                    <span className="text-sm font-medium">{category.name}</span>
+                    <Badge
+                      variant="secondary"
+                      className={`text-xs ${
+                        selectedCategory === category.name
+                          ? "bg-primary/20 text-primary"
+                          : "bg-muted text-muted-foreground"
+                      }`}
+                    >
                       {category.count}
                     </Badge>
                   </SidebarMenuButton>
@@ -242,7 +254,6 @@ function AppSidebar({
 export default function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState("All Tools");
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
-  const year = format(new Date(), "yyyy");
 
   const currentTool = tools.find((tool) => tool.id === selectedTool);
 
@@ -284,12 +295,12 @@ export default function Dashboard() {
           onCategorySelect={handleCategorySelect}
         />
         <SidebarInset>
-          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+          <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur-xl supports-backdrop-filter:bg-background/60">
             <div className="flex h-16 items-center justify-between px-6">
               <div className="flex items-center gap-4">
-                <SidebarTrigger />
+                <SidebarTrigger className="hover:bg-muted/50 transition-colors" />
                 <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-bold gradient-text">
+                  <h1 className="text-2xl font-bold text-primary floating-animation">
                     {currentToolName}
                   </h1>
                 </div>
@@ -303,6 +314,7 @@ export default function Dashboard() {
                         variant="ghost"
                         size="icon"
                         onClick={handleCloseTool}
+                        className="hover:bg-muted/50 transition-all duration-200 hover:scale-105"
                       >
                         <X className="h-4 w-4" />
                         <span className="sr-only">Close tool</span>
@@ -325,17 +337,16 @@ export default function Dashboard() {
             </div>
           </header>
 
-          {}
           <main className="flex-1 p-6">
             {selectedTool && ToolComponent ? (
-              <div className="space-y-6">
+              <div className="space-y-6 slide-in-up">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="p-2 rounded-xl bg-linear-to-br from-primary/10 to-primary/5">
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 pulse-glow">
                       <currentTool.icon className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h2 className="text-xl font-semibold">
+                      <h2 className="text-xl font-semibold text-primary">
                         {currentTool.name}
                       </h2>
                       <p className="text-sm text-muted-foreground">
@@ -343,13 +354,18 @@ export default function Dashboard() {
                       </p>
                     </div>
                   </div>
-                  <Button variant="outline" onClick={handleCloseTool} size="sm">
-                    <X />
+                  <Button 
+                    variant="outline" 
+                    onClick={handleCloseTool} 
+                    size="sm"
+                    className="hover:bg-muted/50 transition-all duration-200 hover:scale-105"
+                  >
+                    <X className="h-4 w-4 mr-2" />
                     Close Tool
                   </Button>
                 </div>
 
-                <Card className="modern-card">
+                <Card className="modern-card scale-in">
                   <CardContent className="p-6">
                     <ToolComponent />
                   </CardContent>
@@ -357,54 +373,59 @@ export default function Dashboard() {
               </div>
             ) : (
               <div className="space-y-8">
-                {}
-                <div className="text-center space-y-4">
-                  <h2 className="text-3xl font-bold tracking-tight sm:text-4xl gradient-text">
-                    Professional Calculator Suite
-                  </h2>
-                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <div className="text-center space-y-4 fade-in">
+                  <div className="flex items-center justify-center gap-2 mb-4">
+                    <Sparkles className="h-8 w-8 text-primary floating-animation" />
+                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
+                      Professional Calculator Suite
+                    </h2>
+                    <Sparkles className="h-8 w-8 text-primary floating-animation" style={{ animationDelay: '0.5s' }} />
+                  </div>
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                     Access a comprehensive collection of calculators and
                     utilities designed for professionals, students, and everyday
                     use.
                   </p>
                 </div>
 
-                {}
-                <section className="space-y-4">
+                <section className="space-y-4 slide-in-up" style={{ animationDelay: '0.2s' }}>
                   <div className="flex items-center gap-2">
                     <h3 className="text-xl font-semibold">Popular Tools</h3>
-                    <Badge variant="outline">Most Used</Badge>
+                    <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
+                      Most Used
+                    </Badge>
                   </div>
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                    {popularTools.map((tool) => {
+                    {popularTools.map((tool, index) => {
                       const IconComponent = tool.icon;
                       return (
                         <Card
                           key={tool.id}
-                          className="modern-card group cursor-pointer"
+                          className="modern-card group cursor-pointer hover-lift"
                           onClick={() => handleToolLaunch(tool.id)}
+                          style={{ animationDelay: `${index * 0.1}s` }}
                         >
                           <CardHeader className="pb-3">
                             <div className="flex items-center justify-between">
-                              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-primary/10 to-primary/5 group-hover:from-primary/20 group-hover:to-primary/10 transition-all duration-300">
-                                <IconComponent className="h-6 w-6 text-primary" />
+                              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 group-hover:from-primary/20 group-hover:to-primary/10 transition-all duration-300 group-hover:scale-110">
+                                <IconComponent className="h-6 w-6 text-primary group-hover:scale-110 transition-transform duration-300" />
                               </div>
                               <Badge
                                 variant="secondary"
-                                className="text-xs bg-linear-to-r from-secondary to-secondary/80"
+                                className="text-xs bg-gradient-to-r from-secondary to-secondary/80"
                               >
                                 {tool.category}
                               </Badge>
                             </div>
-                            <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                            <CardTitle className="text-lg group-hover:text-primary transition-colors duration-300">
                               {tool.name}
                             </CardTitle>
                           </CardHeader>
                           <CardContent className="pt-0">
-                            <CardDescription className="text-sm mb-4">
+                            <CardDescription className="text-sm mb-4 line-clamp-2">
                               {tool.description}
                             </CardDescription>
-                            <Button className="w-full modern-button">
+                            <Button className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300 hover:scale-105">
                               Launch Tool
                             </Button>
                           </CardContent>
@@ -414,8 +435,7 @@ export default function Dashboard() {
                   </div>
                 </section>
 
-                {}
-                <section className="space-y-4">
+                <section className="space-y-4 slide-in-up" style={{ animationDelay: '0.4s' }}>
                   <div className="flex items-center justify-between">
                     <h3 className="text-xl font-semibold">All Tools</h3>
                     <div className="text-sm text-muted-foreground">
@@ -424,29 +444,30 @@ export default function Dashboard() {
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {filteredTools.map((tool) => {
+                    {filteredTools.map((tool, index) => {
                       const IconComponent = tool.icon;
                       return (
                         <Card
                           key={tool.id}
-                          className="modern-card group cursor-pointer"
+                          className="modern-card group cursor-pointer hover-lift"
                           onClick={() => handleToolLaunch(tool.id)}
+                          style={{ animationDelay: `${index * 0.05}s` }}
                         >
                           <CardHeader className="pb-3">
                             <div className="flex items-start justify-between">
-                              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-linear-to-br from-muted to-muted/50 group-hover:from-primary/10 group-hover:to-primary/5 transition-all duration-300">
-                                <IconComponent className="h-5 w-5 group-hover:text-primary transition-colors" />
+                              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-muted to-muted/50 group-hover:from-primary/10 group-hover:to-primary/5 transition-all duration-300 group-hover:scale-110">
+                                <IconComponent className="h-5 w-5 group-hover:text-primary transition-colors duration-300 group-hover:scale-110" />
                               </div>
                               {tool.popular && (
                                 <Badge
                                   variant="secondary"
-                                  className="text-xs bg-linear-to-r from-primary/10 to-primary/5 text-primary border-primary/20"
+                                  className="text-xs bg-gradient-to-r from-primary/10 to-primary/5 text-primary border-primary/20"
                                 >
                                   Popular
                                 </Badge>
                               )}
                             </div>
-                            <CardTitle className="text-base group-hover:text-primary transition-colors">
+                            <CardTitle className="text-base group-hover:text-primary transition-colors duration-300">
                               {tool.name}
                             </CardTitle>
                           </CardHeader>
@@ -461,7 +482,7 @@ export default function Dashboard() {
                               <Button
                                 size="sm"
                                 variant="ghost"
-                                className="group-hover:bg-linear-to-r group-hover:from-primary group-hover:to-primary/80 group-hover:text-primary-foreground transition-all"
+                                className="group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-primary/80 group-hover:text-primary-foreground transition-all duration-300 hover:scale-105"
                               >
                                 Launch
                               </Button>
@@ -472,37 +493,7 @@ export default function Dashboard() {
                     })}
                   </div>
                 </section>
-
-                {}
-                <footer className="border-t pt-8 mt-12 bg-background text-muted-foreground">
-                  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center text-sm space-y-1">
-                      <p>
-                        © {year} Smart Tools. Built with modern web
-                        technologies.
-                      </p>
-                      <p>
-                        Powerful & user-friendly calculators for everyday needs.
-                      </p>
-                    </div>
-                    <div className="mt-4 flex justify-center space-x-4 text-xs text-muted-foreground/70">
-                      <a href="/privacy" className="hover:underline">
-                        Privacy Policy
-                      </a>
-                      <span>·</span>
-                      <a href="/terms" className="hover:underline">
-                        Terms of Service
-                      </a>
-                      <span>·</span>
-                      <a
-                        href="mailto:support@smarttools.com"
-                        className="hover:underline"
-                      >
-                        Contact
-                      </a>
-                    </div>
-                  </div>
-                </footer>
+                <Footer />
               </div>
             )}
           </main>
