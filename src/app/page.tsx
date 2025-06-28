@@ -284,8 +284,6 @@ export default function Dashboard() {
 
   const popularTools = tools.filter((tool) => tool.popular);
 
-  const currentToolName = currentTool ? currentTool.name : "Smart Tools";
-
   const ToolComponent = currentTool?.component;
 
   return (
@@ -302,7 +300,7 @@ export default function Dashboard() {
                 <SidebarTrigger className="hover:bg-muted/50 transition-colors" />
                 <div className="flex items-center gap-2">
                   <h1 className="text-2xl font-bold text-primary">
-                    {currentToolName}
+                    Smart Tools
                   </h1>
                 </div>
               </div>
