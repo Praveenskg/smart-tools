@@ -67,28 +67,28 @@ export default function AgeCalculator() {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
+    <div className="grid gap-4 sm:gap-6 lg:gap-8 lg:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle>Date Information</CardTitle>
-          <CardDescription>Enter dates to calculate exact age</CardDescription>
+          <CardTitle className="text-lg sm:text-xl">Date Information</CardTitle>
+          <CardDescription className="text-sm sm:text-base">Enter dates to calculate exact age</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="birthDate">Birth Date</Label>
+            <Label htmlFor="birthDate" className="text-sm sm:text-base">Birth Date</Label>
             <Input id="birthDate" type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="targetDate">Calculate Age On</Label>
+            <Label htmlFor="targetDate" className="text-sm sm:text-base">Calculate Age On</Label>
             <Input id="targetDate" type="date" value={targetDate} onChange={(e) => setTargetDate(e.target.value)} />
           </div>
 
-          <div className="flex gap-4">
-            <Button onClick={calculateAge} className="flex-1">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <Button onClick={calculateAge} className="flex-1 text-sm sm:text-base">
               Calculate Age
             </Button>
-            <Button onClick={resetForm} variant="outline" className="flex-1">
+            <Button onClick={resetForm} variant="outline" className="flex-1 text-sm sm:text-base">
               Reset
             </Button>
           </div>
@@ -98,32 +98,32 @@ export default function AgeCalculator() {
       {result && (
         <Card>
           <CardHeader>
-            <CardTitle>Age Calculation Results</CardTitle>
-            <CardDescription>Your exact age breakdown</CardDescription>
+            <CardTitle className="text-lg sm:text-xl">Age Calculation Results</CardTitle>
+            <CardDescription className="text-sm sm:text-base">Your exact age breakdown</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="text-center p-6 bg-primary/5 rounded-lg">
-              <div className="text-3xl font-bold text-primary mb-2">
+          <CardContent className="space-y-3 sm:space-y-4">
+            <div className="text-center p-4 sm:p-6 bg-primary/5 rounded-lg">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-2">
                 {result.years} Years, {result.months} Months, {result.days} Days
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-4 border rounded-lg">
-                <div className="text-2xl font-bold">{result.totalDays}</div>
-                <div className="text-sm text-muted-foreground">Total Days</div>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="text-center p-3 sm:p-4 border rounded-lg">
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">{result.totalDays}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Total Days</div>
               </div>
-              <div className="text-center p-4 border rounded-lg">
-                <div className="text-2xl font-bold">{result.totalWeeks}</div>
-                <div className="text-sm text-muted-foreground">Total Weeks</div>
+              <div className="text-center p-3 sm:p-4 border rounded-lg">
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">{result.totalWeeks}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Total Weeks</div>
               </div>
-              <div className="text-center p-4 border rounded-lg">
-                <div className="text-2xl font-bold">{result.totalMonths}</div>
-                <div className="text-sm text-muted-foreground">Total Months</div>
+              <div className="text-center p-3 sm:p-4 border rounded-lg">
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">{result.totalMonths}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Total Months</div>
               </div>
-              <div className="text-center p-4 border rounded-lg">
-                <div className="text-2xl font-bold">{result.years}</div>
-                <div className="text-sm text-muted-foreground">Total Years</div>
+              <div className="text-center p-3 sm:p-4 border rounded-lg">
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">{result.years}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Total Years</div>
               </div>
             </div>
           </CardContent>

@@ -42,19 +42,19 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
       return (
         <div className="min-h-screen flex items-center justify-center p-4">
-          <Card className="w-full max-w-md">
+          <Card className="w-full max-w-sm sm:max-w-md">
             <CardHeader className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10">
-                <AlertTriangle className="h-6 w-6 text-destructive" />
+              <div className="mx-auto mb-3 sm:mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-destructive/10">
+                <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-destructive" />
               </div>
-              <CardTitle>Something went wrong</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-lg sm:text-xl">Something went wrong</CardTitle>
+              <CardDescription className="text-sm sm:text-base">
                 An unexpected error occurred. Please try refreshing the page.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-3 sm:space-y-4">
               {process.env.NODE_ENV === "development" && this.state.error && (
-                <details className="text-sm">
+                <details className="text-xs sm:text-sm">
                   <summary className="cursor-pointer text-muted-foreground">
                     Error details (development only)
                   </summary>
@@ -63,15 +63,15 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                   </pre>
                 </details>
               )}
-              <div className="flex gap-2">
-                <Button onClick={this.resetError} className="flex-1">
-                  <RefreshCw className="mr-2 h-4 w-4" />
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button onClick={this.resetError} className="flex-1 text-sm sm:text-base">
+                  <RefreshCw className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                   Try Again
                 </Button>
                 <Button
                   variant="outline"
                   onClick={() => window.location.reload()}
-                  className="flex-1"
+                  className="flex-1 text-sm sm:text-base"
                 >
                   Refresh Page
                 </Button>

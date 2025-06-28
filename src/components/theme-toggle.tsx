@@ -20,7 +20,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="relative"
+      className="relative h-8 w-8 sm:h-10 sm:w-10"
     >
       <AnimatePresence mode="wait" initial={false}>
         {isDark ? (
@@ -32,7 +32,7 @@ export function ThemeToggle() {
             transition={{ duration: 0.3 }}
             className="absolute"
           >
-            <Moon />
+            <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
           </motion.span>
         ) : (
           <motion.span
@@ -43,7 +43,7 @@ export function ThemeToggle() {
             transition={{ duration: 0.3 }}
             className="absolute"
           >
-            <Sun />
+            <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
           </motion.span>
         )}
       </AnimatePresence>

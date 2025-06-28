@@ -201,12 +201,12 @@ function AppSidebar({
   return (
     <Sidebar>
       <SidebarHeader className="border-b border-border/50">
-        <div className="flex items-center gap-2 px-4 py-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80">
-            <Sparkles className="h-4 w-4 text-primary-foreground" />
+        <div className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3">
+          <div className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80">
+            <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-primary-foreground" />
           </div>
           <div className="flex flex-col">
-            <h2 className="text-sm font-semibold text-foreground">
+            <h2 className="text-xs sm:text-sm font-semibold text-foreground">
               Smart Tools
             </h2>
             <p className="text-xs text-muted-foreground">Calculator Suite</p>
@@ -215,7 +215,7 @@ function AppSidebar({
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="px-4 text-xs font-medium text-muted-foreground">
+          <SidebarGroupLabel className="px-3 sm:px-4 text-xs font-medium text-muted-foreground">
             Categories
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -224,13 +224,13 @@ function AppSidebar({
                 <SidebarMenuItem key={category.name}>
                   <SidebarMenuButton
                     onClick={() => onCategorySelect(category.name)}
-                    className={`w-full justify-between transition-all duration-200 ${
+                    className={`w-full justify-between transition-all duration-200 px-3 sm:px-4 py-2 sm:py-3 ${
                       selectedCategory === category.name
                         ? "bg-primary/10 text-primary border-r-2 border-primary"
                         : "hover:bg-muted/50"
                     }`}
                   >
-                    <span className="text-sm font-medium">{category.name}</span>
+                    <span className="text-xs sm:text-sm font-medium">{category.name}</span>
                     <Badge
                       variant="secondary"
                       className={`text-xs ${
@@ -295,17 +295,17 @@ export default function Dashboard() {
         />
         <SidebarInset>
           <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur-xl supports-backdrop-filter:bg-background/60">
-            <div className="flex h-16 items-center justify-between px-6">
-              <div className="flex items-center gap-4">
+            <div className="flex h-14 sm:h-16 items-center justify-between px-4 sm:px-6">
+              <div className="flex items-center gap-2 sm:gap-4">
                 <SidebarTrigger className="hover:bg-muted/50 transition-colors" />
-                <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-bold text-primary">
+                <div className="flex items-center gap-1 sm:gap-2">
+                  <h1 className="text-xl sm:text-2xl font-bold text-primary">
                     Smart Tools
                   </h1>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 sm:gap-2">
                 {selectedTool && (
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -313,9 +313,9 @@ export default function Dashboard() {
                         variant="ghost"
                         size="icon"
                         onClick={handleCloseTool}
-                        className="hover:bg-muted/50 transition-all duration-200 hover:scale-105"
+                        className="hover:bg-muted/50 transition-all duration-200 hover:scale-105 h-8 w-8 sm:h-10 sm:w-10"
                       >
-                        <X className="h-4 w-4" />
+                        <X className="h-3 w-3 sm:h-4 sm:w-4" />
                         <span className="sr-only">Close tool</span>
                       </Button>
                     </TooltipTrigger>
@@ -336,19 +336,19 @@ export default function Dashboard() {
             </div>
           </header>
 
-          <main className="flex-1 p-6">
+          <main className="flex-1 p-4 sm:p-6">
             {selectedTool && ToolComponent ? (
-              <div className="space-y-6 slide-in-up">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 pulse-glow">
-                      <currentTool.icon className="h-6 w-6 text-primary" />
+              <div className="space-y-4 sm:space-y-6 slide-in-up">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="p-2 sm:p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 pulse-glow">
+                      <currentTool.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                     </div>
                     <div>
-                      <h2 className="text-xl font-semibold text-primary">
+                      <h2 className="text-lg sm:text-xl font-semibold text-primary">
                         {currentTool.name}
                       </h2>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         {currentTool.description}
                       </p>
                     </div>
@@ -357,7 +357,7 @@ export default function Dashboard() {
                     variant="outline"
                     onClick={handleCloseTool}
                     size="sm"
-                    className="hover:bg-muted/50 transition-all duration-200 hover:scale-105"
+                    className="hover:bg-muted/50 transition-all duration-200 hover:scale-105 w-full sm:w-auto"
                   >
                     <X className="h-4 w-4 mr-2" />
                     Close Tool
@@ -365,25 +365,25 @@ export default function Dashboard() {
                 </div>
 
                 <Card className="modern-card scale-in">
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 sm:p-6">
                     <ToolComponent />
                   </CardContent>
                 </Card>
               </div>
             ) : (
-              <div className="space-y-8">
-                <div className="text-center space-y-4 fade-in">
-                  <div className="flex items-center justify-center gap-2 mb-4">
-                    <Sparkles className="h-8 w-8 text-primary floating-animation" />
-                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
+              <div className="space-y-6 sm:space-y-8">
+                <div className="text-center space-y-3 sm:space-y-4 fade-in">
+                  <div className="flex items-center justify-center gap-1 sm:gap-2 mb-3 sm:mb-4">
+                    <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-primary floating-animation" />
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-primary">
                       Professional Calculator Suite
                     </h2>
                     <Sparkles
-                      className="h-8 w-8 text-primary floating-animation"
+                      className="h-6 w-6 sm:h-8 sm:w-8 text-primary floating-animation"
                       style={{ animationDelay: "0.5s" }}
                     />
                   </div>
-                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                  <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4 sm:px-0">
                     Access a comprehensive collection of calculators and
                     utilities designed for professionals, students, and everyday
                     use.
@@ -391,19 +391,19 @@ export default function Dashboard() {
                 </div>
 
                 <section
-                  className="space-y-4 slide-in-up"
+                  className="space-y-3 sm:space-y-4 slide-in-up"
                   style={{ animationDelay: "0.2s" }}
                 >
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-xl font-semibold">Popular Tools</h3>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                    <h3 className="text-lg sm:text-xl font-semibold">Popular Tools</h3>
                     <Badge
                       variant="outline"
-                      className="bg-primary/10 text-primary border-primary/20"
+                      className="bg-primary/10 text-primary border-primary/20 w-fit"
                     >
                       Most Used
                     </Badge>
                   </div>
-                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                  <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {popularTools.map((tool, index) => {
                       const IconComponent = tool.icon;
                       return (
@@ -413,10 +413,10 @@ export default function Dashboard() {
                           onClick={() => handleToolLaunch(tool.id)}
                           style={{ animationDelay: `${index * 0.1}s` }}
                         >
-                          <CardHeader className="pb-3">
+                          <CardHeader className="pb-2 sm:pb-3">
                             <div className="flex items-center justify-between">
-                              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 group-hover:from-primary/20 group-hover:to-primary/10 transition-all duration-300 group-hover:scale-110">
-                                <IconComponent className="h-6 w-6 text-primary group-hover:scale-110 transition-transform duration-300" />
+                              <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 group-hover:from-primary/20 group-hover:to-primary/10 transition-all duration-300 group-hover:scale-110">
+                                <IconComponent className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:scale-110 transition-transform duration-300" />
                               </div>
                               <Badge
                                 variant="secondary"
@@ -425,15 +425,15 @@ export default function Dashboard() {
                                 {tool.category}
                               </Badge>
                             </div>
-                            <CardTitle className="text-lg group-hover:text-primary transition-colors duration-300">
+                            <CardTitle className="text-base sm:text-lg group-hover:text-primary transition-colors duration-300">
                               {tool.name}
                             </CardTitle>
                           </CardHeader>
                           <CardContent className="pt-0">
-                            <CardDescription className="text-sm mb-4 line-clamp-2">
+                            <CardDescription className="text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2">
                               {tool.description}
                             </CardDescription>
-                            <Button className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300 hover:scale-105">
+                            <Button className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300 hover:scale-105 text-sm sm:text-base">
                               Launch Tool
                             </Button>
                           </CardContent>
@@ -444,17 +444,17 @@ export default function Dashboard() {
                 </section>
 
                 <section
-                  className="space-y-4 slide-in-up"
+                  className="space-y-3 sm:space-y-4 slide-in-up"
                   style={{ animationDelay: "0.4s" }}
                 >
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-semibold">All Tools</h3>
-                    <div className="text-sm text-muted-foreground">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <h3 className="text-lg sm:text-xl font-semibold">All Tools</h3>
+                    <div className="text-xs sm:text-sm text-muted-foreground">
                       {filteredTools.length} tools available
                     </div>
                   </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {filteredTools.map((tool, index) => {
                       const IconComponent = tool.icon;
                       return (
@@ -464,10 +464,10 @@ export default function Dashboard() {
                           onClick={() => handleToolLaunch(tool.id)}
                           style={{ animationDelay: `${index * 0.05}s` }}
                         >
-                          <CardHeader className="pb-3">
+                          <CardHeader className="pb-2 sm:pb-3">
                             <div className="flex items-start justify-between">
-                              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-muted to-muted/50 group-hover:from-primary/10 group-hover:to-primary/5 transition-all duration-300 group-hover:scale-110">
-                                <IconComponent className="h-5 w-5 group-hover:text-primary transition-colors duration-300 group-hover:scale-110" />
+                              <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-gradient-to-br from-muted to-muted/50 group-hover:from-primary/10 group-hover:to-primary/5 transition-all duration-300 group-hover:scale-110">
+                                <IconComponent className="h-4 w-4 sm:h-5 sm:w-5 group-hover:text-primary transition-colors duration-300 group-hover:scale-110" />
                               </div>
                               {tool.popular && (
                                 <Badge
@@ -478,12 +478,12 @@ export default function Dashboard() {
                                 </Badge>
                               )}
                             </div>
-                            <CardTitle className="text-base group-hover:text-primary transition-colors duration-300">
+                            <CardTitle className="text-sm sm:text-base group-hover:text-primary transition-colors duration-300">
                               {tool.name}
                             </CardTitle>
                           </CardHeader>
                           <CardContent className="pt-0">
-                            <CardDescription className="text-sm mb-3 line-clamp-2">
+                            <CardDescription className="text-xs sm:text-sm mb-2 sm:mb-3 line-clamp-2">
                               {tool.description}
                             </CardDescription>
                             <div className="flex items-center justify-between">
@@ -493,7 +493,7 @@ export default function Dashboard() {
                               <Button
                                 size="sm"
                                 variant="ghost"
-                                className="group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-primary/80 group-hover:text-primary-foreground transition-all duration-300 hover:scale-105"
+                                className="group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-primary/80 group-hover:text-primary-foreground transition-all duration-300 hover:scale-105 text-xs sm:text-sm"
                               >
                                 Launch
                               </Button>
