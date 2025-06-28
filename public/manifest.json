@@ -1,0 +1,27 @@
+{
+  "name": "Smart Tools - Professional Calculator Suite",
+  "short_name": "Smart Tools",
+  "description": "Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#3B82F6",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["utilities", "productivity", "finance"],
+  "lang": "en",
+  "dir": "ltr"
+} 

@@ -57,6 +57,7 @@ import TipCalculator from "../components/tools/tip-calculator";
 import GoalTracker from "../components/tools/goal-tracker";
 import CreditCardEMICalculator from "@/components/tools/credit-card-emi-calculator";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useDynamicTitle } from "@/hooks/use-dynamic-title";
 
 const tools = [
   {
@@ -243,6 +244,14 @@ export default function Dashboard() {
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
   const year = format(new Date(), "yyyy");
 
+  const currentTool = tools.find((tool) => tool.id === selectedTool);
+
+  useDynamicTitle({
+    currentTool,
+    selectedCategory,
+    baseTitle: "Smart Tools",
+  });
+
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     setSelectedTool(null);
@@ -263,7 +272,6 @@ export default function Dashboard() {
 
   const popularTools = tools.filter((tool) => tool.popular);
 
-  const currentTool = tools.find((tool) => tool.id === selectedTool);
   const currentToolName = currentTool ? currentTool.name : "Smart Tools";
 
   const ToolComponent = currentTool?.component;
@@ -320,7 +328,6 @@ export default function Dashboard() {
           {}
           <main className="flex-1 p-6">
             {selectedTool && ToolComponent ? (
-              
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
