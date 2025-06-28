@@ -1,15 +1,37 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { ArrowRightLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from "react";
+import { ArrowRightLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const conversions = {
+interface UnitData {
+  name: string;
+  factor: number;
+}
+
+interface CategoryData {
+  name: string;
+  units: Record<string, UnitData>;
+}
+
+const conversions: Record<string, CategoryData> = {
   length: {
     name: "Length",
     units: {
@@ -55,66 +77,66 @@ const conversions = {
       acre: { name: "Acre", factor: 4046856422.4 },
     },
   },
-}
+};
 
 export default function UnitConverter() {
-  const [category, setCategory] = useState<string>("length")
-  const [fromUnit, setFromUnit] = useState<string>("")
-  const [toUnit, setToUnit] = useState<string>("")
-  const [inputValue, setInputValue] = useState<string>("")
-  const [result, setResult] = useState<number | null>(null)
+  const [category, setCategory] = useState<string>("length");
+  const [fromUnit, setFromUnit] = useState<string>("");
+  const [toUnit, setToUnit] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("");
+  const [result, setResult] = useState<number | null>(null);
 
   const convertUnits = () => {
-    const value = Number.parseFloat(inputValue)
-    if (!value || !fromUnit || !toUnit || !category) return
+    const value = Number.parseFloat(inputValue);
+    if (!value || !fromUnit || !toUnit || !category) return;
 
-    const categoryData = conversions[category as keyof typeof conversions]
+    const categoryData = conversions[category as keyof typeof conversions];
 
     if (category === "temperature") {
-      let celsius: number
+      let celsius: number;
 
-      if (fromUnit === "c") celsius = value
-      else if (fromUnit === "f") celsius = ((value - 32) * 5) / 9
-      else if (fromUnit === "k") celsius = value - 273.15
-      else return
+      if (fromUnit === "c") celsius = value;
+      else if (fromUnit === "f") celsius = ((value - 32) * 5) / 9;
+      else if (fromUnit === "k") celsius = value - 273.15;
+      else return;
 
-      let convertedValue: number
-      if (toUnit === "c") convertedValue = celsius
-      else if (toUnit === "f") convertedValue = (celsius * 9) / 5 + 32
-      else if (toUnit === "k") convertedValue = celsius + 273.15
-      else return
+      let convertedValue: number;
+      if (toUnit === "c") convertedValue = celsius;
+      else if (toUnit === "f") convertedValue = (celsius * 9) / 5 + 32;
+      else if (toUnit === "k") convertedValue = celsius + 273.15;
+      else return;
 
-      setResult(convertedValue)
+      setResult(convertedValue);
     } else {
-      const fromFactor = categoryData.units[fromUnit as keyof typeof categoryData.units]?.factor
-      const toFactor = categoryData.units[toUnit as keyof typeof categoryData.units]?.factor
+      const fromFactor = categoryData.units[fromUnit]?.factor;
+      const toFactor = categoryData.units[toUnit]?.factor;
 
-      if (!fromFactor || !toFactor) return
+      if (!fromFactor || !toFactor) return;
 
-      const baseValue = value * fromFactor
-      const convertedValue = baseValue / toFactor
-      setResult(convertedValue)
+      const baseValue = value * fromFactor;
+      const convertedValue = baseValue / toFactor;
+      setResult(convertedValue);
     }
-  }
+  };
 
   const swapUnits = () => {
-    const temp = fromUnit
-    setFromUnit(toUnit)
-    setToUnit(temp)
+    const temp = fromUnit;
+    setFromUnit(toUnit);
+    setToUnit(temp);
     if (result !== null) {
-      setInputValue(result.toString())
-      setResult(Number.parseFloat(inputValue))
+      setInputValue(result.toString());
+      setResult(Number.parseFloat(inputValue));
     }
-  }
+  };
 
   const resetForm = () => {
-    setInputValue("")
-    setFromUnit("")
-    setToUnit("")
-    setResult(null)
-  }
+    setInputValue("");
+    setFromUnit("");
+    setToUnit("");
+    setResult(null);
+  };
 
-  const currentCategory = conversions[category as keyof typeof conversions]
+  const currentCategory = conversions[category as keyof typeof conversions];
 
   return (
     <div className="space-y-6">
@@ -131,7 +153,10 @@ export default function UnitConverter() {
             <Card>
               <CardHeader>
                 <CardTitle>{categoryData.name} Converter</CardTitle>
-                <CardDescription>Convert between different {categoryData.name.toLowerCase()} units</CardDescription>
+                <CardDescription>
+                  Convert between different {categoryData.name.toLowerCase()}{" "}
+                  units
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -142,11 +167,13 @@ export default function UnitConverter() {
                         <SelectValue placeholder="Select unit" />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(categoryData.units).map(([unitKey, unitData]) => (
-                          <SelectItem key={unitKey} value={unitKey}>
-                            {unitData.name}
-                          </SelectItem>
-                        ))}
+                        {Object.entries(categoryData.units).map(
+                          ([unitKey, unitData]) => (
+                            <SelectItem key={unitKey} value={unitKey}>
+                              {unitData.name}
+                            </SelectItem>
+                          )
+                        )}
                       </SelectContent>
                     </Select>
                   </div>
@@ -158,11 +185,13 @@ export default function UnitConverter() {
                         <SelectValue placeholder="Select unit" />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(categoryData.units).map(([unitKey, unitData]) => (
-                          <SelectItem key={unitKey} value={unitKey}>
-                            {unitData.name}
-                          </SelectItem>
-                        ))}
+                        {Object.entries(categoryData.units).map(
+                          ([unitKey, unitData]) => (
+                            <SelectItem key={unitKey} value={unitKey}>
+                              {unitData.name}
+                            </SelectItem>
+                          )
+                        )}
                       </SelectContent>
                     </Select>
                   </div>
@@ -179,7 +208,12 @@ export default function UnitConverter() {
                       onChange={(e) => setInputValue(e.target.value)}
                       className="flex-1"
                     />
-                    <Button variant="outline" size="icon" onClick={swapUnits} disabled={!fromUnit || !toUnit}>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={swapUnits}
+                      disabled={!fromUnit || !toUnit}
+                    >
                       <ArrowRightLeft className="h-4 w-4" />
                     </Button>
                   </div>
@@ -189,7 +223,11 @@ export default function UnitConverter() {
                   <Button onClick={convertUnits} className="flex-1">
                     Convert
                   </Button>
-                  <Button onClick={resetForm} variant="outline" className="flex-1">
+                  <Button
+                    onClick={resetForm}
+                    variant="outline"
+                    className="flex-1"
+                  >
                     Reset
                   </Button>
                 </div>
@@ -198,11 +236,11 @@ export default function UnitConverter() {
                   <div className="p-6 bg-primary/5 rounded-lg">
                     <div className="text-center space-y-2">
                       <div className="text-sm text-muted-foreground">
-                        {inputValue} {currentCategory.units[fromUnit as keyof typeof currentCategory.units]?.name} =
+                        {inputValue} {currentCategory.units[fromUnit]?.name} =
                       </div>
                       <div className="text-3xl font-bold text-primary">
                         {result.toFixed(6).replace(/\.?0+$/, "")}{" "}
-                        {currentCategory.units[toUnit as keyof typeof currentCategory.units]?.name}
+                        {currentCategory.units[toUnit]?.name}
                       </div>
                     </div>
                   </div>
@@ -213,5 +251,5 @@ export default function UnitConverter() {
         ))}
       </Tabs>
     </div>
-  )
+  );
 }

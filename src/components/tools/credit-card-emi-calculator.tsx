@@ -1,26 +1,50 @@
-"use client"
+"use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react"
-import { Download, CalendarIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts"
-import { format } from "date-fns"
-import { cn } from "@/lib/utils"
-import jsPDF from "jspdf"
-import autoTable from "jspdf-autotable"
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Download, CalendarIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 interface EMIResult {
-  emi: number
-  totalInterest: number
-  totalPayment: number
-  gstAmount: number
+  emi: number;
+  totalInterest: number;
+  totalPayment: number;
+  gstAmount: number;
 }
 
 interface AmortizationRow {
@@ -30,116 +54,120 @@ interface AmortizationRow {
   principal: number;
   interest: number;
   gst: number;
-  balance: number
+  balance: number;
   nextEMIDate?: Date | null;
 }
-
 
 const formatCurrency = (amount: number): string => {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency: "INR",
-  }).format(amount)
-}
+  }).format(amount);
+};
 
 export default function CreditCardEMICalculator() {
-  const [principal, setPrincipal] = useState<string>("")
-  const [interestRate, setInterestRate] = useState<string>("")
-  const [tenure, setTenure] = useState<string>("")
-  const [processingFee, setProcessingFee] = useState<string>("")
-  const [includeGST, setIncludeGST] = useState<boolean>(true)
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined)
-  const [result, setResult] = useState<EMIResult | null>(null)
-  const [amortization, setAmortization] = useState<AmortizationRow[]>([])
-
+  const [principal, setPrincipal] = useState<string>("");
+  const [interestRate, setInterestRate] = useState<string>("");
+  const [tenure, setTenure] = useState<string>("");
+  const [processingFee, setProcessingFee] = useState<string>("");
+  const [includeGST, setIncludeGST] = useState<boolean>(true);
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [result, setResult] = useState<EMIResult | null>(null);
+  const [amortization, setAmortization] = useState<AmortizationRow[]>([]);
 
   const calculateEMI = useCallback((): void => {
-    const P = parseFloat(principal)
-    const R = parseFloat(interestRate) / 100 / 12
-    const N = parseFloat(tenure)
-    const fee = parseFloat(processingFee) || 0
+    const P = parseFloat(principal);
+    const R = parseFloat(interestRate) / 100 / 12;
+    const N = parseFloat(tenure);
+    const fee = parseFloat(processingFee) || 0;
 
-    if (isNaN(P) || isNaN(R) || isNaN(N) || P <= 0 || N <= 0) return
+    if (isNaN(P) || isNaN(R) || isNaN(N) || P <= 0 || N <= 0) return;
 
-    const emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1)
-    const totalPayment = emi * N
-    const totalInterest = totalPayment - P
-    const gstRate = includeGST ? 0.18 : 0
-    const gstAmount = totalInterest * gstRate
-    const gstOnFee = fee * gstRate
-    const totalPaymentWithExtras = totalPayment + gstAmount + fee + gstOnFee
+    const emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+    const totalPayment = emi * N;
+    const totalInterest = totalPayment - P;
+    const gstRate = includeGST ? 0.18 : 0;
+    const gstAmount = totalInterest * gstRate;
+    const gstOnFee = fee * gstRate;
+    const totalPaymentWithExtras = totalPayment + gstAmount + fee + gstOnFee;
 
     setResult({
       emi: parseFloat(emi.toFixed(2)),
       totalInterest: parseFloat(totalInterest.toFixed(2)),
       totalPayment: parseFloat(totalPaymentWithExtras.toFixed(2)),
       gstAmount: parseFloat(gstAmount.toFixed(2)),
-    })
+    });
 
-    const schedule: AmortizationRow[] = []
-    let balance = P
-    let currentDate = startDate ? new Date(startDate) : null
+    const schedule: AmortizationRow[] = [];
+    let balance = P;
+    let currentDate = startDate ? new Date(startDate) : null;
 
     const getNextEMIDate = (current: Date): Date => {
-      const desiredDay = current.getDate()
-      const nextMonth = new Date(current.getFullYear(), current.getMonth() + 1, 1)
-      const lastDay = new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 0).getDate()
-      const safeDay = Math.min(desiredDay, lastDay)
-      return new Date(nextMonth.getFullYear(), nextMonth.getMonth(), safeDay)
-    }
+      const desiredDay = current.getDate();
+      const nextMonth = new Date(
+        current.getFullYear(),
+        current.getMonth() + 1,
+        1
+      );
+      const lastDay = new Date(
+        nextMonth.getFullYear(),
+        nextMonth.getMonth() + 1,
+        0
+      ).getDate();
+      const safeDay = Math.min(desiredDay, lastDay);
+      return new Date(nextMonth.getFullYear(), nextMonth.getMonth(), safeDay);
+    };
 
     for (let month = 1; month <= N; month++) {
-      const openingBalance = balance
-      const interestPayment = balance * R
-      const principalPayment = emi - interestPayment
-      const gstPayment = includeGST ? interestPayment * 0.18 : 0
-      balance -= principalPayment
-      const closingBalance = Math.max(0, balance)
-      const nextEMIDate = currentDate ? getNextEMIDate(currentDate) : null
+      const openingBalance = balance;
+      const interestPayment = balance * R;
+      const principalPayment = emi - interestPayment;
+      const gstPayment = includeGST ? interestPayment * 0.18 : 0;
+      balance -= principalPayment;
+      const closingBalance = Math.max(0, balance);
+      const nextEMIDate = currentDate ? getNextEMIDate(currentDate) : null;
 
       schedule.push({
         month,
         openingBalance: parseFloat(openingBalance.toFixed(2)),
-        emi: parseFloat((emi).toFixed(2)),
+        emi: parseFloat(emi.toFixed(2)),
         principal: parseFloat(principalPayment.toFixed(2)),
         interest: parseFloat(interestPayment.toFixed(2)),
         gst: parseFloat(gstPayment.toFixed(2)),
         balance: parseFloat(closingBalance.toFixed(2)),
         nextEMIDate,
-      })
+      });
 
-      if (currentDate) currentDate = new Date(nextEMIDate!)
+      if (currentDate) currentDate = new Date(nextEMIDate!);
     }
 
-    setAmortization(schedule)
-  }, [principal, interestRate, tenure, processingFee, includeGST, startDate])
+    setAmortization(schedule);
+  }, [principal, interestRate, tenure, processingFee, includeGST, startDate]);
 
   const resetForm = (): void => {
-    setPrincipal("")
-    setInterestRate("")
-    setTenure("")
-    setProcessingFee("")
-    setIncludeGST(false)
-    setStartDate(undefined)
-    setResult(null)
-    setAmortization([])
-  }
+    setPrincipal("");
+    setInterestRate("");
+    setTenure("");
+    setProcessingFee("");
+    setIncludeGST(false);
+    setStartDate(undefined);
+    setResult(null);
+    setAmortization([]);
+  };
 
   const downloadPDF = (): void => {
-    if (!result || amortization.length === 0) return
+    if (!result || amortization.length === 0) return;
 
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.width;
 
-
-    const totalPrincipal = Number(principal)
-    const tenureMonths = Number(tenure)
-    const annualInterestRate = Number(interestRate) / 100
-    const totalInterestPayable = result.totalInterest
-    const gstAmount = result.gstAmount
-    const showGst = includeGST
-    const fee = parseFloat(processingFee) || 0
-
+    const totalPrincipal = Number(principal);
+    const tenureMonths = Number(tenure);
+    const annualInterestRate = Number(interestRate) / 100;
+    const totalInterestPayable = result.totalInterest;
+    const gstAmount = result.gstAmount;
+    const showGst = includeGST;
+    const fee = parseFloat(processingFee) || 0;
 
     doc.setFontSize(16);
     doc.setFont("helvetica", "bold");
@@ -151,7 +179,9 @@ export default function CreditCardEMICalculator() {
 
     doc.setFontSize(12);
     doc.setFont("Helvetica-Oblique", "normal");
-    const principalAmountText = `Principal Amount: ${totalPrincipal.toFixed(2)}`;
+    const principalAmountText = `Principal Amount: ${totalPrincipal.toFixed(
+      2
+    )}`;
     const interestRateText = `Interest Rate: ${(
       annualInterestRate * 100
     ).toFixed(2)}%`;
@@ -165,15 +195,25 @@ export default function CreditCardEMICalculator() {
     const loanTenureText = `Loan Tenure: ${tenureMonths} months`;
     doc.text(loanTenureText, 15, 40);
     if (showGst) {
-      const gstRateText = `GST Rate: ${((gstAmount / totalInterestPayable) * 100).toFixed(2)}%`
-      doc.text(gstRateText, pageWidth - 15 - doc.getTextWidth(gstRateText), 40)
+      const gstRateText = `GST Rate: ${(
+        (gstAmount / totalInterestPayable) *
+        100
+      ).toFixed(2)}%`;
+      doc.text(gstRateText, pageWidth - 15 - doc.getTextWidth(gstRateText), 40);
     }
 
     const emiAmountText = `EMI Amount: ${result.emi.toFixed(2)}`;
     doc.text(emiAmountText, 15, 45);
     if (fee > 0) {
-      const ProcessingFeeText = `Processing Fee Including GST: ${(fee + fee * 0.18).toFixed(2)}`
-      doc.text(ProcessingFeeText, pageWidth - 15 - doc.getTextWidth(ProcessingFeeText), 45)
+      const ProcessingFeeText = `Processing Fee Including GST: ${(
+        fee +
+        fee * 0.18
+      ).toFixed(2)}`;
+      doc.text(
+        ProcessingFeeText,
+        pageWidth - 15 - doc.getTextWidth(ProcessingFeeText),
+        45
+      );
     }
 
     const columns = [
@@ -186,15 +226,19 @@ export default function CreditCardEMICalculator() {
       ...(showGst ? [{ header: "GST", dataKey: "gst" }] : []),
       { header: "Balance", dataKey: "balance" },
       {
-        header: `Total (Principal + Interest${showGst ? " + GST" : ""}${fee > 0 ? " + Fee" : ""})`,
+        header: `Total (Principal + Interest${showGst ? " + GST" : ""}${
+          fee > 0 ? " + Fee" : ""
+        })`,
         dataKey: "total",
       },
     ];
 
-
     const rows = amortization.map((item) => ({
       month: item.month,
-      date: startDate && item.nextEMIDate ? format(item.nextEMIDate, "dd/MM/yyyy") : "",
+      date:
+        startDate && item.nextEMIDate
+          ? format(item.nextEMIDate, "dd/MM/yyyy")
+          : "",
       openingBalance: item.openingBalance.toFixed(2),
       emi: item.emi.toFixed(2),
       principal: item.principal.toFixed(2),
@@ -202,15 +246,17 @@ export default function CreditCardEMICalculator() {
       gst: showGst ? item.gst.toFixed(2) : "",
       balance: item.balance.toFixed(2),
       total: (
-        item.principal + item.interest + (showGst ? item.gst : 0)
-      ).toFixed(2)
+        item.principal +
+        item.interest +
+        (showGst ? item.gst : 0)
+      ).toFixed(2),
     }));
-
 
     const totalRow = {
       month: "Total",
       date: startDate ? "" : "",
-      openingBalance: fee > 0 ? `Processing Fee - ${(fee + fee * 0.18).toFixed(2)}` : "",
+      openingBalance:
+        fee > 0 ? `Processing Fee - ${(fee + fee * 0.18).toFixed(2)}` : "",
       emi: "",
       principal: totalPrincipal.toFixed(2),
       interest: totalInterestPayable.toFixed(2),
@@ -226,7 +272,6 @@ export default function CreditCardEMICalculator() {
 
     if (startDate) totalRow.date = "";
     rows.push(totalRow);
-
 
     autoTable(doc, {
       startY: 55,
@@ -245,13 +290,13 @@ export default function CreditCardEMICalculator() {
         halign: "center",
         lineWidth: 0.2,
         lineColor: [0, 0, 0],
-        font: "Helvetica-Oblique"
+        font: "Helvetica-Oblique",
       },
       bodyStyles: {
         textColor: [33, 37, 41],
         lineWidth: 0.1,
         lineColor: [0, 0, 0],
-        font: "Helvetica-Oblique"
+        font: "Helvetica-Oblique",
       },
       alternateRowStyles: {
         fillColor: [240, 240, 240],
@@ -267,53 +312,65 @@ export default function CreditCardEMICalculator() {
         processingFee: { halign: "center" },
         balance: { halign: "center" },
         total: { halign: "center" },
-      }
-    })
+      },
+      didDrawPage: function (data) {
+        const finalY = (data.cursor?.y ?? 0) + 10;
+        doc.setFontSize(10);
+        doc.text(
+          "This schedule includes principal, interest, GST, processing fee and EMI breakup for each month.",
+          15,
+          finalY
+        );
+      },
+    });
 
-    const finalY = doc.lastAutoTable?.finalY + 10
-    doc.setFontSize(10)
-    doc.text(
-      "This schedule includes principal, interest, GST, processing fee and EMI breakup for each month.",
-      15,
-      finalY
-    )
-
-    doc.setFontSize(9)
+    doc.setFontSize(9);
     doc.text(
       "Generated by Smart Tools",
       pageWidth / 2,
       doc.internal.pageSize.height - 10,
       { align: "center" }
-    )
+    );
 
     const filename = showGst
       ? "amortization-schedule-gst.pdf"
-      : "amortization-schedule.pdf"
-    doc.save(filename)
-  }
-
+      : "amortization-schedule.pdf";
+    doc.save(filename);
+  };
 
   useEffect(() => {
     if (principal && interestRate && tenure && processingFee) {
-      calculateEMI()
+      calculateEMI();
     }
-  }, [principal, interestRate, tenure, processingFee, includeGST, startDate, calculateEMI])
-
+  }, [
+    principal,
+    interestRate,
+    tenure,
+    processingFee,
+    includeGST,
+    startDate,
+    calculateEMI,
+  ]);
 
   const chartData = useMemo(() => {
     const base = [
       { name: "Principal", value: parseFloat(principal) || 0 },
-      { name: "Interest", value: result?.totalInterest || 0 }
+      { name: "Interest", value: result?.totalInterest || 0 },
     ];
-    const gstInterest = includeGST ? [{ name: "GST on Interest", value: result?.gstAmount || 0 }] : [];
-    const fee = parseFloat(processingFee) || 0;
-    const feeComponents = fee > 0
-      ? [{ name: "Processing Fee", value: fee }, { name: "GST on Fee", value: fee * 0.18 }]
+    const gstInterest = includeGST
+      ? [{ name: "GST on Interest", value: result?.gstAmount || 0 }]
       : [];
+    const fee = parseFloat(processingFee) || 0;
+    const feeComponents =
+      fee > 0
+        ? [
+            { name: "Processing Fee", value: fee },
+            { name: "GST on Fee", value: fee * 0.18 },
+          ]
+        : [];
 
     return [...base, ...gstInterest, ...feeComponents];
   }, [principal, result, includeGST, processingFee]);
-
 
   return (
     <div className="space-y-8">
@@ -325,7 +382,9 @@ export default function CreditCardEMICalculator() {
               <div className="h-2 w-2 rounded-full bg-linear-to-r from-primary to-primary/80"></div>
               Loan Details
             </CardTitle>
-            <CardDescription>Enter your loan information to calculate EMI</CardDescription>
+            <CardDescription>
+              Enter your loan information to calculate EMI
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -381,7 +440,10 @@ export default function CreditCardEMICalculator() {
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
-                    className={cn("w-full justify-start text-left font-normal", !startDate && "text-muted-foreground")}
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !startDate && "text-muted-foreground"
+                    )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {startDate ? format(startDate, "PPP") : "Pick a start date"}
@@ -411,7 +473,10 @@ export default function CreditCardEMICalculator() {
             <div className="flex gap-4">
               <Button
                 disabled={
-                  !principal || !interestRate || !tenure || parseFloat(principal) <= 0
+                  !principal ||
+                  !interestRate ||
+                  !tenure ||
+                  parseFloat(principal) <= 0
                 }
                 onClick={calculateEMI}
                 className="flex-1 modern-button"
@@ -424,7 +489,6 @@ export default function CreditCardEMICalculator() {
               </Button>
             </div>
           </CardContent>
-
         </Card>
 
         {/* Results Section */}
@@ -450,30 +514,40 @@ export default function CreditCardEMICalculator() {
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span>Total Interest</span>
-                      <span className="font-semibold">{formatCurrency(result.totalInterest)}</span>
+                      <span className="font-semibold">
+                        {formatCurrency(result.totalInterest)}
+                      </span>
                     </div>
                     {includeGST && (
                       <div className="flex justify-between">
                         <span>GST on Interest Amount</span>
-                        <span className="font-semibold">{formatCurrency(result.gstAmount)}</span>
+                        <span className="font-semibold">
+                          {formatCurrency(result.gstAmount)}
+                        </span>
                       </div>
                     )}
                     {parseFloat(processingFee) > 0 && (
                       <div className="flex justify-between">
                         <span>Processing Fee</span>
-                        <span className="font-semibold">{formatCurrency(parseFloat(processingFee))}</span>
+                        <span className="font-semibold">
+                          {formatCurrency(parseFloat(processingFee))}
+                        </span>
                       </div>
                     )}
                     {parseFloat(processingFee) > 0 && (
                       <div className="flex justify-between">
                         <span>GST on Processing Fee</span>
-                        <span className="font-semibold">{formatCurrency(parseFloat(processingFee) * 0.18)}</span>
+                        <span className="font-semibold">
+                          {formatCurrency(parseFloat(processingFee) * 0.18)}
+                        </span>
                       </div>
                     )}
 
                     <div className="flex justify-between border-t pt-2">
                       <span className="font-medium">Total Payment</span>
-                      <span className="font-bold">{formatCurrency(result.totalPayment)}</span>
+                      <span className="font-bold">
+                        {formatCurrency(result.totalPayment)}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -490,25 +564,50 @@ export default function CreditCardEMICalculator() {
                         endAngle={0}
                         innerRadius={50}
                         outerRadius={80}
-
                       >
                         {chartData.map((_, index) => (
                           <Cell
                             key={`cell-${index}`}
-                            fill={["#1abc9c", "#3498db", "#e67e22", "#9b59b6", "#e74c3c", "#f1c40f"][index % 6]}
+                            fill={
+                              [
+                                "#1abc9c",
+                                "#3498db",
+                                "#e67e22",
+                                "#9b59b6",
+                                "#e74c3c",
+                                "#f1c40f",
+                              ][index % 6]
+                            }
                           />
                         ))}
                       </Pie>
-                      <Tooltip formatter={(value: number) => `₹${value.toFixed(2)}`} />
+                      <Tooltip
+                        formatter={(value: number) => `₹${value.toFixed(2)}`}
+                      />
                       <Legend
                         content={({ payload }) => (
                           <ul className="flex flex-wrap justify-center gap-4 text-sm mt-4">
-                            {payload?.map((entry, i) => (
-                              <li key={`item-${i}`} className="flex items-center gap-2">
-                                <div style={{ width: 12, height: 12, backgroundColor: entry.color }} />
-                                <span>{entry.payload.name}: ₹{entry.payload.value.toFixed(2)}</span>
-                              </li>
-                            ))}
+                            {payload?.map((entry, i) => {
+                              const dataItem = chartData[i];
+                              return (
+                                <li
+                                  key={`item-${i}`}
+                                  className="flex items-center gap-2"
+                                >
+                                  <div
+                                    style={{
+                                      width: 12,
+                                      height: 12,
+                                      backgroundColor: entry.color,
+                                    }}
+                                  />
+                                  <span>
+                                    {dataItem?.name}: ₹
+                                    {dataItem?.value?.toFixed(2) ?? "0.00"}
+                                  </span>
+                                </li>
+                              );
+                            })}
                           </ul>
                         )}
                       />
@@ -516,13 +615,16 @@ export default function CreditCardEMICalculator() {
                   </ResponsiveContainer>
                 </div>
               </div>
-              <Button onClick={downloadPDF} variant="outline" className="w-full">
+              <Button
+                onClick={downloadPDF}
+                variant="outline"
+                className="w-full"
+              >
                 <Download className="h-4 w-4 mr-2" />
                 Export to PDF
               </Button>
             </CardContent>
           </Card>
-
         )}
       </div>
 
@@ -530,7 +632,9 @@ export default function CreditCardEMICalculator() {
         <Card>
           <CardHeader>
             <CardTitle>Amortization Schedule</CardTitle>
-            <CardDescription>Monthly payment breakdown over the loan tenure</CardDescription>
+            <CardDescription>
+              Monthly payment breakdown over the loan tenure
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="rounded-md border overflow-x-auto">
@@ -538,12 +642,18 @@ export default function CreditCardEMICalculator() {
                 <TableHeader>
                   <TableRow className="bg-muted text-muted-foreground text-sm uppercase text-center">
                     <TableHead className="text-center">Sr. No</TableHead>
-                    {startDate && <TableHead className="text-center">EMI Date</TableHead>}
-                    <TableHead className="text-center">Opening Balance</TableHead>
+                    {startDate && (
+                      <TableHead className="text-center">EMI Date</TableHead>
+                    )}
+                    <TableHead className="text-center">
+                      Opening Balance
+                    </TableHead>
                     <TableHead className="text-center">EMI</TableHead>
                     <TableHead className="text-center">Principal</TableHead>
                     <TableHead className="text-center">Interest</TableHead>
-                    {includeGST && <TableHead className="text-center">GST</TableHead>}
+                    {includeGST && (
+                      <TableHead className="text-center">GST</TableHead>
+                    )}
                     <TableHead className="text-center">Balance</TableHead>
                     <TableHead className="text-center">
                       Total (Principal + Interest{includeGST ? " + GST" : ""})
@@ -560,18 +670,26 @@ export default function CreditCardEMICalculator() {
                       <TableCell>{row.month}</TableCell>
                       {startDate && (
                         <TableCell>
-                          {row.nextEMIDate ? format(row.nextEMIDate, "dd/MM/yyyy") : "-"}
+                          {row.nextEMIDate
+                            ? format(row.nextEMIDate, "dd/MM/yyyy")
+                            : "-"}
                         </TableCell>
                       )}
-                      <TableCell>{formatCurrency(row.openingBalance)}</TableCell>
+                      <TableCell>
+                        {formatCurrency(row.openingBalance)}
+                      </TableCell>
                       <TableCell>{formatCurrency(row.emi)}</TableCell>
                       <TableCell>{formatCurrency(row.principal)}</TableCell>
                       <TableCell>{formatCurrency(row.interest)}</TableCell>
-                      {includeGST && <TableCell>{formatCurrency(row.gst)}</TableCell>}
+                      {includeGST && (
+                        <TableCell>{formatCurrency(row.gst)}</TableCell>
+                      )}
                       <TableCell>{formatCurrency(row.balance)}</TableCell>
                       <TableCell>
                         {formatCurrency(
-                          row.principal + row.interest + (includeGST ? row.gst : 0)
+                          row.principal +
+                            row.interest +
+                            (includeGST ? row.gst : 0)
                         )}
                       </TableCell>
                     </TableRow>
@@ -579,14 +697,20 @@ export default function CreditCardEMICalculator() {
                   <TableRow className="font-semibold bg-primary/5 text-center">
                     <TableCell colSpan={startDate ? 4 : 3}>Total</TableCell>
                     <TableCell>{formatCurrency(Number(principal))}</TableCell>
-                    <TableCell>{formatCurrency(result?.totalInterest ?? 0)}</TableCell>
-                    {includeGST && <TableCell>{formatCurrency(result?.gstAmount ?? 0)}</TableCell>}
+                    <TableCell>
+                      {formatCurrency(result?.totalInterest ?? 0)}
+                    </TableCell>
+                    {includeGST && (
+                      <TableCell>
+                        {formatCurrency(result?.gstAmount ?? 0)}
+                      </TableCell>
+                    )}
                     <TableCell />
                     <TableCell>
                       {formatCurrency(
                         Number(principal) +
-                        (result?.totalInterest ?? 0) +
-                        (includeGST ? (result?.gstAmount ?? 0) : 0)
+                          (result?.totalInterest ?? 0) +
+                          (includeGST ? result?.gstAmount ?? 0 : 0)
                       )}
                     </TableCell>
                   </TableRow>
@@ -597,5 +721,5 @@ export default function CreditCardEMICalculator() {
         </Card>
       )}
     </div>
-  )
+  );
 }

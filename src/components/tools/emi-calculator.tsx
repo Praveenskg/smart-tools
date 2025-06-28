@@ -1,24 +1,48 @@
-"use client"
-import { useCallback, useEffect, useMemo, useState } from "react"
-import { Download, CalendarIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { format } from "date-fns"
-import { cn } from "@/lib/utils"
-import jsPDF from "jspdf"
-import autoTable from "jspdf-autotable"
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts"
+"use client";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Download, CalendarIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 interface EMIResult {
-  emi: number
-  totalInterest: number
-  totalPayment: number
-  gstAmount: number
+  emi: number;
+  totalInterest: number;
+  totalPayment: number;
+  gstAmount: number;
 }
 interface AmortizationRow {
   month: number | string;
@@ -27,27 +51,27 @@ interface AmortizationRow {
   principal: number;
   interest: number;
   gst: number;
-  balance: number
+  balance: number;
   nextEMIDate?: Date | null;
 }
 const formatCurrency = (amount: number): string => {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency: "INR",
-  }).format(amount)
-}
+  }).format(amount);
+};
 export default function EMICalculator() {
-  const [principal, setPrincipal] = useState<string>("")
-  const [interestRate, setInterestRate] = useState<string>("")
-  const [tenure, setTenure] = useState<string>("")
-  const [includeGST, setIncludeGST] = useState<boolean>(true)
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined)
-  const [result, setResult] = useState<EMIResult | null>(null)
-  const [amortization, setAmortization] = useState<AmortizationRow[]>([])
+  const [principal, setPrincipal] = useState<string>("");
+  const [interestRate, setInterestRate] = useState<string>("");
+  const [tenure, setTenure] = useState<string>("");
+  const [includeGST, setIncludeGST] = useState<boolean>(true);
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [result, setResult] = useState<EMIResult | null>(null);
+  const [amortization, setAmortization] = useState<AmortizationRow[]>([]);
   const calculateEMI = useCallback((): void => {
-    const P = parseFloat(principal)
-    const R = parseFloat(interestRate) / 100 / 12
-    const N = parseFloat(tenure)
+    const P = parseFloat(principal);
+    const R = parseFloat(interestRate) / 100 / 12;
+    const N = parseFloat(tenure);
     if (isNaN(P) || isNaN(R) || isNaN(N) || P <= 0 || N <= 0) return;
     const emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
     const totalPayment = emi * N;
@@ -65,11 +89,19 @@ export default function EMICalculator() {
     let currentDate = startDate ? new Date(startDate) : null;
     const getNextEMIDate = (current: Date): Date => {
       const desiredDay = current.getDate();
-      const nextMonth = new Date(current.getFullYear(), current.getMonth() + 1, 1);
-      const lastDay = new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 0).getDate();
+      const nextMonth = new Date(
+        current.getFullYear(),
+        current.getMonth() + 1,
+        1
+      );
+      const lastDay = new Date(
+        nextMonth.getFullYear(),
+        nextMonth.getMonth() + 1,
+        0
+      ).getDate();
       const safeDay = Math.min(desiredDay, lastDay);
       return new Date(nextMonth.getFullYear(), nextMonth.getMonth(), safeDay);
-    }
+    };
     for (let month = 1; month <= N; month++) {
       const openingBalance = balance;
       const interestPayment = balance * R;
@@ -81,7 +113,7 @@ export default function EMICalculator() {
       schedule.push({
         month,
         openingBalance: parseFloat(openingBalance.toFixed(2)),
-        emi: parseFloat((emi).toFixed(2)),
+        emi: parseFloat(emi.toFixed(2)),
         principal: parseFloat(principalPayment.toFixed(2)),
         interest: parseFloat(interestPayment.toFixed(2)),
         gst: parseFloat(gstPayment.toFixed(2)),
@@ -91,27 +123,27 @@ export default function EMICalculator() {
       if (currentDate) currentDate = new Date(nextEMIDate!);
     }
     setAmortization(schedule);
-  }, [principal, interestRate, tenure, includeGST, startDate])
+  }, [principal, interestRate, tenure, includeGST, startDate]);
   const resetForm = (): void => {
-    setPrincipal("")
-    setInterestRate("")
-    setTenure("")
-    setIncludeGST(false)
-    setStartDate(undefined)
-    setResult(null)
-    setAmortization([])
-  }
+    setPrincipal("");
+    setInterestRate("");
+    setTenure("");
+    setIncludeGST(false);
+    setStartDate(undefined);
+    setResult(null);
+    setAmortization([]);
+  };
   const downloadPDF = (): void => {
-    if (!result || amortization.length === 0) return
+    if (!result || amortization.length === 0) return;
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.width;
     const date = new Date().toLocaleDateString();
-    const totalPrincipal = Number(principal)
-    const tenureMonths = Number(tenure)
-    const annualInterestRate = Number(interestRate) / 100
-    const totalInterestPayable = result.totalInterest
-    const gstAmount = result.gstAmount
-    const showGst = includeGST
+    const totalPrincipal = Number(principal);
+    const tenureMonths = Number(tenure);
+    const annualInterestRate = Number(interestRate) / 100;
+    const totalInterestPayable = result.totalInterest;
+    const gstAmount = result.gstAmount;
+    const showGst = includeGST;
     doc.setFontSize(16);
     doc.setFont("helvetica", "bold");
     doc.text("Amortization Schedule", pageWidth / 2, 20, { align: "center" });
@@ -120,7 +152,9 @@ export default function EMICalculator() {
     doc.line(15, lineY, pageWidth - 15, lineY);
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
-    const principalAmountText = `Principal Amount: ${totalPrincipal.toFixed(2)}`;
+    const principalAmountText = `Principal Amount: ${totalPrincipal.toFixed(
+      2
+    )}`;
     const interestRateText = `Interest Rate: ${(
       annualInterestRate * 100
     ).toFixed(2)}%`;
@@ -133,14 +167,21 @@ export default function EMICalculator() {
     const loanTenureText = `Loan Tenure: ${tenureMonths} months`;
     doc.text(loanTenureText, 15, 40);
     if (showGst) {
-      const gstRateText = `GST Rate: ${((gstAmount / totalInterestPayable) * 100).toFixed(2)}%`
-      doc.text(gstRateText, pageWidth - 15 - doc.getTextWidth(gstRateText), 40)
+      const gstRateText = `GST Rate: ${(
+        (gstAmount / totalInterestPayable) *
+        100
+      ).toFixed(2)}%`;
+      doc.text(gstRateText, pageWidth - 15 - doc.getTextWidth(gstRateText), 40);
     }
     const emiAmountText = `EMI Amount: ${result.emi.toFixed(2)}`;
     doc.text(emiAmountText, 15, 45);
     doc.setFontSize(12);
-    const generatedText = `Generated on: ${date}`
-    doc.text(generatedText, pageWidth - 15 - doc.getTextWidth(generatedText), 45)
+    const generatedText = `Generated on: ${date}`;
+    doc.text(
+      generatedText,
+      pageWidth - 15 - doc.getTextWidth(generatedText),
+      45
+    );
     const columns = [
       { header: "Sr. No", dataKey: "month" },
       ...(startDate ? [{ header: "EMI Date", dataKey: "date" }] : []),
@@ -154,11 +195,14 @@ export default function EMICalculator() {
         header: `Total (Principal + Interest${showGst ? " + GST" : ""})`,
         dataKey: "total",
       },
-    ]
+    ];
 
     const rows = amortization.map((item) => ({
       month: item.month,
-      date: startDate && item.nextEMIDate ? format(item.nextEMIDate, "dd/MM/yyyy") : "",
+      date:
+        startDate && item.nextEMIDate
+          ? format(item.nextEMIDate, "dd/MM/yyyy")
+          : "",
       openingBalance: item.openingBalance.toFixed(2),
       emi: item.emi.toFixed(2),
       principal: item.principal.toFixed(2),
@@ -166,10 +210,11 @@ export default function EMICalculator() {
       gst: showGst ? item.gst.toFixed(2) : "",
       balance: item.balance.toFixed(2),
       total: (
-        item.principal + item.interest + (showGst ? item.gst : 0)
-      ).toFixed(2)
+        item.principal +
+        item.interest +
+        (showGst ? item.gst : 0)
+      ).toFixed(2),
     }));
-
 
     const totalRow = {
       month: "Total",
@@ -181,7 +226,9 @@ export default function EMICalculator() {
       gst: showGst ? gstAmount.toFixed(2) : "",
       balance: "",
       total: (
-        totalPrincipal + totalInterestPayable + (showGst ? gstAmount : 0)
+        totalPrincipal +
+        totalInterestPayable +
+        (showGst ? gstAmount : 0)
       ).toFixed(2),
     };
     rows.push(totalRow);
@@ -203,11 +250,13 @@ export default function EMICalculator() {
         halign: "center",
         lineWidth: 0.2,
         lineColor: [0, 0, 0],
+        font: "helvetica",
       },
       bodyStyles: {
         textColor: [33, 37, 41],
         lineWidth: 0.1,
         lineColor: [0, 0, 0],
+        font: "helvetica",
       },
       alternateRowStyles: {
         fillColor: [240, 240, 240],
@@ -223,39 +272,45 @@ export default function EMICalculator() {
         balance: { halign: "center" },
         total: { halign: "center" },
       },
-    })
-    const finalY = doc.lastAutoTable.finalY + 10
-    doc.setFontSize(10)
-    doc.text(
-      "This schedule provides the breakdown of principal, interest, GST and EMI for each month.",
-      15,
-      finalY
-    )
-    doc.setFontSize(9)
+      didDrawPage: function (data) {
+        const finalY = (data.cursor?.y ?? 0) + 10;
+        doc.setFontSize(10);
+        doc.text(
+          "This schedule provides the breakdown of principal, interest, GST and EMI for each month.",
+          15,
+          finalY
+        );
+      },
+    });
+
+    doc.setFontSize(9);
     doc.text(
       "Generated by Smart Tools",
       pageWidth / 2,
       doc.internal.pageSize.height - 10,
       { align: "center" }
-    )
+    );
+
     const filename = showGst
       ? "amortization-schedule-gst.pdf"
-      : "amortization-schedule.pdf"
-    doc.save(filename)
-  }
+      : "amortization-schedule.pdf";
+    doc.save(filename);
+  };
   useEffect(() => {
     if (principal && interestRate && tenure) {
-      calculateEMI()
+      calculateEMI();
     }
-  }, [principal, interestRate, tenure, includeGST, startDate, calculateEMI])
+  }, [principal, interestRate, tenure, includeGST, startDate, calculateEMI]);
   const chartData = useMemo(() => {
     const base = [
       { name: "Principal", value: parseFloat(principal) || 0 },
-      { name: "Interest", value: result?.totalInterest || 0 }
+      { name: "Interest", value: result?.totalInterest || 0 },
     ];
-    const gstInterest = includeGST ? [{ name: "GST on Interest", value: result?.gstAmount || 0 }] : [];
-    return [...base, ...gstInterest,];
-  }, [principal, result, includeGST,]);
+    const gstInterest = includeGST
+      ? [{ name: "GST on Interest", value: result?.gstAmount || 0 }]
+      : [];
+    return [...base, ...gstInterest];
+  }, [principal, result, includeGST]);
   return (
     <div className="space-y-8">
       <div className="grid gap-8 lg:grid-cols-2">
@@ -266,7 +321,9 @@ export default function EMICalculator() {
               <div className="h-2 w-2 rounded-full bg-linear-to-r from-primary to-primary/80"></div>
               Loan Details
             </CardTitle>
-            <CardDescription>Enter your loan information to calculate EMI</CardDescription>
+            <CardDescription>
+              Enter your loan information to calculate EMI
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -307,10 +364,15 @@ export default function EMICalculator() {
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
-                      className={cn("w-full justify-start text-left font-normal", !startDate && "text-muted-foreground")}
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !startDate && "text-muted-foreground"
+                      )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {startDate ? format(startDate, "PPP") : "Pick a start date"}
+                      {startDate
+                        ? format(startDate, "PPP")
+                        : "Pick a start date"}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
@@ -365,17 +427,23 @@ export default function EMICalculator() {
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span>Total Interest</span>
-                      <span className="font-semibold">{formatCurrency(result.totalInterest)}</span>
+                      <span className="font-semibold">
+                        {formatCurrency(result.totalInterest)}
+                      </span>
                     </div>
                     {includeGST && (
                       <div className="flex justify-between">
                         <span>GST on Interest Amount</span>
-                        <span className="font-semibold">{formatCurrency(result.gstAmount)}</span>
+                        <span className="font-semibold">
+                          {formatCurrency(result.gstAmount)}
+                        </span>
                       </div>
                     )}
                     <div className="flex justify-between border-t pt-2">
                       <span className="font-medium">Total Payment</span>
-                      <span className="font-bold">{formatCurrency(result.totalPayment)}</span>
+                      <span className="font-bold">
+                        {formatCurrency(result.totalPayment)}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -396,20 +464,46 @@ export default function EMICalculator() {
                         {chartData.map((_, index) => (
                           <Cell
                             key={`cell-${index}`}
-                            fill={["#1abc9c", "#3498db", "#e67e22", "#9b59b6", "#e74c3c", "#f1c40f"][index % 6]}
+                            fill={
+                              [
+                                "#1abc9c",
+                                "#3498db",
+                                "#e67e22",
+                                "#9b59b6",
+                                "#e74c3c",
+                                "#f1c40f",
+                              ][index % 6]
+                            }
                           />
                         ))}
                       </Pie>
-                      <Tooltip formatter={(value: number) => `₹${value.toFixed(2)}`} />
+                      <Tooltip
+                        formatter={(value: number) => `₹${value.toFixed(2)}`}
+                      />
                       <Legend
                         content={({ payload }) => (
                           <ul className="flex flex-wrap justify-center gap-4 text-sm mt-4">
-                            {payload?.map((entry, i) => (
-                              <li key={`item-${i}`} className="flex items-center gap-2">
-                                <div style={{ width: 12, height: 12, backgroundColor: entry.color }} />
-                                <span>{entry.payload.name}: ₹{entry.payload.value.toFixed(2)}</span>
-                              </li>
-                            ))}
+                            {payload?.map((entry, i) => {
+                              const dataItem = chartData[i];
+                              return (
+                                <li
+                                  key={`item-${i}`}
+                                  className="flex items-center gap-2"
+                                >
+                                  <div
+                                    style={{
+                                      width: 12,
+                                      height: 12,
+                                      backgroundColor: entry.color,
+                                    }}
+                                  />
+                                  <span>
+                                    {dataItem?.name}: ₹
+                                    {dataItem?.value?.toFixed(2) ?? "0.00"}
+                                  </span>
+                                </li>
+                              );
+                            })}
                           </ul>
                         )}
                       />
@@ -417,7 +511,11 @@ export default function EMICalculator() {
                   </ResponsiveContainer>
                 </div>
               </div>
-              <Button onClick={downloadPDF} variant="outline" className="w-full">
+              <Button
+                onClick={downloadPDF}
+                variant="outline"
+                className="w-full"
+              >
                 <Download className="h-4 w-4 mr-2" />
                 Export to PDF
               </Button>
@@ -429,7 +527,9 @@ export default function EMICalculator() {
         <Card>
           <CardHeader>
             <CardTitle>Amortization Schedule</CardTitle>
-            <CardDescription>Monthly payment breakdown over the loan tenure</CardDescription>
+            <CardDescription>
+              Monthly payment breakdown over the loan tenure
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="rounded-md border overflow-x-auto">
@@ -437,12 +537,18 @@ export default function EMICalculator() {
                 <TableHeader>
                   <TableRow className="bg-muted text-muted-foreground text-sm uppercase text-center">
                     <TableHead className="text-center">Sr. No</TableHead>
-                    {startDate && <TableHead className="text-center">EMI Date</TableHead>}
-                    <TableHead className="text-center">Opening Balance</TableHead>
+                    {startDate && (
+                      <TableHead className="text-center">EMI Date</TableHead>
+                    )}
+                    <TableHead className="text-center">
+                      Opening Balance
+                    </TableHead>
                     <TableHead className="text-center">EMI</TableHead>
                     <TableHead className="text-center">Principal</TableHead>
                     <TableHead className="text-center">Interest</TableHead>
-                    {includeGST && <TableHead className="text-center">GST</TableHead>}
+                    {includeGST && (
+                      <TableHead className="text-center">GST</TableHead>
+                    )}
                     <TableHead className="text-center">Balance</TableHead>
                     <TableHead className="text-center">
                       Total (Principal + Interest{includeGST ? " + GST" : ""})
@@ -458,18 +564,26 @@ export default function EMICalculator() {
                       <TableCell>{row.month}</TableCell>
                       {startDate && (
                         <TableCell>
-                          {row.nextEMIDate ? format(row.nextEMIDate, "dd/MM/yyyy") : "-"}
+                          {row.nextEMIDate
+                            ? format(row.nextEMIDate, "dd/MM/yyyy")
+                            : "-"}
                         </TableCell>
                       )}
-                      <TableCell>{formatCurrency(row.openingBalance)}</TableCell>
+                      <TableCell>
+                        {formatCurrency(row.openingBalance)}
+                      </TableCell>
                       <TableCell>{formatCurrency(row.emi)}</TableCell>
                       <TableCell>{formatCurrency(row.principal)}</TableCell>
                       <TableCell>{formatCurrency(row.interest)}</TableCell>
-                      {includeGST && <TableCell>{formatCurrency(row.gst)}</TableCell>}
+                      {includeGST && (
+                        <TableCell>{formatCurrency(row.gst)}</TableCell>
+                      )}
                       <TableCell>{formatCurrency(row.balance)}</TableCell>
                       <TableCell>
                         {formatCurrency(
-                          row.principal + row.interest + (includeGST ? row.gst : 0)
+                          row.principal +
+                            row.interest +
+                            (includeGST ? row.gst : 0)
                         )}
                       </TableCell>
                     </TableRow>
@@ -477,14 +591,20 @@ export default function EMICalculator() {
                   <TableRow className="font-semibold bg-primary/5 text-center">
                     <TableCell colSpan={startDate ? 4 : 3}>Total</TableCell>
                     <TableCell>{formatCurrency(Number(principal))}</TableCell>
-                    <TableCell>{formatCurrency(result?.totalInterest ?? 0)}</TableCell>
-                    {includeGST && <TableCell>{formatCurrency(result?.gstAmount ?? 0)}</TableCell>}
+                    <TableCell>
+                      {formatCurrency(result?.totalInterest ?? 0)}
+                    </TableCell>
+                    {includeGST && (
+                      <TableCell>
+                        {formatCurrency(result?.gstAmount ?? 0)}
+                      </TableCell>
+                    )}
                     <TableCell />
                     <TableCell>
                       {formatCurrency(
                         Number(principal) +
-                        (result?.totalInterest ?? 0) +
-                        (includeGST ? (result?.gstAmount ?? 0) : 0)
+                          (result?.totalInterest ?? 0) +
+                          (includeGST ? result?.gstAmount ?? 0 : 0)
                       )}
                     </TableCell>
                   </TableRow>
@@ -495,5 +615,5 @@ export default function EMICalculator() {
         </Card>
       )}
     </div>
-  )
+  );
 }
