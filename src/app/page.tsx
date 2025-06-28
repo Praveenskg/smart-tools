@@ -158,8 +158,7 @@ const tools = [
   {
     id: "goal-tracker",
     name: "Goal Tracker",
-    description:
-      "Plan and monitor your savings journey toward financial goals",
+    description: "Plan and monitor your savings journey toward financial goals",
     icon: Target,
     category: "Planning",
     popular: false,
@@ -207,7 +206,9 @@ function AppSidebar({
             <Sparkles className="h-4 w-4 text-primary-foreground" />
           </div>
           <div className="flex flex-col">
-            <h2 className="text-sm font-semibold text-foreground">Smart Tools</h2>
+            <h2 className="text-sm font-semibold text-foreground">
+              Smart Tools
+            </h2>
             <p className="text-xs text-muted-foreground">Calculator Suite</p>
           </div>
         </div>
@@ -300,7 +301,7 @@ export default function Dashboard() {
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="hover:bg-muted/50 transition-colors" />
                 <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-bold text-primary floating-animation">
+                  <h1 className="text-2xl font-bold text-primary">
                     {currentToolName}
                   </h1>
                 </div>
@@ -354,9 +355,9 @@ export default function Dashboard() {
                       </p>
                     </div>
                   </div>
-                  <Button 
-                    variant="outline" 
-                    onClick={handleCloseTool} 
+                  <Button
+                    variant="outline"
+                    onClick={handleCloseTool}
                     size="sm"
                     className="hover:bg-muted/50 transition-all duration-200 hover:scale-105"
                   >
@@ -379,7 +380,10 @@ export default function Dashboard() {
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
                       Professional Calculator Suite
                     </h2>
-                    <Sparkles className="h-8 w-8 text-primary floating-animation" style={{ animationDelay: '0.5s' }} />
+                    <Sparkles
+                      className="h-8 w-8 text-primary floating-animation"
+                      style={{ animationDelay: "0.5s" }}
+                    />
                   </div>
                   <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                     Access a comprehensive collection of calculators and
@@ -388,10 +392,16 @@ export default function Dashboard() {
                   </p>
                 </div>
 
-                <section className="space-y-4 slide-in-up" style={{ animationDelay: '0.2s' }}>
+                <section
+                  className="space-y-4 slide-in-up"
+                  style={{ animationDelay: "0.2s" }}
+                >
                   <div className="flex items-center gap-2">
                     <h3 className="text-xl font-semibold">Popular Tools</h3>
-                    <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
+                    <Badge
+                      variant="outline"
+                      className="bg-primary/10 text-primary border-primary/20"
+                    >
                       Most Used
                     </Badge>
                   </div>
@@ -435,7 +445,10 @@ export default function Dashboard() {
                   </div>
                 </section>
 
-                <section className="space-y-4 slide-in-up" style={{ animationDelay: '0.4s' }}>
+                <section
+                  className="space-y-4 slide-in-up"
+                  style={{ animationDelay: "0.4s" }}
+                >
                   <div className="flex items-center justify-between">
                     <h3 className="text-xl font-semibold">All Tools</h3>
                     <div className="text-sm text-muted-foreground">
