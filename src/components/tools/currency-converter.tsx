@@ -62,17 +62,17 @@ export default function CurrencyConverter() {
   const fetchExchangeRates = useCallback(async () => {
     setIsLoading(true);
     setError("");
-    
+
     try {
       const apis = [
         `https://api.frankfurter.app/latest?from=${fromCurrency}`,
         `https://api.exchangerate-api.com/v4/latest/${fromCurrency}`,
         `https://api.exchangerate.host/latest?base=${fromCurrency}`,
       ];
-      
+
       let success = false;
       let data;
-      
+
       for (const apiUrl of apis) {
         try {
           const response = await fetch(apiUrl);
@@ -86,19 +86,18 @@ export default function CurrencyConverter() {
           continue;
         }
       }
-      
+
       if (!success) {
         throw new Error("All APIs failed");
       }
-      
-    
+
       const rates = data.rates || data.conversion_rates || {};
       setExchangeRates(rates);
       setLastUpdated(new Date());
     } catch (err) {
       console.error("Error fetching exchange rates:", err);
       setError("Failed to fetch live rates. Using cached rates.");
-      
+
       const mockRates: ExchangeRate = {
         USD: 1,
         EUR: 0.85,
@@ -147,9 +146,7 @@ export default function CurrencyConverter() {
   };
 
   const formatAmount = (value: string) => {
-    // Remove non-numeric characters except decimal point
     const cleaned = value.replace(/[^0-9.]/g, "");
-    // Ensure only one decimal point
     const parts = cleaned.split(".");
     if (parts.length > 2) {
       return parts[0] + "." + parts.slice(1).join("");
@@ -165,7 +162,7 @@ export default function CurrencyConverter() {
   return (
     <div className="space-y-6">
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
+        <Card className="modern-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Globe className="h-5 w-5" />
@@ -246,7 +243,9 @@ export default function CurrencyConverter() {
               disabled={isLoading}
               className="w-full"
             >
-              <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
+              <RefreshCw
+                className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`}
+              />
               {isLoading ? "Updating..." : "Refresh Rates"}
             </Button>
 
@@ -264,7 +263,7 @@ export default function CurrencyConverter() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="modern-card">
           <CardHeader>
             <CardTitle>Conversion Result</CardTitle>
           </CardHeader>
@@ -289,16 +288,20 @@ export default function CurrencyConverter() {
               <div className="space-y-2">
                 <div className="text-sm font-medium">Exchange Rate</div>
                 <div className="text-lg font-semibold">
-                  1 {fromCurrency} = {exchangeRates[toCurrency].toFixed(4)} {toCurrency}
+                  1 {fromCurrency} = {exchangeRates[toCurrency].toFixed(4)}{" "}
+                  {toCurrency}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  1 {toCurrency} = {(1 / exchangeRates[toCurrency]).toFixed(4)} {fromCurrency}
+                  1 {toCurrency} = {(1 / exchangeRates[toCurrency]).toFixed(4)}{" "}
+                  {fromCurrency}
                 </div>
               </div>
             )}
 
             <div className="pt-4 border-t">
-              <div className="text-sm font-medium mb-2">Popular Conversions</div>
+              <div className="text-sm font-medium mb-2">
+                Popular Conversions
+              </div>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 {popularCurrencies.slice(0, 6).map((currency) => (
                   <div
@@ -308,7 +311,10 @@ export default function CurrencyConverter() {
                     <span>{currency.code}</span>
                     <span className="font-medium">
                       {exchangeRates[currency.code]
-                        ? (parseFloat(amount || "1") * exchangeRates[currency.code]).toFixed(2)
+                        ? (
+                            parseFloat(amount || "1") *
+                            exchangeRates[currency.code]
+                          ).toFixed(2)
                         : "—"}
                     </span>
                   </div>
@@ -331,7 +337,8 @@ export default function CurrencyConverter() {
                 <span className="font-medium">USD - US Dollar</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                The world&apos;s primary reserve currency and most traded currency.
+                The world&apos;s primary reserve currency and most traded
+                currency.
               </p>
             </div>
             <div className="space-y-2">
@@ -349,7 +356,8 @@ export default function CurrencyConverter() {
                 <span className="font-medium">GBP - British Pound</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                One of the oldest currencies still in use, UK&apos;s official currency.
+                One of the oldest currencies still in use, UK&apos;s official
+                currency.
               </p>
             </div>
             <div className="space-y-2">
@@ -367,7 +375,8 @@ export default function CurrencyConverter() {
                 <span className="font-medium">INR - Indian Rupee</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Official currency of India, one of the fastest growing economies.
+                Official currency of India, one of the fastest growing
+                economies.
               </p>
             </div>
             <div className="space-y-2">
@@ -376,7 +385,8 @@ export default function CurrencyConverter() {
                 <span className="font-medium">Real-time Rates</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Exchange rates are updated automatically for accurate conversions.
+                Exchange rates are updated automatically for accurate
+                conversions.
               </p>
             </div>
           </div>
@@ -384,4 +394,4 @@ export default function CurrencyConverter() {
       </Card>
     </div>
   );
-} 
+}
