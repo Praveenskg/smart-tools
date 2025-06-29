@@ -1,66 +1,83 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function AreaCalculator() {
-  const [shape, setShape] = useState<string>("rectangle")
-  const [dimensions, setDimensions] = useState<{ [key: string]: string }>({})
-  const [result, setResult] = useState<number | null>(null)
+  const [shape, setShape] = useState<string>("rectangle");
+  const [dimensions, setDimensions] = useState<{ [key: string]: string }>({});
+  const [result, setResult] = useState<number | null>(null);
 
   const calculateArea = () => {
-    const dims = Object.fromEntries(Object.entries(dimensions).map(([key, value]) => [key, Number.parseFloat(value)]))
+    const dims = Object.fromEntries(
+      Object.entries(dimensions).map(([key, value]) => [
+        key,
+        Number.parseFloat(value),
+      ])
+    );
 
-    let area = 0
+    let area = 0;
 
     switch (shape) {
       case "rectangle":
         if (dims.length && dims.width) {
-          area = dims.length * dims.width
+          area = dims.length * dims.width;
         }
-        break
+        break;
       case "square":
         if (dims.side) {
-          area = dims.side * dims.side
+          area = dims.side * dims.side;
         }
-        break
+        break;
       case "circle":
         if (dims.radius) {
-          area = Math.PI * dims.radius * dims.radius
+          area = Math.PI * dims.radius * dims.radius;
         }
-        break
+        break;
       case "triangle":
         if (dims.base && dims.height) {
-          area = 0.5 * dims.base * dims.height
+          area = 0.5 * dims.base * dims.height;
         }
-        break
+        break;
       case "trapezoid":
         if (dims.base1 && dims.base2 && dims.height) {
-          area = 0.5 * (dims.base1 + dims.base2) * dims.height
+          area = 0.5 * (dims.base1 + dims.base2) * dims.height;
         }
-        break
+        break;
       case "ellipse":
         if (dims.majorAxis && dims.minorAxis) {
-          area = Math.PI * dims.majorAxis * dims.minorAxis
+          area = Math.PI * dims.majorAxis * dims.minorAxis;
         }
-        break
+        break;
     }
 
-    setResult(area)
-  }
+    setResult(area);
+  };
 
   const updateDimension = (key: string, value: string) => {
-    setDimensions((prev) => ({ ...prev, [key]: value }))
-  }
+    setDimensions((prev) => ({ ...prev, [key]: value }));
+  };
 
   const resetForm = () => {
-    setDimensions({})
-    setResult(null)
-  }
+    setDimensions({});
+    setResult(null);
+  };
 
   const getShapeInputs = () => {
     switch (shape) {
@@ -88,7 +105,7 @@ export default function AreaCalculator() {
               />
             </div>
           </>
-        )
+        );
       case "square":
         return (
           <div className="space-y-2">
@@ -101,7 +118,7 @@ export default function AreaCalculator() {
               onChange={(e) => updateDimension("side", e.target.value)}
             />
           </div>
-        )
+        );
       case "circle":
         return (
           <div className="space-y-2">
@@ -114,7 +131,7 @@ export default function AreaCalculator() {
               onChange={(e) => updateDimension("radius", e.target.value)}
             />
           </div>
-        )
+        );
       case "triangle":
         return (
           <>
@@ -139,7 +156,7 @@ export default function AreaCalculator() {
               />
             </div>
           </>
-        )
+        );
       case "trapezoid":
         return (
           <>
@@ -174,7 +191,7 @@ export default function AreaCalculator() {
               />
             </div>
           </>
-        )
+        );
       case "ellipse":
         return (
           <>
@@ -199,37 +216,39 @@ export default function AreaCalculator() {
               />
             </div>
           </>
-        )
+        );
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   const getFormula = () => {
     switch (shape) {
       case "rectangle":
-        return "Area = Length × Width"
+        return "Area = Length × Width";
       case "square":
-        return "Area = Side²"
+        return "Area = Side²";
       case "circle":
-        return "Area = π × Radius²"
+        return "Area = π × Radius²";
       case "triangle":
-        return "Area = ½ × Base × Height"
+        return "Area = ½ × Base × Height";
       case "trapezoid":
-        return "Area = ½ × (Base₁ + Base₂) × Height"
+        return "Area = ½ × (Base₁ + Base₂) × Height";
       case "ellipse":
-        return "Area = π × Major Axis × Minor Axis"
+        return "Area = π × Major Axis × Minor Axis";
       default:
-        return ""
+        return "";
     }
-  }
+  };
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
-      <Card>
+      <Card className="modern-card">
         <CardHeader>
           <CardTitle>Shape Selection</CardTitle>
-          <CardDescription>Choose a shape and enter its dimensions</CardDescription>
+          <CardDescription>
+            Choose a shape and enter its dimensions
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
@@ -237,9 +256,9 @@ export default function AreaCalculator() {
             <Select
               value={shape}
               onValueChange={(value) => {
-                setShape(value)
-                setDimensions({})
-                setResult(null)
+                setShape(value);
+                setDimensions({});
+                setResult(null);
               }}
             >
               <SelectTrigger>
@@ -275,19 +294,25 @@ export default function AreaCalculator() {
       </Card>
 
       {result !== null && (
-        <Card>
+        <Card className="modern-card">
           <CardHeader>
             <CardTitle>Area Result</CardTitle>
-            <CardDescription>Calculated area for the selected shape</CardDescription>
+            <CardDescription>
+              Calculated area for the selected shape
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="text-center p-6 bg-primary/5 rounded-lg">
               <div className="text-sm text-muted-foreground mb-2">Area:</div>
-              <div className="text-3xl font-bold text-primary">{result.toFixed(2)} units²</div>
+              <div className="text-3xl font-bold text-primary">
+                {result.toFixed(2)} units²
+              </div>
             </div>
 
             <div className="space-y-2">
-              <div className="text-sm font-medium">Shape: {shape.charAt(0).toUpperCase() + shape.slice(1)}</div>
+              <div className="text-sm font-medium">
+                Shape: {shape.charAt(0).toUpperCase() + shape.slice(1)}
+              </div>
               <div className="text-sm text-muted-foreground">
                 Dimensions:{" "}
                 {Object.entries(dimensions)
@@ -299,11 +324,13 @@ export default function AreaCalculator() {
 
             <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
               <div className="text-sm font-medium mb-1">Formula Used:</div>
-              <div className="text-sm text-muted-foreground">{getFormula()}</div>
+              <div className="text-sm text-muted-foreground">
+                {getFormula()}
+              </div>
             </div>
           </CardContent>
         </Card>
       )}
     </div>
-  )
+  );
 }
