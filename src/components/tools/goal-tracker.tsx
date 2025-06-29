@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Plus, Trash2, Users } from "lucide-react";
+import { Plus, Trash2, Users, Calendar as CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -29,6 +29,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+
 interface Goal {
   id: string;
   title: string;
@@ -209,6 +218,7 @@ export default function GoalTracker() {
                 <Textarea
                   id="description"
                   placeholder="Describe your goal"
+                  className="resize-none"
                   value={newGoal.description}
                   onChange={(e) =>
                     setNewGoal({ ...newGoal, description: e.target.value })
@@ -241,37 +251,68 @@ export default function GoalTracker() {
                   />
                 </div>
               </div>
-              <div className="space-y-2">
-                <Label>Category</Label>
-                <Select
-                  value={newGoal.category}
-                  onValueChange={(value) =>
-                    setNewGoal({ ...newGoal, category: value })
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Category</Label>
+                  <Select
+                    value={newGoal.category}
+                    onValueChange={(value) =>
+                      setNewGoal({ ...newGoal, category: value })
+                    }
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="deadline">Deadline (Optional)</Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !newGoal.deadline && "text-muted-foreground",
+                          newGoal.deadline && "text-accent-foreground"
+                        )}
+                      >
+                        {newGoal.deadline ? (
+                          format(new Date(newGoal.deadline), "PPP")
+                        ) : (
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                        )}
+                        {newGoal.deadline ? "Change date" : "Set deadline"}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={
+                          newGoal.deadline
+                            ? new Date(newGoal.deadline)
+                            : undefined
+                        }
+                        onSelect={(date) => {
+                          setNewGoal({
+                            ...newGoal,
+                            deadline: date?.toISOString() || "",
+                          });
+                        }}
+                        autoFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="deadline">Deadline (Optional)</Label>
-                <Input
-                  id="deadline"
-                  type="date"
-                  value={newGoal.deadline}
-                  onChange={(e) =>
-                    setNewGoal({ ...newGoal, deadline: e.target.value })
-                  }
-                />
-              </div>
+
               <Button onClick={addGoal} className="w-full">
                 Add Goal
               </Button>
@@ -371,9 +412,7 @@ export default function GoalTracker() {
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <CardTitle className="text-lg gradient-text">
-                        {goal.title}
-                      </CardTitle>
+                      <CardTitle className="text-lg">{goal.title}</CardTitle>
                       <CardDescription className="mt-1">
                         {goal.description}
                       </CardDescription>
@@ -479,9 +518,7 @@ export default function GoalTracker() {
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div className="text-center p-4 border rounded-xl modern-card">
-                <div className="text-2xl font-bold">
-                  {goals.length}
-                </div>
+                <div className="text-2xl font-bold">{goals.length}</div>
                 <div className="text-sm text-muted-foreground">Total Goals</div>
               </div>
               <div className="text-center p-4 border rounded-xl modern-card">
