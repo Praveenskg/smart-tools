@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -278,7 +278,7 @@
   @apply hover:shadow-2xl hover:shadow-primary/20;
   @apply hover:-translate-y-2;
   @apply border border-border/30;
-  @apply bg-gradient-to-br from-card to-card/90;
+  @apply bg-linear-to-br from-card to-card/90;
   @apply backdrop-blur-sm;
   position: relative;
   overflow: hidden;

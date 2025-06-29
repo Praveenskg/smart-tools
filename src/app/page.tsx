@@ -181,17 +181,17 @@ export default function Dashboard() {
     <div className="min-h-screen bg-background flex flex-col">
       <Header isHome={true} />
       <main className="flex-1">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold tracking-tight mb-4">
+        <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
+          <div className="text-center mb-8 sm:mb-12">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-3 sm:mb-4">
               Professional Calculator Suite
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
               Access a comprehensive collection of calculators and utilities
               designed for professionals, students, and everyday use.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2 mb-8 justify-center">
+          <div className="flex flex-wrap gap-1 sm:gap-2 mb-6 sm:mb-8 justify-center">
             {categories.map((category) => (
               <Button
                 key={category.name}
@@ -200,16 +200,16 @@ export default function Dashboard() {
                 }
                 size="sm"
                 onClick={() => setSelectedCategory(category.name)}
-                className="text-sm"
+                className="text-xs sm:text-sm"
               >
                 {category.name}
-                <Badge variant="secondary" className="ml-2">
+                <Badge variant="secondary" className="ml-1 sm:ml-2 text-xs">
                   {category.count}
                 </Badge>
               </Button>
             ))}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {filteredTools
               .sort((a, b) => {
                 if (a.popular && !b.popular) return -1;
@@ -222,21 +222,21 @@ export default function Dashboard() {
                   <Link key={tool.id} href={`/${tool.id}`}>
                     <Card className="h-full hover:shadow-xl hover:border-primary transition-all duration-300 cursor-pointer group hover:scale-105">
                       <CardHeader className="pb-3">
-                        <div className="flex items-center gap-3">
-                          <IconComponent className="h-6 w-6 text-primary flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300" />
-                          <CardTitle className="text-lg group-hover:text-primary transition-colors duration-300">
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <IconComponent className="h-5 w-5 sm:h-6 sm:w-6 text-primary shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300" />
+                          <CardTitle className="text-base sm:text-lg group-hover:text-primary transition-colors duration-300">
                             {tool.name}
                           </CardTitle>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <CardDescription className="text-sm mb-3 group-hover:text-foreground/80 transition-colors duration-300">
+                        <CardDescription className="text-xs sm:text-sm mb-3 group-hover:text-foreground/80 transition-colors duration-300">
                           {tool.description}
                         </CardDescription>
-                        <div className="flex gap-2 flex-wrap">
+                        <div className="flex gap-1 sm:gap-2 flex-wrap">
                           <Badge
                             variant="outline"
-                            className="group-hover:bg-primary/10 group-hover:border-primary transition-all duration-300"
+                            className="text-xs group-hover:bg-primary/10 group-hover:border-primary transition-all duration-300"
                           >
                             {tool.category}
                           </Badge>

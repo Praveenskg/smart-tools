@@ -25,26 +25,26 @@ export default function AgeCalculatorPage() {
     <div className="min-h-screen bg-background flex flex-col">
       <Header title="Age Calculator" icon={Calendar} />
       <main className="flex-1">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
                 Age Calculator
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-base sm:text-lg text-muted-foreground mt-2">
                 Calculate exact age in years, months, and days
               </p>
             </div>
-            <div className="w-full flex justify-center sm:justify-start my-4">
+            <div className="w-full flex justify-center sm:justify-start my-4 sm:my-6">
               <Link href="/" className="w-full sm:w-auto">
-                <Button variant="outline" size="sm" className="w-full">
+                <Button variant="outline" size="sm" className="w-full sm:w-auto">
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Home
                 </Button>
               </Link>
             </div>
             <Card className="shadow-md border border-border">
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <AgeCalculator />
               </CardContent>
             </Card>

@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ErrorBoundary from "@/components/error-boundary";
 import { Analytics } from "@vercel/analytics/next"
+import { PWAUpdateNotification } from "@/components/pwa-update-notification";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -114,6 +115,15 @@ export default function RootLayout({
         <meta name="theme-color" content="#7c3aed" />
         <meta name="color-scheme" content="light dark" />
         <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Smart Tools" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="Smart Tools" />
+        <meta name="msapplication-TileColor" content="#7c3aed" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <link rel="mask-icon" href="/favicon.svg" color="#7c3aed" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -127,6 +137,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <PWAUpdateNotification />
             <Analytics />
           </ThemeProvider>
         </ErrorBoundary>
