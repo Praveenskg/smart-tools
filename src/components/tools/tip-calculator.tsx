@@ -1,39 +1,45 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
+import { useState } from "react";
+import { Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
 
 interface TipResult {
-  billAmount: number
-  tipPercentage: number
-  tipAmount: number
-  totalAmount: number
-  perPersonAmount: number
-  perPersonTip: number
+  billAmount: number;
+  tipPercentage: number;
+  tipAmount: number;
+  totalAmount: number;
+  perPersonAmount: number;
+  perPersonTip: number;
 }
 
 export default function TipCalculator() {
-  const [billAmount, setBillAmount] = useState<string>("")
-  const [tipPercentage, setTipPercentage] = useState<number[]>([15])
-  const [numberOfPeople, setNumberOfPeople] = useState<string>("1")
-  const [result, setResult] = useState<TipResult | null>(null)
+  const [billAmount, setBillAmount] = useState<string>("");
+  const [tipPercentage, setTipPercentage] = useState<number[]>([15]);
+  const [numberOfPeople, setNumberOfPeople] = useState<string>("1");
+  const [result, setResult] = useState<TipResult | null>(null);
 
   const calculateTip = () => {
-    const bill = Number.parseFloat(billAmount)
-    const tip = tipPercentage[0]
-    const people = Number.parseInt(numberOfPeople)
+    const bill = Number.parseFloat(billAmount);
+    const tip = tipPercentage[0];
+    const people = Number.parseInt(numberOfPeople);
 
-    if (!bill || !people) return
+    if (!bill || !people) return;
 
-    const tipAmount = (bill * tip) / 100
-    const totalAmount = bill + tipAmount
-    const perPersonAmount = totalAmount / people
-    const perPersonTip = tipAmount / people
+    const tipAmount = (bill * tip) / 100;
+    const totalAmount = bill + tipAmount;
+    const perPersonAmount = totalAmount / people;
+    const perPersonTip = tipAmount / people;
 
     setResult({
       billAmount: bill,
@@ -42,31 +48,33 @@ export default function TipCalculator() {
       totalAmount,
       perPersonAmount,
       perPersonTip,
-    })
-  }
+    });
+  };
 
   const resetForm = () => {
-    setBillAmount("")
-    setTipPercentage([15])
-    setNumberOfPeople("1")
-    setResult(null)
-  }
+    setBillAmount("");
+    setTipPercentage([15]);
+    setNumberOfPeople("1");
+    setResult(null);
+  };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
-    }).format(amount)
-  }
+    }).format(amount);
+  };
 
-  const quickTipButtons = [10, 15, 18, 20, 25]
+  const quickTipButtons = [10, 15, 18, 20, 25];
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
-      <Card>
+      <Card className="modern-card">
         <CardHeader>
           <CardTitle>Bill Information</CardTitle>
-          <CardDescription>Enter bill details to calculate tip and split</CardDescription>
+          <CardDescription>
+            Enter bill details to calculate tip and split
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
@@ -83,7 +91,9 @@ export default function TipCalculator() {
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <Label>Tip Percentage</Label>
-              <span className="text-2xl font-bold gradient-text">{tipPercentage[0]}%</span>
+              <span className="text-2xl font-bold gradient-text">
+                {tipPercentage[0]}%
+              </span>
             </div>
             <Slider
               value={tipPercentage}
@@ -141,28 +151,36 @@ export default function TipCalculator() {
               <div className="h-2 w-2 rounded-full success-gradient"></div>
               Tip Calculation Results
             </CardTitle>
-            <CardDescription>Bill breakdown and per-person amounts</CardDescription>
+            <CardDescription>
+              Bill breakdown and per-person amounts
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
               <div className="p-4 bg-linear-to-r from-muted to-muted/50 rounded-xl">
                 <div className="flex justify-between items-center">
                   <span>Bill Amount</span>
-                  <span className="font-semibold">{formatCurrency(result.billAmount)}</span>
+                  <span className="font-semibold">
+                    {formatCurrency(result.billAmount)}
+                  </span>
                 </div>
               </div>
 
               <div className="p-4 bg-linear-to-r from-primary/5 to-primary/10 rounded-xl border border-primary/20">
                 <div className="flex justify-between items-center">
                   <span>Tip ({result.tipPercentage}%)</span>
-                  <span className="font-semibold text-primary">{formatCurrency(result.tipAmount)}</span>
+                  <span className="font-semibold text-primary">
+                    {formatCurrency(result.tipAmount)}
+                  </span>
                 </div>
               </div>
 
               <div className="p-4 bg-linear-to-r from-muted to-muted/50 rounded-xl border-2 border-primary/20">
                 <div className="flex justify-between items-center">
                   <span className="font-medium">Total Amount</span>
-                  <span className="text-xl font-bold gradient-text">{formatCurrency(result.totalAmount)}</span>
+                  <span className="text-xl font-bold gradient-text">
+                    {formatCurrency(result.totalAmount)}
+                  </span>
                 </div>
               </div>
             </div>
@@ -176,11 +194,15 @@ export default function TipCalculator() {
                 <div className="grid gap-3">
                   <div className="flex justify-between">
                     <span>Amount per person</span>
-                    <span className="font-semibold">{formatCurrency(result.perPersonAmount)}</span>
+                    <span className="font-semibold">
+                      {formatCurrency(result.perPersonAmount)}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span>Tip per person</span>
-                    <span className="font-semibold">{formatCurrency(result.perPersonTip)}</span>
+                    <span className="font-semibold">
+                      {formatCurrency(result.perPersonTip)}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -190,13 +212,17 @@ export default function TipCalculator() {
               <h4 className="font-semibold mb-2">Quick Summary</h4>
               <p className="text-sm text-muted-foreground">
                 {Number.parseInt(numberOfPeople) > 1
-                  ? `Each person should pay ${formatCurrency(result.perPersonAmount)} (including ${formatCurrency(result.perPersonTip)} tip).`
-                  : `Total amount to pay: ${formatCurrency(result.totalAmount)} (including ${formatCurrency(result.tipAmount)} tip).`}
+                  ? `Each person should pay ${formatCurrency(
+                      result.perPersonAmount
+                    )} (including ${formatCurrency(result.perPersonTip)} tip).`
+                  : `Total amount to pay: ${formatCurrency(
+                      result.totalAmount
+                    )} (including ${formatCurrency(result.tipAmount)} tip).`}
               </p>
             </div>
           </CardContent>
         </Card>
       )}
     </div>
-  )
+  );
 }
