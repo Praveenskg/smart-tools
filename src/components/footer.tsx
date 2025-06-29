@@ -21,7 +21,7 @@ function Footer() {
               </Link>
             </p>
             <p className="text-xs text-muted-foreground/70">
-              Professional calculator suite for modern workflows
+              Professional Calculator Suite for modern workflows
             </p>
           </div>
 

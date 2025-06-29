@@ -59,7 +59,7 @@ self.addEventListener('activate', (event) => {
 // Push notification event
 self.addEventListener('push', (event) => {
   const options = {
-    body: event.data ? event.data.text() : 'Smart Tools - New update available!',
+    body: event.data ? event.data.text() : 'Smart Tools - Professional Calculator Suite - New update available!',
     icon: '/favicon.svg',
     badge: '/favicon.svg',
     vibrate: [100, 50, 100],
@@ -82,7 +82,7 @@ self.addEventListener('push', (event) => {
   };
 
   event.waitUntil(
-    self.registration.showNotification('Smart Tools', options)
+    self.registration.showNotification('Smart Tools - Professional Calculator Suite', options)
   );
 });
 

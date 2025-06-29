@@ -36,7 +36,7 @@ export default function Header({
                   Smart Tools
                 </span>
                 <span className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
-                  Calculator Suite
+                  Professional Calculator Suite
                 </span>
               </div>
             </Link>
@@ -54,7 +54,7 @@ export default function Header({
                     {title}
                   </span>
                   <span className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
-                    Smart Tools
+                    Professional Calculator Suite
                   </span>
                 </div>
               </div>

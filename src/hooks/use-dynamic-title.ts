@@ -36,7 +36,7 @@ export function useDynamicTitle({
       if (currentTool) {
         metaDescription.setAttribute('content', currentTool.description);
       } else {
-        metaDescription.setAttribute('content', 'Professional calculator suite with financial, health, math, and conversion tools. Free online calculators for everyday use.');
+        metaDescription.setAttribute('content', 'Professional Calculator Suite with financial, health, math, and conversion tools. Free online calculators for everyday use.');
       }
     }
     

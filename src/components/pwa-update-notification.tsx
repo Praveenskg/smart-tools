@@ -36,7 +36,7 @@ export function PWAUpdateNotification() {
           <div className="flex-1">
             <h3 className="font-semibold text-sm mb-1">Update Available</h3>
             <p className="text-xs text-muted-foreground mb-3">
-              A new version of Smart Tools is available. Refresh to get the latest features.
+              A new version of Smart Tools - Professional Calculator Suite is available. Refresh to get the latest features.
             </p>
             <div className="flex gap-2">
               <Button size="sm" onClick={handleUpdate} className="text-xs">
