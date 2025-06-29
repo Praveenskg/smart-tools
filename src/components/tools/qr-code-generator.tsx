@@ -176,7 +176,7 @@ export default function QRCodeGenerator() {
   return (
     <div className="space-y-6">
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
+        <Card className="modern-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <QrCode className="h-5 w-5" />
@@ -223,7 +223,7 @@ export default function QRCodeGenerator() {
                   value={errorCorrection}
                   onValueChange={setErrorCorrection}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -333,7 +333,7 @@ export default function QRCodeGenerator() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="modern-card">
           <CardHeader>
             <CardTitle>Generated QR Code</CardTitle>
           </CardHeader>
