@@ -479,7 +479,7 @@ export default function GoalTracker() {
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div className="text-center p-4 border rounded-xl modern-card">
-                <div className="text-2xl font-bold gradient-text">
+                <div className="text-2xl font-bold">
                   {goals.length}
                 </div>
                 <div className="text-sm text-muted-foreground">Total Goals</div>
