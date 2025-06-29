@@ -3,9 +3,9 @@ import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
 function Footer() {
   return (
-    <footer className="relative border-t border-border/50 bg-background/95 backdrop-blur-sm">
-      <div className="absolute top-0 h-px w-full bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
-      <div className="mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-8 lg:py-12 max-w-7xl">
+    <footer className="relative border-t border-border/50 bg-background/95 backdrop-blur-sm ">
+      <div className="absolute top-0 h-[0.5px] w-full bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+      <div className="mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-8  max-w-7xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
           <div className="flex flex-col items-center md:items-start gap-2 text-center md:text-left">
             <p className="text-xs sm:text-sm text-muted-foreground">
