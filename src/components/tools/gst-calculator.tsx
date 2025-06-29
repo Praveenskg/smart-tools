@@ -1,44 +1,56 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface GSTResult {
-  originalAmount: number
-  gstAmount: number
-  totalAmount: number
-  gstRate: number
+  originalAmount: number;
+  gstAmount: number;
+  totalAmount: number;
+  gstRate: number;
 }
 
 export default function GSTCalculator() {
-  const [amount, setAmount] = useState<string>("")
-  const [gstRate, setGstRate] = useState<string>("18")
-  const [calculationType, setCalculationType] = useState<string>("exclusive")
-  const [result, setResult] = useState<GSTResult | null>(null)
+  const [amount, setAmount] = useState<string>("");
+  const [gstRate, setGstRate] = useState<string>("18");
+  const [calculationType, setCalculationType] = useState<string>("exclusive");
+  const [result, setResult] = useState<GSTResult | null>(null);
 
   const calculateGST = () => {
-    const baseAmount = Number.parseFloat(amount)
-    const rate = Number.parseFloat(gstRate) / 100
+    const baseAmount = Number.parseFloat(amount);
+    const rate = Number.parseFloat(gstRate) / 100;
 
-    if (!baseAmount || !rate) return
+    if (!baseAmount || !rate) return;
 
-    let originalAmount: number
-    let gstAmount: number
-    let totalAmount: number
+    let originalAmount: number;
+    let gstAmount: number;
+    let totalAmount: number;
 
     if (calculationType === "exclusive") {
-      originalAmount = baseAmount
-      gstAmount = baseAmount * rate
-      totalAmount = baseAmount + gstAmount
+      originalAmount = baseAmount;
+      gstAmount = baseAmount * rate;
+      totalAmount = baseAmount + gstAmount;
     } else {
-      totalAmount = baseAmount
-      originalAmount = baseAmount / (1 + rate)
-      gstAmount = totalAmount - originalAmount
+      totalAmount = baseAmount;
+      originalAmount = baseAmount / (1 + rate);
+      gstAmount = totalAmount - originalAmount;
     }
 
     setResult({
@@ -46,29 +58,31 @@ export default function GSTCalculator() {
       gstAmount,
       totalAmount,
       gstRate: Number.parseFloat(gstRate),
-    })
-  }
+    });
+  };
 
   const resetForm = () => {
-    setAmount("")
-    setGstRate("18")
-    setCalculationType("exclusive")
-    setResult(null)
-  }
+    setAmount("");
+    setGstRate("18");
+    setCalculationType("exclusive");
+    setResult(null);
+  };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "INR",
-    }).format(amount)
-  }
+    }).format(amount);
+  };
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
-      <Card>
+      <Card className="modern-card">
         <CardHeader>
           <CardTitle>GST Calculation</CardTitle>
-          <CardDescription>Calculate GST amount and total price</CardDescription>
+          <CardDescription>
+            Calculate GST amount and total price
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
@@ -100,14 +114,21 @@ export default function GSTCalculator() {
 
           <div className="space-y-3">
             <Label>Calculation Type</Label>
-            <RadioGroup value={calculationType} onValueChange={setCalculationType}>
+            <RadioGroup
+              value={calculationType}
+              onValueChange={setCalculationType}
+            >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="exclusive" id="exclusive" />
-                <Label htmlFor="exclusive">GST Exclusive (Add GST to amount)</Label>
+                <Label htmlFor="exclusive">
+                  GST Exclusive (Add GST to amount)
+                </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="inclusive" id="inclusive" />
-                <Label htmlFor="inclusive">GST Inclusive (Extract GST from amount)</Label>
+                <Label htmlFor="inclusive">
+                  GST Inclusive (Extract GST from amount)
+                </Label>
               </div>
             </RadioGroup>
           </div>
@@ -124,7 +145,7 @@ export default function GSTCalculator() {
       </Card>
 
       {result && (
-        <Card>
+        <Card className="modern-card">
           <CardHeader>
             <CardTitle>GST Calculation Results</CardTitle>
             <CardDescription>Breakdown of GST calculation</CardDescription>
@@ -133,17 +154,23 @@ export default function GSTCalculator() {
             <div className="space-y-4">
               <div className="flex justify-between items-center p-4 bg-muted rounded-lg">
                 <span>Original Amount</span>
-                <span className="font-semibold">{formatCurrency(result.originalAmount)}</span>
+                <span className="font-semibold">
+                  {formatCurrency(result.originalAmount)}
+                </span>
               </div>
 
               <div className="flex justify-between items-center p-4 bg-primary/5 rounded-lg">
                 <span>GST Amount ({result.gstRate}%)</span>
-                <span className="font-semibold text-primary">{formatCurrency(result.gstAmount)}</span>
+                <span className="font-semibold text-primary">
+                  {formatCurrency(result.gstAmount)}
+                </span>
               </div>
 
               <div className="flex justify-between items-center p-4 bg-muted rounded-lg border-2">
                 <span className="font-medium">Total Amount</span>
-                <span className="text-xl font-bold">{formatCurrency(result.totalAmount)}</span>
+                <span className="text-xl font-bold">
+                  {formatCurrency(result.totalAmount)}
+                </span>
               </div>
             </div>
 
@@ -159,5 +186,5 @@ export default function GSTCalculator() {
         </Card>
       )}
     </div>
-  )
+  );
 }
