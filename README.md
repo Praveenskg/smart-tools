@@ -1,51 +1,50 @@
-# 🚀 Smart Tools - All-in-One Utility Collection
+# 🚀 Smart Tools - Professional Calculator Suite
 
-A modern, responsive web application built with Next.js 14 and TypeScript, featuring a comprehensive collection of practical tools and calculators for everyday use.
+A modern, responsive web application built with Next.js 15 and TypeScript, featuring a comprehensive collection of 13 practical tools and calculators for professionals, students, and everyday use.
 
 ![Smart Tools](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)
 ![Shadcn/ui](https://img.shields.io/badge/Shadcn/ui-2.7-000000?style=for-the-badge)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
 
 ## ✨ Features
 
-### 🏦 Financial Tools
+### 🏦 Financial Tools (4 Tools)
 
-#### **Credit Card EMI Calculator**
-- Calculate monthly EMI with processing fees
-- GST calculation (18%) on interest and fees
-- Detailed amortization schedule
-- PDF export functionality
+#### **EMI Calculator** ⭐ Popular
+- Calculate monthly EMIs for any loan with interest and tenure
+- GST calculation (18%) on interest
+- Detailed amortization schedule with PDF export
 - Interactive pie chart visualization
-- Date-based EMI scheduling
-- Processing fee inclusion
-
-#### **EMI Calculator**
-- Standard loan EMI calculation
-- GST on interest calculation
-- Amortization schedule generation
-- PDF export with detailed breakdown
-- Visual progress charts
 - Date-based payment scheduling
+- Professional PDF reports
+
+#### **Currency Converter** ⭐ Popular
+- Convert between different currencies with real-time exchange rates
+- Support for 170+ world currencies
+- Historical exchange rate data
+- Clean, intuitive interface
+- Real-time updates
 
 #### **GST Calculator**
 - Calculate GST amounts (inclusive/exclusive)
 - Reverse GST calculation
-- Multiple GST rates support
+- Multiple GST rates support (5%, 12%, 18%, 28%)
 - Real-time calculation updates
 - Clean, intuitive interface
 
 #### **Tip Calculator**
 - Restaurant tip calculation
 - Bill splitting functionality
-- Multiple tip percentage options
+- Multiple tip percentage options (10%, 15%, 18%, 20%, 25%)
 - Tax calculation support
 - Per-person amount breakdown
 
 ### 📊 Planning & Tracking
 
-#### **Goal Tracker**
-- Create and manage personal goals
+#### **Goal Tracker** ⭐ Popular
+- Create and manage personal financial goals
 - Progress tracking with visual indicators
 - Category-based organization
 - Deadline management
@@ -53,8 +52,9 @@ A modern, responsive web application built with Next.js 14 and TypeScript, featu
 - Goal completion statistics
 - Progress percentage calculation
 - Days remaining/overdue tracking
+- Interactive charts and progress bars
 
-### 🧮 Mathematical Tools
+### 🧮 Mathematical Tools (2 Tools)
 
 #### **Percentage Calculator**
 - Basic percentage calculations
@@ -62,9 +62,10 @@ A modern, responsive web application built with Next.js 14 and TypeScript, featu
 - Value from percentage
 - Percentage of total
 - Multiple calculation modes
+- Real-time results
 
 #### **Area Calculator**
-- Calculate area of various shapes:
+- Calculate area of various geometric shapes:
   - Rectangle/Square
   - Triangle
   - Circle
@@ -72,11 +73,12 @@ A modern, responsive web application built with Next.js 14 and TypeScript, featu
   - Parallelogram
 - Real-time calculations
 - Unit conversion support
+- Visual shape representation
 
-### 📅 Date & Time Tools
+### 📅 Date & Time Tools (3 Tools)
 
 #### **Age Calculator**
-- Calculate exact age in years, months, days
+- Calculate exact age in years, months, and days
 - Precise date difference calculation
 - Clean, modern interface
 - Instant results
@@ -85,15 +87,25 @@ A modern, responsive web application built with Next.js 14 and TypeScript, featu
 - Find birth date from current age
 - Reverse age calculation
 - Multiple date formats
+- Precise calculations
+
+#### **Timezone Converter**
+- Convert time between different timezones
+- Track multiple world clocks simultaneously
+- 15+ popular timezones pre-configured
+- Real-time clock updates
+- Date and time selection
+- Copy functionality for converted times
 
 ### 🏥 Health & Fitness
 
 #### **BMI Calculator**
 - Body Mass Index calculation
 - Height and weight input
-- BMI category classification
+- BMI category classification (Underweight, Normal, Overweight, Obese)
 - Health status indicators
-- Metric and imperial units
+- Metric and imperial units support
+- Visual health status display
 
 ### 🔄 Conversion Tools
 
@@ -104,13 +116,25 @@ A modern, responsive web application built with Next.js 14 and TypeScript, featu
 - **Area**: Square mm, cm, m, km, inches, feet, yards, acres
 - Real-time conversion
 - Tabbed interface for different categories
+- Clean, organized layout
+
+### 🛠️ Utility Tools
+
+#### **QR Code Generator** ⭐ Popular
+- Create custom QR codes for URLs, text, emails, and more
+- Multiple QR code formats
+- Customizable colors and sizes
+- Download functionality
+- Real-time preview
+- Error correction levels
 
 ## 🛠️ Technology Stack
 
 ### Frontend
 - **Next.js 15** - React framework with App Router
-- **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS** - Utility-first CSS framework
+- **React 19** - Latest React version
+- **TypeScript 5** - Type-safe JavaScript
+- **Tailwind CSS 4** - Utility-first CSS framework
 - **Shadcn/ui** - Modern component library
 - **Lucide React** - Beautiful icons
 
@@ -118,41 +142,53 @@ A modern, responsive web application built with Next.js 14 and TypeScript, featu
 - **Recharts** - Composable charting library
 - **Pie charts** for financial breakdowns
 - **Progress bars** for goal tracking
+- **Line charts** for trends
 
 ### PDF Generation
 - **jsPDF** - Client-side PDF generation
 - **jspdf-autotable** - Table generation in PDFs
 
+### QR Code Generation
+- **qrcode** - QR code generation library
+- **@types/qrcode** - TypeScript definitions
+
 ### Date Handling
 - **date-fns** - Modern date utility library
+- **react-day-picker** - Date picker component
+
+### Analytics
+- **@vercel/analytics** - Web analytics
 
 ### State Management
 - **React Hooks** - useState, useEffect, useCallback, useMemo
 - **Local Storage** - Client-side data persistence
+- **Custom Hooks** - useDynamicTitle, useMobile, usePerformance, useSEO
 
 ## 🎨 Design Features
 
 ### Modern UI/UX
 - **Responsive Design** - Works on all devices
 - **Dark/Light Mode** - Theme switching capability
-- **Modern Cards** - Clean, elevated design
+- **Modern Cards** - Clean, elevated design with hover animations
 - **Gradient Text** - Eye-catching typography
-- **Smooth Animations** - Fade-in and slide effects
+- **Smooth Animations** - Scale, rotation, and color transitions
 - **Interactive Elements** - Hover states and transitions
+- **Professional Layout** - Clean, organized interface
 
 ### Component Architecture
 - **Modular Design** - Reusable components
 - **Type Safety** - Full TypeScript implementation
 - **Accessibility** - ARIA labels and keyboard navigation
 - **Performance** - Optimized rendering and lazy loading
+- **Error Boundaries** - Graceful error handling
 
 ## 📱 Responsive Design
 
 The application is fully responsive and optimized for:
-- **Desktop** - Full-featured experience
-- **Tablet** - Adaptive layout
-- **Mobile** - Touch-friendly interface
-- **All screen sizes** - Fluid design
+- **Desktop** - Full-featured experience with grid layouts
+- **Tablet** - Adaptive layout with touch-friendly elements
+- **Mobile** - Touch-friendly interface with optimized spacing
+- **All screen sizes** - Fluid design with breakpoint optimization
 
 ## 🚀 Getting Started
 
@@ -189,11 +225,16 @@ The application is fully responsive and optimized for:
 4. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
-### Build for Production
+### Available Scripts
 
 ```bash
-npm run build
-npm start
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run lint:fix     # Fix ESLint issues
+npm run type-check   # TypeScript type checking
+npm run clean        # Clean build files
 ```
 
 ## 📁 Project Structure
@@ -203,16 +244,31 @@ smart-tools/
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── globals.css         # Global styles
-│   │   ├── layout.tsx          # Root layout
-│   │   └── page.tsx            # Main dashboard
+│   │   ├── layout.tsx          # Root layout with metadata
+│   │   ├── page.tsx            # Main dashboard
+│   │   └── [tool]/             # Individual tool pages
+│   │       └── page.tsx        # Tool-specific pages
 │   ├── components/
 │   │   ├── ui/                 # Shadcn/ui components
-│   │   ├── tools/              # Tool components
+│   │   ├── tools/              # Tool components (13 tools)
 │   │   ├── theme-provider.tsx  # Theme context
-│   │   └── theme-toggle.tsx    # Theme switcher
+│   │   ├── theme-toggle.tsx    # Theme switcher
+│   │   ├── header.tsx          # Navigation header
+│   │   ├── footer.tsx          # Footer component
+│   │   ├── clock.tsx           # Clock component
+│   │   ├── loading.tsx         # Loading states
+│   │   └── error-boundary.tsx  # Error handling
 │   ├── hooks/                  # Custom React hooks
+│   │   ├── use-dynamic-title.ts
+│   │   ├── use-mobile.ts
+│   │   ├── use-performance.ts
+│   │   └── use-seo.ts
 │   └── lib/                    # Utility functions
+│       └── utils.ts            # Helper functions
 ├── public/                     # Static assets
+├── components.json             # Shadcn/ui configuration
+├── tailwind.config.js          # Tailwind configuration
+├── next.config.ts              # Next.js configuration
 └── package.json               # Dependencies and scripts
 ```
 
@@ -222,30 +278,47 @@ smart-tools/
 - **Local Storage** - Goals and preferences persist across sessions
 - **No Server Required** - All calculations done client-side
 - **Privacy First** - Data stays on your device
+- **Offline Capable** - Works without internet connection
 
 ### Export Functionality
 - **PDF Export** - Download detailed reports
 - **Professional Formatting** - Clean, printable documents
 - **Complete Data** - All calculations and schedules included
+- **QR Code Downloads** - Save generated QR codes
 
 ### Performance
 - **Fast Loading** - Optimized bundle size
 - **Smooth Interactions** - 60fps animations
 - **Efficient Calculations** - Real-time updates
+- **Lazy Loading** - Components load on demand
+
+### SEO & Analytics
+- **Dynamic Titles** - SEO-optimized page titles
+- **Meta Tags** - Proper meta descriptions
+- **Vercel Analytics** - Performance tracking
+- **Open Graph** - Social media sharing
 
 ## 🔧 Customization
 
 ### Adding New Tools
 1. Create a new component in `src/components/tools/`
 2. Add the tool to the tools array in `src/app/page.tsx`
-3. Include proper TypeScript interfaces
-4. Add responsive design considerations
+3. Create a page in `src/app/[tool-name]/page.tsx`
+4. Include proper TypeScript interfaces
+5. Add responsive design considerations
+6. Implement error handling
 
 ### Styling
 - Uses Tailwind CSS for styling
 - Shadcn/ui components for consistency
 - Custom CSS classes for special effects
+- Theme-aware color schemes
 
+### Animation
+- Hover animations on cards
+- Icon scale and rotation effects
+- Smooth color transitions
+- Professional micro-interactions
 
 ## 🤝 Contributing
 
@@ -265,6 +338,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Shadcn/ui** - Beautiful component library
 - **Tailwind CSS** - Utility-first CSS framework
 - **Vercel** - Deployment platform
+- **Lucide** - Beautiful icons
+- **Recharts** - Charting library
 
 ## 📞 Support
 
@@ -273,6 +348,10 @@ If you have any questions or need help:
 - Check the documentation
 - Review the code examples
 
+## 🌟 Live Demo
+
+Visit the live application: [Smart Tools](https://tools.praveensingh.online)
+
 ---
 
-**Made with ❤️ using Next.js, TypeScript, and Tailwind CSS**
+**Made with ❤️ using Next.js 15, React 19, TypeScript, and Tailwind CSS**
