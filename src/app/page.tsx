@@ -12,6 +12,7 @@ import {
   Target,
   TrendingUp,
   QrCode,
+  Globe,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,7 +51,7 @@ const tools = [
     description: "Calculate exact age in years, months, and days",
     icon: Calendar,
     category: "Date & Time",
-    popular: true,
+    popular: false,
   },
   {
     id: "gst-calculator",
@@ -116,7 +117,7 @@ const tools = [
     description: "Plan and monitor your savings journey toward financial goals",
     icon: Target,
     category: "Planning",
-    popular: false,
+    popular: true,
   },
   {
     id: "currency-converter",
@@ -126,6 +127,15 @@ const tools = [
     icon: DollarSign,
     category: "Financial",
     popular: true,
+  },
+  {
+    id: "timezone-converter",
+    name: "Timezone Converter",
+    description:
+      "Convert time between different timezones and track world clocks",
+    icon: Globe,
+    category: "Date & Time",
+    popular: false,
   },
 ];
 const categories = [
