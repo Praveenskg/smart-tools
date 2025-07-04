@@ -14,6 +14,7 @@ import {
   QrCode,
   Globe,
   Image,
+  ListTodo,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -116,6 +117,14 @@ const tools = [
     name: "Goal Tracker",
     description: "Plan and monitor your savings journey toward financial goals",
     icon: Target,
+    category: "Planning",
+    popular: true,
+  },
+  {
+    id: "todo-list",
+    name: "ToDo List",
+    description: "Stay organized and productive with a simple todo list",
+    icon: ListTodo,
     category: "Planning",
     popular: true,
   },
