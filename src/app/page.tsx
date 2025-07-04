@@ -13,6 +13,7 @@ import {
   TrendingUp,
   QrCode,
   Globe,
+  Image,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,6 +29,14 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Link from "next/link";
 const tools = [
+  {
+    id: "image-tools",
+    name: "Image Tools",
+    description: "Professional image processing tools - resize, convert, compress, and more",
+    icon: Image,
+    category: "Utility",
+    popular: true,
+  },
   {
     id: "qr-code-generator",
     name: "QR Code Generator",
