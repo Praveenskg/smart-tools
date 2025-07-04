@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ErrorBoundary from "@/components/error-boundary";
+import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from "@vercel/analytics/next";
 import { PWAUpdateNotification } from "@/components/pwa-update-notification";
 
@@ -130,6 +131,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           >
             {children}
             <PWAUpdateNotification />
+            <Toaster position="top-right" expand={true} richColors closeButton />
             <Analytics />
           </ThemeProvider>
         </ErrorBoundary>
