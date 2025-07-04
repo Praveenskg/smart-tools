@@ -4,7 +4,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  Image,
   Upload,
   Crop,
   Palette,
@@ -13,10 +12,13 @@ import {
   Settings,
   Zap,
   Download,
+  ImagesIcon,
 } from "lucide-react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { useDynamicTitle } from "@/hooks/use-dynamic-title";
+import Image from "next/image";
+import { toast } from "sonner";
 
 export default function ImageTools() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -93,7 +95,7 @@ export default function ImageTools() {
                 <span className="hidden sm:inline">Colors</span>
               </TabsTrigger>
               <TabsTrigger value="background-remover" className="flex items-center gap-2">
-                <Image className="h-4 w-4" />
+                <ImagesIcon className="h-4 w-4" />
                 <span className="hidden sm:inline">BG Remove</span>
               </TabsTrigger>
               <TabsTrigger value="cropper" className="flex items-center gap-2">
@@ -166,11 +168,12 @@ export default function ImageTools() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex justify-center">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={imageUrl}
                       alt="Selected"
-                      className="max-w-full max-h-64 object-contain rounded-lg border"
+                      height={256}
+                      width={256}
+                      className="object-contain rounded-lg border"
                     />
                   </div>
                 </CardContent>
@@ -364,16 +367,15 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
                     {width} × {height} pixels
                   </div>
                   <div className="flex justify-center">
-                    <img
-                      src={imageUrl}
-                      alt="Preview"
-                      style={{
-                        width: Math.min(width, 200),
-                        height: Math.min(height, 200),
-                        objectFit: "contain",
-                      }}
-                      className="border rounded"
-                    />
+                    {imageUrl && (
+                      <Image
+                        src={imageUrl}
+                        alt="Preview"
+                        width={Math.min(width, 200)}
+                        height={Math.min(height, 200)}
+                        className="border rounded object-contain"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -518,11 +520,15 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
                     {selectedImage.type || "Unknown"}
                   </div>
                   <div className="flex justify-center">
-                    <img
-                      src={imageUrl}
-                      alt="Original"
-                      className="max-w-full max-h-32 object-contain border rounded"
-                    />
+                    {imageUrl && (
+                      <Image
+                        src={imageUrl}
+                        height={128}
+                        width={128}
+                        alt="Original"
+                        className="object-contain border rounded"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -668,11 +674,15 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
                 <label className="text-sm font-medium">Preview</label>
                 <div className="border rounded-lg p-4 bg-muted/20">
                   <div className="flex justify-center">
-                    <img
-                      src={imageUrl}
-                      alt="Original"
-                      className="max-w-full max-h-32 object-contain border rounded"
-                    />
+                    {imageUrl && (
+                      <Image
+                        src={imageUrl}
+                        height={128}
+                        width={128}
+                        alt="Original"
+                        className="object-contain border rounded"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -970,7 +980,7 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Image className="h-5 w-5" />
+          <ImagesIcon className="h-5 w-5" />
           Background Remover
         </CardTitle>
         <CardDescription>Remove background from images automatically</CardDescription>
@@ -1026,7 +1036,7 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
                     </>
                   ) : (
                     <>
-                      <Image className="h-4 w-4 mr-2" />
+                      <ImagesIcon className="h-4 w-4 mr-2" />
                       Remove Background
                     </>
                   )}
@@ -1047,11 +1057,15 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
                   <label className="text-sm font-medium">Original</label>
                   <div className="border rounded-lg p-4 bg-muted/20">
                     <div className="flex justify-center">
-                      <img
-                        src={imageUrl}
-                        alt="Original"
-                        className="max-w-full max-h-32 object-contain border rounded"
-                      />
+                      {imageUrl && (
+                        <Image
+                          src={imageUrl}
+                          height={128}
+                          width={128}
+                          alt="Original"
+                          className="object-contain border rounded"
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1061,10 +1075,12 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
                     <label className="text-sm font-medium">Processed</label>
                     <div className="border rounded-lg p-4 bg-muted/20">
                       <div className="flex justify-center">
-                        <img
+                        <Image
                           src={processedImageUrl}
                           alt="Processed"
-                          className="max-w-full max-h-32 object-contain border rounded"
+                          height={128}
+                          width={128}
+                          className="object-contain border rounded"
                         />
                       </div>
                     </div>
@@ -1355,11 +1371,15 @@ function MetadataViewer({ selectedImage }: { selectedImage: File | null }) {
                 <p className="font-medium">Image Preview</p>
                 <div className="border rounded-lg p-4 bg-muted/20">
                   <div className="flex justify-center">
-                    <img
-                      src={imageUrl}
-                      alt="Preview"
-                      className="max-w-full max-h-32 object-contain border rounded"
-                    />
+                    {imageUrl && (
+                      <Image
+                        src={imageUrl}
+                        height={128}
+                        width={128}
+                        alt="Original"
+                        className="object-contain border rounded"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -1381,7 +1401,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
     sepia: 0,
   });
   const [processedImageUrl, setProcessedImageUrl] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
   useEffect(() => {
@@ -1401,6 +1421,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
   }, [selectedImage]);
 
   const applyFilters = () => {
+    if (!imageUrl) return;
     setIsProcessing(true);
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -1474,6 +1495,11 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
           0.9,
         );
       }
+    };
+
+    img.onerror = () => {
+      toast.error("Image failed to load.");
+      setIsProcessing(false);
     };
 
     img.src = imageUrl;
@@ -1638,11 +1664,15 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                   <label className="text-sm font-medium">Original</label>
                   <div className="border rounded-lg p-4 bg-muted/20">
                     <div className="flex justify-center">
-                      <img
-                        src={imageUrl}
-                        alt="Original"
-                        className="max-w-full max-h-32 object-contain border rounded"
-                      />
+                      {imageUrl && (
+                        <Image
+                          src={imageUrl}
+                          alt="Preview"
+                          width={128}
+                          height={128}
+                          className="object-contain border rounded"
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1651,12 +1681,16 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                   <label className="text-sm font-medium">Preview</label>
                   <div className="border rounded-lg p-4 bg-muted/20">
                     <div className="flex justify-center">
-                      <img
-                        src={imageUrl}
-                        alt="Preview"
-                        className="max-w-full max-h-32 object-contain border rounded"
-                        style={getFilterStyle()}
-                      />
+                      {imageUrl && (
+                        <Image
+                          src={imageUrl}
+                          alt="Preview"
+                          width={128}
+                          height={128}
+                          className="object-contain border rounded"
+                          style={getFilterStyle()}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1666,10 +1700,12 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                     <label className="text-sm font-medium">Processed</label>
                     <div className="border rounded-lg p-4 bg-muted/20">
                       <div className="flex justify-center">
-                        <img
+                        <Image
                           src={processedImageUrl}
-                          alt="Processed"
-                          className="max-w-full max-h-32 object-contain border rounded"
+                          alt="Original"
+                          width={128}
+                          height={128}
+                          className="object-contain border rounded"
                         />
                       </div>
                     </div>
