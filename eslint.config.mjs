@@ -14,9 +14,9 @@ const eslintConfig = [
   {
     files: ["src/app/image-tools/page.tsx"],
     rules: {
-      "jsx-a11y/alt-text": "off"
-    }
-  }
+      "jsx-a11y/alt-text": "off",
+    },
+  },
 ];
 
 export default eslintConfig;
