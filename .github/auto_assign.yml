@@ -1,0 +1,14 @@
+addAssignees: true
+assignees:
+  - praveenskg
+
+addReviewers: true
+reviewers:
+  - praveenskg
+
+skipKeywords:
+  - "no assign"
+  - "skip assign"
+
+numberOfAssignees: 1
+numberOfReviewers: 1
