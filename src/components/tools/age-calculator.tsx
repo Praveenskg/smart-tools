@@ -1,13 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 interface AgeResult {
@@ -20,9 +14,7 @@ interface AgeResult {
 }
 export default function AgeCalculator() {
   const [birthDate, setBirthDate] = useState<string>("");
-  const [targetDate, setTargetDate] = useState<string>(
-    new Date().toISOString().split("T")[0]
-  );
+  const [targetDate, setTargetDate] = useState<string>(new Date().toISOString().split("T")[0]);
   const [result, setResult] = useState<AgeResult | null>(null);
   const calculateAge = () => {
     if (!birthDate) return;
@@ -44,9 +36,7 @@ export default function AgeCalculator() {
       years--;
       months += 12;
     }
-    const totalDays = Math.floor(
-      (target.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24)
-    );
+    const totalDays = Math.floor((target.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
     const totalWeeks = Math.floor(totalDays / 7);
     const totalMonths = years * 12 + months;
     setResult({
@@ -81,7 +71,7 @@ export default function AgeCalculator() {
               id="birthDate"
               type="date"
               value={birthDate}
-              onChange={(e) => setBirthDate(e.target.value)}
+              onChange={e => setBirthDate(e.target.value)}
             />
           </div>
           <div className="space-y-2">
@@ -92,21 +82,14 @@ export default function AgeCalculator() {
               id="targetDate"
               type="date"
               value={targetDate}
-              onChange={(e) => setTargetDate(e.target.value)}
+              onChange={e => setTargetDate(e.target.value)}
             />
           </div>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <Button
-              onClick={calculateAge}
-              className="flex-1 text-sm sm:text-base"
-            >
+            <Button onClick={calculateAge} className="flex-1 text-sm sm:text-base">
               Calculate Age
             </Button>
-            <Button
-              onClick={resetForm}
-              variant="outline"
-              className="flex-1 text-sm sm:text-base"
-            >
+            <Button onClick={resetForm} variant="outline" className="flex-1 text-sm sm:text-base">
               Reset
             </Button>
           </div>
@@ -115,9 +98,7 @@ export default function AgeCalculator() {
       {result && (
         <Card className="modern-card">
           <CardHeader>
-            <CardTitle className="text-lg sm:text-xl">
-              Age Calculation Results
-            </CardTitle>
+            <CardTitle className="text-lg sm:text-xl">Age Calculation Results</CardTitle>
             <CardDescription className="text-sm sm:text-base">
               Your exact age breakdown
             </CardDescription>
@@ -130,36 +111,20 @@ export default function AgeCalculator() {
             </div>
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <div className="text-center p-3 sm:p-4 border rounded-lg">
-                <div className="text-lg sm:text-xl lg:text-2xl font-bold">
-                  {result.totalDays}
-                </div>
-                <div className="text-xs sm:text-sm text-muted-foreground">
-                  Total Days
-                </div>
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">{result.totalDays}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Total Days</div>
               </div>
               <div className="text-center p-3 sm:p-4 border rounded-lg">
-                <div className="text-lg sm:text-xl lg:text-2xl font-bold">
-                  {result.totalWeeks}
-                </div>
-                <div className="text-xs sm:text-sm text-muted-foreground">
-                  Total Weeks
-                </div>
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">{result.totalWeeks}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Total Weeks</div>
               </div>
               <div className="text-center p-3 sm:p-4 border rounded-lg">
-                <div className="text-lg sm:text-xl lg:text-2xl font-bold">
-                  {result.totalMonths}
-                </div>
-                <div className="text-xs sm:text-sm text-muted-foreground">
-                  Total Months
-                </div>
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">{result.totalMonths}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Total Months</div>
               </div>
               <div className="text-center p-3 sm:p-4 border rounded-lg">
-                <div className="text-lg sm:text-xl lg:text-2xl font-bold">
-                  {result.years}
-                </div>
-                <div className="text-xs sm:text-sm text-muted-foreground">
-                  Total Years
-                </div>
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">{result.years}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Total Years</div>
               </div>
             </div>
           </CardContent>

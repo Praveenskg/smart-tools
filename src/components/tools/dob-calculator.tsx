@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -31,7 +25,7 @@ export default function DOBCalculator() {
   const [currentAge, setCurrentAge] = useState<string>("");
   const [ageUnit, setAgeUnit] = useState<string>("years");
   const [referenceDate, setReferenceDate] = useState<string>(
-    new Date().toISOString().split("T")[0]
+    new Date().toISOString().split("T")[0],
   );
   const [result, setResult] = useState<DOBResult | null>(null);
 
@@ -135,9 +129,7 @@ export default function DOBCalculator() {
       <Card className="modern-card">
         <CardHeader>
           <CardTitle>Age Information</CardTitle>
-          <CardDescription>
-            Enter current age to find date of birth
-          </CardDescription>
+          <CardDescription>Enter current age to find date of birth</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid gap-4 sm:grid-cols-2">
@@ -148,7 +140,7 @@ export default function DOBCalculator() {
                 type="number"
                 placeholder="Enter current age"
                 value={currentAge}
-                onChange={(e) => setCurrentAge(e.target.value)}
+                onChange={e => setCurrentAge(e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -173,7 +165,7 @@ export default function DOBCalculator() {
               id="referenceDate"
               type="date"
               value={referenceDate}
-              onChange={(e) => setReferenceDate(e.target.value)}
+              onChange={e => setReferenceDate(e.target.value)}
             />
             <p className="text-xs text-muted-foreground">
               The date from which to calculate backwards
@@ -199,15 +191,9 @@ export default function DOBCalculator() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="text-center p-6 bg-primary/5 rounded-lg">
-              <div className="text-sm text-muted-foreground mb-2">
-                Date of Birth:
-              </div>
-              <div className="text-2xl font-bold text-primary mb-1">
-                {result.formattedDOB}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                ({result.dayOfWeek})
-              </div>
+              <div className="text-sm text-muted-foreground mb-2">Date of Birth:</div>
+              <div className="text-2xl font-bold text-primary mb-1">{result.formattedDOB}</div>
+              <div className="text-sm text-muted-foreground">({result.dayOfWeek})</div>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
@@ -225,8 +211,8 @@ export default function DOBCalculator() {
               <h4 className="font-semibold mb-2">Calculation Summary:</h4>
               <p className="text-sm text-muted-foreground">
                 Based on being {currentAge} {ageUnit} old on{" "}
-                {new Date(referenceDate).toLocaleDateString()}, the calculated
-                date of birth is {result.formattedDOB}.
+                {new Date(referenceDate).toLocaleDateString()}, the calculated date of birth is{" "}
+                {result.formattedDOB}.
               </p>
             </div>
           </CardContent>

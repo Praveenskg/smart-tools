@@ -24,10 +24,7 @@ export default function Header({
       <div className="container mx-auto flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4 lg:px-6">
         <div className="flex items-center space-x-2 sm:space-x-3">
           {isHome ? (
-            <Link
-              href="/"
-              className="flex items-center space-x-2 sm:space-x-3 group"
-            >
+            <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
               <div className="flex h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80 shadow-md">
                 <IconComponent className="h-4 w-4 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary-foreground transition-transform duration-200 group-hover:rotate-12" />
               </div>
@@ -41,10 +38,7 @@ export default function Header({
               </div>
             </Link>
           ) : (
-            <Link
-              href="/"
-              className="flex items-center space-x-2 sm:space-x-3 group"
-            >
+            <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
               <div className="flex items-center space-x-2 sm:space-x-3 group">
                 <div className="flex h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80 shadow-md">
                   <IconComponent className="h-4 w-4 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary-foreground" />

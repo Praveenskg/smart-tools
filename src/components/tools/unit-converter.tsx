@@ -3,13 +3,7 @@
 import { useState } from "react";
 import { ArrowRightLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -154,8 +148,7 @@ export default function UnitConverter() {
               <CardHeader>
                 <CardTitle>{categoryData.name} Converter</CardTitle>
                 <CardDescription>
-                  Convert between different {categoryData.name.toLowerCase()}{" "}
-                  units
+                  Convert between different {categoryData.name.toLowerCase()} units
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -167,13 +160,11 @@ export default function UnitConverter() {
                         <SelectValue placeholder="Select unit" />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(categoryData.units).map(
-                          ([unitKey, unitData]) => (
-                            <SelectItem key={unitKey} value={unitKey}>
-                              {unitData.name}
-                            </SelectItem>
-                          )
-                        )}
+                        {Object.entries(categoryData.units).map(([unitKey, unitData]) => (
+                          <SelectItem key={unitKey} value={unitKey}>
+                            {unitData.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -185,13 +176,11 @@ export default function UnitConverter() {
                         <SelectValue placeholder="Select unit" />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(categoryData.units).map(
-                          ([unitKey, unitData]) => (
-                            <SelectItem key={unitKey} value={unitKey}>
-                              {unitData.name}
-                            </SelectItem>
-                          )
-                        )}
+                        {Object.entries(categoryData.units).map(([unitKey, unitData]) => (
+                          <SelectItem key={unitKey} value={unitKey}>
+                            {unitData.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -205,7 +194,7 @@ export default function UnitConverter() {
                       type="number"
                       placeholder="Enter value to convert"
                       value={inputValue}
-                      onChange={(e) => setInputValue(e.target.value)}
+                      onChange={e => setInputValue(e.target.value)}
                       className="flex-1"
                     />
                     <Button
@@ -223,11 +212,7 @@ export default function UnitConverter() {
                   <Button onClick={convertUnits} className="flex-1">
                     Convert
                   </Button>
-                  <Button
-                    onClick={resetForm}
-                    variant="outline"
-                    className="flex-1"
-                  >
+                  <Button onClick={resetForm} variant="outline" className="flex-1">
                     Reset
                   </Button>
                 </div>

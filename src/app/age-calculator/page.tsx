@@ -28,9 +28,7 @@ export default function AgeCalculatorPage() {
         <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
-                Age Calculator
-              </h1>
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Age Calculator</h1>
               <p className="text-base sm:text-lg text-muted-foreground mt-2">
                 Calculate exact age in years, months, and days
               </p>

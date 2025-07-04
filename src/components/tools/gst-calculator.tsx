@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -80,9 +74,7 @@ export default function GSTCalculator() {
       <Card className="modern-card">
         <CardHeader>
           <CardTitle>GST Calculation</CardTitle>
-          <CardDescription>
-            Calculate GST amount and total price
-          </CardDescription>
+          <CardDescription>Calculate GST amount and total price</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
@@ -92,7 +84,7 @@ export default function GSTCalculator() {
               type="number"
               placeholder="Enter amount"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={e => setAmount(e.target.value)}
             />
           </div>
 
@@ -114,21 +106,14 @@ export default function GSTCalculator() {
 
           <div className="space-y-3">
             <Label>Calculation Type</Label>
-            <RadioGroup
-              value={calculationType}
-              onValueChange={setCalculationType}
-            >
+            <RadioGroup value={calculationType} onValueChange={setCalculationType}>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="exclusive" id="exclusive" />
-                <Label htmlFor="exclusive">
-                  GST Exclusive (Add GST to amount)
-                </Label>
+                <Label htmlFor="exclusive">GST Exclusive (Add GST to amount)</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="inclusive" id="inclusive" />
-                <Label htmlFor="inclusive">
-                  GST Inclusive (Extract GST from amount)
-                </Label>
+                <Label htmlFor="inclusive">GST Inclusive (Extract GST from amount)</Label>
               </div>
             </RadioGroup>
           </div>
@@ -154,9 +139,7 @@ export default function GSTCalculator() {
             <div className="space-y-4">
               <div className="flex justify-between items-center p-4 bg-muted rounded-lg">
                 <span>Original Amount</span>
-                <span className="font-semibold">
-                  {formatCurrency(result.originalAmount)}
-                </span>
+                <span className="font-semibold">{formatCurrency(result.originalAmount)}</span>
               </div>
 
               <div className="flex justify-between items-center p-4 bg-primary/5 rounded-lg">
@@ -168,9 +151,7 @@ export default function GSTCalculator() {
 
               <div className="flex justify-between items-center p-4 bg-muted rounded-lg border-2">
                 <span className="font-medium">Total Amount</span>
-                <span className="text-xl font-bold">
-                  {formatCurrency(result.totalAmount)}
-                </span>
+                <span className="text-xl font-bold">{formatCurrency(result.totalAmount)}</span>
               </div>
             </div>
 

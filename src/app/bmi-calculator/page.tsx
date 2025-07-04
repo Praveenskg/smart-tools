@@ -29,9 +29,7 @@ export default function BMICalculatorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
-                BMI Calculator
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tight">BMI Calculator</h1>
               <p className="text-lg text-muted-foreground">
                 Calculate Body Mass Index and health status
               </p>

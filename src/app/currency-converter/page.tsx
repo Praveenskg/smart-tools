@@ -17,8 +17,7 @@ export default function CurrencyConverterPage() {
       id: "currency-converter",
       name: "Currency Converter",
       category: "Financial",
-      description:
-        "Convert between different currencies with real-time exchange rates",
+      description: "Convert between different currencies with real-time exchange rates",
     },
     selectedCategory: "Financial",
     baseTitle: "Smart Tools",
@@ -31,12 +30,9 @@ export default function CurrencyConverterPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
-                Currency Converter
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tight">Currency Converter</h1>
               <p className="text-lg text-muted-foreground">
-                Convert between different currencies with real-time exchange
-                rates
+                Convert between different currencies with real-time exchange rates
               </p>
             </div>
             <div className="w-full flex justify-center sm:justify-start my-4">

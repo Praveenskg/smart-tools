@@ -3,16 +3,16 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Image, 
-  Upload, 
-  Crop, 
-  Palette, 
-  FileImage, 
+import {
+  Image,
+  Upload,
+  Crop,
+  Palette,
+  FileImage,
   Eye,
   Settings,
   Zap,
-  Download
+  Download,
 } from "lucide-react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -22,13 +22,14 @@ export default function ImageTools() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string>("");
   const [activeTab, setActiveTab] = useState("resizer");
-  
+
   useDynamicTitle({
     currentTool: {
       id: "image-tools",
       name: "Image Tools",
       category: "Image Processing",
-      description: "Professional image editing and processing tools including resizer, converter, compressor, and more."
+      description:
+        "Professional image editing and processing tools including resizer, converter, compressor, and more.",
     },
     selectedCategory: "Image Processing",
     baseTitle: "Smart Tools",
@@ -50,7 +51,7 @@ export default function ImageTools() {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
+    if (file && file.type.startsWith("image/")) {
       handleImageUpload(file);
     }
   };
@@ -117,7 +118,7 @@ export default function ImageTools() {
                     className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-muted-foreground/50 transition-colors cursor-pointer"
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}
-                    onClick={() => document.getElementById('image-upload')?.click()}
+                    onClick={() => document.getElementById("image-upload")?.click()}
                   >
                     <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                     <h3 className="text-lg font-semibold mb-2">Upload an Image</h3>
@@ -221,14 +222,17 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
   const [width, setWidth] = useState<number>(800);
   const [height, setHeight] = useState<number>(600);
   const [maintainAspectRatio, setMaintainAspectRatio] = useState<boolean>(true);
-  const [originalDimensions, setOriginalDimensions] = useState<{width: number, height: number} | null>(null);
+  const [originalDimensions, setOriginalDimensions] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
   const [imageUrl, setImageUrl] = useState<string>("");
 
   useEffect(() => {
     if (selectedImage) {
       const url = URL.createObjectURL(selectedImage);
       setImageUrl(url);
-      
+
       // Get original dimensions
       const img = new window.Image();
       img.onload = () => {
@@ -264,27 +268,31 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
   };
 
   const downloadResizedImage = () => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
     const img = new window.Image();
-    
+
     img.onload = () => {
       canvas.width = width;
       canvas.height = height;
       ctx?.drawImage(img, 0, 0, width, height);
-      
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `resized_${selectedImage?.name || 'image'}`;
-          a.click();
-          URL.revokeObjectURL(url);
-        }
-      }, 'image/jpeg', 0.9);
+
+      canvas.toBlob(
+        blob => {
+          if (blob) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `resized_${selectedImage?.name || "image"}`;
+            a.click();
+            URL.revokeObjectURL(url);
+          }
+        },
+        "image/jpeg",
+        0.9,
+      );
     };
-    
+
     img.src = imageUrl;
   };
 
@@ -295,9 +303,7 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
           <Crop className="h-5 w-5" />
           Image Resizer
         </CardTitle>
-        <CardDescription>
-          Resize your image to specific dimensions
-        </CardDescription>
+        <CardDescription>Resize your image to specific dimensions</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
@@ -314,7 +320,7 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
                   <input
                     type="number"
                     value={width}
-                    onChange={(e) => handleWidthChange(Number(e.target.value))}
+                    onChange={e => handleWidthChange(Number(e.target.value))}
                     className="w-full mt-1 px-3 py-2 border border-input rounded-md bg-background"
                     min="1"
                     max="4000"
@@ -325,7 +331,7 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
                   <input
                     type="number"
                     value={height}
-                    onChange={(e) => handleHeightChange(Number(e.target.value))}
+                    onChange={e => handleHeightChange(Number(e.target.value))}
                     className="w-full mt-1 px-3 py-2 border border-input rounded-md bg-background"
                     min="1"
                     max="4000"
@@ -336,7 +342,7 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
                     type="checkbox"
                     id="aspect-ratio"
                     checked={maintainAspectRatio}
-                    onChange={(e) => setMaintainAspectRatio(e.target.checked)}
+                    onChange={e => setMaintainAspectRatio(e.target.checked)}
                     className="rounded"
                   />
                   <label htmlFor="aspect-ratio" className="text-sm">
@@ -349,7 +355,7 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
                   </Button>
                 )}
               </div>
-              
+
               {/* Preview */}
               <div className="space-y-2">
                 <label className="text-sm font-medium">Preview</label>
@@ -364,7 +370,7 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
                       style={{
                         width: Math.min(width, 200),
                         height: Math.min(height, 200),
-                        objectFit: 'contain'
+                        objectFit: "contain",
                       }}
                       className="border rounded"
                     />
@@ -398,48 +404,52 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
   }, [selectedImage]);
 
   const convertImage = () => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
     const img = new window.Image();
-    
+
     img.onload = () => {
       canvas.width = img.width;
       canvas.height = img.height;
       ctx?.drawImage(img, 0, 0);
-      
-      let mimeType = 'image/jpeg';
-      let fileExtension = 'jpg';
-      
+
+      let mimeType = "image/jpeg";
+      let fileExtension = "jpg";
+
       switch (targetFormat) {
-        case 'png':
-          mimeType = 'image/png';
-          fileExtension = 'png';
+        case "png":
+          mimeType = "image/png";
+          fileExtension = "png";
           break;
-        case 'webp':
-          mimeType = 'image/webp';
-          fileExtension = 'webp';
+        case "webp":
+          mimeType = "image/webp";
+          fileExtension = "webp";
           break;
-        case 'jpeg':
+        case "jpeg":
         default:
-          mimeType = 'image/jpeg';
-          fileExtension = 'jpg';
+          mimeType = "image/jpeg";
+          fileExtension = "jpg";
           break;
       }
-      
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          const originalName = selectedImage?.name || 'image';
-          const nameWithoutExt = originalName.split('.').slice(0, -1).join('.');
-          a.download = `${nameWithoutExt}.${fileExtension}`;
-          a.click();
-          URL.revokeObjectURL(url);
-        }
-      }, mimeType, targetFormat === 'jpeg' ? quality / 100 : 1);
+
+      canvas.toBlob(
+        blob => {
+          if (blob) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            const originalName = selectedImage?.name || "image";
+            const nameWithoutExt = originalName.split(".").slice(0, -1).join(".");
+            a.download = `${nameWithoutExt}.${fileExtension}`;
+            a.click();
+            URL.revokeObjectURL(url);
+          }
+        },
+        mimeType,
+        targetFormat === "jpeg" ? quality / 100 : 1,
+      );
     };
-    
+
     img.src = imageUrl;
   };
 
@@ -450,9 +460,7 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
           <FileImage className="h-5 w-5" />
           Format Converter
         </CardTitle>
-        <CardDescription>
-          Convert your image to different formats
-        </CardDescription>
+        <CardDescription>Convert your image to different formats</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
@@ -467,7 +475,7 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
                   <label className="text-sm font-medium">Target Format</label>
                   <select
                     value={targetFormat}
-                    onChange={(e) => setTargetFormat(e.target.value)}
+                    onChange={e => setTargetFormat(e.target.value)}
                     className="w-full mt-1 px-3 py-2 border border-input rounded-md bg-background"
                   >
                     <option value="jpeg">JPEG</option>
@@ -475,8 +483,8 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
                     <option value="webp">WebP</option>
                   </select>
                 </div>
-                
-                {targetFormat === 'jpeg' && (
+
+                {targetFormat === "jpeg" && (
                   <div>
                     <label className="text-sm font-medium">Quality: {quality}%</label>
                     <input
@@ -484,24 +492,30 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
                       min="1"
                       max="100"
                       value={quality}
-                      onChange={(e) => setQuality(Number(e.target.value))}
+                      onChange={e => setQuality(Number(e.target.value))}
                       className="w-full mt-1"
                     />
                   </div>
                 )}
-                
+
                 <div className="text-sm text-muted-foreground">
-                  <p><strong>JPEG:</strong> Good for photos, smaller file size</p>
-                  <p><strong>PNG:</strong> Lossless, supports transparency</p>
-                  <p><strong>WebP:</strong> Modern format, excellent compression</p>
+                  <p>
+                    <strong>JPEG:</strong> Good for photos, smaller file size
+                  </p>
+                  <p>
+                    <strong>PNG:</strong> Lossless, supports transparency
+                  </p>
+                  <p>
+                    <strong>WebP:</strong> Modern format, excellent compression
+                  </p>
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <label className="text-sm font-medium">Original Format</label>
                 <div className="border rounded-lg p-4 bg-muted/20">
                   <div className="text-center text-sm text-muted-foreground mb-2">
-                    {selectedImage.type || 'Unknown'}
+                    {selectedImage.type || "Unknown"}
                   </div>
                   <div className="flex justify-center">
                     <img
@@ -543,38 +557,42 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
 
   const compressImage = () => {
     setIsCompressing(true);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
     const img = new window.Image();
-    
+
     img.onload = () => {
       canvas.width = img.width;
       canvas.height = img.height;
       ctx?.drawImage(img, 0, 0);
-      
-      canvas.toBlob((blob) => {
-        if (blob) {
-          setCompressedSize(blob.size);
-          setIsCompressing(false);
-          
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          const originalName = selectedImage?.name || 'image';
-          const nameWithoutExt = originalName.split('.').slice(0, -1).join('.');
-          a.download = `${nameWithoutExt}_compressed.jpg`;
-          a.click();
-          URL.revokeObjectURL(url);
-        }
-      }, 'image/jpeg', compressionLevel / 100);
+
+      canvas.toBlob(
+        blob => {
+          if (blob) {
+            setCompressedSize(blob.size);
+            setIsCompressing(false);
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            const originalName = selectedImage?.name || "image";
+            const nameWithoutExt = originalName.split(".").slice(0, -1).join(".");
+            a.download = `${nameWithoutExt}_compressed.jpg`;
+            a.click();
+            URL.revokeObjectURL(url);
+          }
+        },
+        "image/jpeg",
+        compressionLevel / 100,
+      );
     };
-    
+
     img.src = imageUrl;
   };
 
   const getCompressionRatio = () => {
     if (originalSize === 0) return 0;
-    return ((originalSize - compressedSize) / originalSize * 100).toFixed(1);
+    return (((originalSize - compressedSize) / originalSize) * 100).toFixed(1);
   };
 
   const getSizeReduction = () => {
@@ -589,27 +607,25 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
           <Zap className="h-5 w-5" />
           Image Compressor
         </CardTitle>
-        <CardDescription>
-          Compress images to reduce file size
-        </CardDescription>
+        <CardDescription>Compress images to reduce file size</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
-          <div className="text-center py-8 text-muted-foreground">
-            Upload an image to compress
-          </div>
+          <div className="text-center py-8 text-muted-foreground">Upload an image to compress</div>
         ) : (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium">Compression Quality: {compressionLevel}%</label>
+                  <label className="text-sm font-medium">
+                    Compression Quality: {compressionLevel}%
+                  </label>
                   <input
                     type="range"
                     min="10"
                     max="95"
                     value={compressionLevel}
-                    onChange={(e) => setCompressionLevel(Number(e.target.value))}
+                    onChange={e => setCompressionLevel(Number(e.target.value))}
                     className="w-full mt-1"
                   />
                   <div className="text-xs text-muted-foreground mt-1">
@@ -630,20 +646,24 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
                       </div>
                       <div className="flex justify-between text-sm text-green-600">
                         <span>Size Reduction:</span>
-                        <span>{getSizeReduction()} MB ({getCompressionRatio()}%)</span>
+                        <span>
+                          {getSizeReduction()} MB ({getCompressionRatio()}%)
+                        </span>
                       </div>
                     </>
                   )}
                 </div>
 
                 <div className="text-sm text-muted-foreground">
-                  <p><strong>Recommended:</strong></p>
+                  <p>
+                    <strong>Recommended:</strong>
+                  </p>
                   <p>• 90-95%: High quality, minimal compression</p>
                   <p>• 70-85%: Good balance of quality and size</p>
                   <p>• 50-70%: Significant compression, quality loss</p>
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <label className="text-sm font-medium">Preview</label>
                 <div className="border rounded-lg p-4 bg-muted/20">
@@ -658,11 +678,7 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
               </div>
             </div>
 
-            <Button 
-              onClick={compressImage} 
-              disabled={isCompressing}
-              className="w-full"
-            >
+            <Button onClick={compressImage} disabled={isCompressing} className="w-full">
               {isCompressing ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -699,45 +715,45 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
 
   const extractColors = () => {
     setIsExtracting(true);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
     const img = new window.Image();
-    
+
     img.onload = () => {
       // Scale down for faster processing
       const scale = Math.min(1, 200 / Math.max(img.width, img.height));
       canvas.width = img.width * scale;
       canvas.height = img.height * scale;
-      
+
       ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
-      
+
       const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
       if (imageData) {
         const colorMap = new Map<string, number>();
-        
+
         for (let i = 0; i < imageData.data.length; i += 4) {
           const r = imageData.data[i];
           const g = imageData.data[i + 1];
           const b = imageData.data[i + 2];
-          
+
           // Skip transparent pixels
           if (imageData.data[i + 3] < 128) continue;
-          
+
           // Quantize colors to reduce noise
           const quantizedR = Math.round(r / 32) * 32;
           const quantizedG = Math.round(g / 32) * 32;
           const quantizedB = Math.round(b / 32) * 32;
-          
+
           const color = `rgb(${quantizedR}, ${quantizedG}, ${quantizedB})`;
           colorMap.set(color, (colorMap.get(color) || 0) + 1);
         }
-        
+
         // Sort by frequency and get top colors
         const sortedColors = Array.from(colorMap.entries())
           .sort((a, b) => b[1] - a[1])
           .slice(0, 12)
           .map(([color]) => color);
-        
+
         setColors(sortedColors);
         if (sortedColors.length > 0) {
           setSelectedColor(sortedColors[0]);
@@ -745,7 +761,7 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
       }
       setIsExtracting(false);
     };
-    
+
     img.src = imageUrl;
   };
 
@@ -759,7 +775,7 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
       const r = parseInt(match[1]);
       const g = parseInt(match[2]);
       const b = parseInt(match[3]);
-      return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+      return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
     }
     return rgbColor;
   };
@@ -771,9 +787,7 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
           <Palette className="h-5 w-5" />
           Color Picker
         </CardTitle>
-        <CardDescription>
-          Extract colors from your image
-        </CardDescription>
+        <CardDescription>Extract colors from your image</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
@@ -784,11 +798,7 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
-                <Button 
-                  onClick={extractColors} 
-                  disabled={isExtracting}
-                  className="w-full"
-                >
+                <Button onClick={extractColors} disabled={isExtracting} className="w-full">
                   {isExtracting ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -820,7 +830,7 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
                             <Button
                               size="sm"
                               variant="secondary"
-                              onClick={(e) => {
+                              onClick={e => {
                                 e.stopPropagation();
                                 copyToClipboard(getHexColor(color));
                               }}
@@ -834,7 +844,7 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
                   </div>
                 )}
               </div>
-              
+
               <div className="space-y-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Selected Color</label>
@@ -895,64 +905,62 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
 
   const removeBackground = () => {
     setIsProcessing(true);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
     const img = new window.Image();
-    
+
     img.onload = () => {
       canvas.width = img.width;
       canvas.height = img.height;
       ctx?.drawImage(img, 0, 0);
-      
+
       const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
       if (imageData) {
         // Parse background color
-        const bgColor = backgroundColor.startsWith('#') 
-          ? backgroundColor.substring(1) 
+        const bgColor = backgroundColor.startsWith("#")
+          ? backgroundColor.substring(1)
           : backgroundColor;
         const bgR = parseInt(bgColor.substring(0, 2), 16);
         const bgG = parseInt(bgColor.substring(2, 4), 16);
         const bgB = parseInt(bgColor.substring(4, 6), 16);
-        
+
         for (let i = 0; i < imageData.data.length; i += 4) {
           const r = imageData.data[i];
           const g = imageData.data[i + 1];
           const b = imageData.data[i + 2];
-          
+
           // Calculate color difference
           const diff = Math.sqrt(
-            Math.pow(r - bgR, 2) + 
-            Math.pow(g - bgG, 2) + 
-            Math.pow(b - bgB, 2)
+            Math.pow(r - bgR, 2) + Math.pow(g - bgG, 2) + Math.pow(b - bgB, 2),
           );
-          
+
           // If color is similar to background, make it transparent
           if (diff <= tolerance) {
             imageData.data[i + 3] = 0; // Set alpha to 0
           }
         }
-        
+
         ctx?.putImageData(imageData, 0, 0);
-        
-        canvas.toBlob((blob) => {
+
+        canvas.toBlob(blob => {
           if (blob) {
             const url = URL.createObjectURL(blob);
             setProcessedImageUrl(url);
             setIsProcessing(false);
           }
-        }, 'image/png');
+        }, "image/png");
       }
     };
-    
+
     img.src = imageUrl;
   };
 
   const downloadProcessedImage = () => {
     if (processedImageUrl) {
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = processedImageUrl;
-      const originalName = selectedImage?.name || 'image';
-      const nameWithoutExt = originalName.split('.').slice(0, -1).join('.');
+      const originalName = selectedImage?.name || "image";
+      const nameWithoutExt = originalName.split(".").slice(0, -1).join(".");
       a.download = `${nameWithoutExt}_no_bg.png`;
       a.click();
     }
@@ -965,9 +973,7 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
           <Image className="h-5 w-5" />
           Background Remover
         </CardTitle>
-        <CardDescription>
-          Remove background from images automatically
-        </CardDescription>
+        <CardDescription>Remove background from images automatically</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
@@ -984,19 +990,19 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
                     <input
                       type="color"
                       value={backgroundColor}
-                      onChange={(e) => setBackgroundColor(e.target.value)}
+                      onChange={e => setBackgroundColor(e.target.value)}
                       className="w-12 h-10 border rounded cursor-pointer"
                     />
                     <input
                       type="text"
                       value={backgroundColor}
-                      onChange={(e) => setBackgroundColor(e.target.value)}
+                      onChange={e => setBackgroundColor(e.target.value)}
                       className="flex-1 px-3 py-2 border border-input rounded-md bg-background"
                       placeholder="#ffffff"
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium">Tolerance: {tolerance}</label>
                   <input
@@ -1004,7 +1010,7 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
                     min="10"
                     max="100"
                     value={tolerance}
-                    onChange={(e) => setTolerance(Number(e.target.value))}
+                    onChange={e => setTolerance(Number(e.target.value))}
                     className="w-full mt-1"
                   />
                   <div className="text-xs text-muted-foreground mt-1">
@@ -1012,11 +1018,7 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
                   </div>
                 </div>
 
-                <Button 
-                  onClick={removeBackground} 
-                  disabled={isProcessing}
-                  className="w-full"
-                >
+                <Button onClick={removeBackground} disabled={isProcessing} className="w-full">
                   {isProcessing ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -1031,13 +1033,15 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
                 </Button>
 
                 <div className="text-sm text-muted-foreground">
-                  <p><strong>Tips:</strong></p>
+                  <p>
+                    <strong>Tips:</strong>
+                  </p>
                   <p>• Works best with solid color backgrounds</p>
                   <p>• Adjust tolerance for better results</p>
                   <p>• Output will be PNG with transparency</p>
                 </div>
               </div>
-              
+
               <div className="space-y-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Original</label>
@@ -1051,7 +1055,7 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
                     </div>
                   </div>
                 </div>
-                
+
                 {processedImageUrl && (
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Processed</label>
@@ -1064,10 +1068,7 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
                         />
                       </div>
                     </div>
-                    <Button 
-                      onClick={downloadProcessedImage} 
-                      className="w-full"
-                    >
+                    <Button onClick={downloadProcessedImage} className="w-full">
                       <Download className="h-4 w-4 mr-2" />
                       Download
                     </Button>
@@ -1094,7 +1095,7 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
     if (selectedImage) {
       const url = URL.createObjectURL(selectedImage);
       setImageUrl(url);
-      
+
       const img = new window.Image();
       img.onload = () => {
         setImageDimensions({ width: img.width, height: img.height });
@@ -1105,7 +1106,7 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
           x: Math.max(0, centerX),
           y: Math.max(0, centerY),
           width: Math.min(200, img.width),
-          height: Math.min(200, img.height)
+          height: Math.min(200, img.height),
         });
       };
       img.src = url;
@@ -1115,13 +1116,17 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const rect = canvasRef?.getBoundingClientRect();
     if (!rect) return;
-    
+
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     // Check if click is inside crop area
-    if (x >= cropArea.x && x <= cropArea.x + cropArea.width &&
-        y >= cropArea.y && y <= cropArea.y + cropArea.height) {
+    if (
+      x >= cropArea.x &&
+      x <= cropArea.x + cropArea.width &&
+      y >= cropArea.y &&
+      y <= cropArea.y + cropArea.height
+    ) {
       setIsDragging(true);
       setDragStart({ x: x - cropArea.x, y: y - cropArea.y });
     }
@@ -1129,14 +1134,14 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDragging || !canvasRef) return;
-    
+
     const rect = canvasRef.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     const newX = Math.max(0, Math.min(imageDimensions.width - cropArea.width, x - dragStart.x));
     const newY = Math.max(0, Math.min(imageDimensions.height - cropArea.height, y - dragStart.y));
-    
+
     setCropArea(prev => ({ ...prev, x: newX, y: newY }));
   };
 
@@ -1145,34 +1150,40 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
   };
 
   const cropImage = () => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
     const img = new window.Image();
-    
+
     img.onload = () => {
       canvas.width = cropArea.width;
       canvas.height = cropArea.height;
-      
+
       ctx?.drawImage(
         img,
-        cropArea.x, cropArea.y, cropArea.width, cropArea.height,
-        0, 0, cropArea.width, cropArea.height
+        cropArea.x,
+        cropArea.y,
+        cropArea.width,
+        cropArea.height,
+        0,
+        0,
+        cropArea.width,
+        cropArea.height,
       );
-      
-      canvas.toBlob((blob) => {
+
+      canvas.toBlob(blob => {
         if (blob) {
           const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
+          const a = document.createElement("a");
           a.href = url;
-          const originalName = selectedImage?.name || 'image';
-          const nameWithoutExt = originalName.split('.').slice(0, -1).join('.');
+          const originalName = selectedImage?.name || "image";
+          const nameWithoutExt = originalName.split(".").slice(0, -1).join(".");
           a.download = `${nameWithoutExt}_cropped.png`;
           a.click();
           URL.revokeObjectURL(url);
         }
-      }, 'image/png');
+      }, "image/png");
     };
-    
+
     img.src = imageUrl;
   };
 
@@ -1183,7 +1194,7 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
       x: Math.max(0, centerX),
       y: Math.max(0, centerY),
       width: Math.min(200, imageDimensions.width),
-      height: Math.min(200, imageDimensions.height)
+      height: Math.min(200, imageDimensions.height),
     });
   };
 
@@ -1194,15 +1205,11 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
           <Crop className="h-5 w-5" />
           Image Cropper
         </CardTitle>
-        <CardDescription>
-          Crop your image to specific dimensions
-        </CardDescription>
+        <CardDescription>Crop your image to specific dimensions</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
-          <div className="text-center py-8 text-muted-foreground">
-            Upload an image to crop
-          </div>
+          <div className="text-center py-8 text-muted-foreground">Upload an image to crop</div>
         ) : (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1210,8 +1217,12 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Crop Area</label>
                   <div className="text-sm text-muted-foreground">
-                    <div>Position: ({Math.round(cropArea.x)}, {Math.round(cropArea.y)})</div>
-                    <div>Size: {Math.round(cropArea.width)} × {Math.round(cropArea.height)}</div>
+                    <div>
+                      Position: ({Math.round(cropArea.x)}, {Math.round(cropArea.y)})
+                    </div>
+                    <div>
+                      Size: {Math.round(cropArea.width)} × {Math.round(cropArea.height)}
+                    </div>
                   </div>
                 </div>
 
@@ -1226,13 +1237,15 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
                 </div>
 
                 <div className="text-sm text-muted-foreground">
-                  <p><strong>Instructions:</strong></p>
+                  <p>
+                    <strong>Instructions:</strong>
+                  </p>
                   <p>• Click and drag the crop area to move it</p>
                   <p>• The crop area is shown as a dashed rectangle</p>
                   <p>• Use Reset to center the crop area</p>
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <label className="text-sm font-medium">Crop Preview</label>
                 <div className="border rounded-lg p-4 bg-muted/20">
@@ -1244,9 +1257,9 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
                       className="border rounded cursor-move"
                       style={{
                         backgroundImage: `url(${imageUrl})`,
-                        backgroundSize: 'contain',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'center'
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
                       }}
                       onMouseDown={handleMouseDown}
                       onMouseMove={handleMouseMove}
@@ -1265,14 +1278,16 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
 }
 
 function MetadataViewer({ selectedImage }: { selectedImage: File | null }) {
-  const [imageDimensions, setImageDimensions] = useState<{width: number, height: number} | null>(null);
+  const [imageDimensions, setImageDimensions] = useState<{ width: number; height: number } | null>(
+    null,
+  );
   const [imageUrl, setImageUrl] = useState<string>("");
 
   useEffect(() => {
     if (selectedImage) {
       const url = URL.createObjectURL(selectedImage);
       setImageUrl(url);
-      
+
       const img = new window.Image();
       img.onload = () => {
         setImageDimensions({ width: img.width, height: img.height });
@@ -1283,7 +1298,7 @@ function MetadataViewer({ selectedImage }: { selectedImage: File | null }) {
 
   const getAspectRatio = () => {
     if (!imageDimensions) return "N/A";
-    const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b);
+    const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
     const divisor = gcd(imageDimensions.width, imageDimensions.height);
     return `${imageDimensions.width / divisor}:${imageDimensions.height / divisor}`;
   };
@@ -1300,9 +1315,7 @@ function MetadataViewer({ selectedImage }: { selectedImage: File | null }) {
           <Eye className="h-5 w-5" />
           Metadata Viewer
         </CardTitle>
-        <CardDescription>
-          View image metadata and EXIF information
-        </CardDescription>
+        <CardDescription>View image metadata and EXIF information</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
@@ -1317,21 +1330,26 @@ function MetadataViewer({ selectedImage }: { selectedImage: File | null }) {
                 <div className="space-y-1 text-sm text-muted-foreground">
                   <p>Name: {selectedImage.name}</p>
                   <p>Size: {(selectedImage.size / 1024 / 1024).toFixed(2)} MB</p>
-                  <p>Type: {selectedImage.type || 'Unknown'}</p>
+                  <p>Type: {selectedImage.type || "Unknown"}</p>
                   <p>Last Modified: {new Date(selectedImage.lastModified).toLocaleDateString()}</p>
                 </div>
               </div>
               <div>
                 <p className="font-medium mb-2">Image Details</p>
                 <div className="space-y-1 text-sm text-muted-foreground">
-                  <p>Dimensions: {imageDimensions ? `${imageDimensions.width} × ${imageDimensions.height}` : 'Loading...'}</p>
+                  <p>
+                    Dimensions:{" "}
+                    {imageDimensions
+                      ? `${imageDimensions.width} × ${imageDimensions.height}`
+                      : "Loading..."}
+                  </p>
                   <p>Aspect Ratio: {getAspectRatio()}</p>
                   <p>Megapixels: {getMegapixels()}</p>
                   <p>Color Space: sRGB</p>
                 </div>
               </div>
             </div>
-            
+
             {imageDimensions && (
               <div className="space-y-2">
                 <p className="font-medium">Image Preview</p>
@@ -1360,7 +1378,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
     saturation: 100,
     blur: 0,
     grayscale: 0,
-    sepia: 0
+    sepia: 0,
   });
   const [processedImageUrl, setProcessedImageUrl] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
@@ -1377,56 +1395,56 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
         saturation: 100,
         blur: 0,
         grayscale: 0,
-        sepia: 0
+        sepia: 0,
       });
     }
   }, [selectedImage]);
 
   const applyFilters = () => {
     setIsProcessing(true);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
     const img = new window.Image();
-    
+
     img.onload = () => {
       canvas.width = img.width;
       canvas.height = img.height;
       ctx?.drawImage(img, 0, 0);
-      
+
       const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
       if (imageData) {
         const data = imageData.data;
-        
+
         for (let i = 0; i < data.length; i += 4) {
           let r = data[i];
           let g = data[i + 1];
           let b = data[i + 2];
-          
+
           // Brightness
           r = Math.min(255, Math.max(0, r * (filters.brightness / 100)));
           g = Math.min(255, Math.max(0, g * (filters.brightness / 100)));
           b = Math.min(255, Math.max(0, b * (filters.brightness / 100)));
-          
+
           // Contrast
           const factor = (259 * (filters.contrast + 255)) / (255 * (259 - filters.contrast));
           r = Math.min(255, Math.max(0, factor * (r - 128) + 128));
           g = Math.min(255, Math.max(0, factor * (g - 128) + 128));
           b = Math.min(255, Math.max(0, factor * (b - 128) + 128));
-          
+
           // Saturation
-          const gray = 0.2989 * r + 0.5870 * g + 0.1140 * b;
+          const gray = 0.2989 * r + 0.587 * g + 0.114 * b;
           r = gray + (filters.saturation / 100) * (r - gray);
           g = gray + (filters.saturation / 100) * (g - gray);
           b = gray + (filters.saturation / 100) * (b - gray);
-          
+
           // Grayscale
           if (filters.grayscale > 0) {
-            const grayValue = 0.2989 * r + 0.5870 * g + 0.1140 * b;
+            const grayValue = 0.2989 * r + 0.587 * g + 0.114 * b;
             r = r + (filters.grayscale / 100) * (grayValue - r);
             g = g + (filters.grayscale / 100) * (grayValue - g);
             b = b + (filters.grayscale / 100) * (grayValue - b);
           }
-          
+
           // Sepia
           if (filters.sepia > 0) {
             const sr = r * 0.393 + g * 0.769 + b * 0.189;
@@ -1436,33 +1454,37 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
             g = g + (filters.sepia / 100) * (sg - g);
             b = b + (filters.sepia / 100) * (sb - b);
           }
-          
+
           data[i] = Math.min(255, Math.max(0, r));
           data[i + 1] = Math.min(255, Math.max(0, g));
           data[i + 2] = Math.min(255, Math.max(0, b));
         }
-        
+
         ctx?.putImageData(imageData, 0, 0);
-        
-        canvas.toBlob((blob) => {
-          if (blob) {
-            const url = URL.createObjectURL(blob);
-            setProcessedImageUrl(url);
-            setIsProcessing(false);
-          }
-        }, 'image/jpeg', 0.9);
+
+        canvas.toBlob(
+          blob => {
+            if (blob) {
+              const url = URL.createObjectURL(blob);
+              setProcessedImageUrl(url);
+              setIsProcessing(false);
+            }
+          },
+          "image/jpeg",
+          0.9,
+        );
       }
     };
-    
+
     img.src = imageUrl;
   };
 
   const downloadFilteredImage = () => {
     if (processedImageUrl) {
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = processedImageUrl;
-      const originalName = selectedImage?.name || 'image';
-      const nameWithoutExt = originalName.split('.').slice(0, -1).join('.');
+      const originalName = selectedImage?.name || "image";
+      const nameWithoutExt = originalName.split(".").slice(0, -1).join(".");
       a.download = `${nameWithoutExt}_filtered.jpg`;
       a.click();
     }
@@ -1475,7 +1497,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
       saturation: 100,
       blur: 0,
       grayscale: 0,
-      sepia: 0
+      sepia: 0,
     });
     setProcessedImageUrl("");
   };
@@ -1489,7 +1511,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
         blur(${filters.blur}px) 
         grayscale(${filters.grayscale}%) 
         sepia(${filters.sepia}%)
-      `
+      `,
     };
   };
 
@@ -1500,9 +1522,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
           <Settings className="h-5 w-5" />
           Image Filters
         </CardTitle>
-        <CardDescription>
-          Apply filters and adjustments to your image
-        </CardDescription>
+        <CardDescription>Apply filters and adjustments to your image</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
@@ -1520,11 +1540,13 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                     min="0"
                     max="200"
                     value={filters.brightness}
-                    onChange={(e) => setFilters(prev => ({ ...prev, brightness: Number(e.target.value) }))}
+                    onChange={e =>
+                      setFilters(prev => ({ ...prev, brightness: Number(e.target.value) }))
+                    }
                     className="w-full mt-1"
                   />
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium">Contrast: {filters.contrast}%</label>
                   <input
@@ -1532,11 +1554,13 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                     min="0"
                     max="200"
                     value={filters.contrast}
-                    onChange={(e) => setFilters(prev => ({ ...prev, contrast: Number(e.target.value) }))}
+                    onChange={e =>
+                      setFilters(prev => ({ ...prev, contrast: Number(e.target.value) }))
+                    }
                     className="w-full mt-1"
                   />
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium">Saturation: {filters.saturation}%</label>
                   <input
@@ -1544,11 +1568,13 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                     min="0"
                     max="200"
                     value={filters.saturation}
-                    onChange={(e) => setFilters(prev => ({ ...prev, saturation: Number(e.target.value) }))}
+                    onChange={e =>
+                      setFilters(prev => ({ ...prev, saturation: Number(e.target.value) }))
+                    }
                     className="w-full mt-1"
                   />
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium">Blur: {filters.blur}px</label>
                   <input
@@ -1556,11 +1582,11 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                     min="0"
                     max="10"
                     value={filters.blur}
-                    onChange={(e) => setFilters(prev => ({ ...prev, blur: Number(e.target.value) }))}
+                    onChange={e => setFilters(prev => ({ ...prev, blur: Number(e.target.value) }))}
                     className="w-full mt-1"
                   />
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium">Grayscale: {filters.grayscale}%</label>
                   <input
@@ -1568,11 +1594,13 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                     min="0"
                     max="100"
                     value={filters.grayscale}
-                    onChange={(e) => setFilters(prev => ({ ...prev, grayscale: Number(e.target.value) }))}
+                    onChange={e =>
+                      setFilters(prev => ({ ...prev, grayscale: Number(e.target.value) }))
+                    }
                     className="w-full mt-1"
                   />
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium">Sepia: {filters.sepia}%</label>
                   <input
@@ -1580,7 +1608,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                     min="0"
                     max="100"
                     value={filters.sepia}
-                    onChange={(e) => setFilters(prev => ({ ...prev, sepia: Number(e.target.value) }))}
+                    onChange={e => setFilters(prev => ({ ...prev, sepia: Number(e.target.value) }))}
                     className="w-full mt-1"
                   />
                 </div>
@@ -1589,11 +1617,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                   <Button variant="outline" onClick={resetFilters} className="flex-1">
                     Reset
                   </Button>
-                  <Button 
-                    onClick={applyFilters} 
-                    disabled={isProcessing}
-                    className="flex-1"
-                  >
+                  <Button onClick={applyFilters} disabled={isProcessing} className="flex-1">
                     {isProcessing ? (
                       <>
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -1608,7 +1632,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                   </Button>
                 </div>
               </div>
-              
+
               <div className="space-y-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Original</label>
@@ -1622,7 +1646,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Preview</label>
                   <div className="border rounded-lg p-4 bg-muted/20">
@@ -1636,7 +1660,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                     </div>
                   </div>
                 </div>
-                
+
                 {processedImageUrl && (
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Processed</label>
@@ -1649,10 +1673,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
                         />
                       </div>
                     </div>
-                    <Button 
-                      onClick={downloadFilteredImage} 
-                      className="w-full"
-                    >
+                    <Button onClick={downloadFilteredImage} className="w-full">
                       <Download className="h-4 w-4 mr-2" />
                       Download
                     </Button>
@@ -1665,4 +1686,4 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
       </CardContent>
     </Card>
   );
-} 
+}

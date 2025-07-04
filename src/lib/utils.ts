@@ -1,8 +1,8 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 // Currency formatting
@@ -55,7 +55,7 @@ export function validateEmail(email: string): boolean {
 // Debounce function
 export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
-  wait: number
+  wait: number,
 ): (...args: Parameters<T>) => void {
   let timeout: NodeJS.Timeout;
   return (...args: Parameters<T>) => {
@@ -67,7 +67,7 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
 // Throttle function
 export function throttle<T extends (...args: unknown[]) => unknown>(
   func: T,
-  limit: number
+  limit: number,
 ): (...args: Parameters<T>) => void {
   let inThrottle: boolean;
   return (...args: Parameters<T>) => {
@@ -141,7 +141,10 @@ export function generateId(): string {
 }
 
 // Calculate age
-export function calculateAge(birthDate: Date, targetDate: Date = new Date()): {
+export function calculateAge(
+  birthDate: Date,
+  targetDate: Date = new Date(),
+): {
   years: number;
   months: number;
   days: number;
@@ -162,19 +165,27 @@ export function calculateAge(birthDate: Date, targetDate: Date = new Date()): {
     months += 12;
   }
 
-  const totalDays = Math.floor((targetDate.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24));
+  const totalDays = Math.floor(
+    (targetDate.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24),
+  );
 
   return { years, months, days, totalDays };
 }
 
 // Calculate EMI
-export function calculateEMI(principal: number, rate: number, tenure: number): {
+export function calculateEMI(
+  principal: number,
+  rate: number,
+  tenure: number,
+): {
   emi: number;
   totalInterest: number;
   totalPayment: number;
 } {
   const monthlyRate = rate / 100 / 12;
-  const emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, tenure)) / (Math.pow(1 + monthlyRate, tenure) - 1);
+  const emi =
+    (principal * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
+    (Math.pow(1 + monthlyRate, tenure) - 1);
   const totalPayment = emi * tenure;
   const totalInterest = totalPayment - principal;
 

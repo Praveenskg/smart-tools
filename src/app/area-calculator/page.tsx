@@ -29,14 +29,12 @@ export default function AreaCalculatorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
-                Area Calculator
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tight">Area Calculator</h1>
               <p className="text-lg text-muted-foreground">
                 Calculate area of various geometric shapes
               </p>
             </div>
-            
+
             <div className="w-full flex justify-center sm:justify-start my-4">
               <Link href="/" className="w-full sm:w-auto">
                 <Button variant="outline" size="sm" className="w-full">

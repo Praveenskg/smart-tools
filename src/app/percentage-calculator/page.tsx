@@ -29,9 +29,7 @@ export default function PercentageCalculatorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
-                Percentage Calculator
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tight">Percentage Calculator</h1>
               <p className="text-lg text-muted-foreground">
                 Calculate percentages, increase, and decrease
               </p>
