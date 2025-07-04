@@ -15,8 +15,7 @@ export default function TimeZoneConverterPage() {
       id: "timezone-converter",
       name: "Timezone Converter",
       category: "Date & Time",
-      description:
-        "Convert time between different timezones and track world clocks",
+      description: "Convert time between different timezones and track world clocks",
     },
     selectedCategory: "Date & Time",
     baseTitle: "Smart Tools",
@@ -29,9 +28,7 @@ export default function TimeZoneConverterPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
-                Timezone Converter
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tight">Timezone Converter</h1>
               <p className="text-lg text-muted-foreground">
                 Convert time between different timezones and track world clocks
               </p>

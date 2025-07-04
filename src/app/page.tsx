@@ -16,13 +16,7 @@ import {
   Image,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useDynamicTitle } from "@/hooks/use-dynamic-title";
 import Footer from "@/components/footer";
@@ -48,8 +42,7 @@ const tools = [
   {
     id: "emi-calculator",
     name: "EMI Calculator",
-    description:
-      "Quickly estimate monthly EMIs for any loan with interest and tenure",
+    description: "Quickly estimate monthly EMIs for any loan with interest and tenure",
     icon: Calculator,
     category: "Financial",
     popular: true,
@@ -65,8 +58,7 @@ const tools = [
   {
     id: "gst-calculator",
     name: "GST Calculator",
-    description:
-      "Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals",
+    description: "Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals",
     icon: Percent,
     category: "Financial",
     popular: false,
@@ -114,8 +106,7 @@ const tools = [
   {
     id: "tip-calculator",
     name: "Tip Calculator",
-    description:
-      "Calculate restaurant tips and split bills effortlessly with friends",
+    description: "Calculate restaurant tips and split bills effortlessly with friends",
     icon: DollarSign,
     category: "Financial",
     popular: false,
@@ -131,8 +122,7 @@ const tools = [
   {
     id: "currency-converter",
     name: "Currency Converter",
-    description:
-      "Convert between different currencies with real-time exchange rates",
+    description: "Convert between different currencies with real-time exchange rates",
     icon: DollarSign,
     category: "Financial",
     popular: true,
@@ -140,8 +130,7 @@ const tools = [
   {
     id: "timezone-converter",
     name: "Timezone Converter",
-    description:
-      "Convert time between different timezones and track world clocks",
+    description: "Convert time between different timezones and track world clocks",
     icon: Globe,
     category: "Date & Time",
     popular: false,
@@ -151,28 +140,28 @@ const categories = [
   { name: "All Tools", count: tools.length },
   {
     name: "Financial",
-    count: tools.filter((t) => t.category === "Financial").length,
+    count: tools.filter(t => t.category === "Financial").length,
   },
   {
     name: "Health",
-    count: tools.filter((t) => t.category === "Health").length,
+    count: tools.filter(t => t.category === "Health").length,
   },
   {
     name: "Date & Time",
-    count: tools.filter((t) => t.category === "Date & Time").length,
+    count: tools.filter(t => t.category === "Date & Time").length,
   },
-  { name: "Math", count: tools.filter((t) => t.category === "Math").length },
+  { name: "Math", count: tools.filter(t => t.category === "Math").length },
   {
     name: "Conversion",
-    count: tools.filter((t) => t.category === "Conversion").length,
+    count: tools.filter(t => t.category === "Conversion").length,
   },
   {
     name: "Planning",
-    count: tools.filter((t) => t.category === "Planning").length,
+    count: tools.filter(t => t.category === "Planning").length,
   },
   {
     name: "Utility",
-    count: tools.filter((t) => t.category === "Utility").length,
+    count: tools.filter(t => t.category === "Utility").length,
   },
 ];
 export default function Dashboard() {
@@ -183,8 +172,7 @@ export default function Dashboard() {
     baseTitle: "Smart Tools",
   });
   const filteredTools = tools.filter(
-    (tool) =>
-      selectedCategory === "All Tools" || tool.category === selectedCategory
+    tool => selectedCategory === "All Tools" || tool.category === selectedCategory,
   );
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -196,17 +184,15 @@ export default function Dashboard() {
               Professional Calculator Suite
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
-              Access a comprehensive collection of calculators and utilities
-              designed for professionals, students, and everyday use.
+              Access a comprehensive collection of calculators and utilities designed for
+              professionals, students, and everyday use.
             </p>
           </div>
           <div className="flex flex-wrap gap-1 sm:gap-2 mb-6 sm:mb-8 justify-center">
-            {categories.map((category) => (
+            {categories.map(category => (
               <Button
                 key={category.name}
-                variant={
-                  selectedCategory === category.name ? "default" : "outline"
-                }
+                variant={selectedCategory === category.name ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedCategory(category.name)}
                 className="text-xs sm:text-sm"
@@ -225,7 +211,7 @@ export default function Dashboard() {
                 if (!a.popular && b.popular) return 1;
                 return 0;
               })
-              .map((tool) => {
+              .map(tool => {
                 const IconComponent = tool.icon;
                 return (
                   <Link key={tool.id} href={`/${tool.id}`}>

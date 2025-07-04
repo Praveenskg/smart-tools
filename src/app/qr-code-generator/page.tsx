@@ -28,9 +28,7 @@ export default function QRCodeGeneratorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
-                QR Code Generator
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tight">QR Code Generator</h1>
               <p className="text-lg text-muted-foreground">
                 Create custom QR codes for URLs, text, emails, and more
               </p>

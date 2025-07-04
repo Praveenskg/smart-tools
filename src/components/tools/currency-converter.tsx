@@ -141,7 +141,7 @@ export default function CurrencyConverter() {
   };
 
   const getCurrencySymbol = (code: string) => {
-    const currency = popularCurrencies.find((c) => c.code === code);
+    const currency = popularCurrencies.find(c => c.code === code);
     return currency?.symbol || code;
   };
 
@@ -190,14 +190,12 @@ export default function CurrencyConverter() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {popularCurrencies.map((currency) => (
+                    {popularCurrencies.map(currency => (
                       <SelectItem key={currency.code} value={currency.code}>
                         <div className="flex items-center gap-2">
                           <span className="font-medium">{currency.symbol}</span>
                           <span>{currency.code}</span>
-                          <span className="text-muted-foreground">
-                            {currency.name}
-                          </span>
+                          <span className="text-muted-foreground">{currency.name}</span>
                         </div>
                       </SelectItem>
                     ))}
@@ -212,14 +210,12 @@ export default function CurrencyConverter() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {popularCurrencies.map((currency) => (
+                    {popularCurrencies.map(currency => (
                       <SelectItem key={currency.code} value={currency.code}>
                         <div className="flex items-center gap-2">
                           <span className="font-medium">{currency.symbol}</span>
                           <span>{currency.code}</span>
-                          <span className="text-muted-foreground">
-                            {currency.name}
-                          </span>
+                          <span className="text-muted-foreground">{currency.name}</span>
                         </div>
                       </SelectItem>
                     ))}
@@ -228,11 +224,7 @@ export default function CurrencyConverter() {
               </div>
             </div>
 
-            <Button
-              onClick={handleSwapCurrencies}
-              variant="outline"
-              className="w-full"
-            >
+            <Button onClick={handleSwapCurrencies} variant="outline" className="w-full">
               <ArrowRight className="h-4 w-4 mr-2" />
               Swap Currencies
             </Button>
@@ -243,17 +235,11 @@ export default function CurrencyConverter() {
               disabled={isLoading}
               className="w-full"
             >
-              <RefreshCw
-                className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`}
-              />
+              <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
               {isLoading ? "Updating..." : "Refresh Rates"}
             </Button>
 
-            {error && (
-              <div className="text-sm text-red-500 bg-red-50 p-2 rounded">
-                {error}
-              </div>
-            )}
+            {error && <div className="text-sm text-red-500 bg-red-50 p-2 rounded">{error}</div>}
 
             {lastUpdated && (
               <div className="text-xs text-muted-foreground text-center">
@@ -288,22 +274,18 @@ export default function CurrencyConverter() {
               <div className="space-y-2">
                 <div className="text-sm font-medium">Exchange Rate</div>
                 <div className="text-lg font-semibold">
-                  1 {fromCurrency} = {exchangeRates[toCurrency].toFixed(4)}{" "}
-                  {toCurrency}
+                  1 {fromCurrency} = {exchangeRates[toCurrency].toFixed(4)} {toCurrency}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  1 {toCurrency} = {(1 / exchangeRates[toCurrency]).toFixed(4)}{" "}
-                  {fromCurrency}
+                  1 {toCurrency} = {(1 / exchangeRates[toCurrency]).toFixed(4)} {fromCurrency}
                 </div>
               </div>
             )}
 
             <div className="pt-4 border-t">
-              <div className="text-sm font-medium mb-2">
-                Popular Conversions
-              </div>
+              <div className="text-sm font-medium mb-2">Popular Conversions</div>
               <div className="grid grid-cols-2 gap-2 text-xs">
-                {popularCurrencies.slice(0, 6).map((currency) => (
+                {popularCurrencies.slice(0, 6).map(currency => (
                   <div
                     key={currency.code}
                     className="flex justify-between items-center p-2 bg-muted/50 rounded"
@@ -311,10 +293,7 @@ export default function CurrencyConverter() {
                     <span>{currency.code}</span>
                     <span className="font-medium">
                       {exchangeRates[currency.code]
-                        ? (
-                            parseFloat(amount || "1") *
-                            exchangeRates[currency.code]
-                          ).toFixed(2)
+                        ? (parseFloat(amount || "1") * exchangeRates[currency.code]).toFixed(2)
                         : "—"}
                     </span>
                   </div>
@@ -337,8 +316,7 @@ export default function CurrencyConverter() {
                 <span className="font-medium">USD - US Dollar</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                The world&apos;s primary reserve currency and most traded
-                currency.
+                The world&apos;s primary reserve currency and most traded currency.
               </p>
             </div>
             <div className="space-y-2">
@@ -356,8 +334,7 @@ export default function CurrencyConverter() {
                 <span className="font-medium">GBP - British Pound</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                One of the oldest currencies still in use, UK&apos;s official
-                currency.
+                One of the oldest currencies still in use, UK&apos;s official currency.
               </p>
             </div>
             <div className="space-y-2">
@@ -375,8 +352,7 @@ export default function CurrencyConverter() {
                 <span className="font-medium">INR - Indian Rupee</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Official currency of India, one of the fastest growing
-                economies.
+                Official currency of India, one of the fastest growing economies.
               </p>
             </div>
             <div className="space-y-2">
@@ -385,8 +361,7 @@ export default function CurrencyConverter() {
                 <span className="font-medium">Real-time Rates</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Exchange rates are updated automatically for accurate
-                conversions.
+                Exchange rates are updated automatically for accurate conversions.
               </p>
             </div>
           </div>

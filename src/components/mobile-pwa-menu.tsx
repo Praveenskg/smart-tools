@@ -22,7 +22,7 @@ export function MobilePWAMenu() {
     try {
       await installApp();
     } catch (error) {
-      console.error('Installation failed:', error);
+      console.error("Installation failed:", error);
     } finally {
       setIsInstalling(false);
     }
@@ -38,28 +38,28 @@ export function MobilePWAMenu() {
       <DropdownMenuContent align="end" className="w-56">
         <div className="px-2 py-1.5 text-sm font-medium">App Settings</div>
         <DropdownMenuSeparator />
-        
+
         {!isOnline && (
           <DropdownMenuItem disabled className="text-yellow-600">
             <WifiOff className="h-4 w-4 mr-2" />
             Offline Mode
           </DropdownMenuItem>
         )}
-        
+
         {isInstallable && !isInstalled && (
           <DropdownMenuItem onClick={handleInstall} disabled={isInstalling}>
             <Download className="h-4 w-4 mr-2" />
             {isInstalling ? "Installing..." : "Install App"}
           </DropdownMenuItem>
         )}
-        
+
         {isInstalled && (
           <DropdownMenuItem disabled className="text-green-600">
             <Download className="h-4 w-4 mr-2" />
             App Installed
           </DropdownMenuItem>
         )}
-        
+
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <Settings className="h-4 w-4 mr-2" />
@@ -68,4 +68,4 @@ export function MobilePWAMenu() {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-} 
+}

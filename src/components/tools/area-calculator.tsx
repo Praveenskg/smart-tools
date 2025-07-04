@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -26,10 +20,7 @@ export default function AreaCalculator() {
 
   const calculateArea = () => {
     const dims = Object.fromEntries(
-      Object.entries(dimensions).map(([key, value]) => [
-        key,
-        Number.parseFloat(value),
-      ])
+      Object.entries(dimensions).map(([key, value]) => [key, Number.parseFloat(value)]),
     );
 
     let area = 0;
@@ -71,7 +62,7 @@ export default function AreaCalculator() {
   };
 
   const updateDimension = (key: string, value: string) => {
-    setDimensions((prev) => ({ ...prev, [key]: value }));
+    setDimensions(prev => ({ ...prev, [key]: value }));
   };
 
   const resetForm = () => {
@@ -91,7 +82,7 @@ export default function AreaCalculator() {
                 type="number"
                 placeholder="Enter length"
                 value={dimensions.length || ""}
-                onChange={(e) => updateDimension("length", e.target.value)}
+                onChange={e => updateDimension("length", e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -101,7 +92,7 @@ export default function AreaCalculator() {
                 type="number"
                 placeholder="Enter width"
                 value={dimensions.width || ""}
-                onChange={(e) => updateDimension("width", e.target.value)}
+                onChange={e => updateDimension("width", e.target.value)}
               />
             </div>
           </>
@@ -115,7 +106,7 @@ export default function AreaCalculator() {
               type="number"
               placeholder="Enter side length"
               value={dimensions.side || ""}
-              onChange={(e) => updateDimension("side", e.target.value)}
+              onChange={e => updateDimension("side", e.target.value)}
             />
           </div>
         );
@@ -128,7 +119,7 @@ export default function AreaCalculator() {
               type="number"
               placeholder="Enter radius"
               value={dimensions.radius || ""}
-              onChange={(e) => updateDimension("radius", e.target.value)}
+              onChange={e => updateDimension("radius", e.target.value)}
             />
           </div>
         );
@@ -142,7 +133,7 @@ export default function AreaCalculator() {
                 type="number"
                 placeholder="Enter base length"
                 value={dimensions.base || ""}
-                onChange={(e) => updateDimension("base", e.target.value)}
+                onChange={e => updateDimension("base", e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -152,7 +143,7 @@ export default function AreaCalculator() {
                 type="number"
                 placeholder="Enter height"
                 value={dimensions.height || ""}
-                onChange={(e) => updateDimension("height", e.target.value)}
+                onChange={e => updateDimension("height", e.target.value)}
               />
             </div>
           </>
@@ -167,7 +158,7 @@ export default function AreaCalculator() {
                 type="number"
                 placeholder="Enter first base"
                 value={dimensions.base1 || ""}
-                onChange={(e) => updateDimension("base1", e.target.value)}
+                onChange={e => updateDimension("base1", e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -177,7 +168,7 @@ export default function AreaCalculator() {
                 type="number"
                 placeholder="Enter second base"
                 value={dimensions.base2 || ""}
-                onChange={(e) => updateDimension("base2", e.target.value)}
+                onChange={e => updateDimension("base2", e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -187,7 +178,7 @@ export default function AreaCalculator() {
                 type="number"
                 placeholder="Enter height"
                 value={dimensions.height || ""}
-                onChange={(e) => updateDimension("height", e.target.value)}
+                onChange={e => updateDimension("height", e.target.value)}
               />
             </div>
           </>
@@ -202,7 +193,7 @@ export default function AreaCalculator() {
                 type="number"
                 placeholder="Enter major axis"
                 value={dimensions.majorAxis || ""}
-                onChange={(e) => updateDimension("majorAxis", e.target.value)}
+                onChange={e => updateDimension("majorAxis", e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -212,7 +203,7 @@ export default function AreaCalculator() {
                 type="number"
                 placeholder="Enter minor axis"
                 value={dimensions.minorAxis || ""}
-                onChange={(e) => updateDimension("minorAxis", e.target.value)}
+                onChange={e => updateDimension("minorAxis", e.target.value)}
               />
             </div>
           </>
@@ -246,16 +237,14 @@ export default function AreaCalculator() {
       <Card className="modern-card">
         <CardHeader>
           <CardTitle>Shape Selection</CardTitle>
-          <CardDescription>
-            Choose a shape and enter its dimensions
-          </CardDescription>
+          <CardDescription>Choose a shape and enter its dimensions</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
             <Label>Shape</Label>
             <Select
               value={shape}
-              onValueChange={(value) => {
+              onValueChange={value => {
                 setShape(value);
                 setDimensions({});
                 setResult(null);
@@ -297,16 +286,12 @@ export default function AreaCalculator() {
         <Card className="modern-card">
           <CardHeader>
             <CardTitle>Area Result</CardTitle>
-            <CardDescription>
-              Calculated area for the selected shape
-            </CardDescription>
+            <CardDescription>Calculated area for the selected shape</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="text-center p-6 bg-primary/5 rounded-lg">
               <div className="text-sm text-muted-foreground mb-2">Area:</div>
-              <div className="text-3xl font-bold text-primary">
-                {result.toFixed(2)} units²
-              </div>
+              <div className="text-3xl font-bold text-primary">{result.toFixed(2)} units²</div>
             </div>
 
             <div className="space-y-2">
@@ -324,9 +309,7 @@ export default function AreaCalculator() {
 
             <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
               <div className="text-sm font-medium mb-1">Formula Used:</div>
-              <div className="text-sm text-muted-foreground">
-                {getFormula()}
-              </div>
+              <div className="text-sm text-muted-foreground">{getFormula()}</div>
             </div>
           </CardContent>
         </Card>

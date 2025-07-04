@@ -54,7 +54,7 @@ export default function QRCodeGenerator() {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = e => {
         setLogoImage(e.target?.result as string);
       };
       reader.readAsDataURL(file);
@@ -129,15 +129,7 @@ export default function QRCodeGenerator() {
       console.error("Error generating QR code:", error);
       setIsGenerating(false);
     }
-  }, [
-    text,
-    size,
-    errorCorrection,
-    foregroundColor,
-    backgroundColor,
-    logoImage,
-    logoSize,
-  ]);
+  }, [text, size, errorCorrection, foregroundColor, backgroundColor, logoImage, logoSize]);
 
   useEffect(() => {
     generateQRCode();
@@ -190,7 +182,7 @@ export default function QRCodeGenerator() {
                 id="text-input"
                 placeholder="Enter text, URL, email, phone number, or any content..."
                 value={text}
-                onChange={(e) => setText(e.target.value)}
+                onChange={e => setText(e.target.value)}
                 className="min-h-[100px] resize-none"
               />
               {text && (
@@ -199,9 +191,7 @@ export default function QRCodeGenerator() {
                     <inputType.icon className="h-3 w-3 mr-1" />
                     {inputType.type}
                   </Badge>
-                  <span className="text-xs text-muted-foreground">
-                    {text.length} characters
-                  </span>
+                  <span className="text-xs text-muted-foreground">{text.length} characters</span>
                 </div>
               )}
             </div>
@@ -219,21 +209,16 @@ export default function QRCodeGenerator() {
               </div>
               <div className="space-y-2">
                 <Label>Error Correction Level</Label>
-                <Select
-                  value={errorCorrection}
-                  onValueChange={setErrorCorrection}
-                >
+                <Select value={errorCorrection} onValueChange={setErrorCorrection}>
                   <SelectTrigger className="w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {errorCorrectionLevels.map((level) => (
+                    {errorCorrectionLevels.map(level => (
                       <SelectItem key={level.value} value={level.value}>
                         <div className="flex flex-col">
                           <span>{level.label}</span>
-                          <span className="text-xs text-muted-foreground">
-                            {level.description}
-                          </span>
+                          <span className="text-xs text-muted-foreground">{level.description}</span>
                         </div>
                       </SelectItem>
                     ))}
@@ -247,12 +232,12 @@ export default function QRCodeGenerator() {
                     <input
                       type="color"
                       value={foregroundColor}
-                      onChange={(e) => setForegroundColor(e.target.value)}
+                      onChange={e => setForegroundColor(e.target.value)}
                       className="w-10 h-10 rounded border cursor-pointer"
                     />
                     <Input
                       value={foregroundColor}
-                      onChange={(e) => setForegroundColor(e.target.value)}
+                      onChange={e => setForegroundColor(e.target.value)}
                       className="flex-1"
                     />
                   </div>
@@ -263,12 +248,12 @@ export default function QRCodeGenerator() {
                     <input
                       type="color"
                       value={backgroundColor}
-                      onChange={(e) => setBackgroundColor(e.target.value)}
+                      onChange={e => setBackgroundColor(e.target.value)}
                       className="w-10 h-10 rounded border cursor-pointer"
                     />
                     <Input
                       value={backgroundColor}
-                      onChange={(e) => setBackgroundColor(e.target.value)}
+                      onChange={e => setBackgroundColor(e.target.value)}
                       className="flex-1"
                     />
                   </div>
@@ -286,14 +271,8 @@ export default function QRCodeGenerator() {
                           alt="Logo preview"
                           className="w-12 h-12 rounded border"
                         />
-                        <span className="text-sm text-muted-foreground flex-1">
-                          Logo uploaded
-                        </span>
-                        <Button
-                          onClick={removeLogo}
-                          variant="outline"
-                          size="sm"
-                        >
+                        <span className="text-sm text-muted-foreground flex-1">Logo uploaded</span>
+                        <Button onClick={removeLogo} variant="outline" size="sm">
                           <X className="h-4 w-4" />
                         </Button>
                       </div>
@@ -342,9 +321,7 @@ export default function QRCodeGenerator() {
               {isGenerating ? (
                 <div className="text-center space-y-2">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-                  <p className="text-sm text-muted-foreground">
-                    Generating QR Code...
-                  </p>
+                  <p className="text-sm text-muted-foreground">Generating QR Code...</p>
                 </div>
               ) : qrCodeDataUrl ? (
                 <div className="text-center space-y-4">
@@ -368,11 +345,7 @@ export default function QRCodeGenerator() {
                       onClick={copyToClipboard}
                       variant="outline"
                       size="sm"
-                      className={
-                        copied
-                          ? "bg-green-50 border-green-200 text-green-700"
-                          : ""
-                      }
+                      className={copied ? "bg-green-50 border-green-200 text-green-700" : ""}
                     >
                       <Copy className="h-4 w-4 mr-2" />
                       {copied ? "Copied!" : "Copy URL"}
@@ -397,11 +370,7 @@ export default function QRCodeGenerator() {
                   </p>
                   <p>
                     • Error Correction:{" "}
-                    {
-                      errorCorrectionLevels.find(
-                        (l) => l.value === errorCorrection
-                      )?.label
-                    }
+                    {errorCorrectionLevels.find(l => l.value === errorCorrection)?.label}
                   </p>
                   <p>• Content Type: {inputType.type}</p>
                   <p>• Characters: {text.length}</p>

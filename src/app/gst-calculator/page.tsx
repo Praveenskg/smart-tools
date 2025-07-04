@@ -15,8 +15,7 @@ export default function GSTCalculatorPage() {
       id: "gst-calculator",
       name: "GST Calculator",
       category: "Financial",
-      description:
-        "Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals",
+      description: "Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals",
     },
     selectedCategory: "Financial",
     baseTitle: "Smart Tools",
@@ -30,12 +29,9 @@ export default function GSTCalculatorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
-                GST Calculator
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tight">GST Calculator</h1>
               <p className="text-lg text-muted-foreground">
-                Easily compute GST amounts, reverse GST, and inclusive/exclusive
-                tax totals
+                Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals
               </p>
             </div>
             <div className="w-full flex justify-center sm:justify-start my-4">

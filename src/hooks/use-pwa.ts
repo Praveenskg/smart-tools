@@ -6,9 +6,7 @@ interface PWAInstallPrompt {
 }
 
 export function usePWA() {
-  const [deferredPrompt, setDeferredPrompt] = useState<PWAInstallPrompt | null>(
-    null
-  );
+  const [deferredPrompt, setDeferredPrompt] = useState<PWAInstallPrompt | null>(null);
   const [isInstallable, setIsInstallable] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
@@ -16,10 +14,7 @@ export function usePWA() {
   useEffect(() => {
     // Check if app is already installed
     const checkIfInstalled = () => {
-      if (
-        window.matchMedia &&
-        window.matchMedia("(display-mode: standalone)").matches
-      ) {
+      if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) {
         setIsInstalled(true);
       }
     };
@@ -68,10 +63,7 @@ export function usePWA() {
     setIsOnline(navigator.onLine);
 
     return () => {
-      window.removeEventListener(
-        "beforeinstallprompt",
-        handleBeforeInstallPrompt
-      );
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
       window.removeEventListener("appinstalled", handleAppInstalled);
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);

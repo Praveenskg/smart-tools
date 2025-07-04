@@ -30,12 +30,8 @@ export default function DOBCalculatorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
-                DOB Calculator
-              </h1>
-              <p className="text-lg text-muted-foreground">
-                Find date of birth from current age
-              </p>
+              <h1 className="text-3xl font-bold tracking-tight">DOB Calculator</h1>
+              <p className="text-lg text-muted-foreground">Find date of birth from current age</p>
             </div>
             <div className="w-full flex justify-center sm:justify-start my-4">
               <Link href="/" className="w-full sm:w-auto">

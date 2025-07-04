@@ -1,9 +1,9 @@
-name: ESLint + ReviewDog
+name: ESLint + TSC Type Check
 
 on: [pull_request]
 
 jobs:
-  lint:
+  lint-and-typecheck:
     runs-on: ubuntu-latest
 
     permissions:
@@ -25,3 +25,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
           eslint_flags: ". --ext .js,.ts,.tsx"
+
+      - name: Run TypeScript type check
+        run: npx tsc --noEmit

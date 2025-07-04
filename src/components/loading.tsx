@@ -74,11 +74,14 @@ export function LoadingPage() {
         <div className="flex items-center justify-center gap-1 sm:gap-2">
           <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-primary animate-pulse" />
           <h1 className="text-xl sm:text-2xl font-bold text-primary">Smart Tools</h1>
-          <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-primary animate-pulse" style={{ animationDelay: "0.5s" }} />
+          <Sparkles
+            className="h-6 w-6 sm:h-8 sm:w-8 text-primary animate-pulse"
+            style={{ animationDelay: "0.5s" }}
+          />
         </div>
         <LoadingSpinner size="lg" />
         <p className="text-sm sm:text-base text-muted-foreground">Loading your tools...</p>
       </div>
     </div>
   );
-} 
+}

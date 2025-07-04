@@ -3,13 +3,7 @@
 import { useState } from "react";
 import { Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -72,9 +66,7 @@ export default function TipCalculator() {
       <Card className="modern-card">
         <CardHeader>
           <CardTitle>Bill Information</CardTitle>
-          <CardDescription>
-            Enter bill details to calculate tip and split
-          </CardDescription>
+          <CardDescription>Enter bill details to calculate tip and split</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
@@ -84,16 +76,14 @@ export default function TipCalculator() {
               type="number"
               placeholder="Enter bill amount"
               value={billAmount}
-              onChange={(e) => setBillAmount(e.target.value)}
+              onChange={e => setBillAmount(e.target.value)}
             />
           </div>
 
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <Label>Tip Percentage</Label>
-              <span className="text-2xl font-bold gradient-text">
-                {tipPercentage[0]}%
-              </span>
+              <span className="text-2xl font-bold gradient-text">{tipPercentage[0]}%</span>
             </div>
             <Slider
               value={tipPercentage}
@@ -104,7 +94,7 @@ export default function TipCalculator() {
               className="w-full"
             />
             <div className="flex gap-2 flex-wrap">
-              {quickTipButtons.map((tip) => (
+              {quickTipButtons.map(tip => (
                 <Button
                   key={tip}
                   variant={tipPercentage[0] === tip ? "default" : "outline"}
@@ -128,7 +118,7 @@ export default function TipCalculator() {
                 min="1"
                 placeholder="Enter number of people"
                 value={numberOfPeople}
-                onChange={(e) => setNumberOfPeople(e.target.value)}
+                onChange={e => setNumberOfPeople(e.target.value)}
               />
             </div>
           </div>
@@ -151,18 +141,14 @@ export default function TipCalculator() {
               <div className="h-2 w-2 rounded-full success-gradient"></div>
               Tip Calculation Results
             </CardTitle>
-            <CardDescription>
-              Bill breakdown and per-person amounts
-            </CardDescription>
+            <CardDescription>Bill breakdown and per-person amounts</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
               <div className="p-4 bg-linear-to-r from-muted to-muted/50 rounded-xl">
                 <div className="flex justify-between items-center">
                   <span>Bill Amount</span>
-                  <span className="font-semibold">
-                    {formatCurrency(result.billAmount)}
-                  </span>
+                  <span className="font-semibold">{formatCurrency(result.billAmount)}</span>
                 </div>
               </div>
 
@@ -194,15 +180,11 @@ export default function TipCalculator() {
                 <div className="grid gap-3">
                   <div className="flex justify-between">
                     <span>Amount per person</span>
-                    <span className="font-semibold">
-                      {formatCurrency(result.perPersonAmount)}
-                    </span>
+                    <span className="font-semibold">{formatCurrency(result.perPersonAmount)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Tip per person</span>
-                    <span className="font-semibold">
-                      {formatCurrency(result.perPersonTip)}
-                    </span>
+                    <span className="font-semibold">{formatCurrency(result.perPersonTip)}</span>
                   </div>
                 </div>
               </div>
@@ -213,10 +195,10 @@ export default function TipCalculator() {
               <p className="text-sm text-muted-foreground">
                 {Number.parseInt(numberOfPeople) > 1
                   ? `Each person should pay ${formatCurrency(
-                      result.perPersonAmount
+                      result.perPersonAmount,
                     )} (including ${formatCurrency(result.perPersonTip)} tip).`
                   : `Total amount to pay: ${formatCurrency(
-                      result.totalAmount
+                      result.totalAmount,
                     )} (including ${formatCurrency(result.tipAmount)} tip).`}
               </p>
             </div>

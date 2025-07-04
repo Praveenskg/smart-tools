@@ -13,6 +13,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 ### 🏦 Financial Tools (4 Tools)
 
 #### **EMI Calculator** ⭐ Popular
+
 - Calculate monthly EMIs for any loan with interest and tenure
 - GST calculation (18%) on interest
 - Detailed amortization schedule with PDF export
@@ -21,6 +22,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Professional PDF reports
 
 #### **Currency Converter** ⭐ Popular
+
 - Convert between different currencies with real-time exchange rates
 - Support for 170+ world currencies
 - Historical exchange rate data
@@ -28,6 +30,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Real-time updates
 
 #### **GST Calculator**
+
 - Calculate GST amounts (inclusive/exclusive)
 - Reverse GST calculation
 - Multiple GST rates support (5%, 12%, 18%, 28%)
@@ -35,6 +38,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Clean, intuitive interface
 
 #### **Tip Calculator**
+
 - Restaurant tip calculation
 - Bill splitting functionality
 - Multiple tip percentage options (10%, 15%, 18%, 20%, 25%)
@@ -44,6 +48,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 ### 📊 Planning & Tracking
 
 #### **Goal Tracker** ⭐ Popular
+
 - Create and manage personal financial goals
 - Progress tracking with visual indicators
 - Category-based organization
@@ -57,6 +62,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 ### 🧮 Mathematical Tools (2 Tools)
 
 #### **Percentage Calculator**
+
 - Basic percentage calculations
 - Percentage increase/decrease
 - Value from percentage
@@ -65,6 +71,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Real-time results
 
 #### **Area Calculator**
+
 - Calculate area of various geometric shapes:
   - Rectangle/Square
   - Triangle
@@ -78,18 +85,21 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 ### 📅 Date & Time Tools (3 Tools)
 
 #### **Age Calculator**
+
 - Calculate exact age in years, months, and days
 - Precise date difference calculation
 - Clean, modern interface
 - Instant results
 
 #### **Date of Birth Calculator**
+
 - Find birth date from current age
 - Reverse age calculation
 - Multiple date formats
 - Precise calculations
 
 #### **Timezone Converter**
+
 - Convert time between different timezones
 - Track multiple world clocks simultaneously
 - 15+ popular timezones pre-configured
@@ -100,6 +110,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 ### 🏥 Health & Fitness
 
 #### **BMI Calculator**
+
 - Body Mass Index calculation
 - Height and weight input
 - BMI category classification (Underweight, Normal, Overweight, Obese)
@@ -110,6 +121,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 ### 🔄 Conversion Tools
 
 #### **Unit Converter**
+
 - **Length**: mm, cm, m, km, inches, feet, yards, miles
 - **Weight**: mg, g, kg, oz, lb, ton
 - **Temperature**: Celsius, Fahrenheit, Kelvin
@@ -121,6 +133,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 ### 🛠️ Utility Tools
 
 #### **QR Code Generator** ⭐ Popular
+
 - Create custom QR codes for URLs, text, emails, and more
 - Multiple QR code formats
 - Customizable colors and sizes
@@ -131,6 +144,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 ## 🛠️ Technology Stack
 
 ### Frontend
+
 - **Next.js 15** - React framework with App Router
 - **React 19** - Latest React version
 - **TypeScript 5** - Type-safe JavaScript
@@ -139,27 +153,33 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - **Lucide React** - Beautiful icons
 
 ### Charts & Visualization
+
 - **Recharts** - Composable charting library
 - **Pie charts** for financial breakdowns
 - **Progress bars** for goal tracking
 - **Line charts** for trends
 
 ### PDF Generation
+
 - **jsPDF** - Client-side PDF generation
 - **jspdf-autotable** - Table generation in PDFs
 
 ### QR Code Generation
+
 - **qrcode** - QR code generation library
 - **@types/qrcode** - TypeScript definitions
 
 ### Date Handling
+
 - **date-fns** - Modern date utility library
 - **react-day-picker** - Date picker component
 
 ### Analytics
+
 - **@vercel/analytics** - Web analytics
 
 ### State Management
+
 - **React Hooks** - useState, useEffect, useCallback, useMemo
 - **Local Storage** - Client-side data persistence
 - **Custom Hooks** - useDynamicTitle, useMobile, usePerformance, useSEO
@@ -167,6 +187,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 ## 🎨 Design Features
 
 ### Modern UI/UX
+
 - **Responsive Design** - Works on all devices
 - **Dark/Light Mode** - Theme switching capability
 - **Modern Cards** - Clean, elevated design with hover animations
@@ -176,6 +197,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - **Professional Layout** - Clean, organized interface
 
 ### Component Architecture
+
 - **Modular Design** - Reusable components
 - **Type Safety** - Full TypeScript implementation
 - **Accessibility** - ARIA labels and keyboard navigation
@@ -185,6 +207,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 ## 📱 Responsive Design
 
 The application is fully responsive and optimized for:
+
 - **Desktop** - Full-featured experience with grid layouts
 - **Tablet** - Adaptive layout with touch-friendly elements
 - **Mobile** - Touch-friendly interface with optimized spacing
@@ -193,18 +216,21 @@ The application is fully responsive and optimized for:
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm, yarn, pnpm, or bun
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/praveenskg/smart-tools.git
    cd smart-tools
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    # or
@@ -214,6 +240,7 @@ The application is fully responsive and optimized for:
    ```
 
 3. **Run the development server**
+
    ```bash
    npm run dev
    # or
@@ -275,24 +302,28 @@ smart-tools/
 ## 🎯 Key Features
 
 ### Data Persistence
+
 - **Local Storage** - Goals and preferences persist across sessions
 - **No Server Required** - All calculations done client-side
 - **Privacy First** - Data stays on your device
 - **Offline Capable** - Works without internet connection
 
 ### Export Functionality
+
 - **PDF Export** - Download detailed reports
 - **Professional Formatting** - Clean, printable documents
 - **Complete Data** - All calculations and schedules included
 - **QR Code Downloads** - Save generated QR codes
 
 ### Performance
+
 - **Fast Loading** - Optimized bundle size
 - **Smooth Interactions** - 60fps animations
 - **Efficient Calculations** - Real-time updates
 - **Lazy Loading** - Components load on demand
 
 ### SEO & Analytics
+
 - **Dynamic Titles** - SEO-optimized page titles
 - **Meta Tags** - Proper meta descriptions
 - **Vercel Analytics** - Performance tracking
@@ -301,6 +332,7 @@ smart-tools/
 ## 🔧 Customization
 
 ### Adding New Tools
+
 1. Create a new component in `src/components/tools/`
 2. Add the tool to the tools array in `src/app/page.tsx`
 3. Create a page in `src/app/[tool-name]/page.tsx`
@@ -309,12 +341,14 @@ smart-tools/
 6. Implement error handling
 
 ### Styling
+
 - Uses Tailwind CSS for styling
 - Shadcn/ui components for consistency
 - Custom CSS classes for special effects
 - Theme-aware color schemes
 
 ### Animation
+
 - Hover animations on cards
 - Icon scale and rotation effects
 - Smooth color transitions
@@ -344,6 +378,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 If you have any questions or need help:
+
 - Open an issue on GitHub
 - Check the documentation
 - Review the code examples

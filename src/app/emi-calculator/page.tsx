@@ -33,12 +33,9 @@ export default function EMICalculatorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
-                EMI Calculator
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tight">EMI Calculator</h1>
               <p className="text-lg text-muted-foreground">
-                Calculate EMIs for loans and credit cards with detailed
-                breakdown
+                Calculate EMIs for loans and credit cards with detailed breakdown
               </p>
             </div>
             <div className="w-full flex justify-center sm:justify-start my-4">
@@ -51,16 +48,10 @@ export default function EMICalculatorPage() {
             </div>
             <Card className="shadow-md border border-border">
               <CardContent className="p-6">
-                <Tabs
-                  value={activeTab}
-                  onValueChange={setActiveTab}
-                  className="w-full"
-                >
+                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                   <TabsList className="grid w-full grid-cols-2 mb-6">
                     <TabsTrigger value="loan-emi">Loan EMI</TabsTrigger>
-                    <TabsTrigger value="credit-card-emi">
-                      Credit Card EMI
-                    </TabsTrigger>
+                    <TabsTrigger value="credit-card-emi">Credit Card EMI</TabsTrigger>
                   </TabsList>
                   <TabsContent value="loan-emi" className="space-y-4">
                     <EMICalculator />

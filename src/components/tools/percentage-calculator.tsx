@@ -1,69 +1,74 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function PercentageCalculator() {
-  const [basicValue, setBasicValue] = useState<string>("")
-  const [basicPercentage, setBasicPercentage] = useState<string>("")
-  const [basicResult, setBasicResult] = useState<number | null>(null)
+  const [basicValue, setBasicValue] = useState<string>("");
+  const [basicPercentage, setBasicPercentage] = useState<string>("");
+  const [basicResult, setBasicResult] = useState<number | null>(null);
 
-  const [increaseValue, setIncreaseValue] = useState<string>("")
-  const [increasePercent, setIncreasePercent] = useState<string>("")
-  const [increaseResult, setIncreaseResult] = useState<{ newValue: number; increase: number } | null>(null)
+  const [increaseValue, setIncreaseValue] = useState<string>("");
+  const [increasePercent, setIncreasePercent] = useState<string>("");
+  const [increaseResult, setIncreaseResult] = useState<{
+    newValue: number;
+    increase: number;
+  } | null>(null);
 
-  const [changeOld, setChangeOld] = useState<string>("")
-  const [changeNew, setChangeNew] = useState<string>("")
-  const [changeResult, setChangeResult] = useState<{ percentage: number; change: number } | null>(null)
+  const [changeOld, setChangeOld] = useState<string>("");
+  const [changeNew, setChangeNew] = useState<string>("");
+  const [changeResult, setChangeResult] = useState<{ percentage: number; change: number } | null>(
+    null,
+  );
 
   const calculateBasic = () => {
-    const value = Number.parseFloat(basicValue)
-    const percentage = Number.parseFloat(basicPercentage)
+    const value = Number.parseFloat(basicValue);
+    const percentage = Number.parseFloat(basicPercentage);
     if (!isNaN(value) && !isNaN(percentage)) {
-      setBasicResult((value * percentage) / 100)
+      setBasicResult((value * percentage) / 100);
     }
-  }
+  };
 
   const calculateIncrease = () => {
-    const value = Number.parseFloat(increaseValue)
-    const percent = Number.parseFloat(increasePercent)
+    const value = Number.parseFloat(increaseValue);
+    const percent = Number.parseFloat(increasePercent);
     if (!isNaN(value) && !isNaN(percent)) {
-      const increase = (value * percent) / 100
+      const increase = (value * percent) / 100;
       setIncreaseResult({
         newValue: value + increase,
         increase: increase,
-      })
+      });
     }
-  }
+  };
 
   const calculateChange = () => {
-    const oldValue = Number.parseFloat(changeOld)
-    const newValue = Number.parseFloat(changeNew)
+    const oldValue = Number.parseFloat(changeOld);
+    const newValue = Number.parseFloat(changeNew);
     if (!isNaN(oldValue) && !isNaN(newValue) && oldValue !== 0) {
-      const change = newValue - oldValue
-      const percentage = (change / oldValue) * 100
+      const change = newValue - oldValue;
+      const percentage = (change / oldValue) * 100;
       setChangeResult({
         percentage: percentage,
         change: change,
-      })
+      });
     }
-  }
+  };
 
   const resetAll = () => {
-    setBasicValue("")
-    setBasicPercentage("")
-    setBasicResult(null)
-    setIncreaseValue("")
-    setIncreasePercent("")
-    setIncreaseResult(null)
-    setChangeOld("")
-    setChangeNew("")
-    setChangeResult(null)
-  }
+    setBasicValue("");
+    setBasicPercentage("");
+    setBasicResult(null);
+    setIncreaseValue("");
+    setIncreasePercent("");
+    setIncreaseResult(null);
+    setChangeOld("");
+    setChangeNew("");
+    setChangeResult(null);
+  };
 
   return (
     <div className="space-y-6">
@@ -89,7 +94,7 @@ export default function PercentageCalculator() {
                     type="number"
                     placeholder="Enter percentage"
                     value={basicPercentage}
-                    onChange={(e) => setBasicPercentage(e.target.value)}
+                    onChange={e => setBasicPercentage(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -99,7 +104,7 @@ export default function PercentageCalculator() {
                     type="number"
                     placeholder="Enter value"
                     value={basicValue}
-                    onChange={(e) => setBasicValue(e.target.value)}
+                    onChange={e => setBasicValue(e.target.value)}
                   />
                 </div>
               </div>
@@ -124,7 +129,9 @@ export default function PercentageCalculator() {
           <Card>
             <CardHeader>
               <CardTitle>Percentage Increase/Decrease</CardTitle>
-              <CardDescription>Calculate value after percentage increase or decrease</CardDescription>
+              <CardDescription>
+                Calculate value after percentage increase or decrease
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid gap-4 sm:grid-cols-2">
@@ -135,7 +142,7 @@ export default function PercentageCalculator() {
                     type="number"
                     placeholder="Enter original value"
                     value={increaseValue}
-                    onChange={(e) => setIncreaseValue(e.target.value)}
+                    onChange={e => setIncreaseValue(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -145,7 +152,7 @@ export default function PercentageCalculator() {
                     type="number"
                     placeholder="Enter percentage (+ or -)"
                     value={increasePercent}
-                    onChange={(e) => setIncreasePercent(e.target.value)}
+                    onChange={e => setIncreasePercent(e.target.value)}
                   />
                 </div>
               </div>
@@ -158,7 +165,9 @@ export default function PercentageCalculator() {
                 <div className="space-y-4">
                   <div className="p-6 bg-primary/5 rounded-lg text-center">
                     <div className="text-sm text-muted-foreground mb-2">New Value:</div>
-                    <div className="text-3xl font-bold text-primary">{increaseResult.newValue.toFixed(2)}</div>
+                    <div className="text-3xl font-bold text-primary">
+                      {increaseResult.newValue.toFixed(2)}
+                    </div>
                   </div>
                   <div className="p-4 border rounded-lg">
                     <div className="flex justify-between">
@@ -195,7 +204,7 @@ export default function PercentageCalculator() {
                     type="number"
                     placeholder="Enter old value"
                     value={changeOld}
-                    onChange={(e) => setChangeOld(e.target.value)}
+                    onChange={e => setChangeOld(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -205,7 +214,7 @@ export default function PercentageCalculator() {
                     type="number"
                     placeholder="Enter new value"
                     value={changeNew}
-                    onChange={(e) => setChangeNew(e.target.value)}
+                    onChange={e => setChangeNew(e.target.value)}
                   />
                 </div>
               </div>
@@ -240,7 +249,9 @@ export default function PercentageCalculator() {
                     </div>
                     <div className="flex justify-between border-t pt-2 mt-2">
                       <span>Percentage Change:</span>
-                      <span className={`font-bold ${changeResult.percentage >= 0 ? "text-green-600" : "text-red-600"}`}>
+                      <span
+                        className={`font-bold ${changeResult.percentage >= 0 ? "text-green-600" : "text-red-600"}`}
+                      >
                         {changeResult.percentage >= 0 ? "+" : ""}
                         {changeResult.percentage.toFixed(2)}%
                       </span>
@@ -259,5 +270,5 @@ export default function PercentageCalculator() {
         </Button>
       </div>
     </div>
-  )
+  );
 }
