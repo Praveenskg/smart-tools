@@ -84,7 +84,7 @@ export default function ImageTools() {
             <span className="hidden sm:inline">Filters</span>
           </TabsTrigger>
         </TabsList>
-        
+
         {!selectedImage && (
           <Card className="mb-6 modern-card">
             <CardContent className="pt-6">
