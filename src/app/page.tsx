@@ -15,6 +15,7 @@ import {
   Globe,
   Image,
   ListTodo,
+  TimerReset,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -141,6 +142,14 @@ const tools = [
     name: "Timezone Converter",
     description: "Convert time between different timezones and track world clocks",
     icon: Globe,
+    category: "Date & Time",
+    popular: false,
+  },
+  {
+    id: "timers-tools",
+    name: "Timers",
+    description: "Track time with countdown and stopwatch features",
+    icon: TimerReset,
     category: "Date & Time",
     popular: false,
   },

@@ -97,12 +97,12 @@ export default function TodoList() {
         todos.map(t =>
           t.id === editingTodoId
             ? {
-              ...t,
-              task: newTask.trim(),
-              dueDate: newDueDate?.toISOString(),
-              priority: newPriority,
-              edited: true,
-            }
+                ...t,
+                task: newTask.trim(),
+                dueDate: newDueDate?.toISOString(),
+                priority: newPriority,
+                edited: true,
+              }
             : t,
         ),
       );
