@@ -70,6 +70,14 @@ export function usePWA() {
     };
   }, []);
 
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        window.location.reload();
+      });
+    }
+  }, []);
+
   const installApp = async () => {
     if (!deferredPrompt) return false;
 
