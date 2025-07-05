@@ -23,7 +23,7 @@ export default function TimersToolsPage() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header title="Age Calculator" icon={TimerReset} />
+      <Header title="Timers" icon={TimerReset} />
       <main className="flex-1">
         <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
           <div className="w-full mx-auto">

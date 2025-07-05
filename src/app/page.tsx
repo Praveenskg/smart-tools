@@ -150,7 +150,7 @@ const tools = [
     name: "Timers",
     description: "Track time with countdown and stopwatch features",
     icon: TimerReset,
-    category: "Time",
+    category: "Date & Time",
     popular: false,
   },
 ];
