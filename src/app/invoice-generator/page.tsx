@@ -24,6 +24,7 @@ export default function InvoiceGenerator() {
     newItems[index][field] = value;
     setInvoice({ ...invoice, items: newItems });
   };
+  console.log(asasd;
   const addItem = () => {
     setInvoice({
       ...invoice,
