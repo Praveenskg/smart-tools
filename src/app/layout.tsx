@@ -6,6 +6,7 @@ import ErrorBoundary from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from '@vercel/analytics/next';
 import { PWAUpdateNotification } from '@/components/pwa-update-notification';
+import BackToTopButton from '@/components/BackToTopButton';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -133,11 +134,12 @@ export default function RootLayout({
         <ErrorBoundary>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
             {children}
+            <BackToTopButton />
             <PWAUpdateNotification />
             <Toaster
               position="top-right"
