@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import ErrorBoundary from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from '@vercel/analytics/next';
-import { PWAUpdateNotification } from '@/components/pwa-update-notification';
+import { PWAAutoUpdate } from '@/components/pwa-auto-update';
 import BackToTopButton from '@/components/BackToTopButton';
 
 const geistSans = Geist({
@@ -140,7 +140,7 @@ export default function RootLayout({
           >
             {children}
             <BackToTopButton />
-            <PWAUpdateNotification />
+            <PWAAutoUpdate />
             <Toaster
               position="top-right"
               expand={true}
