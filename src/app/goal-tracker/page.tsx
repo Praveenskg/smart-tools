@@ -1,26 +1,27 @@
-"use client";
+'use client';
 
-import { Target } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import GoalTracker from "@/components/tools/goal-tracker";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
+import { Target } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import GoalTracker from '@/components/tools/goal-tracker';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
 
-import Footer from "@/components/footer";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Header from "@/components/header";
+import Footer from '@/components/footer';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Header from '@/components/header';
 
 export default function GoalTrackerPage() {
   useDynamicTitle({
     currentTool: {
-      id: "goal-tracker",
-      name: "Goal Tracker",
-      category: "Planning",
-      description: "Plan and monitor your savings journey toward financial goals",
+      id: 'goal-tracker',
+      name: 'Goal Tracker',
+      category: 'Planning',
+      description:
+        'Plan and monitor your savings journey toward financial goals',
     },
-    selectedCategory: "Planning",
-    baseTitle: "Smart Tools",
+    selectedCategory: 'Planning',
+    baseTitle: 'Smart Tools',
   });
 
   return (
@@ -30,7 +31,9 @@ export default function GoalTrackerPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">Goal Tracker</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                Goal Tracker
+              </h1>
               <p className="text-lg text-muted-foreground">
                 Plan and monitor your savings journey toward financial goals
               </p>

@@ -1,12 +1,18 @@
-"use client";
-import { useState, useEffect } from "react";
-import { Plus, Trash2, Users, Calendar as CalendarIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
+'use client';
+import { useState, useEffect } from 'react';
+import { Plus, Trash2, Users, Calendar as CalendarIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
   DialogContent,
@@ -14,19 +20,23 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { Calendar } from '@/components/ui/calendar';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 interface Goal {
   id: string;
@@ -38,7 +48,7 @@ interface Goal {
   deadline: string;
   createdAt: string;
 }
-const STORAGE_KEY = "smart-tools-goals";
+const STORAGE_KEY = 'smart-tools-goals';
 export default function GoalTracker() {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [isAddingGoal, setIsAddingGoal] = useState(false);
@@ -46,48 +56,48 @@ export default function GoalTracker() {
   const [isClearAllDialogOpen, setIsClearAllDialogOpen] = useState(false);
   const [goalToDelete, setGoalToDelete] = useState<Goal | null>(null);
   const [newGoal, setNewGoal] = useState({
-    title: "",
-    description: "",
-    targetAmount: "",
-    currentAmount: "",
-    category: "",
-    deadline: "",
+    title: '',
+    description: '',
+    targetAmount: '',
+    currentAmount: '',
+    category: '',
+    deadline: '',
   });
   const categories = [
-    "Financial",
-    "Health & Fitness",
-    "Career",
-    "Education",
-    "Personal",
-    "Travel",
-    "Business",
-    "Other",
+    'Financial',
+    'Health & Fitness',
+    'Career',
+    'Education',
+    'Personal',
+    'Travel',
+    'Business',
+    'Other',
   ];
   const saveToLocalStorage = (goalsToSave: Goal[]) => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(goalsToSave));
-        console.log("Saved goals to localStorage:", goalsToSave);
+        console.log('Saved goals to localStorage:', goalsToSave);
       } catch (error) {
-        console.error("Error saving goals to localStorage:", error);
+        console.error('Error saving goals to localStorage:', error);
       }
     }
   };
   const loadFromLocalStorage = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const savedGoals = localStorage.getItem(STORAGE_KEY);
       if (savedGoals) {
         try {
           const parsedGoals = JSON.parse(savedGoals);
           setGoals(parsedGoals);
-          console.log("Loaded goals from localStorage:", parsedGoals);
+          console.log('Loaded goals from localStorage:', parsedGoals);
           return parsedGoals;
         } catch (error) {
-          console.error("Error loading goals from localStorage:", error);
+          console.error('Error loading goals from localStorage:', error);
           localStorage.removeItem(STORAGE_KEY);
         }
       } else {
-        console.log("No saved goals found in localStorage");
+        console.log('No saved goals found in localStorage');
       }
     }
     return [];
@@ -116,12 +126,12 @@ export default function GoalTracker() {
     setGoals(updatedGoals);
     saveToLocalStorage(updatedGoals);
     setNewGoal({
-      title: "",
-      description: "",
-      targetAmount: "",
-      currentAmount: "",
-      category: "",
-      deadline: "",
+      title: '',
+      description: '',
+      targetAmount: '',
+      currentAmount: '',
+      category: '',
+      deadline: '',
     });
     setIsAddingGoal(false);
   };
@@ -141,7 +151,7 @@ export default function GoalTracker() {
   };
   const clearAllGoals = () => {
     setGoals([]);
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       localStorage.removeItem(STORAGE_KEY);
     }
     setIsClearAllDialogOpen(false);
@@ -162,13 +172,17 @@ export default function GoalTracker() {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   };
-  const getStatusColor = (current: number, target: number, deadline: string) => {
+  const getStatusColor = (
+    current: number,
+    target: number,
+    deadline: string,
+  ) => {
     const progress = getProgressPercentage(current, target);
     const daysRemaining = getDaysRemaining(deadline);
-    if (progress >= 100) return "text-green-600";
-    if (daysRemaining !== null && daysRemaining < 0) return "text-red-600";
-    if (daysRemaining !== null && daysRemaining < 30) return "text-yellow-600";
-    return "text-blue-600";
+    if (progress >= 100) return 'text-green-600';
+    if (daysRemaining !== null && daysRemaining < 0) return 'text-red-600';
+    if (daysRemaining !== null && daysRemaining < 30) return 'text-yellow-600';
+    return 'text-blue-600';
   };
   return (
     <div className="space-y-8">
@@ -194,7 +208,9 @@ export default function GoalTracker() {
                   id="title"
                   placeholder="Enter goal title"
                   value={newGoal.title}
-                  onChange={e => setNewGoal({ ...newGoal, title: e.target.value })}
+                  onChange={e =>
+                    setNewGoal({ ...newGoal, title: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -204,7 +220,9 @@ export default function GoalTracker() {
                   placeholder="Describe your goal"
                   className="resize-none"
                   value={newGoal.description}
-                  onChange={e => setNewGoal({ ...newGoal, description: e.target.value })}
+                  onChange={e =>
+                    setNewGoal({ ...newGoal, description: e.target.value })
+                  }
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -215,7 +233,9 @@ export default function GoalTracker() {
                     type="number"
                     placeholder="Target value"
                     value={newGoal.targetAmount}
-                    onChange={e => setNewGoal({ ...newGoal, targetAmount: e.target.value })}
+                    onChange={e =>
+                      setNewGoal({ ...newGoal, targetAmount: e.target.value })
+                    }
                   />
                 </div>
                 <div className="space-y-2">
@@ -225,7 +245,9 @@ export default function GoalTracker() {
                     type="number"
                     placeholder="Current value"
                     value={newGoal.currentAmount}
-                    onChange={e => setNewGoal({ ...newGoal, currentAmount: e.target.value })}
+                    onChange={e =>
+                      setNewGoal({ ...newGoal, currentAmount: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -234,7 +256,9 @@ export default function GoalTracker() {
                   <Label>Category</Label>
                   <Select
                     value={newGoal.category}
-                    onValueChange={value => setNewGoal({ ...newGoal, category: value })}
+                    onValueChange={value =>
+                      setNewGoal({ ...newGoal, category: value })
+                    }
                   >
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select category" />
@@ -253,29 +277,33 @@ export default function GoalTracker() {
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
-                        variant={"outline"}
+                        variant={'outline'}
                         className={cn(
-                          "w-full justify-start text-left font-normal",
-                          !newGoal.deadline && "text-muted-foreground",
-                          newGoal.deadline && "text-accent-foreground",
+                          'w-full justify-start text-left font-normal',
+                          !newGoal.deadline && 'text-muted-foreground',
+                          newGoal.deadline && 'text-accent-foreground',
                         )}
                       >
                         {newGoal.deadline ? (
-                          format(new Date(newGoal.deadline), "PPP")
+                          format(new Date(newGoal.deadline), 'PPP')
                         ) : (
                           <CalendarIcon className="mr-2 h-4 w-4" />
                         )}
-                        {newGoal.deadline ? "Change date" : "Set deadline"}
+                        {newGoal.deadline ? 'Change date' : 'Set deadline'}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
                       <Calendar
                         mode="single"
-                        selected={newGoal.deadline ? new Date(newGoal.deadline) : undefined}
+                        selected={
+                          newGoal.deadline
+                            ? new Date(newGoal.deadline)
+                            : undefined
+                        }
                         onSelect={date => {
                           setNewGoal({
                             ...newGoal,
-                            deadline: date?.toISOString() || "",
+                            deadline: date?.toISOString() || '',
                           });
                         }}
                         autoFocus
@@ -307,8 +335,8 @@ export default function GoalTracker() {
           <DialogHeader>
             <DialogTitle>Delete Goal</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete &quot;{goalToDelete?.title}&quot;? This action cannot
-              be undone.
+              Are you sure you want to delete &quot;{goalToDelete?.title}&quot;?
+              This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-end space-x-2 pt-4">
@@ -327,17 +355,23 @@ export default function GoalTracker() {
           </div>
         </DialogContent>
       </Dialog>
-      <Dialog open={isClearAllDialogOpen} onOpenChange={setIsClearAllDialogOpen}>
+      <Dialog
+        open={isClearAllDialogOpen}
+        onOpenChange={setIsClearAllDialogOpen}
+      >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Clear All Goals</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete all {goals.length} goals? This action cannot be
-              undone.
+              Are you sure you want to delete all {goals.length} goals? This
+              action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-end space-x-2 pt-4">
-            <Button variant="outline" onClick={() => setIsClearAllDialogOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setIsClearAllDialogOpen(false)}
+            >
               Cancel
             </Button>
             <Button variant="destructive" onClick={clearAllGoals}>
@@ -363,7 +397,10 @@ export default function GoalTracker() {
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {goals.map(goal => {
-            const progress = getProgressPercentage(goal.currentAmount, goal.targetAmount);
+            const progress = getProgressPercentage(
+              goal.currentAmount,
+              goal.targetAmount,
+            );
             const daysRemaining = getDaysRemaining(goal.deadline);
             const statusColor = getStatusColor(
               goal.currentAmount,
@@ -376,7 +413,9 @@ export default function GoalTracker() {
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <CardTitle className="text-lg">{goal.title}</CardTitle>
-                      <CardDescription className="mt-1">{goal.description}</CardDescription>
+                      <CardDescription className="mt-1">
+                        {goal.description}
+                      </CardDescription>
                     </div>
                     <Button
                       variant="ghost"
@@ -403,7 +442,9 @@ export default function GoalTracker() {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span>Progress</span>
-                      <span className={statusColor}>{progress.toFixed(1)}%</span>
+                      <span className={statusColor}>
+                        {progress.toFixed(1)}%
+                      </span>
                     </div>
                     <Progress value={progress} className="h-2" />
                     <div className="flex justify-between text-sm text-muted-foreground">
@@ -422,7 +463,7 @@ export default function GoalTracker() {
                             {daysRemaining > 0
                               ? `${daysRemaining} days left`
                               : daysRemaining === 0
-                                ? "Due today"
+                                ? 'Due today'
                                 : `${Math.abs(daysRemaining)} days overdue`}
                             )
                           </span>
@@ -436,11 +477,13 @@ export default function GoalTracker() {
                       placeholder="Update progress"
                       className="flex-1"
                       onKeyDown={e => {
-                        if (e.key === "Enter") {
-                          const value = Number.parseFloat((e.target as HTMLInputElement).value);
+                        if (e.key === 'Enter') {
+                          const value = Number.parseFloat(
+                            (e.target as HTMLInputElement).value,
+                          );
                           if (!isNaN(value)) {
                             updateGoalProgress(goal.id, value);
-                            (e.target as HTMLInputElement).value = "";
+                            (e.target as HTMLInputElement).value = '';
                           }
                         }
                       }}
@@ -448,11 +491,12 @@ export default function GoalTracker() {
                     <Button
                       size="sm"
                       onClick={e => {
-                        const input = e.currentTarget.previousElementSibling as HTMLInputElement;
+                        const input = e.currentTarget
+                          .previousElementSibling as HTMLInputElement;
                         const value = Number.parseFloat(input.value);
                         if (!isNaN(value)) {
                           updateGoalProgress(goal.id, value);
-                          input.value = "";
+                          input.value = '';
                         }
                       }}
                     >
@@ -480,8 +524,13 @@ export default function GoalTracker() {
               <div className="text-center p-4 border rounded-xl modern-card">
                 <div className="text-2xl font-bold text-green-500">
                   {
-                    goals.filter(g => getProgressPercentage(g.currentAmount, g.targetAmount) >= 100)
-                      .length
+                    goals.filter(
+                      g =>
+                        getProgressPercentage(
+                          g.currentAmount,
+                          g.targetAmount,
+                        ) >= 100,
+                    ).length
                   }
                 </div>
                 <div className="text-sm text-muted-foreground">Completed</div>
@@ -490,7 +539,10 @@ export default function GoalTracker() {
                 <div className="text-2xl font-bold text-blue-600">
                   {
                     goals.filter(g => {
-                      const progress = getProgressPercentage(g.currentAmount, g.targetAmount);
+                      const progress = getProgressPercentage(
+                        g.currentAmount,
+                        g.targetAmount,
+                      );
                       return progress > 0 && progress < 100;
                     }).length
                   }
@@ -503,13 +555,19 @@ export default function GoalTracker() {
                     ? (
                         goals.reduce(
                           (sum, goal) =>
-                            sum + getProgressPercentage(goal.currentAmount, goal.targetAmount),
+                            sum +
+                            getProgressPercentage(
+                              goal.currentAmount,
+                              goal.targetAmount,
+                            ),
                           0,
                         ) / goals.length
-                      ).toFixed(1) + "%"
-                    : "0%"}
+                      ).toFixed(1) + '%'
+                    : '0%'}
                 </div>
-                <div className="text-sm text-muted-foreground">Average Progress</div>
+                <div className="text-sm text-muted-foreground">
+                  Average Progress
+                </div>
               </div>
             </div>
           </CardContent>

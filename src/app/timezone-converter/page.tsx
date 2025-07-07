@@ -1,24 +1,25 @@
-"use client";
+'use client';
 
-import { Globe, ArrowLeft } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import TimeZoneConverter from "@/components/tools/timezone-converter";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import Link from "next/link";
+import { Globe, ArrowLeft } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import TimeZoneConverter from '@/components/tools/timezone-converter';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import Link from 'next/link';
 
 export default function TimeZoneConverterPage() {
   useDynamicTitle({
     currentTool: {
-      id: "timezone-converter",
-      name: "Timezone Converter",
-      category: "Date & Time",
-      description: "Convert time between different timezones and track world clocks",
+      id: 'timezone-converter',
+      name: 'Timezone Converter',
+      category: 'Date & Time',
+      description:
+        'Convert time between different timezones and track world clocks',
     },
-    selectedCategory: "Date & Time",
-    baseTitle: "Smart Tools",
+    selectedCategory: 'Date & Time',
+    baseTitle: 'Smart Tools',
   });
 
   return (
@@ -28,7 +29,9 @@ export default function TimeZoneConverterPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">Timezone Converter</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                Timezone Converter
+              </h1>
               <p className="text-lg text-muted-foreground">
                 Convert time between different timezones and track world clocks
               </p>

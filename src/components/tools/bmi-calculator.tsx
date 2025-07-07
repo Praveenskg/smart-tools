@@ -1,23 +1,29 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 
 interface BMIResult {
   bmi: number;
   category: string;
-  status: "underweight" | "normal" | "overweight" | "obese";
+  status: 'underweight' | 'normal' | 'overweight' | 'obese';
   idealWeightRange: { min: number; max: number };
 }
 
 export default function BMICalculator() {
-  const [weight, setWeight] = useState<string>("");
-  const [height, setHeight] = useState<string>("");
+  const [weight, setWeight] = useState<string>('');
+  const [height, setHeight] = useState<string>('');
   const [result, setResult] = useState<BMIResult | null>(null);
 
   const calculateBMI = () => {
@@ -28,20 +34,20 @@ export default function BMICalculator() {
 
     const bmi = weightKg / (heightM * heightM);
     let category: string;
-    let status: "underweight" | "normal" | "overweight" | "obese";
+    let status: 'underweight' | 'normal' | 'overweight' | 'obese';
 
     if (bmi < 18.5) {
-      category = "Underweight";
-      status = "underweight";
+      category = 'Underweight';
+      status = 'underweight';
     } else if (bmi < 25) {
-      category = "Normal Weight";
-      status = "normal";
+      category = 'Normal Weight';
+      status = 'normal';
     } else if (bmi < 30) {
-      category = "Overweight";
-      status = "overweight";
+      category = 'Overweight';
+      status = 'overweight';
     } else {
-      category = "Obese";
-      status = "obese";
+      category = 'Obese';
+      status = 'obese';
     }
 
     const idealWeightRange = {
@@ -58,23 +64,23 @@ export default function BMICalculator() {
   };
 
   const resetForm = () => {
-    setWeight("");
-    setHeight("");
+    setWeight('');
+    setHeight('');
     setResult(null);
   };
 
   const getBMIColor = (status: string) => {
     switch (status) {
-      case "underweight":
-        return "text-blue-600";
-      case "normal":
-        return "text-green-600";
-      case "overweight":
-        return "text-yellow-600";
-      case "obese":
-        return "text-red-600";
+      case 'underweight':
+        return 'text-blue-600';
+      case 'normal':
+        return 'text-green-600';
+      case 'overweight':
+        return 'text-yellow-600';
+      case 'obese':
+        return 'text-red-600';
       default:
-        return "text-gray-600";
+        return 'text-gray-600';
     }
   };
 
@@ -90,7 +96,9 @@ export default function BMICalculator() {
       <div className="grid gap-4 sm:gap-6 lg:gap-8 lg:grid-cols-2">
         <Card className="modern-card">
           <CardHeader>
-            <CardTitle className="text-lg sm:text-xl">Body Measurements</CardTitle>
+            <CardTitle className="text-lg sm:text-xl">
+              Body Measurements
+            </CardTitle>
             <CardDescription className="text-sm sm:text-base">
               Enter your height and weight to calculate BMI
             </CardDescription>
@@ -123,10 +131,17 @@ export default function BMICalculator() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <Button onClick={calculateBMI} className="flex-1 text-sm sm:text-base">
+              <Button
+                onClick={calculateBMI}
+                className="flex-1 text-sm sm:text-base"
+              >
                 Calculate BMI
               </Button>
-              <Button onClick={resetForm} variant="outline" className="flex-1 text-sm sm:text-base">
+              <Button
+                onClick={resetForm}
+                variant="outline"
+                className="flex-1 text-sm sm:text-base"
+              >
                 Reset
               </Button>
             </div>
@@ -175,21 +190,25 @@ export default function BMICalculator() {
 
               <div className="space-y-3 sm:space-y-4">
                 <div className="p-3 sm:p-4 border rounded-lg">
-                  <h4 className="font-semibold mb-2 text-sm sm:text-base">Ideal Weight Range</h4>
+                  <h4 className="font-semibold mb-2 text-sm sm:text-base">
+                    Ideal Weight Range
+                  </h4>
                   <p className="text-xs sm:text-sm text-muted-foreground">
-                    {result.idealWeightRange.min.toFixed(1)} kg -{" "}
+                    {result.idealWeightRange.min.toFixed(1)} kg -{' '}
                     {result.idealWeightRange.max.toFixed(1)} kg
                   </p>
                 </div>
 
                 <div className="p-3 sm:p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
-                  <h4 className="font-semibold mb-2 text-sm sm:text-base">Health Recommendation</h4>
+                  <h4 className="font-semibold mb-2 text-sm sm:text-base">
+                    Health Recommendation
+                  </h4>
                   <p className="text-xs sm:text-sm">
-                    {result.status === "normal"
-                      ? "Great! You have a healthy BMI. Maintain your current lifestyle."
-                      : result.status === "underweight"
-                        ? "Consider consulting a healthcare provider about healthy weight gain strategies."
-                        : "Consider consulting a healthcare provider about healthy weight management strategies."}
+                    {result.status === 'normal'
+                      ? 'Great! You have a healthy BMI. Maintain your current lifestyle.'
+                      : result.status === 'underweight'
+                        ? 'Consider consulting a healthcare provider about healthy weight gain strategies.'
+                        : 'Consider consulting a healthcare provider about healthy weight management strategies.'}
                   </p>
                 </div>
               </div>
@@ -208,20 +227,36 @@ export default function BMICalculator() {
         <CardContent>
           <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
             <div className="p-3 sm:p-4 border rounded-xl modern-card text-center">
-              <div className="font-semibold text-blue-500 text-sm sm:text-base">Underweight</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Below 18.5</div>
+              <div className="font-semibold text-blue-500 text-sm sm:text-base">
+                Underweight
+              </div>
+              <div className="text-xs sm:text-sm text-muted-foreground">
+                Below 18.5
+              </div>
             </div>
             <div className="p-3 sm:p-4 border rounded-xl modern-card text-center">
-              <div className="font-semibold text-green-500 text-sm sm:text-base">Normal Weight</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">18.5 - 24.9</div>
+              <div className="font-semibold text-green-500 text-sm sm:text-base">
+                Normal Weight
+              </div>
+              <div className="text-xs sm:text-sm text-muted-foreground">
+                18.5 - 24.9
+              </div>
             </div>
             <div className="p-3 sm:p-4 border rounded-xl modern-card text-center">
-              <div className="font-semibold text-yellow-500 text-sm sm:text-base">Overweight</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">25.0 - 29.9</div>
+              <div className="font-semibold text-yellow-500 text-sm sm:text-base">
+                Overweight
+              </div>
+              <div className="text-xs sm:text-sm text-muted-foreground">
+                25.0 - 29.9
+              </div>
             </div>
             <div className="p-3 sm:p-4 border rounded-xl modern-card text-center">
-              <div className="font-semibold text-red-500 text-sm sm:text-base">Obese</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">30.0 and above</div>
+              <div className="font-semibold text-red-500 text-sm sm:text-base">
+                Obese
+              </div>
+              <div className="text-xs sm:text-sm text-muted-foreground">
+                30.0 and above
+              </div>
             </div>
           </div>
         </CardContent>

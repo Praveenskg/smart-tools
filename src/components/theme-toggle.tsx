@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { useTheme } from "next-themes";
-import { Button } from "./ui/button";
-import { Moon, Sun } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import * as React from 'react';
+import { useTheme } from 'next-themes';
+import { Button } from './ui/button';
+import { Moon, Sun } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
-  const isDark = theme === "dark";
+  const isDark = theme === 'dark';
 
   const toggleTheme = (): void => {
-    setTheme(isDark ? "light" : "dark");
+    setTheme(isDark ? 'light' : 'dark');
   };
 
   return (

@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import { Scale } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import UnitConverter from "@/components/tools/unit-converter";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
+import { Scale } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import UnitConverter from '@/components/tools/unit-converter';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
 
-import Footer from "@/components/footer";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Header from "@/components/header";
+import Footer from '@/components/footer';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Header from '@/components/header';
 
 export default function UnitConverterPage() {
   useDynamicTitle({
     currentTool: {
-      id: "unit-converter",
-      name: "Unit Converter",
-      category: "Conversion",
-      description: "Convert between different units of measurement",
+      id: 'unit-converter',
+      name: 'Unit Converter',
+      category: 'Conversion',
+      description: 'Convert between different units of measurement',
     },
-    selectedCategory: "Conversion",
-    baseTitle: "Smart Tools",
+    selectedCategory: 'Conversion',
+    baseTitle: 'Smart Tools',
   });
 
   return (
@@ -30,7 +30,9 @@ export default function UnitConverterPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">Unit Converter</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                Unit Converter
+              </h1>
               <p className="text-lg text-muted-foreground">
                 Convert between different units of measurement
               </p>

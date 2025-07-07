@@ -1,5 +1,5 @@
-"use client";
-import { useState } from "react";
+'use client';
+import { useState } from 'react';
 import {
   Calculator,
   Calendar,
@@ -16,181 +16,194 @@ import {
   Image,
   ListTodo,
   TimerReset,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import Link from "next/link";
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import Link from 'next/link';
 const tools = [
   {
-    id: "image-tools",
-    name: "Image Tools",
-    description: "Professional image processing tools - resize, convert, compress, and more",
+    id: 'image-tools',
+    name: 'Image Tools',
+    description:
+      'Professional image processing tools - resize, convert, compress, and more',
     icon: Image,
-    category: "Utility",
+    category: 'Utility',
     popular: true,
   },
   {
-    id: "qr-code-generator",
-    name: "QR Code Generator",
-    description: "Create custom QR codes for URLs, text, emails, and more",
+    id: 'qr-code-generator',
+    name: 'QR Code Generator',
+    description: 'Create custom QR codes for URLs, text, emails, and more',
     icon: QrCode,
-    category: "Utility",
+    category: 'Utility',
     popular: true,
   },
   {
-    id: "emi-calculator",
-    name: "EMI Calculator",
-    description: "Quickly estimate monthly EMIs for any loan with interest and tenure",
+    id: 'emi-calculator',
+    name: 'EMI Calculator',
+    description:
+      'Quickly estimate monthly EMIs for any loan with interest and tenure',
     icon: Calculator,
-    category: "Financial",
+    category: 'Financial',
     popular: true,
   },
   {
-    id: "age-calculator",
-    name: "Age Calculator",
-    description: "Calculate exact age in years, months, and days",
+    id: 'age-calculator',
+    name: 'Age Calculator',
+    description: 'Calculate exact age in years, months, and days',
     icon: Calendar,
-    category: "Date & Time",
+    category: 'Date & Time',
     popular: false,
   },
   {
-    id: "gst-calculator",
-    name: "GST Calculator",
-    description: "Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals",
+    id: 'gst-calculator',
+    name: 'GST Calculator',
+    description:
+      'Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals',
     icon: Percent,
-    category: "Financial",
+    category: 'Financial',
     popular: false,
   },
   {
-    id: "bmi-calculator",
-    name: "BMI Calculator",
-    description: "Calculate Body Mass Index and health status",
+    id: 'bmi-calculator',
+    name: 'BMI Calculator',
+    description: 'Calculate Body Mass Index and health status',
     icon: Heart,
-    category: "Health",
+    category: 'Health',
     popular: false,
   },
   {
-    id: "dob-calculator",
-    name: "DOB Calculator",
-    description: "Find date of birth from current age",
+    id: 'dob-calculator',
+    name: 'DOB Calculator',
+    description: 'Find date of birth from current age',
     icon: Clock,
-    category: "Date & Time",
+    category: 'Date & Time',
     popular: false,
   },
   {
-    id: "percentage-calculator",
-    name: "Percentage Calculator",
-    description: "Calculate percentages, increase, and decrease",
+    id: 'percentage-calculator',
+    name: 'Percentage Calculator',
+    description: 'Calculate percentages, increase, and decrease',
     icon: TrendingUp,
-    category: "Math",
+    category: 'Math',
     popular: false,
   },
   {
-    id: "unit-converter",
-    name: "Unit Converter",
-    description: "Convert between different units of measurement",
+    id: 'unit-converter',
+    name: 'Unit Converter',
+    description: 'Convert between different units of measurement',
     icon: Scale,
-    category: "Conversion",
+    category: 'Conversion',
     popular: false,
   },
   {
-    id: "area-calculator",
-    name: "Area Calculator",
-    description: "Calculate area of various geometric shapes",
+    id: 'area-calculator',
+    name: 'Area Calculator',
+    description: 'Calculate area of various geometric shapes',
     icon: Ruler,
-    category: "Math",
+    category: 'Math',
     popular: false,
   },
   {
-    id: "tip-calculator",
-    name: "Tip Calculator",
-    description: "Calculate restaurant tips and split bills effortlessly with friends",
+    id: 'tip-calculator',
+    name: 'Tip Calculator',
+    description:
+      'Calculate restaurant tips and split bills effortlessly with friends',
     icon: DollarSign,
-    category: "Financial",
+    category: 'Financial',
     popular: false,
   },
   {
-    id: "goal-tracker",
-    name: "Goal Tracker",
-    description: "Plan and monitor your savings journey toward financial goals",
+    id: 'goal-tracker',
+    name: 'Goal Tracker',
+    description: 'Plan and monitor your savings journey toward financial goals',
     icon: Target,
-    category: "Planning",
+    category: 'Planning',
     popular: true,
   },
   {
-    id: "todo-list",
-    name: "ToDo List",
-    description: "Stay organized and productive with a simple todo list",
+    id: 'todo-list',
+    name: 'ToDo List',
+    description: 'Stay organized and productive with a simple todo list',
     icon: ListTodo,
-    category: "Planning",
+    category: 'Planning',
     popular: true,
   },
   {
-    id: "currency-converter",
-    name: "Currency Converter",
-    description: "Convert between different currencies with real-time exchange rates",
+    id: 'currency-converter',
+    name: 'Currency Converter',
+    description:
+      'Convert between different currencies with real-time exchange rates',
     icon: DollarSign,
-    category: "Financial",
+    category: 'Financial',
     popular: true,
   },
   {
-    id: "timezone-converter",
-    name: "Timezone Converter",
-    description: "Convert time between different timezones and track world clocks",
+    id: 'timezone-converter',
+    name: 'Timezone Converter',
+    description:
+      'Convert time between different timezones and track world clocks',
     icon: Globe,
-    category: "Date & Time",
+    category: 'Date & Time',
     popular: false,
   },
   {
-    id: "timers-tools",
-    name: "Timers",
-    description: "Track time with countdown and stopwatch features",
+    id: 'timers-tools',
+    name: 'Timers',
+    description: 'Track time with countdown and stopwatch features',
     icon: TimerReset,
-    category: "Date & Time",
+    category: 'Date & Time',
     popular: false,
   },
 ];
 const categories = [
-  { name: "All Tools", count: tools.length },
+  { name: 'All Tools', count: tools.length },
   {
-    name: "Financial",
-    count: tools.filter(t => t.category === "Financial").length,
+    name: 'Financial',
+    count: tools.filter(t => t.category === 'Financial').length,
   },
   {
-    name: "Health",
-    count: tools.filter(t => t.category === "Health").length,
+    name: 'Health',
+    count: tools.filter(t => t.category === 'Health').length,
   },
   {
-    name: "Date & Time",
-    count: tools.filter(t => t.category === "Date & Time").length,
+    name: 'Date & Time',
+    count: tools.filter(t => t.category === 'Date & Time').length,
   },
-  { name: "Math", count: tools.filter(t => t.category === "Math").length },
+  { name: 'Math', count: tools.filter(t => t.category === 'Math').length },
   {
-    name: "Conversion",
-    count: tools.filter(t => t.category === "Conversion").length,
-  },
-  {
-    name: "Planning",
-    count: tools.filter(t => t.category === "Planning").length,
+    name: 'Conversion',
+    count: tools.filter(t => t.category === 'Conversion').length,
   },
   {
-    name: "Utility",
-    count: tools.filter(t => t.category === "Utility").length,
+    name: 'Planning',
+    count: tools.filter(t => t.category === 'Planning').length,
+  },
+  {
+    name: 'Utility',
+    count: tools.filter(t => t.category === 'Utility').length,
   },
 ];
 export default function Dashboard() {
-  const [selectedCategory, setSelectedCategory] = useState("All Tools");
+  const [selectedCategory, setSelectedCategory] = useState('All Tools');
   useDynamicTitle({
     currentTool: undefined,
     selectedCategory,
-    baseTitle: "Smart Tools",
+    baseTitle: 'Smart Tools',
   });
   const filteredTools = tools.filter(
-    tool => selectedCategory === "All Tools" || tool.category === selectedCategory,
+    tool =>
+      selectedCategory === 'All Tools' || tool.category === selectedCategory,
   );
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -202,15 +215,17 @@ export default function Dashboard() {
               Professional Calculator Suite
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
-              Access a comprehensive collection of calculators and utilities designed for
-              professionals, students, and everyday use.
+              Access a comprehensive collection of calculators and utilities
+              designed for professionals, students, and everyday use.
             </p>
           </div>
           <div className="flex flex-wrap gap-1 sm:gap-2 mb-6 sm:mb-8 justify-center">
             {categories.map(category => (
               <Button
                 key={category.name}
-                variant={selectedCategory === category.name ? "default" : "outline"}
+                variant={
+                  selectedCategory === category.name ? 'default' : 'outline'
+                }
                 size="sm"
                 onClick={() => setSelectedCategory(category.name)}
                 className="text-xs sm:text-sm"

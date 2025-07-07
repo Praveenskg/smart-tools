@@ -1,21 +1,25 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 // Currency formatting
-export function formatCurrency(amount: number, currency = "INR", locale = "en-IN"): string {
+export function formatCurrency(
+  amount: number,
+  currency = 'INR',
+  locale = 'en-IN',
+): string {
   return new Intl.NumberFormat(locale, {
-    style: "currency",
+    style: 'currency',
     currency,
   }).format(amount);
 }
 
 // Number formatting
 export function formatNumber(num: number, decimals = 2): string {
-  return new Intl.NumberFormat("en-IN", {
+  return new Intl.NumberFormat('en-IN', {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   }).format(num);
@@ -27,12 +31,15 @@ export function formatPercentage(value: number, decimals = 2): string {
 }
 
 // Date formatting
-export function formatDate(date: Date | string, options?: Intl.DateTimeFormatOptions): string {
-  const dateObj = typeof date === "string" ? new Date(date) : date;
-  return new Intl.DateTimeFormat("en-IN", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+export function formatDate(
+  date: Date | string,
+  options?: Intl.DateTimeFormatOptions,
+): string {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  return new Intl.DateTimeFormat('en-IN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
     ...options,
   }).format(dateObj);
 }
@@ -81,7 +88,7 @@ export function throttle<T extends (...args: unknown[]) => unknown>(
 
 // Local storage utilities
 export function getFromStorage<T>(key: string, defaultValue: T): T {
-  if (typeof window === "undefined") return defaultValue;
+  if (typeof window === 'undefined') return defaultValue;
   try {
     const item = window.localStorage.getItem(key);
     return item ? JSON.parse(item) : defaultValue;
@@ -92,7 +99,7 @@ export function getFromStorage<T>(key: string, defaultValue: T): T {
 }
 
 export function setToStorage<T>(key: string, value: T): void {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
   try {
     window.localStorage.setItem(key, JSON.stringify(value));
   } catch (error) {
@@ -101,7 +108,7 @@ export function setToStorage<T>(key: string, value: T): void {
 }
 
 export function removeFromStorage(key: string): void {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
   try {
     window.localStorage.removeItem(key);
   } catch (error) {
@@ -117,20 +124,20 @@ export async function copyToClipboard(text: string): Promise<boolean> {
       return true;
     } else {
       // Fallback for older browsers
-      const textArea = document.createElement("textarea");
+      const textArea = document.createElement('textarea');
       textArea.value = text;
-      textArea.style.position = "fixed";
-      textArea.style.left = "-999999px";
-      textArea.style.top = "-999999px";
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
       document.body.appendChild(textArea);
       textArea.focus();
       textArea.select();
-      const result = document.execCommand("copy");
+      const result = document.execCommand('copy');
       textArea.remove();
       return result;
     }
   } catch (error) {
-    console.error("Failed to copy text: ", error);
+    console.error('Failed to copy text: ', error);
     return false;
   }
 }
@@ -156,7 +163,11 @@ export function calculateAge(
 
   if (days < 0) {
     months--;
-    const lastMonth = new Date(targetDate.getFullYear(), targetDate.getMonth(), 0);
+    const lastMonth = new Date(
+      targetDate.getFullYear(),
+      targetDate.getMonth(),
+      0,
+    );
     days += lastMonth.getDate();
   }
 

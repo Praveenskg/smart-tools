@@ -1,27 +1,27 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback } from 'react';
 
 export function usePerformance() {
   const logMetric = useCallback((name: string, value: number) => {
-    if (process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV === 'development') {
       console.log(`📊 ${name}:`, value);
     }
 
     // Send to analytics in production
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV === 'production') {
       // You can send to Google Analytics, Vercel Analytics, etc.
       // gtag('event', 'web_vitals', { name, value });
     }
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === 'undefined') return;
 
     // First Contentful Paint
     const fcpObserver = new PerformanceObserver(list => {
       const entries = list.getEntries();
       entries.forEach(entry => {
-        if (entry.name === "first-contentful-paint") {
-          logMetric("FCP", entry.startTime);
+        if (entry.name === 'first-contentful-paint') {
+          logMetric('FCP', entry.startTime);
         }
       });
     });
@@ -31,7 +31,7 @@ export function usePerformance() {
       const entries = list.getEntries();
       const lastEntry = entries[entries.length - 1];
       if (lastEntry) {
-        logMetric("LCP", lastEntry.startTime);
+        logMetric('LCP', lastEntry.startTime);
       }
     });
 
@@ -39,9 +39,11 @@ export function usePerformance() {
     const fidObserver = new PerformanceObserver(list => {
       const entries = list.getEntries();
       entries.forEach(entry => {
-        const firstInputEntry = entry as PerformanceEntry & { processingStart?: number };
+        const firstInputEntry = entry as PerformanceEntry & {
+          processingStart?: number;
+        };
         if (firstInputEntry.processingStart) {
-          logMetric("FID", firstInputEntry.processingStart - entry.startTime);
+          logMetric('FID', firstInputEntry.processingStart - entry.startTime);
         }
       });
     });
@@ -59,24 +61,27 @@ export function usePerformance() {
           clsValue += layoutShiftEntry.value;
         }
       });
-      logMetric("CLS", clsValue);
+      logMetric('CLS', clsValue);
     });
 
     try {
-      fcpObserver.observe({ entryTypes: ["paint"] });
-      lcpObserver.observe({ entryTypes: ["largest-contentful-paint"] });
-      fidObserver.observe({ entryTypes: ["first-input"] });
-      clsObserver.observe({ entryTypes: ["layout-shift"] });
+      fcpObserver.observe({ entryTypes: ['paint'] });
+      lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+      fidObserver.observe({ entryTypes: ['first-input'] });
+      clsObserver.observe({ entryTypes: ['layout-shift'] });
     } catch (error) {
-      console.warn("Performance monitoring not supported:", error);
+      console.warn('Performance monitoring not supported:', error);
     }
 
     // Time to First Byte
     const navigationEntry = performance.getEntriesByType(
-      "navigation",
+      'navigation',
     )[0] as PerformanceNavigationTiming;
     if (navigationEntry) {
-      logMetric("TTFB", navigationEntry.responseStart - navigationEntry.requestStart);
+      logMetric(
+        'TTFB',
+        navigationEntry.responseStart - navigationEntry.requestStart,
+      );
     }
 
     return () => {
@@ -91,13 +96,17 @@ export function usePerformance() {
 // Hook for measuring component render time
 export function useRenderTime(componentName: string) {
   useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV === 'development') {
       const startTime = performance.now();
 
       return () => {
         const endTime = performance.now();
         const renderTime = endTime - startTime;
-        console.log(`⚡ ${componentName} render time:`, renderTime.toFixed(2), "ms");
+        console.log(
+          `⚡ ${componentName} render time:`,
+          renderTime.toFixed(2),
+          'ms',
+        );
       };
     }
   }, [componentName]);
@@ -110,11 +119,15 @@ export function useFunctionTimer<T extends (...args: unknown[]) => unknown>(
 ): T {
   return useCallback(
     (...args: Parameters<T>) => {
-      if (process.env.NODE_ENV === "development") {
+      if (process.env.NODE_ENV === 'development') {
         const startTime = performance.now();
         const result = fn(...args);
         const endTime = performance.now();
-        console.log(`⚡ ${name} execution time:`, (endTime - startTime).toFixed(2), "ms");
+        console.log(
+          `⚡ ${name} execution time:`,
+          (endTime - startTime).toFixed(2),
+          'ms',
+        );
         return result;
       }
       return fn(...args);

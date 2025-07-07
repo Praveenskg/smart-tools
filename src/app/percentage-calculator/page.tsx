@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { TrendingUp } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import PercentageCalculator from "@/components/tools/percentage-calculator";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
-import Footer from "@/components/footer";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Header from "@/components/header";
+import { TrendingUp } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import PercentageCalculator from '@/components/tools/percentage-calculator';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
+import Footer from '@/components/footer';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Header from '@/components/header';
 
 export default function PercentageCalculatorPage() {
   useDynamicTitle({
     currentTool: {
-      id: "percentage-calculator",
-      name: "Percentage Calculator",
-      category: "Math",
-      description: "Calculate percentages, increase, and decrease",
+      id: 'percentage-calculator',
+      name: 'Percentage Calculator',
+      category: 'Math',
+      description: 'Calculate percentages, increase, and decrease',
     },
-    selectedCategory: "Math",
-    baseTitle: "Smart Tools",
+    selectedCategory: 'Math',
+    baseTitle: 'Smart Tools',
   });
 
   return (
@@ -29,7 +29,9 @@ export default function PercentageCalculatorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">Percentage Calculator</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                Percentage Calculator
+              </h1>
               <p className="text-lg text-muted-foreground">
                 Calculate percentages, increase, and decrease
               </p>

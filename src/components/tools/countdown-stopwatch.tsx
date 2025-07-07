@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "../ui/scroll-area";
-import { toast } from "sonner";
+import { useEffect, useRef, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ScrollArea } from '../ui/scroll-area';
+import { toast } from 'sonner';
 
 export default function TimerTools() {
   return (
@@ -49,7 +49,7 @@ function CountdownTimer() {
       clearInterval(intervalRef.current!);
       setRunning(false);
       toast("⏰ Time's Up!", {
-        description: "Your countdown has completed.",
+        description: 'Your countdown has completed.',
       });
     }
 
@@ -107,7 +107,7 @@ function CountdownTimer() {
                 min={0}
                 max={59}
                 placeholder="Minutes"
-                value={minutesInput || ""}
+                value={minutesInput || ''}
                 onChange={e => setMinutesInput(parseInt(e.target.value) || 0)}
               />
               <Input
@@ -115,19 +115,32 @@ function CountdownTimer() {
                 min={0}
                 max={59}
                 placeholder="Seconds"
-                value={secondsInput || ""}
+                value={secondsInput || ''}
                 onChange={e => setSecondsInput(parseInt(e.target.value) || 0)}
               />
             </div>
-            <Button onClick={start} disabled={minutesInput === 0 && secondsInput === 0}>
+            <Button
+              onClick={start}
+              disabled={minutesInput === 0 && secondsInput === 0}
+            >
               Start
             </Button>
           </>
         ) : (
           <>
             <div className="relative w-56 h-56 mx-auto">
-              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="45" stroke="#e5e7eb" strokeWidth="10" fill="none" />
+              <svg
+                className="w-full h-full transform -rotate-90"
+                viewBox="0 0 100 100"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="#e5e7eb"
+                  strokeWidth="10"
+                  fill="none"
+                />
                 <circle
                   cx="50"
                   cy="50"
@@ -138,20 +151,23 @@ function CountdownTimer() {
                   strokeDasharray={circumference}
                   strokeDashoffset={offset}
                   strokeLinecap="round"
-                  style={{ transition: "stroke-dashoffset 0.5s linear" }}
+                  style={{ transition: 'stroke-dashoffset 0.5s linear' }}
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-3xl font-mono font-bold">
-                  {String(remainingMinutes).padStart(2, "0")}:
-                  {String(remainingSeconds).padStart(2, "0")}
+                  {String(remainingMinutes).padStart(2, '0')}:
+                  {String(remainingSeconds).padStart(2, '0')}
                 </span>
               </div>
             </div>
 
             <div className="flex gap-2">
               {running ? (
-                <Button onClick={pause} className="w-1/2 bg-red-500 hover:bg-red-600 text-white">
+                <Button
+                  onClick={pause}
+                  className="w-1/2 bg-red-500 hover:bg-red-600 text-white"
+                >
                   Pause
                 </Button>
               ) : (
@@ -176,13 +192,13 @@ function CountdownTimer() {
 function formatTime(ms: number) {
   const minutes = Math.floor(ms / 60000)
     .toString()
-    .padStart(2, "0");
+    .padStart(2, '0');
   const seconds = Math.floor((ms % 60000) / 1000)
     .toString()
-    .padStart(2, "0");
+    .padStart(2, '0');
   const milliseconds = Math.floor((ms % 1000) / 10)
     .toString()
-    .padStart(2, "0");
+    .padStart(2, '0');
   return `${minutes}:${seconds}:${milliseconds}`;
 }
 
@@ -229,12 +245,17 @@ function Stopwatch() {
         <CardTitle>Stopwatch</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="text-center text-5xl font-bold font-mono">{formatTime(time)}</div>
+        <div className="text-center text-5xl font-bold font-mono">
+          {formatTime(time)}
+        </div>
 
         <div className="flex justify-center gap-3">
           {running ? (
             <>
-              <Button onClick={handleStop} className="bg-red-500 hover:bg-red-600 text-white">
+              <Button
+                onClick={handleStop}
+                className="bg-red-500 hover:bg-red-600 text-white"
+              >
                 Stop
               </Button>
               <Button variant="outline" onClick={handleLap}>
@@ -243,14 +264,17 @@ function Stopwatch() {
             </>
           ) : (
             <>
-              <Button onClick={handleStart} className="bg-green-600 hover:bg-green-700 text-white">
-                {time === 0 ? "Start" : "Resume"}
+              <Button
+                onClick={handleStart}
+                className="bg-green-600 hover:bg-green-700 text-white"
+              >
+                {time === 0 ? 'Start' : 'Resume'}
               </Button>
               <Button
                 variant="outline"
                 onClick={handleReset}
                 disabled={time === 0}
-                className={time === 0 ? "cursor-not-allowed opacity-50" : ""}
+                className={time === 0 ? 'cursor-not-allowed opacity-50' : ''}
               >
                 Reset
               </Button>
@@ -274,8 +298,13 @@ function Stopwatch() {
                     const previousLapTime = laps[idx + 1] ?? 0;
                     const lapDiff = currentLapTime - previousLapTime;
                     return (
-                      <li key={idx} className="flex justify-between  py-2 items-center">
-                        <span className="w-1/3 text-center">{laps.length - idx}</span>
+                      <li
+                        key={idx}
+                        className="flex justify-between  py-2 items-center"
+                      >
+                        <span className="w-1/3 text-center">
+                          {laps.length - idx}
+                        </span>
                         <span className="w-1/3 text-center font-mono text-blue-600">
                           {formatTime(lapDiff)}
                         </span>

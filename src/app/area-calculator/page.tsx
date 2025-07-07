@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { Ruler } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import AreaCalculator from "@/components/tools/area-calculator";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
-import Footer from "@/components/footer";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Header from "@/components/header";
+import { Ruler } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import AreaCalculator from '@/components/tools/area-calculator';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
+import Footer from '@/components/footer';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Header from '@/components/header';
 
 export default function AreaCalculatorPage() {
   useDynamicTitle({
     currentTool: {
-      id: "area-calculator",
-      name: "Area Calculator",
-      category: "Math",
-      description: "Calculate area of various geometric shapes",
+      id: 'area-calculator',
+      name: 'Area Calculator',
+      category: 'Math',
+      description: 'Calculate area of various geometric shapes',
     },
-    selectedCategory: "Math",
-    baseTitle: "Smart Tools",
+    selectedCategory: 'Math',
+    baseTitle: 'Smart Tools',
   });
 
   return (
@@ -29,7 +29,9 @@ export default function AreaCalculatorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">Area Calculator</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                Area Calculator
+              </h1>
               <p className="text-lg text-muted-foreground">
                 Calculate area of various geometric shapes
               </p>

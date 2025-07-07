@@ -1,24 +1,25 @@
-"use client";
+'use client';
 
-import { Percent, ArrowLeft } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import GSTCalculator from "@/components/tools/gst-calculator";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import Link from "next/link";
+import { Percent, ArrowLeft } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import GSTCalculator from '@/components/tools/gst-calculator';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import Link from 'next/link';
 
 export default function GSTCalculatorPage() {
   useDynamicTitle({
     currentTool: {
-      id: "gst-calculator",
-      name: "GST Calculator",
-      category: "Financial",
-      description: "Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals",
+      id: 'gst-calculator',
+      name: 'GST Calculator',
+      category: 'Financial',
+      description:
+        'Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals',
     },
-    selectedCategory: "Financial",
-    baseTitle: "Smart Tools",
+    selectedCategory: 'Financial',
+    baseTitle: 'Smart Tools',
   });
 
   return (
@@ -29,9 +30,12 @@ export default function GSTCalculatorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">GST Calculator</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                GST Calculator
+              </h1>
               <p className="text-lg text-muted-foreground">
-                Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals
+                Easily compute GST amounts, reverse GST, and inclusive/exclusive
+                tax totals
               </p>
             </div>
             <div className="w-full flex justify-center sm:justify-start my-4">

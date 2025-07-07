@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { QrCode, ArrowLeft } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import QRCodeGenerator from "@/components/tools/qr-code-generator";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import Link from "next/link";
+import { QrCode, ArrowLeft } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import QRCodeGenerator from '@/components/tools/qr-code-generator';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import Link from 'next/link';
 
 export default function QRCodeGeneratorPage() {
   useDynamicTitle({
     currentTool: {
-      id: "qr-code-generator",
-      name: "QR Code Generator",
-      category: "Utility",
-      description: "Create custom QR codes for URLs, text, emails, and more",
+      id: 'qr-code-generator',
+      name: 'QR Code Generator',
+      category: 'Utility',
+      description: 'Create custom QR codes for URLs, text, emails, and more',
     },
-    selectedCategory: "Utility",
-    baseTitle: "Smart Tools",
+    selectedCategory: 'Utility',
+    baseTitle: 'Smart Tools',
   });
 
   return (
@@ -28,7 +28,9 @@ export default function QRCodeGeneratorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">QR Code Generator</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                QR Code Generator
+              </h1>
               <p className="text-lg text-muted-foreground">
                 Create custom QR codes for URLs, text, emails, and more
               </p>

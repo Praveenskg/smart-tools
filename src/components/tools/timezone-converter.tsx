@@ -1,20 +1,24 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useState, useEffect, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Calendar } from '@/components/ui/calendar';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Clock,
   Globe,
@@ -24,9 +28,9 @@ import {
   X,
   Copy,
   Search,
-} from "lucide-react";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+} from 'lucide-react';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 interface TimeZone {
   name: string;
@@ -44,129 +48,129 @@ interface WorldClock {
 
 const popularTimeZones: TimeZone[] = [
   {
-    name: "UTC",
-    offset: "+00:00",
-    abbreviation: "UTC",
-    region: "Coordinated Universal Time",
+    name: 'UTC',
+    offset: '+00:00',
+    abbreviation: 'UTC',
+    region: 'Coordinated Universal Time',
   },
   {
-    name: "America/New_York",
-    offset: "-05:00",
-    abbreviation: "EST",
-    region: "Eastern Time",
+    name: 'America/New_York',
+    offset: '-05:00',
+    abbreviation: 'EST',
+    region: 'Eastern Time',
   },
   {
-    name: "America/Chicago",
-    offset: "-06:00",
-    abbreviation: "CST",
-    region: "Central Time",
+    name: 'America/Chicago',
+    offset: '-06:00',
+    abbreviation: 'CST',
+    region: 'Central Time',
   },
   {
-    name: "America/Denver",
-    offset: "-07:00",
-    abbreviation: "MST",
-    region: "Mountain Time",
+    name: 'America/Denver',
+    offset: '-07:00',
+    abbreviation: 'MST',
+    region: 'Mountain Time',
   },
   {
-    name: "America/Los_Angeles",
-    offset: "-08:00",
-    abbreviation: "PST",
-    region: "Pacific Time",
+    name: 'America/Los_Angeles',
+    offset: '-08:00',
+    abbreviation: 'PST',
+    region: 'Pacific Time',
   },
   {
-    name: "Europe/London",
-    offset: "+00:00",
-    abbreviation: "GMT",
-    region: "Greenwich Mean Time",
+    name: 'Europe/London',
+    offset: '+00:00',
+    abbreviation: 'GMT',
+    region: 'Greenwich Mean Time',
   },
   {
-    name: "Europe/Paris",
-    offset: "+01:00",
-    abbreviation: "CET",
-    region: "Central European Time",
+    name: 'Europe/Paris',
+    offset: '+01:00',
+    abbreviation: 'CET',
+    region: 'Central European Time',
   },
   {
-    name: "Europe/Berlin",
-    offset: "+01:00",
-    abbreviation: "CET",
-    region: "Central European Time",
+    name: 'Europe/Berlin',
+    offset: '+01:00',
+    abbreviation: 'CET',
+    region: 'Central European Time',
   },
   {
-    name: "Asia/Tokyo",
-    offset: "+09:00",
-    abbreviation: "JST",
-    region: "Japan Standard Time",
+    name: 'Asia/Tokyo',
+    offset: '+09:00',
+    abbreviation: 'JST',
+    region: 'Japan Standard Time',
   },
   {
-    name: "Asia/Shanghai",
-    offset: "+08:00",
-    abbreviation: "CST",
-    region: "China Standard Time",
+    name: 'Asia/Shanghai',
+    offset: '+08:00',
+    abbreviation: 'CST',
+    region: 'China Standard Time',
   },
   {
-    name: "Asia/Kolkata",
-    offset: "+05:30",
-    abbreviation: "IST",
-    region: "India Standard Time",
+    name: 'Asia/Kolkata',
+    offset: '+05:30',
+    abbreviation: 'IST',
+    region: 'India Standard Time',
   },
   {
-    name: "Australia/Sydney",
-    offset: "+10:00",
-    abbreviation: "AEST",
-    region: "Australian Eastern Time",
+    name: 'Australia/Sydney',
+    offset: '+10:00',
+    abbreviation: 'AEST',
+    region: 'Australian Eastern Time',
   },
   {
-    name: "Pacific/Auckland",
-    offset: "+12:00",
-    abbreviation: "NZST",
-    region: "New Zealand Standard Time",
+    name: 'Pacific/Auckland',
+    offset: '+12:00',
+    abbreviation: 'NZST',
+    region: 'New Zealand Standard Time',
   },
   {
-    name: "Asia/Dubai",
-    offset: "+04:00",
-    abbreviation: "GST",
-    region: "Gulf Standard Time",
+    name: 'Asia/Dubai',
+    offset: '+04:00',
+    abbreviation: 'GST',
+    region: 'Gulf Standard Time',
   },
   {
-    name: "Asia/Singapore",
-    offset: "+08:00",
-    abbreviation: "SGT",
-    region: "Singapore Time",
+    name: 'Asia/Singapore',
+    offset: '+08:00',
+    abbreviation: 'SGT',
+    region: 'Singapore Time',
   },
 ];
 
 export default function TimeZoneConverter() {
-  const [fromTimeZone, setFromTimeZone] = useState("UTC");
-  const [toTimeZone, setToTimeZone] = useState("America/New_York");
+  const [fromTimeZone, setFromTimeZone] = useState('UTC');
+  const [toTimeZone, setToTimeZone] = useState('America/New_York');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(() => {
     const now = new Date();
-    return `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+    return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
   });
-  const [convertedTime, setConvertedTime] = useState("");
+  const [convertedTime, setConvertedTime] = useState('');
   const [worldClocks, setWorldClocks] = useState<WorldClock[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [showAddClock, setShowAddClock] = useState(false);
-  const [newClockTimezone, setNewClockTimezone] = useState("");
+  const [newClockTimezone, setNewClockTimezone] = useState('');
 
   useEffect(() => {
     const defaultClocks: WorldClock[] = [
       {
-        id: "1",
-        timezone: "UTC",
-        name: "UTC",
+        id: '1',
+        timezone: 'UTC',
+        name: 'UTC',
         time: new Date(),
       },
       {
-        id: "2",
-        timezone: "America/New_York",
-        name: "New York",
+        id: '2',
+        timezone: 'America/New_York',
+        name: 'New York',
         time: new Date(),
       },
       {
-        id: "3",
-        timezone: "Asia/Tokyo",
-        name: "Tokyo",
+        id: '3',
+        timezone: 'Asia/Tokyo',
+        name: 'Tokyo',
         time: new Date(),
       },
     ];
@@ -188,26 +192,28 @@ export default function TimeZoneConverter() {
 
   const convertTime = useCallback(() => {
     try {
-      const [hours, minutes] = selectedTime.split(":");
+      const [hours, minutes] = selectedTime.split(':');
       const dateTime = new Date(selectedDate);
       dateTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
-      const toDate = new Date(dateTime.toLocaleString("en-US", { timeZone: toTimeZone }));
+      const toDate = new Date(
+        dateTime.toLocaleString('en-US', { timeZone: toTimeZone }),
+      );
 
       const options: Intl.DateTimeFormatOptions = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZoneName: "short",
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZoneName: 'short',
       };
 
-      setConvertedTime(toDate.toLocaleString("en-US", options));
+      setConvertedTime(toDate.toLocaleString('en-US', options));
     } catch (error) {
-      console.error("Error converting time:", error);
-      setConvertedTime("Error converting time");
+      console.error('Error converting time:', error);
+      setConvertedTime('Error converting time');
     }
   }, [toTimeZone, selectedDate, selectedTime]);
 
@@ -216,8 +222,13 @@ export default function TimeZoneConverter() {
   }, [convertTime]);
 
   const addWorldClock = () => {
-    if (newClockTimezone && !worldClocks.find(clock => clock.timezone === newClockTimezone)) {
-      const timezone = popularTimeZones.find(tz => tz.name === newClockTimezone);
+    if (
+      newClockTimezone &&
+      !worldClocks.find(clock => clock.timezone === newClockTimezone)
+    ) {
+      const timezone = popularTimeZones.find(
+        tz => tz.name === newClockTimezone,
+      );
       const newClock: WorldClock = {
         id: Date.now().toString(),
         timezone: newClockTimezone,
@@ -225,7 +236,7 @@ export default function TimeZoneConverter() {
         time: new Date(),
       };
       setWorldClocks(prev => [...prev, newClock]);
-      setNewClockTimezone("");
+      setNewClockTimezone('');
       setShowAddClock(false);
     }
   };
@@ -240,28 +251,28 @@ export default function TimeZoneConverter() {
 
   const formatTimeInTimezone = (date: Date, timezone: string) => {
     try {
-      return date.toLocaleString("en-US", {
+      return date.toLocaleString('en-US', {
         timeZone: timezone,
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
         hour12: false,
       });
     } catch {
-      return "Invalid timezone";
+      return 'Invalid timezone';
     }
   };
 
   const formatDateInTimezone = (date: Date, timezone: string) => {
     try {
-      return date.toLocaleDateString("en-US", {
+      return date.toLocaleDateString('en-US', {
         timeZone: timezone,
-        weekday: "short",
-        month: "short",
-        day: "numeric",
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
       });
     } catch {
-      return "Invalid timezone";
+      return 'Invalid timezone';
     }
   };
 
@@ -270,13 +281,13 @@ export default function TimeZoneConverter() {
       const date = new Date();
       const utc = date.getTime() + date.getTimezoneOffset() * 60000;
       const targetTime = new Date(utc + 0 * 60000);
-      const offset = targetTime.toLocaleString("en-US", {
+      const offset = targetTime.toLocaleString('en-US', {
         timeZone: timezone,
-        timeZoneName: "short",
+        timeZoneName: 'short',
       });
-      return offset.split(" ").pop() || "";
+      return offset.split(' ').pop() || '';
     } catch {
-      return "";
+      return '';
     }
   };
 
@@ -348,14 +359,18 @@ export default function TimeZoneConverter() {
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
-                      variant={"outline"}
+                      variant={'outline'}
                       className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !selectedDate && "text-muted-foreground",
+                        'w-full justify-start text-left font-normal',
+                        !selectedDate && 'text-muted-foreground',
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
+                      {selectedDate ? (
+                        format(selectedDate, 'PPP')
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
@@ -390,7 +405,9 @@ export default function TimeZoneConverter() {
                 </div>
                 <div className="flex justify-between">
                   <span>To ({toTimeZone}):</span>
-                  <span className="font-mono">{formatTimeInTimezone(new Date(), toTimeZone)}</span>
+                  <span className="font-mono">
+                    {formatTimeInTimezone(new Date(), toTimeZone)}
+                  </span>
                 </div>
               </div>
             </div>
@@ -404,10 +421,10 @@ export default function TimeZoneConverter() {
           <CardContent className="space-y-4">
             <div className="text-center space-y-2">
               <div className="text-2xl font-bold text-primary">
-                {convertedTime || "Select time to convert"}
+                {convertedTime || 'Select time to convert'}
               </div>
               <div className="text-sm text-muted-foreground">
-                {format(selectedDate, "PPP")} at {selectedTime}
+                {format(selectedDate, 'PPP')} at {selectedTime}
               </div>
             </div>
 
@@ -416,23 +433,27 @@ export default function TimeZoneConverter() {
               <div className="text-sm text-muted-foreground">
                 {(() => {
                   try {
-                    const fromOffset = new Date().toLocaleString("en-US", {
+                    const fromOffset = new Date().toLocaleString('en-US', {
                       timeZone: fromTimeZone,
-                      timeZoneName: "short",
+                      timeZoneName: 'short',
                     });
-                    const toOffset = new Date().toLocaleString("en-US", {
+                    const toOffset = new Date().toLocaleString('en-US', {
                       timeZone: toTimeZone,
-                      timeZoneName: "short",
+                      timeZoneName: 'short',
                     });
                     return `${fromOffset} → ${toOffset}`;
                   } catch {
-                    return "Calculating time difference...";
+                    return 'Calculating time difference...';
                   }
                 })()}
               </div>
             </div>
 
-            <Button onClick={() => copyTime(convertedTime)} variant="outline" className="w-full">
+            <Button
+              onClick={() => copyTime(convertedTime)}
+              variant="outline"
+              className="w-full"
+            >
               <Copy className="h-4 w-4 mr-2" />
               Copy Converted Time
             </Button>
@@ -447,7 +468,11 @@ export default function TimeZoneConverter() {
               <Globe className="h-5 w-5" />
               World Clock
             </div>
-            <Button onClick={() => setShowAddClock(!showAddClock)} variant="outline" size="sm">
+            <Button
+              onClick={() => setShowAddClock(!showAddClock)}
+              variant="outline"
+              size="sm"
+            >
               <Plus className="h-4 w-4 mr-2" />
               Add Clock
             </Button>
@@ -491,7 +516,10 @@ export default function TimeZoneConverter() {
                 <Button onClick={addWorldClock} disabled={!newClockTimezone}>
                   Add Clock
                 </Button>
-                <Button variant="outline" onClick={() => setShowAddClock(false)}>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowAddClock(false)}
+                >
                   Cancel
                 </Button>
               </div>
@@ -500,7 +528,10 @@ export default function TimeZoneConverter() {
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 ">
             {worldClocks.map(clock => (
-              <div key={clock.id} className="p-4 border rounded-lg space-y-2 relative modern-card">
+              <div
+                key={clock.id}
+                className="p-4 border rounded-lg space-y-2 relative modern-card"
+              >
                 <Button
                   onClick={() => removeWorldClock(clock.id)}
                   variant="ghost"
@@ -517,7 +548,9 @@ export default function TimeZoneConverter() {
                   <div className="text-sm text-muted-foreground">
                     {formatDateInTimezone(clock.time, clock.timezone)}
                   </div>
-                  <div className="text-xs text-muted-foreground">{clock.name}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {clock.name}
+                  </div>
                   <Badge variant="outline" className="text-xs">
                     {getTimezoneOffset(clock.timezone)}
                   </Badge>

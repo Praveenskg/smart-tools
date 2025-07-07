@@ -1,57 +1,66 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 export default function AreaCalculator() {
-  const [shape, setShape] = useState<string>("rectangle");
+  const [shape, setShape] = useState<string>('rectangle');
   const [dimensions, setDimensions] = useState<{ [key: string]: string }>({});
   const [result, setResult] = useState<number | null>(null);
 
   const calculateArea = () => {
     const dims = Object.fromEntries(
-      Object.entries(dimensions).map(([key, value]) => [key, Number.parseFloat(value)]),
+      Object.entries(dimensions).map(([key, value]) => [
+        key,
+        Number.parseFloat(value),
+      ]),
     );
 
     let area = 0;
 
     switch (shape) {
-      case "rectangle":
+      case 'rectangle':
         if (dims.length && dims.width) {
           area = dims.length * dims.width;
         }
         break;
-      case "square":
+      case 'square':
         if (dims.side) {
           area = dims.side * dims.side;
         }
         break;
-      case "circle":
+      case 'circle':
         if (dims.radius) {
           area = Math.PI * dims.radius * dims.radius;
         }
         break;
-      case "triangle":
+      case 'triangle':
         if (dims.base && dims.height) {
           area = 0.5 * dims.base * dims.height;
         }
         break;
-      case "trapezoid":
+      case 'trapezoid':
         if (dims.base1 && dims.base2 && dims.height) {
           area = 0.5 * (dims.base1 + dims.base2) * dims.height;
         }
         break;
-      case "ellipse":
+      case 'ellipse':
         if (dims.majorAxis && dims.minorAxis) {
           area = Math.PI * dims.majorAxis * dims.minorAxis;
         }
@@ -72,7 +81,7 @@ export default function AreaCalculator() {
 
   const getShapeInputs = () => {
     switch (shape) {
-      case "rectangle":
+      case 'rectangle':
         return (
           <>
             <div className="space-y-2">
@@ -81,8 +90,8 @@ export default function AreaCalculator() {
                 id="length"
                 type="number"
                 placeholder="Enter length"
-                value={dimensions.length || ""}
-                onChange={e => updateDimension("length", e.target.value)}
+                value={dimensions.length || ''}
+                onChange={e => updateDimension('length', e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -91,13 +100,13 @@ export default function AreaCalculator() {
                 id="width"
                 type="number"
                 placeholder="Enter width"
-                value={dimensions.width || ""}
-                onChange={e => updateDimension("width", e.target.value)}
+                value={dimensions.width || ''}
+                onChange={e => updateDimension('width', e.target.value)}
               />
             </div>
           </>
         );
-      case "square":
+      case 'square':
         return (
           <div className="space-y-2">
             <Label htmlFor="side">Side Length</Label>
@@ -105,12 +114,12 @@ export default function AreaCalculator() {
               id="side"
               type="number"
               placeholder="Enter side length"
-              value={dimensions.side || ""}
-              onChange={e => updateDimension("side", e.target.value)}
+              value={dimensions.side || ''}
+              onChange={e => updateDimension('side', e.target.value)}
             />
           </div>
         );
-      case "circle":
+      case 'circle':
         return (
           <div className="space-y-2">
             <Label htmlFor="radius">Radius</Label>
@@ -118,12 +127,12 @@ export default function AreaCalculator() {
               id="radius"
               type="number"
               placeholder="Enter radius"
-              value={dimensions.radius || ""}
-              onChange={e => updateDimension("radius", e.target.value)}
+              value={dimensions.radius || ''}
+              onChange={e => updateDimension('radius', e.target.value)}
             />
           </div>
         );
-      case "triangle":
+      case 'triangle':
         return (
           <>
             <div className="space-y-2">
@@ -132,8 +141,8 @@ export default function AreaCalculator() {
                 id="base"
                 type="number"
                 placeholder="Enter base length"
-                value={dimensions.base || ""}
-                onChange={e => updateDimension("base", e.target.value)}
+                value={dimensions.base || ''}
+                onChange={e => updateDimension('base', e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -142,13 +151,13 @@ export default function AreaCalculator() {
                 id="height"
                 type="number"
                 placeholder="Enter height"
-                value={dimensions.height || ""}
-                onChange={e => updateDimension("height", e.target.value)}
+                value={dimensions.height || ''}
+                onChange={e => updateDimension('height', e.target.value)}
               />
             </div>
           </>
         );
-      case "trapezoid":
+      case 'trapezoid':
         return (
           <>
             <div className="space-y-2">
@@ -157,8 +166,8 @@ export default function AreaCalculator() {
                 id="base1"
                 type="number"
                 placeholder="Enter first base"
-                value={dimensions.base1 || ""}
-                onChange={e => updateDimension("base1", e.target.value)}
+                value={dimensions.base1 || ''}
+                onChange={e => updateDimension('base1', e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -167,8 +176,8 @@ export default function AreaCalculator() {
                 id="base2"
                 type="number"
                 placeholder="Enter second base"
-                value={dimensions.base2 || ""}
-                onChange={e => updateDimension("base2", e.target.value)}
+                value={dimensions.base2 || ''}
+                onChange={e => updateDimension('base2', e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -177,13 +186,13 @@ export default function AreaCalculator() {
                 id="height"
                 type="number"
                 placeholder="Enter height"
-                value={dimensions.height || ""}
-                onChange={e => updateDimension("height", e.target.value)}
+                value={dimensions.height || ''}
+                onChange={e => updateDimension('height', e.target.value)}
               />
             </div>
           </>
         );
-      case "ellipse":
+      case 'ellipse':
         return (
           <>
             <div className="space-y-2">
@@ -192,8 +201,8 @@ export default function AreaCalculator() {
                 id="majorAxis"
                 type="number"
                 placeholder="Enter major axis"
-                value={dimensions.majorAxis || ""}
-                onChange={e => updateDimension("majorAxis", e.target.value)}
+                value={dimensions.majorAxis || ''}
+                onChange={e => updateDimension('majorAxis', e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -202,8 +211,8 @@ export default function AreaCalculator() {
                 id="minorAxis"
                 type="number"
                 placeholder="Enter minor axis"
-                value={dimensions.minorAxis || ""}
-                onChange={e => updateDimension("minorAxis", e.target.value)}
+                value={dimensions.minorAxis || ''}
+                onChange={e => updateDimension('minorAxis', e.target.value)}
               />
             </div>
           </>
@@ -215,20 +224,20 @@ export default function AreaCalculator() {
 
   const getFormula = () => {
     switch (shape) {
-      case "rectangle":
-        return "Area = Length × Width";
-      case "square":
-        return "Area = Side²";
-      case "circle":
-        return "Area = π × Radius²";
-      case "triangle":
-        return "Area = ½ × Base × Height";
-      case "trapezoid":
-        return "Area = ½ × (Base₁ + Base₂) × Height";
-      case "ellipse":
-        return "Area = π × Major Axis × Minor Axis";
+      case 'rectangle':
+        return 'Area = Length × Width';
+      case 'square':
+        return 'Area = Side²';
+      case 'circle':
+        return 'Area = π × Radius²';
+      case 'triangle':
+        return 'Area = ½ × Base × Height';
+      case 'trapezoid':
+        return 'Area = ½ × (Base₁ + Base₂) × Height';
+      case 'ellipse':
+        return 'Area = π × Major Axis × Minor Axis';
       default:
-        return "";
+        return '';
     }
   };
 
@@ -237,7 +246,9 @@ export default function AreaCalculator() {
       <Card className="modern-card">
         <CardHeader>
           <CardTitle>Shape Selection</CardTitle>
-          <CardDescription>Choose a shape and enter its dimensions</CardDescription>
+          <CardDescription>
+            Choose a shape and enter its dimensions
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
@@ -286,12 +297,16 @@ export default function AreaCalculator() {
         <Card className="modern-card">
           <CardHeader>
             <CardTitle>Area Result</CardTitle>
-            <CardDescription>Calculated area for the selected shape</CardDescription>
+            <CardDescription>
+              Calculated area for the selected shape
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="text-center p-6 bg-primary/5 rounded-lg">
               <div className="text-sm text-muted-foreground mb-2">Area:</div>
-              <div className="text-3xl font-bold text-primary">{result.toFixed(2)} units²</div>
+              <div className="text-3xl font-bold text-primary">
+                {result.toFixed(2)} units²
+              </div>
             </div>
 
             <div className="space-y-2">
@@ -299,17 +314,19 @@ export default function AreaCalculator() {
                 Shape: {shape.charAt(0).toUpperCase() + shape.slice(1)}
               </div>
               <div className="text-sm text-muted-foreground">
-                Dimensions:{" "}
+                Dimensions:{' '}
                 {Object.entries(dimensions)
                   .filter(([value]) => value)
                   .map(([key, value]) => `${key}: ${value}`)
-                  .join(", ")}
+                  .join(', ')}
               </div>
             </div>
 
             <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
               <div className="text-sm font-medium mb-1">Formula Used:</div>
-              <div className="text-sm text-muted-foreground">{getFormula()}</div>
+              <div className="text-sm text-muted-foreground">
+                {getFormula()}
+              </div>
             </div>
           </CardContent>
         </Card>

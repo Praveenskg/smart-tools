@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Clock } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { useState, useEffect } from 'react';
+import { Clock } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 export function LiveClock() {
   const [time, setTime] = useState(new Date());
@@ -19,11 +19,11 @@ export function LiveClock() {
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
-    const ampm = hours >= 12 ? "PM" : "AM";
+    const ampm = hours >= 12 ? 'PM' : 'AM';
 
     const displayHours = hours % 12 || 12;
-    const displayMinutes = minutes.toString().padStart(2, "0");
-    const displaySeconds = seconds.toString().padStart(2, "0");
+    const displayMinutes = minutes.toString().padStart(2, '0');
+    const displaySeconds = seconds.toString().padStart(2, '0');
 
     return {
       hours: displayHours,

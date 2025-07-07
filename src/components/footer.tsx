@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import Link from 'next/link';
+import { FaGithub, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
 
 function Footer() {
   return (
@@ -9,8 +9,8 @@ function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
           <div className="flex flex-col items-center md:items-start gap-2 text-center md:text-left">
             <p className="text-xs sm:text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Smart Tools. Built with{" "}
-              <span className="text-destructive">❤️</span> by{" "}
+              © {new Date().getFullYear()} Smart Tools. Built with{' '}
+              <span className="text-destructive">❤️</span> by{' '}
               <Link
                 href="https://www.linkedin.com/in/praveenskg"
                 target="_blank"

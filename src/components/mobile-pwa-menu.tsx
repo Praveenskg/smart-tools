@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Download, WifiOff, Settings, Smartphone } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { Download, WifiOff, Settings, Smartphone } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 import {
   DropdownMenu,
@@ -10,8 +10,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
-import { usePWA } from "@/hooks/use-pwa";
+} from '@/components/ui/dropdown-menu';
+import { usePWA } from '@/hooks/use-pwa';
 
 export function MobilePWAMenu() {
   const { isInstallable, isInstalled, isOnline, installApp } = usePWA();
@@ -22,7 +22,7 @@ export function MobilePWAMenu() {
     try {
       await installApp();
     } catch (error) {
-      console.error("Installation failed:", error);
+      console.error('Installation failed:', error);
     } finally {
       setIsInstalling(false);
     }
@@ -49,7 +49,7 @@ export function MobilePWAMenu() {
         {isInstallable && !isInstalled && (
           <DropdownMenuItem onClick={handleInstall} disabled={isInstalling}>
             <Download className="h-4 w-4 mr-2" />
-            {isInstalling ? "Installing..." : "Install App"}
+            {isInstalling ? 'Installing...' : 'Install App'}
           </DropdownMenuItem>
         )}
 

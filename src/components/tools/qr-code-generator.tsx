@@ -1,19 +1,19 @@
-"use client";
-import { useState, useEffect, useCallback, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Slider } from "@/components/ui/slider";
+'use client';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Slider } from '@/components/ui/slider';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Download,
   Copy,
@@ -23,16 +23,16 @@ import {
   Smartphone,
   Image as ImageIcon,
   X,
-} from "lucide-react";
-import QRCode from "qrcode";
+} from 'lucide-react';
+import QRCode from 'qrcode';
 
 export default function QRCodeGenerator() {
-  const [text, setText] = useState("");
-  const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
+  const [text, setText] = useState('');
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState('');
   const [size, setSize] = useState([224]);
-  const [errorCorrection, setErrorCorrection] = useState("M");
-  const [foregroundColor, setForegroundColor] = useState("#000000");
-  const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
+  const [errorCorrection, setErrorCorrection] = useState('M');
+  const [foregroundColor, setForegroundColor] = useState('#000000');
+  const [backgroundColor, setBackgroundColor] = useState('#FFFFFF');
   const [isGenerating, setIsGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
   const [logoImage, setLogoImage] = useState<string | null>(null);
@@ -40,14 +40,14 @@ export default function QRCodeGenerator() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const errorCorrectionLevels = [
-    { value: "L", label: "Low (7%)", description: "Recovers 7% of data" },
-    { value: "M", label: "Medium (15%)", description: "Recovers 15% of data" },
+    { value: 'L', label: 'Low (7%)', description: 'Recovers 7% of data' },
+    { value: 'M', label: 'Medium (15%)', description: 'Recovers 15% of data' },
     {
-      value: "Q",
-      label: "Quartile (25%)",
-      description: "Recovers 25% of data",
+      value: 'Q',
+      label: 'Quartile (25%)',
+      description: 'Recovers 25% of data',
     },
-    { value: "H", label: "High (30%)", description: "Recovers 30% of data" },
+    { value: 'H', label: 'High (30%)', description: 'Recovers 30% of data' },
   ];
 
   const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,13 +64,13 @@ export default function QRCodeGenerator() {
   const removeLogo = () => {
     setLogoImage(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+      fileInputRef.current.value = '';
     }
   };
 
   const generateQRCode = useCallback(async () => {
     if (!text.trim()) {
-      setQrCodeDataUrl("");
+      setQrCodeDataUrl('');
       return;
     }
 
@@ -83,15 +83,15 @@ export default function QRCodeGenerator() {
           dark: foregroundColor,
           light: backgroundColor,
         },
-        errorCorrectionLevel: errorCorrection as "L" | "M" | "Q" | "H",
+        errorCorrectionLevel: errorCorrection as 'L' | 'M' | 'Q' | 'H',
       };
 
       const dataUrl = await QRCode.toDataURL(text, options);
 
       // If logo is present, overlay it on the QR code
       if (logoImage) {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
         if (ctx) {
           canvas.width = size[0];
           canvas.height = size[0];
@@ -126,10 +126,18 @@ export default function QRCodeGenerator() {
         setIsGenerating(false);
       }
     } catch (error) {
-      console.error("Error generating QR code:", error);
+      console.error('Error generating QR code:', error);
       setIsGenerating(false);
     }
-  }, [text, size, errorCorrection, foregroundColor, backgroundColor, logoImage, logoSize]);
+  }, [
+    text,
+    size,
+    errorCorrection,
+    foregroundColor,
+    backgroundColor,
+    logoImage,
+    logoSize,
+  ]);
 
   useEffect(() => {
     generateQRCode();
@@ -137,7 +145,7 @@ export default function QRCodeGenerator() {
 
   const downloadQRCode = () => {
     if (!qrCodeDataUrl) return;
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.download = `qr-code-${Date.now()}.png`;
     link.href = qrCodeDataUrl;
     link.click();
@@ -149,20 +157,20 @@ export default function QRCodeGenerator() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
-      console.error("Failed to copy:", error);
+      console.error('Failed to copy:', error);
     }
   };
   const getInputType = (text: string) => {
-    if (text.startsWith("http://") || text.startsWith("https://")) {
-      return { type: "URL", icon: Link, color: "text-blue-500" };
+    if (text.startsWith('http://') || text.startsWith('https://')) {
+      return { type: 'URL', icon: Link, color: 'text-blue-500' };
     }
-    if (text.includes("@") && text.includes(".")) {
-      return { type: "Email", icon: FileText, color: "text-green-500" };
+    if (text.includes('@') && text.includes('.')) {
+      return { type: 'Email', icon: FileText, color: 'text-green-500' };
     }
     if (text.match(/^\+?[\d\s\-\(\)]+$/)) {
-      return { type: "Phone", icon: Smartphone, color: "text-purple-500" };
+      return { type: 'Phone', icon: Smartphone, color: 'text-purple-500' };
     }
-    return { type: "Text", icon: FileText, color: "text-gray-500" };
+    return { type: 'Text', icon: FileText, color: 'text-gray-500' };
   };
   const inputType = getInputType(text);
   return (
@@ -191,7 +199,9 @@ export default function QRCodeGenerator() {
                     <inputType.icon className="h-3 w-3 mr-1" />
                     {inputType.type}
                   </Badge>
-                  <span className="text-xs text-muted-foreground">{text.length} characters</span>
+                  <span className="text-xs text-muted-foreground">
+                    {text.length} characters
+                  </span>
                 </div>
               )}
             </div>
@@ -209,7 +219,10 @@ export default function QRCodeGenerator() {
               </div>
               <div className="space-y-2">
                 <Label>Error Correction Level</Label>
-                <Select value={errorCorrection} onValueChange={setErrorCorrection}>
+                <Select
+                  value={errorCorrection}
+                  onValueChange={setErrorCorrection}
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue />
                   </SelectTrigger>
@@ -218,7 +231,9 @@ export default function QRCodeGenerator() {
                       <SelectItem key={level.value} value={level.value}>
                         <div className="flex flex-col">
                           <span>{level.label}</span>
-                          <span className="text-xs text-muted-foreground">{level.description}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {level.description}
+                          </span>
                         </div>
                       </SelectItem>
                     ))}
@@ -271,8 +286,14 @@ export default function QRCodeGenerator() {
                           alt="Logo preview"
                           className="w-12 h-12 rounded border"
                         />
-                        <span className="text-sm text-muted-foreground flex-1">Logo uploaded</span>
-                        <Button onClick={removeLogo} variant="outline" size="sm">
+                        <span className="text-sm text-muted-foreground flex-1">
+                          Logo uploaded
+                        </span>
+                        <Button
+                          onClick={removeLogo}
+                          variant="outline"
+                          size="sm"
+                        >
                           <X className="h-4 w-4" />
                         </Button>
                       </div>
@@ -321,7 +342,9 @@ export default function QRCodeGenerator() {
               {isGenerating ? (
                 <div className="text-center space-y-2">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-                  <p className="text-sm text-muted-foreground">Generating QR Code...</p>
+                  <p className="text-sm text-muted-foreground">
+                    Generating QR Code...
+                  </p>
                 </div>
               ) : qrCodeDataUrl ? (
                 <div className="text-center space-y-4">
@@ -330,7 +353,7 @@ export default function QRCodeGenerator() {
                     src={qrCodeDataUrl}
                     alt="Generated QR Code"
                     className="mx-auto max-w-full h-auto rounded-lg shadow-lg"
-                    style={{ maxHeight: "280px" }}
+                    style={{ maxHeight: '280px' }}
                   />
                   <div className="flex items-center justify-center gap-2">
                     <Button
@@ -345,10 +368,14 @@ export default function QRCodeGenerator() {
                       onClick={copyToClipboard}
                       variant="outline"
                       size="sm"
-                      className={copied ? "bg-green-50 border-green-200 text-green-700" : ""}
+                      className={
+                        copied
+                          ? 'bg-green-50 border-green-200 text-green-700'
+                          : ''
+                      }
                     >
                       <Copy className="h-4 w-4 mr-2" />
-                      {copied ? "Copied!" : "Copy URL"}
+                      {copied ? 'Copied!' : 'Copy URL'}
                     </Button>
                   </div>
                 </div>
@@ -369,8 +396,12 @@ export default function QRCodeGenerator() {
                     • Size: {size[0]}x{size[0]} pixels
                   </p>
                   <p>
-                    • Error Correction:{" "}
-                    {errorCorrectionLevels.find(l => l.value === errorCorrection)?.label}
+                    • Error Correction:{' '}
+                    {
+                      errorCorrectionLevels.find(
+                        l => l.value === errorCorrection,
+                      )?.label
+                    }
                   </p>
                   <p>• Content Type: {inputType.type}</p>
                   <p>• Characters: {text.length}</p>

@@ -1,29 +1,36 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function PercentageCalculator() {
-  const [basicValue, setBasicValue] = useState<string>("");
-  const [basicPercentage, setBasicPercentage] = useState<string>("");
+  const [basicValue, setBasicValue] = useState<string>('');
+  const [basicPercentage, setBasicPercentage] = useState<string>('');
   const [basicResult, setBasicResult] = useState<number | null>(null);
 
-  const [increaseValue, setIncreaseValue] = useState<string>("");
-  const [increasePercent, setIncreasePercent] = useState<string>("");
+  const [increaseValue, setIncreaseValue] = useState<string>('');
+  const [increasePercent, setIncreasePercent] = useState<string>('');
   const [increaseResult, setIncreaseResult] = useState<{
     newValue: number;
     increase: number;
   } | null>(null);
 
-  const [changeOld, setChangeOld] = useState<string>("");
-  const [changeNew, setChangeNew] = useState<string>("");
-  const [changeResult, setChangeResult] = useState<{ percentage: number; change: number } | null>(
-    null,
-  );
+  const [changeOld, setChangeOld] = useState<string>('');
+  const [changeNew, setChangeNew] = useState<string>('');
+  const [changeResult, setChangeResult] = useState<{
+    percentage: number;
+    change: number;
+  } | null>(null);
 
   const calculateBasic = () => {
     const value = Number.parseFloat(basicValue);
@@ -59,14 +66,14 @@ export default function PercentageCalculator() {
   };
 
   const resetAll = () => {
-    setBasicValue("");
-    setBasicPercentage("");
+    setBasicValue('');
+    setBasicPercentage('');
     setBasicResult(null);
-    setIncreaseValue("");
-    setIncreasePercent("");
+    setIncreaseValue('');
+    setIncreasePercent('');
     setIncreaseResult(null);
-    setChangeOld("");
-    setChangeNew("");
+    setChangeOld('');
+    setChangeNew('');
     setChangeResult(null);
   };
 
@@ -118,7 +125,9 @@ export default function PercentageCalculator() {
                   <div className="text-sm text-muted-foreground mb-2">
                     {basicPercentage}% of {basicValue} is:
                   </div>
-                  <div className="text-3xl font-bold text-primary">{basicResult.toFixed(2)}</div>
+                  <div className="text-3xl font-bold text-primary">
+                    {basicResult.toFixed(2)}
+                  </div>
                 </div>
               )}
             </CardContent>
@@ -164,7 +173,9 @@ export default function PercentageCalculator() {
               {increaseResult && (
                 <div className="space-y-4">
                   <div className="p-6 bg-primary/5 rounded-lg text-center">
-                    <div className="text-sm text-muted-foreground mb-2">New Value:</div>
+                    <div className="text-sm text-muted-foreground mb-2">
+                      New Value:
+                    </div>
                     <div className="text-3xl font-bold text-primary">
                       {increaseResult.newValue.toFixed(2)}
                     </div>
@@ -176,11 +187,15 @@ export default function PercentageCalculator() {
                     </div>
                     <div className="flex justify-between">
                       <span>Change Amount:</span>
-                      <span className="font-semibold">{increaseResult.increase.toFixed(2)}</span>
+                      <span className="font-semibold">
+                        {increaseResult.increase.toFixed(2)}
+                      </span>
                     </div>
                     <div className="flex justify-between border-t pt-2 mt-2">
                       <span>Final Value:</span>
-                      <span className="font-bold">{increaseResult.newValue.toFixed(2)}</span>
+                      <span className="font-bold">
+                        {increaseResult.newValue.toFixed(2)}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -193,7 +208,9 @@ export default function PercentageCalculator() {
           <Card>
             <CardHeader>
               <CardTitle>Percentage Change</CardTitle>
-              <CardDescription>Calculate percentage change between two values</CardDescription>
+              <CardDescription>
+                Calculate percentage change between two values
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid gap-4 sm:grid-cols-2">
@@ -226,11 +243,13 @@ export default function PercentageCalculator() {
               {changeResult && (
                 <div className="space-y-4">
                   <div className="p-6 bg-primary/5 rounded-lg text-center">
-                    <div className="text-sm text-muted-foreground mb-2">Percentage Change:</div>
+                    <div className="text-sm text-muted-foreground mb-2">
+                      Percentage Change:
+                    </div>
                     <div
-                      className={`text-3xl font-bold ${changeResult.percentage >= 0 ? "text-green-600" : "text-red-600"}`}
+                      className={`text-3xl font-bold ${changeResult.percentage >= 0 ? 'text-green-600' : 'text-red-600'}`}
                     >
-                      {changeResult.percentage >= 0 ? "+" : ""}
+                      {changeResult.percentage >= 0 ? '+' : ''}
                       {changeResult.percentage.toFixed(2)}%
                     </div>
                   </div>
@@ -245,14 +264,16 @@ export default function PercentageCalculator() {
                     </div>
                     <div className="flex justify-between">
                       <span>Absolute Change:</span>
-                      <span className="font-semibold">{changeResult.change.toFixed(2)}</span>
+                      <span className="font-semibold">
+                        {changeResult.change.toFixed(2)}
+                      </span>
                     </div>
                     <div className="flex justify-between border-t pt-2 mt-2">
                       <span>Percentage Change:</span>
                       <span
-                        className={`font-bold ${changeResult.percentage >= 0 ? "text-green-600" : "text-red-600"}`}
+                        className={`font-bold ${changeResult.percentage >= 0 ? 'text-green-600' : 'text-red-600'}`}
                       >
-                        {changeResult.percentage >= 0 ? "+" : ""}
+                        {changeResult.percentage >= 0 ? '+' : ''}
                         {changeResult.percentage.toFixed(2)}%
                       </span>
                     </div>

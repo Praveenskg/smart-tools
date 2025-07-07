@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { Heart, ArrowLeft } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import BMICalculator from "@/components/tools/bmi-calculator";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import Link from "next/link";
+import { Heart, ArrowLeft } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import BMICalculator from '@/components/tools/bmi-calculator';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import Link from 'next/link';
 
 export default function BMICalculatorPage() {
   useDynamicTitle({
     currentTool: {
-      id: "bmi-calculator",
-      name: "BMI Calculator",
-      category: "Health",
-      description: "Calculate Body Mass Index and health status",
+      id: 'bmi-calculator',
+      name: 'BMI Calculator',
+      category: 'Health',
+      description: 'Calculate Body Mass Index and health status',
     },
-    selectedCategory: "Health",
-    baseTitle: "Smart Tools",
+    selectedCategory: 'Health',
+    baseTitle: 'Smart Tools',
   });
 
   return (
@@ -29,7 +29,9 @@ export default function BMICalculatorPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">BMI Calculator</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                BMI Calculator
+              </h1>
               <p className="text-lg text-muted-foreground">
                 Calculate Body Mass Index and health status
               </p>

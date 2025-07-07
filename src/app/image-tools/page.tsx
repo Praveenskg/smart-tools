@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { ArrowLeft, Image } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import Link from "next/link";
-import ImageTools from "@/components/tools/image-tools";
+import { ArrowLeft, Image } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import Link from 'next/link';
+import ImageTools from '@/components/tools/image-tools';
 
 export default function ImageToolsPage() {
   useDynamicTitle({
     currentTool: {
-      id: "image-tools",
-      name: "Image Tools",
-      category: "Image Processing",
+      id: 'image-tools',
+      name: 'Image Tools',
+      category: 'Image Processing',
       description:
-        "Professional image editing and processing tools including resizer, converter, compressor, and more.",
+        'Professional image editing and processing tools including resizer, converter, compressor, and more.',
     },
-    selectedCategory: "Image Processing",
-    baseTitle: "Smart Tools",
+    selectedCategory: 'Image Processing',
+    baseTitle: 'Smart Tools',
   });
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -29,7 +29,7 @@ export default function ImageToolsPage() {
           <div className="w-full mx-auto">
             <div className="text-center">
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
-                {" "}
+                {' '}
                 Image Processing Tools
               </h1>
               <p className="text-base sm:text-lg text-muted-foreground mt-2">
@@ -38,7 +38,11 @@ export default function ImageToolsPage() {
             </div>
             <div className="w-full flex justify-center sm:justify-start my-4 sm:my-6">
               <Link href="/" className="w-full sm:w-auto">
-                <Button variant="outline" size="sm" className="w-full sm:w-auto">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full sm:w-auto"
+                >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Home
                 </Button>
