@@ -1,4 +1,4 @@
-const CACHE_NAME = 'smart-tools-v1.0.2';
+const CACHE_NAME = 'smart-tools-v1.0.3';
 
 const urlsToCache = [
   '/',
@@ -15,6 +15,7 @@ const urlsToCache = [
   '/qr-code-generator',
   '/tip-calculator',
   '/todo-list',
+  '/timers-tools',
   '/timezone-converter',
   '/unit-converter',
   '/favicon.svg',
