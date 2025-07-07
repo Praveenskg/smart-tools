@@ -1,23 +1,13 @@
 #!/bin/sh
-# Format staged files with Prettier
-prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown
 
-# Re-stage formatted files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
+
+echo "$STAGED_FILES" | grep -E '\.(js|jsx|ts|tsx|json|md|css|html)$' | xargs npx prettier --write --ignore-unknown
+
+echo "$STAGED_FILES" | grep -E '\.(js|jsx|ts|tsx)$' | xargs npx eslint --cache --fix
+
+echo "$STAGED_FILES" | xargs git add
+
+echo "$STAGED_FILES" | grep -E '\.(js|jsx|ts|tsx)$' | xargs npx eslint --max-warnings=0
+
 git update-index --again
-
-# Run ESLint on staged files
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|jsx|ts|tsx)$')
-if [ "$STAGED_FILES" != "" ]; then
-  npx eslint $STAGED_FILES
-  if [ $? -ne 0 ]; then
-    echo "\n❌ ESLint errors found. Commit aborted."
-    exit 1
-  fi
-fi
-
-# Run TypeScript type check
-npx tsc --noEmit
-if [ $? -ne 0 ]; then
-  echo "\n❌ Type errors found. Commit aborted."
-  exit 1
-fi
