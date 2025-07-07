@@ -1,10 +1,23 @@
-# .husky/pre-commit
+#!/bin/sh
+# Format staged files with Prettier
 prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown
+
+# Re-stage formatted files
 git update-index --again
 
+# Run ESLint on staged files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|jsx|ts|tsx)$')
+if [ "$STAGED_FILES" != "" ]; then
+  npx eslint $STAGED_FILES
+  if [ $? -ne 0 ]; then
+    echo "\n❌ ESLint errors found. Commit aborted."
+    exit 1
+  fi
+fi
 
-npx eslint $(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|jsx|ts|tsx)$') --max-warnings=0
+# Run TypeScript type check
+npx tsc --noEmit
 if [ $? -ne 0 ]; then
-  echo "\n Lint errors found. Commit aborted."
+  echo "\n❌ Type errors found. Commit aborted."
   exit 1
 fi
