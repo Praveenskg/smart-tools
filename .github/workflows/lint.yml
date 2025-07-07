@@ -1,9 +1,12 @@
 name: ESLint + TSC Type Check
 
-on: [pull_request]
+on:
+  pull_request:
+    branches: [main]
 
 jobs:
   lint-and-typecheck:
+    name: Lint & Type Check
     runs-on: ubuntu-latest
 
     permissions:
@@ -11,20 +14,24 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Run ESLint with ReviewDog
+      - name: ESLint with ReviewDog
         uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
           eslint_flags: '. --ext .js,.ts,.tsx'
 
-      - name: Run TypeScript type check
+      - name: TypeScript Type Check
         run: npx tsc --noEmit

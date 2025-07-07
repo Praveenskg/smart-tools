@@ -7,20 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint:fix": "next lint --cache --fix",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf .next out",
     "format": "prettier --write .",
     "prepare": "husky"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "eslint --cache --fix",
-      "prettier --write"
-    ],
-    "**/*.{json,md,html,css}": [
-      "prettier --write"
-    ]
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
