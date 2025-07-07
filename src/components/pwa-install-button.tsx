@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Download, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { usePWA } from "@/hooks/use-pwa";
+import { useState } from 'react';
+import { Download, Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { usePWA } from '@/hooks/use-pwa';
 
 export function PWAInstallButton() {
   const { isInstallable, isInstalled, installApp } = usePWA();
@@ -14,10 +14,10 @@ export function PWAInstallButton() {
     try {
       const success = await installApp();
       if (success) {
-        console.log("App installed successfully!");
+        console.log('App installed successfully!');
       }
     } catch (error) {
-      console.error("Installation failed:", error);
+      console.error('Installation failed:', error);
     } finally {
       setIsInstalling(false);
     }

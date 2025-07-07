@@ -1,8 +1,14 @@
-"use client";
-import { useState, useEffect } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+'use client';
+import { useState, useEffect } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import {
   Upload,
   Crop,
@@ -13,14 +19,14 @@ import {
   Zap,
   Download,
   ImagesIcon,
-} from "lucide-react";
-import Image from "next/image";
-import { toast } from "sonner";
+} from 'lucide-react';
+import Image from 'next/image';
+import { toast } from 'sonner';
 
 export default function ImageTools() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string>("");
-  const [activeTab, setActiveTab] = useState("resizer");
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const [activeTab, setActiveTab] = useState('resizer');
 
   const handleImageUpload = (file: File) => {
     setSelectedImage(file);
@@ -38,7 +44,7 @@ export default function ImageTools() {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith("image/")) {
+    if (file && file.type.startsWith('image/')) {
       handleImageUpload(file);
     }
   };
@@ -67,7 +73,10 @@ export default function ImageTools() {
             <Palette className="h-4 w-4" />
             <span className="hidden sm:inline">Colors</span>
           </TabsTrigger>
-          <TabsTrigger value="background-remover" className="flex items-center gap-2">
+          <TabsTrigger
+            value="background-remover"
+            className="flex items-center gap-2"
+          >
             <ImagesIcon className="h-4 w-4" />
             <span className="hidden sm:inline">BG Remove</span>
           </TabsTrigger>
@@ -92,7 +101,7 @@ export default function ImageTools() {
                 className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-muted-foreground/50 transition-colors cursor-pointer"
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
-                onClick={() => document.getElementById("image-upload")?.click()}
+                onClick={() => document.getElementById('image-upload')?.click()}
               >
                 <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                 <h3 className="text-lg font-semibold mb-2">Upload an Image</h3>
@@ -123,7 +132,8 @@ export default function ImageTools() {
                 <div>
                   <CardTitle className="text-lg">Selected Image</CardTitle>
                   <CardDescription>
-                    {selectedImage.name} ({(selectedImage.size / 1024 / 1024).toFixed(2)} MB)
+                    {selectedImage.name} (
+                    {(selectedImage.size / 1024 / 1024).toFixed(2)} MB)
                   </CardDescription>
                 </div>
                 <Button
@@ -131,7 +141,7 @@ export default function ImageTools() {
                   size="sm"
                   onClick={() => {
                     setSelectedImage(null);
-                    setImageUrl("");
+                    setImageUrl('');
                   }}
                 >
                   Change Image
@@ -198,7 +208,7 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
     width: number;
     height: number;
   } | null>(null);
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>('');
 
   useEffect(() => {
     if (selectedImage) {
@@ -240,8 +250,8 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
   };
 
   const downloadResizedImage = () => {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     const img = new window.Image();
 
     img.onload = () => {
@@ -253,14 +263,14 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
         blob => {
           if (blob) {
             const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
+            const a = document.createElement('a');
             a.href = url;
-            a.download = `resized_${selectedImage?.name || "image"}`;
+            a.download = `resized_${selectedImage?.name || 'image'}`;
             a.click();
             URL.revokeObjectURL(url);
           }
         },
-        "image/jpeg",
+        'image/jpeg',
         0.9,
       );
     };
@@ -275,7 +285,9 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
           <Crop className="h-5 w-5" />
           Image Resizer
         </CardTitle>
-        <CardDescription>Resize your image to specific dimensions</CardDescription>
+        <CardDescription>
+          Resize your image to specific dimensions
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
@@ -322,8 +334,13 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
                   </label>
                 </div>
                 {originalDimensions && (
-                  <Button variant="outline" onClick={resetToOriginal} className="w-full">
-                    Reset to Original ({originalDimensions.width} × {originalDimensions.height})
+                  <Button
+                    variant="outline"
+                    onClick={resetToOriginal}
+                    className="w-full"
+                  >
+                    Reset to Original ({originalDimensions.width} ×{' '}
+                    {originalDimensions.height})
                   </Button>
                 )}
               </div>
@@ -363,9 +380,9 @@ function ImageResizer({ selectedImage }: { selectedImage: File | null }) {
 }
 
 function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
-  const [targetFormat, setTargetFormat] = useState<string>("jpeg");
+  const [targetFormat, setTargetFormat] = useState<string>('jpeg');
   const [quality, setQuality] = useState<number>(90);
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>('');
 
   useEffect(() => {
     if (selectedImage) {
@@ -375,8 +392,8 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
   }, [selectedImage]);
 
   const convertImage = () => {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     const img = new window.Image();
 
     img.onload = () => {
@@ -384,22 +401,22 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
       canvas.height = img.height;
       ctx?.drawImage(img, 0, 0);
 
-      let mimeType = "image/jpeg";
-      let fileExtension = "jpg";
+      let mimeType = 'image/jpeg';
+      let fileExtension = 'jpg';
 
       switch (targetFormat) {
-        case "png":
-          mimeType = "image/png";
-          fileExtension = "png";
+        case 'png':
+          mimeType = 'image/png';
+          fileExtension = 'png';
           break;
-        case "webp":
-          mimeType = "image/webp";
-          fileExtension = "webp";
+        case 'webp':
+          mimeType = 'image/webp';
+          fileExtension = 'webp';
           break;
-        case "jpeg":
+        case 'jpeg':
         default:
-          mimeType = "image/jpeg";
-          fileExtension = "jpg";
+          mimeType = 'image/jpeg';
+          fileExtension = 'jpg';
           break;
       }
 
@@ -407,17 +424,20 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
         blob => {
           if (blob) {
             const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
+            const a = document.createElement('a');
             a.href = url;
-            const originalName = selectedImage?.name || "image";
-            const nameWithoutExt = originalName.split(".").slice(0, -1).join(".");
+            const originalName = selectedImage?.name || 'image';
+            const nameWithoutExt = originalName
+              .split('.')
+              .slice(0, -1)
+              .join('.');
             a.download = `${nameWithoutExt}.${fileExtension}`;
             a.click();
             URL.revokeObjectURL(url);
           }
         },
         mimeType,
-        targetFormat === "jpeg" ? quality / 100 : 1,
+        targetFormat === 'jpeg' ? quality / 100 : 1,
       );
     };
 
@@ -431,7 +451,9 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
           <FileImage className="h-5 w-5" />
           Format Converter
         </CardTitle>
-        <CardDescription>Convert your image to different formats</CardDescription>
+        <CardDescription>
+          Convert your image to different formats
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
@@ -455,9 +477,11 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
                   </select>
                 </div>
 
-                {targetFormat === "jpeg" && (
+                {targetFormat === 'jpeg' && (
                   <div>
-                    <label className="text-sm font-medium">Quality: {quality}%</label>
+                    <label className="text-sm font-medium">
+                      Quality: {quality}%
+                    </label>
                     <input
                       type="range"
                       min="1"
@@ -486,7 +510,7 @@ function ImageConverter({ selectedImage }: { selectedImage: File | null }) {
                 <label className="text-sm font-medium">Original Format</label>
                 <div className="border rounded-lg p-4 bg-muted/20">
                   <div className="text-center text-sm text-muted-foreground mb-2">
-                    {selectedImage.type || "Unknown"}
+                    {selectedImage.type || 'Unknown'}
                   </div>
                   <div className="flex justify-center">
                     {imageUrl && (
@@ -518,7 +542,7 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
   const [compressionLevel, setCompressionLevel] = useState<number>(80);
   const [originalSize, setOriginalSize] = useState<number>(0);
   const [compressedSize, setCompressedSize] = useState<number>(0);
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>('');
   const [isCompressing, setIsCompressing] = useState<boolean>(false);
 
   useEffect(() => {
@@ -532,8 +556,8 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
 
   const compressImage = () => {
     setIsCompressing(true);
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     const img = new window.Image();
 
     img.onload = () => {
@@ -548,16 +572,19 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
             setIsCompressing(false);
 
             const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
+            const a = document.createElement('a');
             a.href = url;
-            const originalName = selectedImage?.name || "image";
-            const nameWithoutExt = originalName.split(".").slice(0, -1).join(".");
+            const originalName = selectedImage?.name || 'image';
+            const nameWithoutExt = originalName
+              .split('.')
+              .slice(0, -1)
+              .join('.');
             a.download = `${nameWithoutExt}_compressed.jpg`;
             a.click();
             URL.revokeObjectURL(url);
           }
         },
-        "image/jpeg",
+        'image/jpeg',
         compressionLevel / 100,
       );
     };
@@ -586,7 +613,9 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
-          <div className="text-center py-8 text-muted-foreground">Upload an image to compress</div>
+          <div className="text-center py-8 text-muted-foreground">
+            Upload an image to compress
+          </div>
         ) : (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -617,7 +646,9 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
                     <>
                       <div className="flex justify-between text-sm">
                         <span>Compressed Size:</span>
-                        <span>{(compressedSize / 1024 / 1024).toFixed(2)} MB</span>
+                        <span>
+                          {(compressedSize / 1024 / 1024).toFixed(2)} MB
+                        </span>
                       </div>
                       <div className="flex justify-between text-sm text-green-600">
                         <span>Size Reduction:</span>
@@ -657,7 +688,11 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
               </div>
             </div>
 
-            <Button onClick={compressImage} disabled={isCompressing} className="w-full">
+            <Button
+              onClick={compressImage}
+              disabled={isCompressing}
+              className="w-full"
+            >
               {isCompressing ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -679,8 +714,8 @@ function ImageCompressor({ selectedImage }: { selectedImage: File | null }) {
 
 function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
   const [colors, setColors] = useState<string[]>([]);
-  const [selectedColor, setSelectedColor] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [selectedColor, setSelectedColor] = useState<string>('');
+  const [imageUrl, setImageUrl] = useState<string>('');
   const [isExtracting, setIsExtracting] = useState<boolean>(false);
 
   useEffect(() => {
@@ -688,14 +723,14 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
       const url = URL.createObjectURL(selectedImage);
       setImageUrl(url);
       setColors([]);
-      setSelectedColor("");
+      setSelectedColor('');
     }
   }, [selectedImage]);
 
   const extractColors = () => {
     setIsExtracting(true);
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     const img = new window.Image();
 
     img.onload = () => {
@@ -754,7 +789,7 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
       const r = parseInt(match[1]);
       const g = parseInt(match[2]);
       const b = parseInt(match[3]);
-      return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+      return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
     }
     return rgbColor;
   };
@@ -777,7 +812,11 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
-                <Button onClick={extractColors} disabled={isExtracting} className="w-full">
+                <Button
+                  onClick={extractColors}
+                  disabled={isExtracting}
+                  className="w-full"
+                >
                   {isExtracting ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -846,7 +885,9 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => copyToClipboard(getHexColor(selectedColor))}
+                        onClick={() =>
+                          copyToClipboard(getHexColor(selectedColor))
+                        }
                         className="w-full"
                       >
                         Copy HEX
@@ -869,23 +910,23 @@ function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
 
 function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
   const [tolerance, setTolerance] = useState<number>(30);
-  const [backgroundColor, setBackgroundColor] = useState<string>("#ffffff");
-  const [processedImageUrl, setProcessedImageUrl] = useState<string>("");
+  const [backgroundColor, setBackgroundColor] = useState<string>('#ffffff');
+  const [processedImageUrl, setProcessedImageUrl] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>('');
 
   useEffect(() => {
     if (selectedImage) {
       const url = URL.createObjectURL(selectedImage);
       setImageUrl(url);
-      setProcessedImageUrl("");
+      setProcessedImageUrl('');
     }
   }, [selectedImage]);
 
   const removeBackground = () => {
     setIsProcessing(true);
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     const img = new window.Image();
 
     img.onload = () => {
@@ -896,7 +937,7 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
       const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
       if (imageData) {
         // Parse background color
-        const bgColor = backgroundColor.startsWith("#")
+        const bgColor = backgroundColor.startsWith('#')
           ? backgroundColor.substring(1)
           : backgroundColor;
         const bgR = parseInt(bgColor.substring(0, 2), 16);
@@ -927,7 +968,7 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
             setProcessedImageUrl(url);
             setIsProcessing(false);
           }
-        }, "image/png");
+        }, 'image/png');
       }
     };
 
@@ -936,10 +977,10 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
 
   const downloadProcessedImage = () => {
     if (processedImageUrl) {
-      const a = document.createElement("a");
+      const a = document.createElement('a');
       a.href = processedImageUrl;
-      const originalName = selectedImage?.name || "image";
-      const nameWithoutExt = originalName.split(".").slice(0, -1).join(".");
+      const originalName = selectedImage?.name || 'image';
+      const nameWithoutExt = originalName.split('.').slice(0, -1).join('.');
       a.download = `${nameWithoutExt}_no_bg.png`;
       a.click();
     }
@@ -952,7 +993,9 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
           <ImagesIcon className="h-5 w-5" />
           Background Remover
         </CardTitle>
-        <CardDescription>Remove background from images automatically</CardDescription>
+        <CardDescription>
+          Remove background from images automatically
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
@@ -964,7 +1007,9 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium">Background Color</label>
+                  <label className="text-sm font-medium">
+                    Background Color
+                  </label>
                   <div className="flex gap-2 mt-1">
                     <input
                       type="color"
@@ -983,7 +1028,9 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium">Tolerance: {tolerance}</label>
+                  <label className="text-sm font-medium">
+                    Tolerance: {tolerance}
+                  </label>
                   <input
                     type="range"
                     min="10"
@@ -997,7 +1044,11 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
                   </div>
                 </div>
 
-                <Button onClick={removeBackground} disabled={isProcessing} className="w-full">
+                <Button
+                  onClick={removeBackground}
+                  disabled={isProcessing}
+                  className="w-full"
+                >
                   {isProcessing ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -1069,11 +1120,19 @@ function BackgroundRemover({ selectedImage }: { selectedImage: File | null }) {
 }
 
 function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
-  const [cropArea, setCropArea] = useState({ x: 0, y: 0, width: 200, height: 200 });
+  const [cropArea, setCropArea] = useState({
+    x: 0,
+    y: 0,
+    width: 200,
+    height: 200,
+  });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [imageUrl, setImageUrl] = useState<string>("");
-  const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const [imageDimensions, setImageDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
   const [canvasRef, setCanvasRef] = useState<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -1124,8 +1183,14 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const newX = Math.max(0, Math.min(imageDimensions.width - cropArea.width, x - dragStart.x));
-    const newY = Math.max(0, Math.min(imageDimensions.height - cropArea.height, y - dragStart.y));
+    const newX = Math.max(
+      0,
+      Math.min(imageDimensions.width - cropArea.width, x - dragStart.x),
+    );
+    const newY = Math.max(
+      0,
+      Math.min(imageDimensions.height - cropArea.height, y - dragStart.y),
+    );
 
     setCropArea(prev => ({ ...prev, x: newX, y: newY }));
   };
@@ -1135,8 +1200,8 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
   };
 
   const cropImage = () => {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     const img = new window.Image();
 
     img.onload = () => {
@@ -1158,15 +1223,15 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
       canvas.toBlob(blob => {
         if (blob) {
           const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
+          const a = document.createElement('a');
           a.href = url;
-          const originalName = selectedImage?.name || "image";
-          const nameWithoutExt = originalName.split(".").slice(0, -1).join(".");
+          const originalName = selectedImage?.name || 'image';
+          const nameWithoutExt = originalName.split('.').slice(0, -1).join('.');
           a.download = `${nameWithoutExt}_cropped.png`;
           a.click();
           URL.revokeObjectURL(url);
         }
-      }, "image/png");
+      }, 'image/png');
     };
 
     img.src = imageUrl;
@@ -1190,11 +1255,15 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
           <Crop className="h-5 w-5" />
           Image Cropper
         </CardTitle>
-        <CardDescription>Crop your image to specific dimensions</CardDescription>
+        <CardDescription>
+          Crop your image to specific dimensions
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
-          <div className="text-center py-8 text-muted-foreground">Upload an image to crop</div>
+          <div className="text-center py-8 text-muted-foreground">
+            Upload an image to crop
+          </div>
         ) : (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1203,16 +1272,22 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
                   <label className="text-sm font-medium">Crop Area</label>
                   <div className="text-sm text-muted-foreground">
                     <div>
-                      Position: ({Math.round(cropArea.x)}, {Math.round(cropArea.y)})
+                      Position: ({Math.round(cropArea.x)},{' '}
+                      {Math.round(cropArea.y)})
                     </div>
                     <div>
-                      Size: {Math.round(cropArea.width)} × {Math.round(cropArea.height)}
+                      Size: {Math.round(cropArea.width)} ×{' '}
+                      {Math.round(cropArea.height)}
                     </div>
                   </div>
                 </div>
 
                 <div className="flex gap-2">
-                  <Button variant="outline" onClick={resetCrop} className="flex-1">
+                  <Button
+                    variant="outline"
+                    onClick={resetCrop}
+                    className="flex-1"
+                  >
                     Reset
                   </Button>
                   <Button onClick={cropImage} className="flex-1">
@@ -1242,9 +1317,9 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
                       className="border rounded cursor-move"
                       style={{
                         backgroundImage: `url(${imageUrl})`,
-                        backgroundSize: "contain",
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center",
+                        backgroundSize: 'contain',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
                       }}
                       onMouseDown={handleMouseDown}
                       onMouseMove={handleMouseMove}
@@ -1263,10 +1338,11 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
 }
 
 function MetadataViewer({ selectedImage }: { selectedImage: File | null }) {
-  const [imageDimensions, setImageDimensions] = useState<{ width: number; height: number } | null>(
-    null,
-  );
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageDimensions, setImageDimensions] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>('');
 
   useEffect(() => {
     if (selectedImage) {
@@ -1282,15 +1358,17 @@ function MetadataViewer({ selectedImage }: { selectedImage: File | null }) {
   }, [selectedImage]);
 
   const getAspectRatio = () => {
-    if (!imageDimensions) return "N/A";
+    if (!imageDimensions) return 'N/A';
     const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
     const divisor = gcd(imageDimensions.width, imageDimensions.height);
     return `${imageDimensions.width / divisor}:${imageDimensions.height / divisor}`;
   };
 
   const getMegapixels = () => {
-    if (!imageDimensions) return "N/A";
-    return ((imageDimensions.width * imageDimensions.height) / 1000000).toFixed(2);
+    if (!imageDimensions) return 'N/A';
+    return ((imageDimensions.width * imageDimensions.height) / 1000000).toFixed(
+      2,
+    );
   };
 
   return (
@@ -1300,7 +1378,9 @@ function MetadataViewer({ selectedImage }: { selectedImage: File | null }) {
           <Eye className="h-5 w-5" />
           Metadata Viewer
         </CardTitle>
-        <CardDescription>View image metadata and EXIF information</CardDescription>
+        <CardDescription>
+          View image metadata and EXIF information
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
@@ -1314,19 +1394,24 @@ function MetadataViewer({ selectedImage }: { selectedImage: File | null }) {
                 <p className="font-medium mb-2">File Information</p>
                 <div className="space-y-1 text-sm text-muted-foreground">
                   <p>Name: {selectedImage.name}</p>
-                  <p>Size: {(selectedImage.size / 1024 / 1024).toFixed(2)} MB</p>
-                  <p>Type: {selectedImage.type || "Unknown"}</p>
-                  <p>Last Modified: {new Date(selectedImage.lastModified).toLocaleDateString()}</p>
+                  <p>
+                    Size: {(selectedImage.size / 1024 / 1024).toFixed(2)} MB
+                  </p>
+                  <p>Type: {selectedImage.type || 'Unknown'}</p>
+                  <p>
+                    Last Modified:{' '}
+                    {new Date(selectedImage.lastModified).toLocaleDateString()}
+                  </p>
                 </div>
               </div>
               <div>
                 <p className="font-medium mb-2">Image Details</p>
                 <div className="space-y-1 text-sm text-muted-foreground">
                   <p>
-                    Dimensions:{" "}
+                    Dimensions:{' '}
                     {imageDimensions
                       ? `${imageDimensions.width} × ${imageDimensions.height}`
-                      : "Loading..."}
+                      : 'Loading...'}
                   </p>
                   <p>Aspect Ratio: {getAspectRatio()}</p>
                   <p>Megapixels: {getMegapixels()}</p>
@@ -1369,7 +1454,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
     grayscale: 0,
     sepia: 0,
   });
-  const [processedImageUrl, setProcessedImageUrl] = useState<string>("");
+  const [processedImageUrl, setProcessedImageUrl] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
@@ -1377,7 +1462,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
     if (selectedImage) {
       const url = URL.createObjectURL(selectedImage);
       setImageUrl(url);
-      setProcessedImageUrl("");
+      setProcessedImageUrl('');
       setFilters({
         brightness: 100,
         contrast: 100,
@@ -1392,8 +1477,8 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
   const applyFilters = () => {
     if (!imageUrl) return;
     setIsProcessing(true);
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     const img = new window.Image();
 
     img.onload = () => {
@@ -1416,7 +1501,8 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
           b = Math.min(255, Math.max(0, b * (filters.brightness / 100)));
 
           // Contrast
-          const factor = (259 * (filters.contrast + 255)) / (255 * (259 - filters.contrast));
+          const factor =
+            (259 * (filters.contrast + 255)) / (255 * (259 - filters.contrast));
           r = Math.min(255, Math.max(0, factor * (r - 128) + 128));
           g = Math.min(255, Math.max(0, factor * (g - 128) + 128));
           b = Math.min(255, Math.max(0, factor * (b - 128) + 128));
@@ -1460,14 +1546,14 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
               setIsProcessing(false);
             }
           },
-          "image/jpeg",
+          'image/jpeg',
           0.9,
         );
       }
     };
 
     img.onerror = () => {
-      toast.error("Image failed to load.");
+      toast.error('Image failed to load.');
       setIsProcessing(false);
     };
 
@@ -1476,10 +1562,10 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
 
   const downloadFilteredImage = () => {
     if (processedImageUrl) {
-      const a = document.createElement("a");
+      const a = document.createElement('a');
       a.href = processedImageUrl;
-      const originalName = selectedImage?.name || "image";
-      const nameWithoutExt = originalName.split(".").slice(0, -1).join(".");
+      const originalName = selectedImage?.name || 'image';
+      const nameWithoutExt = originalName.split('.').slice(0, -1).join('.');
       a.download = `${nameWithoutExt}_filtered.jpg`;
       a.click();
     }
@@ -1494,7 +1580,7 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
       grayscale: 0,
       sepia: 0,
     });
-    setProcessedImageUrl("");
+    setProcessedImageUrl('');
   };
 
   const getFilterStyle = () => {
@@ -1517,7 +1603,9 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
           <Settings className="h-5 w-5" />
           Image Filters
         </CardTitle>
-        <CardDescription>Apply filters and adjustments to your image</CardDescription>
+        <CardDescription>
+          Apply filters and adjustments to your image
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!selectedImage ? (
@@ -1529,90 +1617,132 @@ function ImageFilters({ selectedImage }: { selectedImage: File | null }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium">Brightness: {filters.brightness}%</label>
+                  <label className="text-sm font-medium">
+                    Brightness: {filters.brightness}%
+                  </label>
                   <input
                     type="range"
                     min="0"
                     max="200"
                     value={filters.brightness}
                     onChange={e =>
-                      setFilters(prev => ({ ...prev, brightness: Number(e.target.value) }))
+                      setFilters(prev => ({
+                        ...prev,
+                        brightness: Number(e.target.value),
+                      }))
                     }
                     className="w-full mt-1"
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium">Contrast: {filters.contrast}%</label>
+                  <label className="text-sm font-medium">
+                    Contrast: {filters.contrast}%
+                  </label>
                   <input
                     type="range"
                     min="0"
                     max="200"
                     value={filters.contrast}
                     onChange={e =>
-                      setFilters(prev => ({ ...prev, contrast: Number(e.target.value) }))
+                      setFilters(prev => ({
+                        ...prev,
+                        contrast: Number(e.target.value),
+                      }))
                     }
                     className="w-full mt-1"
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium">Saturation: {filters.saturation}%</label>
+                  <label className="text-sm font-medium">
+                    Saturation: {filters.saturation}%
+                  </label>
                   <input
                     type="range"
                     min="0"
                     max="200"
                     value={filters.saturation}
                     onChange={e =>
-                      setFilters(prev => ({ ...prev, saturation: Number(e.target.value) }))
+                      setFilters(prev => ({
+                        ...prev,
+                        saturation: Number(e.target.value),
+                      }))
                     }
                     className="w-full mt-1"
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium">Blur: {filters.blur}px</label>
+                  <label className="text-sm font-medium">
+                    Blur: {filters.blur}px
+                  </label>
                   <input
                     type="range"
                     min="0"
                     max="10"
                     value={filters.blur}
-                    onChange={e => setFilters(prev => ({ ...prev, blur: Number(e.target.value) }))}
+                    onChange={e =>
+                      setFilters(prev => ({
+                        ...prev,
+                        blur: Number(e.target.value),
+                      }))
+                    }
                     className="w-full mt-1"
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium">Grayscale: {filters.grayscale}%</label>
+                  <label className="text-sm font-medium">
+                    Grayscale: {filters.grayscale}%
+                  </label>
                   <input
                     type="range"
                     min="0"
                     max="100"
                     value={filters.grayscale}
                     onChange={e =>
-                      setFilters(prev => ({ ...prev, grayscale: Number(e.target.value) }))
+                      setFilters(prev => ({
+                        ...prev,
+                        grayscale: Number(e.target.value),
+                      }))
                     }
                     className="w-full mt-1"
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium">Sepia: {filters.sepia}%</label>
+                  <label className="text-sm font-medium">
+                    Sepia: {filters.sepia}%
+                  </label>
                   <input
                     type="range"
                     min="0"
                     max="100"
                     value={filters.sepia}
-                    onChange={e => setFilters(prev => ({ ...prev, sepia: Number(e.target.value) }))}
+                    onChange={e =>
+                      setFilters(prev => ({
+                        ...prev,
+                        sepia: Number(e.target.value),
+                      }))
+                    }
                     className="w-full mt-1"
                   />
                 </div>
 
                 <div className="flex gap-2">
-                  <Button variant="outline" onClick={resetFilters} className="flex-1">
+                  <Button
+                    variant="outline"
+                    onClick={resetFilters}
+                    className="flex-1"
+                  >
                     Reset
                   </Button>
-                  <Button onClick={applyFilters} disabled={isProcessing} className="flex-1">
+                  <Button
+                    onClick={applyFilters}
+                    disabled={isProcessing}
+                    className="flex-1"
+                  >
                     {isProcessing ? (
                       <>
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>

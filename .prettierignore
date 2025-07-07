@@ -1,7 +1,3 @@
-node_modules
-.next
-out
-dist
+# Ignore artifacts:
 build
 coverage
-.github

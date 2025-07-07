@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { CheckSquare } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import Footer from "@/components/footer";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Header from "@/components/header";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
-import TodoList from "@/components/tools/todo-list";
+import { CheckSquare } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import Footer from '@/components/footer';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Header from '@/components/header';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
+import TodoList from '@/components/tools/todo-list';
 
 export default function TodoPage() {
   useDynamicTitle({
     currentTool: {
-      id: "todo-list",
-      name: "Todo List",
-      category: "Productivity",
-      description: "Create, manage, and complete your daily tasks efficiently",
+      id: 'todo-list',
+      name: 'Todo List',
+      category: 'Productivity',
+      description: 'Create, manage, and complete your daily tasks efficiently',
     },
-    selectedCategory: "Productivity",
-    baseTitle: "Smart Tools",
+    selectedCategory: 'Productivity',
+    baseTitle: 'Smart Tools',
   });
 
   return (

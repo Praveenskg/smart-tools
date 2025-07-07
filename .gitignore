@@ -39,3 +39,28 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# macOS system file
+*.DS_Store
+
+# logs
+logs
+*.log
+
+# ESLint cache
+.eslintcache
+
+# local env overrides
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor-specific folders (optional, but helpful)
+.vscode/
+.idea/
+
+# Optional: Ignore coverage from Vitest or Jest
+/.coverage
+/coverage-final.json
+/coverage.lcov

@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { Calendar, ArrowLeft } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import AgeCalculator from "@/components/tools/age-calculator";
-import { useDynamicTitle } from "@/hooks/use-dynamic-title";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import Link from "next/link";
+import { Calendar, ArrowLeft } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import AgeCalculator from '@/components/tools/age-calculator';
+import { useDynamicTitle } from '@/hooks/use-dynamic-title';
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import Link from 'next/link';
 
 export default function AgeCalculatorPage() {
   useDynamicTitle({
     currentTool: {
-      id: "age-calculator",
-      name: "Age Calculator",
-      category: "Date & Time",
-      description: "Calculate exact age in years, months, and days",
+      id: 'age-calculator',
+      name: 'Age Calculator',
+      category: 'Date & Time',
+      description: 'Calculate exact age in years, months, and days',
     },
-    selectedCategory: "Date & Time",
-    baseTitle: "Smart Tools",
+    selectedCategory: 'Date & Time',
+    baseTitle: 'Smart Tools',
   });
 
   return (
@@ -28,14 +28,20 @@ export default function AgeCalculatorPage() {
         <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
           <div className="w-full mx-auto">
             <div className="text-center">
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Age Calculator</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
+                Age Calculator
+              </h1>
               <p className="text-base sm:text-lg text-muted-foreground mt-2">
                 Calculate exact age in years, months, and days
               </p>
             </div>
             <div className="w-full flex justify-center sm:justify-start my-4 sm:my-6">
               <Link href="/" className="w-full sm:w-auto">
-                <Button variant="outline" size="sm" className="w-full sm:w-auto">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full sm:w-auto"
+                >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Home
                 </Button>

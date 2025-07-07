@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   ArrowRight,
   RefreshCw,
@@ -21,7 +21,7 @@ import {
   CircleDollarSign,
   IndianRupee,
   Globe,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface ExchangeRate {
   [key: string]: number;
@@ -35,33 +35,33 @@ interface Currency {
 }
 
 const popularCurrencies: Currency[] = [
-  { code: "USD", name: "US Dollar", symbol: "$" },
-  { code: "EUR", name: "Euro", symbol: "€" },
-  { code: "GBP", name: "British Pound", symbol: "£" },
-  { code: "JPY", name: "Japanese Yen", symbol: "¥" },
-  { code: "INR", name: "Indian Rupee", symbol: "₹" },
-  { code: "CAD", name: "Canadian Dollar", symbol: "C$" },
-  { code: "AUD", name: "Australian Dollar", symbol: "A$" },
-  { code: "CHF", name: "Swiss Franc", symbol: "CHF" },
-  { code: "CNY", name: "Chinese Yuan", symbol: "¥" },
-  { code: "SGD", name: "Singapore Dollar", symbol: "S$" },
-  { code: "AED", name: "UAE Dirham", symbol: "د.إ" },
-  { code: "NZD", name: "New Zealand Dollar", symbol: "NZ$" },
+  { code: 'USD', name: 'US Dollar', symbol: '$' },
+  { code: 'EUR', name: 'Euro', symbol: '€' },
+  { code: 'GBP', name: 'British Pound', symbol: '£' },
+  { code: 'JPY', name: 'Japanese Yen', symbol: '¥' },
+  { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
+  { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$' },
+  { code: 'AUD', name: 'Australian Dollar', symbol: 'A$' },
+  { code: 'CHF', name: 'Swiss Franc', symbol: 'CHF' },
+  { code: 'CNY', name: 'Chinese Yuan', symbol: '¥' },
+  { code: 'SGD', name: 'Singapore Dollar', symbol: 'S$' },
+  { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ' },
+  { code: 'NZD', name: 'New Zealand Dollar', symbol: 'NZ$' },
 ];
 
 export default function CurrencyConverter() {
-  const [amount, setAmount] = useState("1");
-  const [fromCurrency, setFromCurrency] = useState("USD");
-  const [toCurrency, setToCurrency] = useState("EUR");
+  const [amount, setAmount] = useState('1');
+  const [fromCurrency, setFromCurrency] = useState('USD');
+  const [toCurrency, setToCurrency] = useState('EUR');
   const [exchangeRates, setExchangeRates] = useState<ExchangeRate>({});
-  const [convertedAmount, setConvertedAmount] = useState("");
+  const [convertedAmount, setConvertedAmount] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const fetchExchangeRates = useCallback(async () => {
     setIsLoading(true);
-    setError("");
+    setError('');
 
     try {
       const apis = [
@@ -88,15 +88,15 @@ export default function CurrencyConverter() {
       }
 
       if (!success) {
-        throw new Error("All APIs failed");
+        throw new Error('All APIs failed');
       }
 
       const rates = data.rates || data.conversion_rates || {};
       setExchangeRates(rates);
       setLastUpdated(new Date());
     } catch (err) {
-      console.error("Error fetching exchange rates:", err);
-      setError("Failed to fetch live rates. Using cached rates.");
+      console.error('Error fetching exchange rates:', err);
+      setError('Failed to fetch live rates. Using cached rates.');
 
       const mockRates: ExchangeRate = {
         USD: 1,
@@ -130,7 +130,7 @@ export default function CurrencyConverter() {
         const converted = (numAmount * exchangeRates[toCurrency]).toFixed(2);
         setConvertedAmount(converted);
       } else {
-        setConvertedAmount("");
+        setConvertedAmount('');
       }
     }
   }, [amount, toCurrency, exchangeRates]);
@@ -146,10 +146,10 @@ export default function CurrencyConverter() {
   };
 
   const formatAmount = (value: string) => {
-    const cleaned = value.replace(/[^0-9.]/g, "");
-    const parts = cleaned.split(".");
+    const cleaned = value.replace(/[^0-9.]/g, '');
+    const parts = cleaned.split('.');
     if (parts.length > 2) {
-      return parts[0] + "." + parts.slice(1).join("");
+      return parts[0] + '.' + parts.slice(1).join('');
     }
     return cleaned;
   };
@@ -195,7 +195,9 @@ export default function CurrencyConverter() {
                         <div className="flex items-center gap-2">
                           <span className="font-medium">{currency.symbol}</span>
                           <span>{currency.code}</span>
-                          <span className="text-muted-foreground">{currency.name}</span>
+                          <span className="text-muted-foreground">
+                            {currency.name}
+                          </span>
                         </div>
                       </SelectItem>
                     ))}
@@ -215,7 +217,9 @@ export default function CurrencyConverter() {
                         <div className="flex items-center gap-2">
                           <span className="font-medium">{currency.symbol}</span>
                           <span>{currency.code}</span>
-                          <span className="text-muted-foreground">{currency.name}</span>
+                          <span className="text-muted-foreground">
+                            {currency.name}
+                          </span>
                         </div>
                       </SelectItem>
                     ))}
@@ -224,7 +228,11 @@ export default function CurrencyConverter() {
               </div>
             </div>
 
-            <Button onClick={handleSwapCurrencies} variant="outline" className="w-full">
+            <Button
+              onClick={handleSwapCurrencies}
+              variant="outline"
+              className="w-full"
+            >
               <ArrowRight className="h-4 w-4 mr-2" />
               Swap Currencies
             </Button>
@@ -235,11 +243,17 @@ export default function CurrencyConverter() {
               disabled={isLoading}
               className="w-full"
             >
-              <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
-              {isLoading ? "Updating..." : "Refresh Rates"}
+              <RefreshCw
+                className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`}
+              />
+              {isLoading ? 'Updating...' : 'Refresh Rates'}
             </Button>
 
-            {error && <div className="text-sm text-red-500 bg-red-50 p-2 rounded">{error}</div>}
+            {error && (
+              <div className="text-sm text-red-500 bg-red-50 p-2 rounded">
+                {error}
+              </div>
+            )}
 
             {lastUpdated && (
               <div className="text-xs text-muted-foreground text-center">
@@ -262,7 +276,7 @@ export default function CurrencyConverter() {
                     {convertedAmount}
                   </>
                 ) : (
-                  "0.00"
+                  '0.00'
                 )}
               </div>
               <div className="text-sm text-muted-foreground">
@@ -274,16 +288,20 @@ export default function CurrencyConverter() {
               <div className="space-y-2">
                 <div className="text-sm font-medium">Exchange Rate</div>
                 <div className="text-lg font-semibold">
-                  1 {fromCurrency} = {exchangeRates[toCurrency].toFixed(4)} {toCurrency}
+                  1 {fromCurrency} = {exchangeRates[toCurrency].toFixed(4)}{' '}
+                  {toCurrency}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  1 {toCurrency} = {(1 / exchangeRates[toCurrency]).toFixed(4)} {fromCurrency}
+                  1 {toCurrency} = {(1 / exchangeRates[toCurrency]).toFixed(4)}{' '}
+                  {fromCurrency}
                 </div>
               </div>
             )}
 
             <div className="pt-4 border-t">
-              <div className="text-sm font-medium mb-2">Popular Conversions</div>
+              <div className="text-sm font-medium mb-2">
+                Popular Conversions
+              </div>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 {popularCurrencies.slice(0, 6).map(currency => (
                   <div
@@ -293,8 +311,11 @@ export default function CurrencyConverter() {
                     <span>{currency.code}</span>
                     <span className="font-medium">
                       {exchangeRates[currency.code]
-                        ? (parseFloat(amount || "1") * exchangeRates[currency.code]).toFixed(2)
-                        : "—"}
+                        ? (
+                            parseFloat(amount || '1') *
+                            exchangeRates[currency.code]
+                          ).toFixed(2)
+                        : '—'}
                     </span>
                   </div>
                 ))}
@@ -316,7 +337,8 @@ export default function CurrencyConverter() {
                 <span className="font-medium">USD - US Dollar</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                The world&apos;s primary reserve currency and most traded currency.
+                The world&apos;s primary reserve currency and most traded
+                currency.
               </p>
             </div>
             <div className="space-y-2">
@@ -334,7 +356,8 @@ export default function CurrencyConverter() {
                 <span className="font-medium">GBP - British Pound</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                One of the oldest currencies still in use, UK&apos;s official currency.
+                One of the oldest currencies still in use, UK&apos;s official
+                currency.
               </p>
             </div>
             <div className="space-y-2">
@@ -352,7 +375,8 @@ export default function CurrencyConverter() {
                 <span className="font-medium">INR - Indian Rupee</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Official currency of India, one of the fastest growing economies.
+                Official currency of India, one of the fastest growing
+                economies.
               </p>
             </div>
             <div className="space-y-2">
@@ -361,7 +385,8 @@ export default function CurrencyConverter() {
                 <span className="font-medium">Real-time Rates</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Exchange rates are updated automatically for accurate conversions.
+                Exchange rates are updated automatically for accurate
+                conversions.
               </p>
             </div>
           </div>

@@ -24,7 +24,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
-          eslint_flags: ". --ext .js,.ts,.tsx"
+          eslint_flags: '. --ext .js,.ts,.tsx'
 
       - name: Run TypeScript type check
         run: npx tsc --noEmit

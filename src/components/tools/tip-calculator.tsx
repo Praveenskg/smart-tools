@@ -1,12 +1,18 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
+import { useState } from 'react';
+import { Users } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
 
 interface TipResult {
   billAmount: number;
@@ -18,9 +24,9 @@ interface TipResult {
 }
 
 export default function TipCalculator() {
-  const [billAmount, setBillAmount] = useState<string>("");
+  const [billAmount, setBillAmount] = useState<string>('');
   const [tipPercentage, setTipPercentage] = useState<number[]>([15]);
-  const [numberOfPeople, setNumberOfPeople] = useState<string>("1");
+  const [numberOfPeople, setNumberOfPeople] = useState<string>('1');
   const [result, setResult] = useState<TipResult | null>(null);
 
   const calculateTip = () => {
@@ -46,16 +52,16 @@ export default function TipCalculator() {
   };
 
   const resetForm = () => {
-    setBillAmount("");
+    setBillAmount('');
     setTipPercentage([15]);
-    setNumberOfPeople("1");
+    setNumberOfPeople('1');
     setResult(null);
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
     }).format(amount);
   };
 
@@ -66,7 +72,9 @@ export default function TipCalculator() {
       <Card className="modern-card">
         <CardHeader>
           <CardTitle>Bill Information</CardTitle>
-          <CardDescription>Enter bill details to calculate tip and split</CardDescription>
+          <CardDescription>
+            Enter bill details to calculate tip and split
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
@@ -83,7 +91,9 @@ export default function TipCalculator() {
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <Label>Tip Percentage</Label>
-              <span className="text-2xl font-bold gradient-text">{tipPercentage[0]}%</span>
+              <span className="text-2xl font-bold gradient-text">
+                {tipPercentage[0]}%
+              </span>
             </div>
             <Slider
               value={tipPercentage}
@@ -97,10 +107,10 @@ export default function TipCalculator() {
               {quickTipButtons.map(tip => (
                 <Button
                   key={tip}
-                  variant={tipPercentage[0] === tip ? "default" : "outline"}
+                  variant={tipPercentage[0] === tip ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setTipPercentage([tip])}
-                  className={tipPercentage[0] === tip ? "modern-button" : ""}
+                  className={tipPercentage[0] === tip ? 'modern-button' : ''}
                 >
                   {tip}%
                 </Button>
@@ -141,14 +151,18 @@ export default function TipCalculator() {
               <div className="h-2 w-2 rounded-full success-gradient"></div>
               Tip Calculation Results
             </CardTitle>
-            <CardDescription>Bill breakdown and per-person amounts</CardDescription>
+            <CardDescription>
+              Bill breakdown and per-person amounts
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
               <div className="p-4 bg-linear-to-r from-muted to-muted/50 rounded-xl">
                 <div className="flex justify-between items-center">
                   <span>Bill Amount</span>
-                  <span className="font-semibold">{formatCurrency(result.billAmount)}</span>
+                  <span className="font-semibold">
+                    {formatCurrency(result.billAmount)}
+                  </span>
                 </div>
               </div>
 
@@ -180,11 +194,15 @@ export default function TipCalculator() {
                 <div className="grid gap-3">
                   <div className="flex justify-between">
                     <span>Amount per person</span>
-                    <span className="font-semibold">{formatCurrency(result.perPersonAmount)}</span>
+                    <span className="font-semibold">
+                      {formatCurrency(result.perPersonAmount)}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span>Tip per person</span>
-                    <span className="font-semibold">{formatCurrency(result.perPersonTip)}</span>
+                    <span className="font-semibold">
+                      {formatCurrency(result.perPersonTip)}
+                    </span>
                   </div>
                 </div>
               </div>
