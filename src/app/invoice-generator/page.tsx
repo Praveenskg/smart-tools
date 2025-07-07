@@ -24,7 +24,7 @@ export default function InvoiceGenerator() {
     newItems[index][field] = value;
     setInvoice({ ...invoice, items: newItems });
   };
-
+helloworld
   const addItem = () => {
     setInvoice({
       ...invoice,
