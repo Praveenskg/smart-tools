@@ -7,7 +7,6 @@ import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from '@vercel/analytics/next';
 import { PWAAutoUpdate } from '@/components/pwa-auto-update';
 import BackToTopButton from '@/components/BackToTopButton';
-import { InstallBanner } from '@/components/InstallBanner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -22,7 +21,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Smart Tools - Professional Calculator Suite',
+  title: {
+    default: `Smart Tools - Professional Calculator Suite`,
+    template: `%s - Smart Tools`,
+  },
   description:
     'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.',
   metadataBase: new URL('https://tools.praveensingh.online'),
@@ -139,8 +141,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {' '}
-            <InstallBanner />
             {children}
             <BackToTopButton />
             <PWAAutoUpdate />

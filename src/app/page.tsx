@@ -12,6 +12,7 @@ import { FeaturedTools } from '@/components/homepage/FeaturedTools';
 import { NewsletterSignup } from '@/components/homepage/NewsletterSignup';
 import { ToolSearch } from '@/components/homepage/ToolSearch';
 import { ToolGrid } from '@/components/homepage/ToolGrid';
+import { InstallBanner } from '@/components/InstallBanner';
 
 const categories = [
   { name: 'All Tools', count: tools.length },
@@ -62,6 +63,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <InstallBanner />
       <Header isHome={true} />
       <HeroSection />
       <FeaturedTools tools={featuredTools} />
