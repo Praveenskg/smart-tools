@@ -18,6 +18,8 @@ export function usePWA() {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const checkIfInstalled = () => {
       if (
         window.matchMedia &&
@@ -27,7 +29,6 @@ export function usePWA() {
       }
     };
 
-    // Listen for beforeinstallprompt event
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as unknown as PWAInstallPrompt);
@@ -35,28 +36,24 @@ export function usePWA() {
       setShowBanner(true);
     };
 
-    // Listen for appinstalled event
     const handleAppInstalled = () => {
       setIsInstalled(true);
       setIsInstallable(false);
       setDeferredPrompt(null);
     };
 
-    // Check online status
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    // Register service worker
     const registerServiceWorker = async () => {
       if ('serviceWorker' in navigator) {
         try {
-          const registration = await navigator.serviceWorker.register('/sw.js');
-          console.log('SW registered: ', registration);
-          setRegistration(registration);
+          const reg = await navigator.serviceWorker.register('/sw.js');
+          setRegistration(reg);
+          console.log('SW registered: ', reg);
 
-          // Detect if new update is available
-          registration.onupdatefound = () => {
-            const installingWorker = registration.installing;
+          reg.onupdatefound = () => {
+            const installingWorker = reg.installing;
             if (installingWorker) {
               installingWorker.onstatechange = () => {
                 if (
@@ -64,13 +61,12 @@ export function usePWA() {
                   navigator.serviceWorker.controller
                 ) {
                   setUpdateAvailable(true);
-                  console.log('New update available');
                 }
               };
             }
           };
-        } catch (registrationError) {
-          console.log('SW registration failed: ', registrationError);
+        } catch (error) {
+          console.log('SW registration failed: ', error);
         }
       }
     };
@@ -78,13 +74,11 @@ export function usePWA() {
     checkIfInstalled();
     registerServiceWorker();
 
-    // Add event listeners
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     window.addEventListener('appinstalled', handleAppInstalled);
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
-    // Check initial online status
     setIsOnline(navigator.onLine);
 
     return () => {
@@ -99,7 +93,7 @@ export function usePWA() {
   }, []);
 
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
+    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         window.location.reload();
       });
@@ -127,25 +121,21 @@ export function usePWA() {
   };
 
   const requestNotificationPermission = async () => {
-    if (!('Notification' in window)) {
-      console.log('This browser does not support notifications');
+    if (typeof window === 'undefined' || !('Notification' in window))
       return false;
-    }
 
-    if (Notification.permission === 'granted') {
-      return true;
-    }
-
-    if (Notification.permission === 'denied') {
-      return false;
-    }
+    if (Notification.permission === 'granted') return true;
+    if (Notification.permission === 'denied') return false;
 
     const permission = await Notification.requestPermission();
     return permission === 'granted';
   };
 
   const showNotification = (title: string, options?: NotificationOptions) => {
-    if (Notification.permission === 'granted') {
+    if (
+      typeof window !== 'undefined' &&
+      Notification.permission === 'granted'
+    ) {
       new Notification(title, options);
     }
   };
