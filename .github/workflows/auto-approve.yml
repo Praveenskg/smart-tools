@@ -7,11 +7,11 @@ on:
 jobs:
   auto-approve:
     runs-on: ubuntu-latest
+    if: github.actor == 'praveenskg'
     permissions:
       pull-requests: write
-    if: github.actor == 'praveenskg'
     steps:
       - uses: hmarr/auto-approve-action@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          review-message: 'Auto approved automated PR'
+          github-token: ${{ secrets.BOT_TOKEN }}
+          review-message: Auto approved by bot
