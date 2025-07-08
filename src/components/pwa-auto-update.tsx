@@ -40,9 +40,9 @@ export function PWAAutoUpdate() {
   const showUpdateToast = () => {
     hasShownToast.current = true;
     toast('A new version is available!', {
-      description: 'Click below to refresh and update.',
+      description: 'Click below to  update.',
       action: {
-        label: 'Refresh Now',
+        label: 'Update Now',
         onClick: () => window.location.reload(),
       },
       duration: 5000,

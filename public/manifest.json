@@ -39,20 +39,6 @@
   "dir": "ltr",
   "prefer_related_applications": false,
   "related_applications": [],
-  "screenshots": [
-    {
-      "src": "/screenshot-wide.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    },
-    {
-      "src": "/screenshot-narrow.png",
-      "sizes": "750x1334",
-      "type": "image/png",
-      "form_factor": "narrow"
-    }
-  ],
   "shortcuts": [
     {
       "name": "EMI Calculator",
@@ -62,10 +48,10 @@
       "icons": [{ "src": "/favicon.svg", "sizes": "192x192" }]
     },
     {
-      "name": "Currency Converter",
-      "short_name": "Currency",
-      "description": "Convert currencies",
-      "url": "/currency-converter",
+      "name": "QR Code Generator",
+      "short_name": "QR Code",
+      "description": "Generate QR codes from text or URLs",
+      "url": "/qr-code-generator",
       "icons": [{ "src": "/favicon.svg", "sizes": "192x192" }]
     },
     {

@@ -12,9 +12,11 @@ export function usePWA() {
   const [isInstallable, setIsInstallable] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [registration, setRegistration] =
+    useState<ServiceWorkerRegistration | null>(null);
 
   useEffect(() => {
-    // Check if app is already installed
     const checkIfInstalled = () => {
       if (
         window.matchMedia &&
@@ -48,13 +50,29 @@ export function usePWA() {
         try {
           const registration = await navigator.serviceWorker.register('/sw.js');
           console.log('SW registered: ', registration);
+          setRegistration(registration);
+
+          // Detect if new update is available
+          registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            if (installingWorker) {
+              installingWorker.onstatechange = () => {
+                if (
+                  installingWorker.state === 'installed' &&
+                  navigator.serviceWorker.controller
+                ) {
+                  setUpdateAvailable(true);
+                  console.log('New update available');
+                }
+              };
+            }
+          };
         } catch (registrationError) {
           console.log('SW registration failed: ', registrationError);
         }
       }
     };
 
-    // Initialize
     checkIfInstalled();
     registerServiceWorker();
 
@@ -137,5 +155,7 @@ export function usePWA() {
     installApp,
     requestNotificationPermission,
     showNotification,
+    updateAvailable,
+    registration,
   };
 }
