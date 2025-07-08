@@ -23,7 +23,7 @@ export function NewsletterSignup() {
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: 0.2 }}
-      className="bg-muted/50 py-12 px-4 sm:px-6 lg:px-8 text-center"
+      className="bg-muted/50 dark:bg-background py-12 px-4 sm:px-6 lg:px-8 text-center"
     >
       <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
       <p className="text-muted-foreground mb-6 text-sm sm:text-base max-w-xl mx-auto">

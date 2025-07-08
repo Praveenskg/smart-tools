@@ -20,6 +20,9 @@ export function MobilePWAMenu() {
   const handleInstall = async () => {
     setIsInstalling(true);
     try {
+      if ('vibrate' in navigator) {
+        navigator.vibrate([100, 50, 100]);
+      }
       await installApp();
     } catch (error) {
       console.error('Installation failed:', error);
@@ -35,13 +38,17 @@ export function MobilePWAMenu() {
           <Smartphone className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
-        <div className="px-2 py-1.5 text-sm font-medium">App Settings</div>
+      <DropdownMenuContent
+        align="end"
+        className="w-56 animate-in fade-in slide-in-from-top-2"
+      >
+        <p className="px-3 py-1.5 text-xs text-muted-foreground font-semibold uppercase tracking-wide">
+          App Settings
+        </p>
         <DropdownMenuSeparator />
-
         {!isOnline && (
-          <DropdownMenuItem disabled className="text-yellow-600">
-            <WifiOff className="h-4 w-4 mr-2" />
+          <DropdownMenuItem disabled>
+            <WifiOff className="h-4 w-4 mr-2 text-yellow-600" />
             Offline Mode
           </DropdownMenuItem>
         )}
@@ -54,8 +61,8 @@ export function MobilePWAMenu() {
         )}
 
         {isInstalled && (
-          <DropdownMenuItem disabled className="text-green-600">
-            <Download className="h-4 w-4 mr-2" />
+          <DropdownMenuItem disabled>
+            <Download className="h-4 w-4 mr-2 text-green-600" />
             App Installed
           </DropdownMenuItem>
         )}

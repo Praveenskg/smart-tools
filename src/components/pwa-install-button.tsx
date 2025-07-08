@@ -50,7 +50,7 @@ export function PWAInstallButton() {
       size="sm"
       onClick={handleInstall}
       disabled={isInstalling}
-      className="text-primary hover:text-primary"
+      className="transition-all duration-200 hover:scale-105"
       aria-label="Install Progressive Web App"
     >
       {isInstalling ? (

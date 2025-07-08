@@ -8,10 +8,9 @@ import { motion, AnimatePresence } from 'motion/react';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-
   const isDark = theme === 'dark';
 
-  const toggleTheme = (): void => {
+  const toggleTheme = () => {
     setTheme(isDark ? 'light' : 'dark');
   };
 
@@ -20,7 +19,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="relative h-8 w-8 sm:h-10 sm:w-10"
+      className="relative size-8"
     >
       <AnimatePresence mode="wait" initial={false}>
         {isDark ? (
@@ -32,7 +31,7 @@ export function ThemeToggle() {
             transition={{ duration: 0.3 }}
             className="absolute"
           >
-            <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
+            <Moon />
           </motion.span>
         ) : (
           <motion.span
@@ -43,7 +42,7 @@ export function ThemeToggle() {
             transition={{ duration: 0.3 }}
             className="absolute"
           >
-            <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
+            <Sun />
           </motion.span>
         )}
       </AnimatePresence>

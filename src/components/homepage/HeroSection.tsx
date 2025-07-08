@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export function HeroSection() {
   return (
-    <section className="relative w-full py-12 sm:py-20 lg:py-24 bg-gradient-to-br from-muted/50 via-background to-background overflow-hidden">
+    <section className="relative w-full py-12 sm:py-20 lg:py-24 bg-linear-to-br from-muted/50 via-background to-background overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: -10 }}

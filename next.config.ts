@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60,
+    remotePatterns: [
+      new URL('https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png'),
+    ],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

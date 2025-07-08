@@ -36,7 +36,7 @@ export function LiveClock() {
   const { hours, minutes, seconds, ampm } = formatTime(time);
 
   return (
-    <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg bg-background/50 border border-border/50 hover:bg-muted/30 transition-all duration-200 hover:scale-105">
+    <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg bg-background/50 border border-border/50 hover:bg-muted/30 ">
       <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
       <div className="flex items-center gap-0.5 sm:gap-1 font-mono">
         <span className="text-xs sm:text-sm font-semibold text-muted-foreground tabular-nums">

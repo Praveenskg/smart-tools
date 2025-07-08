@@ -1,13 +1,15 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 
 export function PWAAutoUpdate() {
+  const hasShownToast = useRef(false);
+
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistration().then(reg => {
-        if (reg?.waiting) {
+        if (reg?.waiting && !hasShownToast.current) {
           showUpdateToast();
         }
 
@@ -17,7 +19,8 @@ export function PWAAutoUpdate() {
             newWorker.addEventListener('statechange', () => {
               if (
                 newWorker.state === 'installed' &&
-                navigator.serviceWorker.controller
+                navigator.serviceWorker.controller &&
+                !hasShownToast.current
               ) {
                 showUpdateToast();
               }
@@ -27,13 +30,17 @@ export function PWAAutoUpdate() {
       });
 
       navigator.serviceWorker.addEventListener('controllerchange', () => {
-        showUpdateToast();
+        if (!hasShownToast.current) {
+          showUpdateToast();
+        }
       });
     }
   }, []);
 
   const showUpdateToast = () => {
-    toast('🔄 New version available. Refreshing in 5 seconds...', {
+    hasShownToast.current = true;
+    toast('A new version is available!', {
+      description: 'Click below to refresh and update.',
       action: {
         label: 'Refresh Now',
         onClick: () => window.location.reload(),
