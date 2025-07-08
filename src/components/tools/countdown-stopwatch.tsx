@@ -392,8 +392,8 @@ function Stopwatch() {
         </div>
         {laps.length > 0 && (
           <div className="pt-4">
-            <div className="border rounded-md">
-              <div className="flex justify-between py-2 border-b text-sm font-semibold text-muted-foreground bg-muted">
+            <div className="border rounded-lg">
+              <div className="flex justify-between py-2 text-sm font-semibold text-muted-foreground bg-muted rounded-t-lg">
                 <span className="w-1/3 text-center">Lap</span>
                 <span className="w-1/3 text-center">Lap Time</span>
                 <span className="w-1/3 text-center">Overall Time</span>

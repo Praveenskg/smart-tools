@@ -5,6 +5,14 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+type InvoiceItem = {
+  name: string;
+  quantity: number;
+  price: number;
+  description: string;
+  rate: number;
+  tax: number;
+};
 
 export default function InvoiceGenerator() {
   const [invoice, setInvoice] = useState({
@@ -19,9 +27,16 @@ export default function InvoiceGenerator() {
     notes: '',
   });
 
-  const handleItemChange = (index: number, field: string, value: any) => {
+  const handleItemChange = (
+    index: number,
+    field: keyof InvoiceItem,
+    value: string | number,
+  ) => {
     const newItems = [...invoice.items];
-    newItems[index][field] = value;
+    newItems[index] = {
+      ...newItems[index],
+      [field]: value,
+    };
     setInvoice({ ...invoice, items: newItems });
   };
   const addItem = () => {
