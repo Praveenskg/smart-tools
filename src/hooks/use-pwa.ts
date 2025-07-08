@@ -15,6 +15,7 @@ export function usePWA() {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [registration, setRegistration] =
     useState<ServiceWorkerRegistration | null>(null);
+  const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
     const checkIfInstalled = () => {
@@ -31,6 +32,7 @@ export function usePWA() {
       e.preventDefault();
       setDeferredPrompt(e as unknown as PWAInstallPrompt);
       setIsInstallable(true);
+      setShowBanner(true);
     };
 
     // Listen for appinstalled event
@@ -155,6 +157,7 @@ export function usePWA() {
     installApp,
     requestNotificationPermission,
     showNotification,
+    showBanner,
     updateAvailable,
     registration,
   };

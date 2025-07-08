@@ -6,10 +6,10 @@ import {
   WifiOff,
   Moon,
   Sun,
-  Smartphone,
   Bell,
   Trash,
   RefreshCcw,
+  Settings,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
@@ -100,7 +100,7 @@ export function MobilePWAMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="sm:hidden">
-          <Smartphone className="h-4 w-4" />
+          <Settings className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -112,7 +112,6 @@ export function MobilePWAMenu() {
         </p>
 
         <DropdownMenuSeparator />
-
         {!isOnline && (
           <DropdownMenuItem disabled>
             <WifiOff className="h-4 w-4 mr-2 text-yellow-600" />
@@ -139,14 +138,16 @@ export function MobilePWAMenu() {
           </DropdownMenuItem>
         ) : null}
 
-        <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleToggleNotification}>
           <Bell className="h-4 w-4 mr-2" />
           {notificationsEnabled
             ? 'Disable Notifications'
             : 'Enable Notifications'}
         </DropdownMenuItem>
-
+        <DropdownMenuItem onClick={handleClearCache}>
+          <Trash className="h-4 w-4 mr-2" />
+          Clear App Cache
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         >
@@ -156,10 +157,6 @@ export function MobilePWAMenu() {
             <Moon className="h-4 w-4 mr-2" />
           )}
           {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleClearCache}>
-          <Trash className="h-4 w-4 mr-2" />
-          Clear App Cache
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

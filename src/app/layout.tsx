@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from '@vercel/analytics/next';
 import { PWAAutoUpdate } from '@/components/pwa-auto-update';
 import BackToTopButton from '@/components/BackToTopButton';
+import { InstallBanner } from '@/components/InstallBanner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -138,6 +139,8 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            {' '}
+            <InstallBanner />
             {children}
             <BackToTopButton />
             <PWAAutoUpdate />

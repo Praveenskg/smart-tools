@@ -3,7 +3,6 @@
 import { Sparkles } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LiveClock } from '@/components/clock';
-import { PWAInstallButton } from '@/components/pwa-install-button';
 import { OfflineIndicator } from '@/components/offline-indicator';
 import { MobilePWAMenu } from '@/components/mobile-pwa-menu';
 import Link from 'next/link';
@@ -35,19 +34,19 @@ export default function Header({
               href="/"
               className="flex items-center space-x-2 sm:space-x-3 group"
             >
-              <div className="flex h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80 shadow-md">
-                <IconComponent className="h-4 w-4 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary-foreground transition-transform duration-200 group-hover:rotate-12" />
+              <div className="flex h-10 w-10 sm:h-8 sm:w-8 lg:h-9 lg:w-9 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80 shadow-md">
+                <IconComponent className="h-8 w-8 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary-foreground transition-transform duration-200 group-hover:rotate-12" />
               </div>
               <div className="flex flex-col leading-tight">
                 <motion.span
-                  className="text-sm sm:text-base lg:text-lg xl:text-xl font-bold tracking-tight truncate max-w-[120px] sm:max-w-[200px] lg:max-w-none bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:brightness-110 group-hover:saturate-150 transition duration-300"
+                  className="text-xl lg:text-lg xl:text-xl font-bold tracking-tight truncate  lg:max-w-none bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:brightness-110 group-hover:saturate-150 transition duration-300"
                   initial={{ opacity: 0, y: -4 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
                 >
                   Smart Tools
                 </motion.span>
-                <span className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
+                <span className="text-sm text-muted-foreground">
                   Professional Calculator Suite
                 </span>
               </div>
@@ -61,21 +60,21 @@ export default function Header({
                 <motion.div
                   whileHover={{ rotate: 12, scale: 1.05 }}
                   transition={{ type: 'spring', stiffness: 300 }}
-                  className="flex h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80 shadow-md"
+                  className="flex h-10 w-10 sm:h-8 sm:w-8 lg:h-9 lg:w-9 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80 shadow-md"
                 >
-                  <IconComponent className="h-4 w-4 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary-foreground" />
+                  <IconComponent className="h-8 w-8 sm:h-4 sm:w-4 lg:h-6 lg:w-6 text-primary-foreground" />
                 </motion.div>
 
                 <div className="flex flex-col leading-tight">
                   <motion.span
-                    className="text-sm sm:text-base lg:text-lg xl:text-xl font-bold tracking-tight truncate max-w-[120px] sm:max-w-[200px] lg:max-w-none bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:brightness-110 group-hover:saturate-150 transition duration-300"
+                    className="text-xl lg:text-lg xl:text-xl font-bold tracking-tight truncate  lg:max-w-none bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:brightness-110 group-hover:saturate-150 transition duration-300"
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}
                   >
                     {title}
                   </motion.span>
-                  <span className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
+                  <span className="text-sm text-muted-foreground">
                     Professional Calculator Suite
                   </span>
                 </div>
@@ -86,9 +85,6 @@ export default function Header({
         <div className="flex items-center gap-1 sm:gap-2 lg:gap-3">
           <div className="hidden sm:block">
             <OfflineIndicator />
-          </div>
-          <div className="hidden sm:block">
-            <PWAInstallButton />
           </div>
           <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.05 }}>
             <LiveClock />
