@@ -4,10 +4,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from '@vercel/analytics/next';
-// import { PWAAutoUpdate } from '@/components/pwa-auto-update';
 import BackToTopButton from '@/components/BackToTopButton';
-import ForceUnregisterSW from '@/components/unregister';
-
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -133,8 +130,6 @@ export default function RootLayout({
         >
           {children}
           <BackToTopButton />
-          <ForceUnregisterSW />
-          {/* <PWAAutoUpdate /> */}
           <Toaster position="top-right" expand={true} richColors closeButton />
           <Analytics />
         </ThemeProvider>
