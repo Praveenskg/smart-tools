@@ -3,7 +3,6 @@ import type { Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
-import ErrorBoundary from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from '@vercel/analytics/next';
 import { PWAAutoUpdate } from '@/components/pwa-auto-update';
@@ -121,25 +120,18 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <ErrorBoundary>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <BackToTopButton />
-            <PWAAutoUpdate />
-            <Toaster
-              position="top-right"
-              expand={true}
-              richColors
-              closeButton
-            />
-            <Analytics />
-          </ThemeProvider>
-        </ErrorBoundary>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <BackToTopButton />
+          <PWAAutoUpdate />
+          <Toaster position="top-right" expand={true} richColors closeButton />
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );

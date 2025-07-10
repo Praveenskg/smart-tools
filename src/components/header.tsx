@@ -2,12 +2,14 @@
 
 import { Sparkles } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { LiveClock } from '@/components/clock';
 import { OfflineIndicator } from '@/components/offline-indicator';
 import { MobilePWAMenu } from '@/components/mobile-pwa-menu';
 import Link from 'next/link';
 import { motion } from 'motion/react';
-
+import dynamic from 'next/dynamic';
+const LiveClock = dynamic(() => import('./LiveClock'), {
+  ssr: false,
+});
 interface HeaderProps {
   title?: string;
   icon?: React.ComponentType<{ className?: string }>;

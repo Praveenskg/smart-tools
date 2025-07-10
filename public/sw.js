@@ -3,7 +3,7 @@ const CACHE_NAME = 'smart-tools-v1.0.8';
 const urlsToCache = [
   '/',
   '/manifest.json',
-  '/favicon.svg',
+  '/favicon.ico',
   '/age-calculator',
   '/area-calculator',
   '/bmi-calculator',

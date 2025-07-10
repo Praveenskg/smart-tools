@@ -5,6 +5,11 @@ interface PWAInstallPrompt {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
 export function usePWA() {
   const [deferredPrompt, setDeferredPrompt] = useState<PWAInstallPrompt | null>(
     null,
@@ -29,9 +34,9 @@ export function usePWA() {
       }
     };
 
-    const handleBeforeInstallPrompt = (e: Event) => {
+    const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
       e.preventDefault();
-      setDeferredPrompt(e as unknown as PWAInstallPrompt);
+      setDeferredPrompt(e);
       setIsInstallable(true);
       setShowBanner(true);
     };
@@ -74,7 +79,10 @@ export function usePWA() {
     checkIfInstalled();
     registerServiceWorker();
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('beforeinstallprompt', e => {
+      const event = e as BeforeInstallPromptEvent;
+      handleBeforeInstallPrompt(event);
+    });
     window.addEventListener('appinstalled', handleAppInstalled);
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
@@ -82,10 +90,10 @@ export function usePWA() {
     setIsOnline(navigator.onLine);
 
     return () => {
-      window.removeEventListener(
-        'beforeinstallprompt',
-        handleBeforeInstallPrompt,
-      );
+      window.removeEventListener('beforeinstallprompt', e => {
+        const event = e as BeforeInstallPromptEvent;
+        handleBeforeInstallPrompt(event);
+      });
       window.removeEventListener('appinstalled', handleAppInstalled);
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
@@ -111,6 +119,7 @@ export function usePWA() {
         setIsInstalled(true);
         setIsInstallable(false);
         setDeferredPrompt(null);
+        setShowBanner(false);
         return true;
       }
     } catch (error) {

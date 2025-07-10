@@ -1,42 +1,28 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
 import { Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
-export function LiveClock() {
-  const [time, setTime] = useState(new Date());
+export default function LiveClock() {
+  const [time, setTime] = useState(dayjs());
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(new Date());
+    const interval = setInterval(() => {
+      setTime(dayjs());
     }, 1000);
 
-    return () => clearInterval(timer);
+    return () => clearInterval(interval);
   }, []);
 
-  const formatTime = (date: Date) => {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-
-    const displayHours = hours % 12 || 12;
-    const displayMinutes = minutes.toString().padStart(2, '0');
-    const displaySeconds = seconds.toString().padStart(2, '0');
-
-    return {
-      hours: displayHours,
-      minutes: displayMinutes,
-      seconds: displaySeconds,
-      ampm,
-    };
-  };
-
-  const { hours, minutes, seconds, ampm } = formatTime(time);
+  const hours = time.format('hh');
+  const minutes = time.format('mm');
+  const seconds = time.format('ss');
+  const ampm = time.format('A');
 
   return (
-    <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg bg-background/50 border border-border/50 hover:bg-muted/30 ">
+    <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg bg-background/50 border border-border/50 hover:bg-muted/30">
       <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
       <div className="flex items-center gap-0.5 sm:gap-1 font-mono">
         <span className="text-xs sm:text-sm font-semibold text-muted-foreground tabular-nums">
