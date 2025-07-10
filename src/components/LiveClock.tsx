@@ -6,7 +6,7 @@ import { Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 export default function LiveClock() {
-  const [time, setTime] = useState(dayjs());
+  const [time, setTime] = useState<dayjs.Dayjs | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -15,7 +15,7 @@ export default function LiveClock() {
 
     return () => clearInterval(interval);
   }, []);
-
+  if (!time) return null;
   const hours = time.format('hh');
   const minutes = time.format('mm');
   const seconds = time.format('ss');

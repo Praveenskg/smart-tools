@@ -4,6 +4,7 @@ const urlsToCache = [
   '/',
   '/manifest.json',
   '/favicon.ico',
+  '/apple-touch-icon.png',
   '/age-calculator',
   '/area-calculator',
   '/bmi-calculator',
