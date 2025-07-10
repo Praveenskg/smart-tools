@@ -29,18 +29,14 @@ export const metadata: Metadata = {
     'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.',
   metadataBase: new URL('https://tools.praveensingh.online'),
   icons: {
-    icon: [
-      {
-        url: '/favicon.svg',
-        type: 'image/svg+xml',
-      },
-      {
-        url: '/favicon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
+    icon: '/favicon.svg',
     shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    apple: '/apple-touch-icon.png',
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Smart Tools',
   },
   keywords: [
     'calculator',
@@ -110,26 +106,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <meta name="theme-color" content="#7c3aed" />
-        <meta name="color-scheme" content="light dark" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Smart Tools" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="application-name" content="Smart Tools" />
-        <meta name="msapplication-TileColor" content="#7c3aed" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="mask-icon" href="/favicon.svg" color="#7c3aed" />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
