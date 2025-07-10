@@ -6,10 +6,10 @@ import { OfflineIndicator } from '@/components/offline-indicator';
 import { MobilePWAMenu } from '@/components/mobile-pwa-menu';
 import Link from 'next/link';
 import { motion } from 'motion/react';
-import dynamic from 'next/dynamic';
-const LiveClock = dynamic(() => import('./LiveClock'), {
-  ssr: false,
-});
+// import dynamic from 'next/dynamic';
+// const LiveClock = dynamic(() => import('./LiveClock'), {
+//   ssr: false,
+// });
 interface HeaderProps {
   title?: string;
   icon?: React.ComponentType<{ className?: string }>;
@@ -83,9 +83,9 @@ export default function Header({
           <div className="hidden sm:block">
             <OfflineIndicator />
           </div>
-          <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.05 }}>
+          {/* <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.05 }}>
             <LiveClock />
-          </motion.div>
+          </motion.div> */}
           <motion.div
             className="hidden sm:flex"
             whileTap={{ scale: 0.95 }}
