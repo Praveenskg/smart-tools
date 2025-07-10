@@ -10,28 +10,22 @@
   "scope": "/",
   "icons": [
     {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    },
-    {
-      "src": "/favicon.svg",
+      "purpose": "maskable",
       "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "icon-192x192.png",
+      "type": "image/png"
     },
     {
-      "src": "/favicon.svg",
+      "purpose": "maskable",
       "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "icon-512x512.png",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "categories": ["utilities", "productivity", "finance", "education"],
@@ -42,24 +36,24 @@
   "shortcuts": [
     {
       "name": "EMI Calculator",
-      "short_name": "EMI",
-      "description": "Calculate loan EMIs",
+      "short_name": "EMI Calculator",
+      "description": "Calculate loan and Credit Card EMIs",
       "url": "/emi-calculator",
-      "icons": [{ "src": "/favicon.svg", "sizes": "192x192" }]
+      "icons": [{ "src": "/calculator.png", "sizes": "192x192" }]
     },
     {
       "name": "QR Code Generator",
-      "short_name": "QR Code",
+      "short_name": "QR Code Generator",
       "description": "Generate QR codes from text or URLs",
       "url": "/qr-code-generator",
-      "icons": [{ "src": "/favicon.svg", "sizes": "192x192" }]
+      "icons": [{ "src": "/QR.png", "sizes": "192x192" }]
     },
     {
       "name": "Goal Tracker",
-      "short_name": "Goals",
+      "short_name": "Goal Tracker",
       "description": "Track your goals",
       "url": "/goal-tracker",
-      "icons": [{ "src": "/favicon.svg", "sizes": "192x192" }]
+      "icons": [{ "src": "/tracker.png", "sizes": "192x192" }]
     }
   ]
 }

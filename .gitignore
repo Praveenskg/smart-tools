@@ -64,3 +64,7 @@ logs
 /.coverage
 /coverage-final.json
 /coverage.lcov
+
+# Serwist
+public/sw*
+public/swe-worker*

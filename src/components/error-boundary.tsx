@@ -69,7 +69,7 @@ class ErrorBoundary extends React.Component<
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 sm:space-y-4">
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+              {this.state.error && (
                 <details className="text-xs sm:text-sm">
                   <summary className="cursor-pointer text-muted-foreground">
                     Error details (development only)

@@ -1,12 +1,12 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
-import ErrorBoundary from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from '@vercel/analytics/next';
-import { PWAAutoUpdate } from '@/components/pwa-auto-update';
+// import { PWAAutoUpdate } from '@/components/pwa-auto-update';
 import BackToTopButton from '@/components/BackToTopButton';
+import ForceUnregisterSW from '@/components/unregister';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -20,27 +20,28 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
+const APP_NAME = 'Smart Tools';
+const APP_DEFAULT_TITLE = 'Smart Tools - Professional Calculator Suite';
+const APP_TITLE_TEMPLATE = '%s - Smart Tools';
+const APP_DESCRIPTION =
+  'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.';
+
 export const metadata: Metadata = {
+  applicationName: APP_NAME,
   title: {
-    default: `Smart Tools - Professional Calculator Suite`,
-    template: `%s - Smart Tools`,
+    default: APP_DEFAULT_TITLE,
+    template: APP_TITLE_TEMPLATE,
   },
-  description:
-    'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.',
+  description: APP_DESCRIPTION,
   metadataBase: new URL('https://tools.praveensingh.online'),
   icons: {
     icon: [
-      {
-        url: '/favicon.svg',
-        type: 'image/svg+xml',
-      },
-      {
-        url: '/favicon.svg',
-        type: 'image/svg+xml',
-      },
+      { url: '/favicon.png', type: 'image/png' },
+      { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    apple: '/apple-touch-icon.png',
+    shortcut: '/favicon.ico',
   },
   keywords: [
     'calculator',
@@ -58,41 +59,46 @@ export const metadata: Metadata = {
     'online calculator',
     'free calculator',
     'professional tools',
+    'timer tools',
   ],
   authors: [{ name: 'Praveen Singh' }],
   creator: 'Praveen Singh',
   publisher: 'Smart Tools',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: APP_DEFAULT_TITLE,
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://tools.praveensingh.online',
-    title: 'Smart Tools - Professional Calculator Suite',
-    description:
-      'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.',
-    siteName: 'Smart Tools',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Smart Tools - Professional Calculator Suite',
-      },
-    ],
+    siteName: APP_NAME,
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Smart Tools - Professional Calculator Suite',
-    description:
-      'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.',
+    card: 'summary',
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
     creator: '@its_praveen_s',
     images: ['/og-image.png'],
   },
   robots: {
     index: true,
     follow: true,
+    nocache: true,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: true,
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
@@ -103,56 +109,35 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: '#7c3aed',
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <meta name="theme-color" content="#7c3aed" />
-        <meta name="color-scheme" content="light dark" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Smart Tools" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="application-name" content="Smart Tools" />
-        <meta name="msapplication-TileColor" content="#7c3aed" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <link rel="apple-touch-icon" href="/favicon.svg" />
-        <link rel="mask-icon" href="/favicon.svg" color="#7c3aed" />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
-        <ErrorBoundary>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <BackToTopButton />
-            <PWAAutoUpdate />
-            <Toaster
-              position="top-right"
-              expand={true}
-              richColors
-              closeButton
-            />
-            <Analytics />
-          </ThemeProvider>
-        </ErrorBoundary>
+    <html
+      lang="en"
+      className={geistSans.variable + ' ' + geistMono.variable}
+      suppressHydrationWarning
+    >
+      <body className="antialiased">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <BackToTopButton />
+          <ForceUnregisterSW />
+          {/* <PWAAutoUpdate /> */}
+          <Toaster position="top-right" expand={true} richColors closeButton />
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );
