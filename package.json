@@ -14,6 +14,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@serwist/next": "^9.0.15",
     "@types/qrcode": "^1.5.5",
     "@vercel/analytics": "^1.5.0",
     "class-variance-authority": "^0.7.1",
@@ -48,6 +49,7 @@
     "eslint-config-next": "^15.3.5",
     "husky": "^9.1.7",
     "prettier": "^3.6.2",
+    "serwist": "^9.0.15",
     "tailwindcss": "^4.1.11",
     "tw-animate-css": "^1.3.5",
     "typescript": "^5"

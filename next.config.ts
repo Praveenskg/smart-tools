@@ -1,6 +1,11 @@
-import type { NextConfig } from 'next';
+import withSerwistInit from '@serwist/next';
 
-const nextConfig: NextConfig = {
+const withSerwist = withSerwistInit({
+  swSrc: 'app/sw.ts',
+  swDest: 'public/sw.js',
+});
+
+export default withSerwist({
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
@@ -11,33 +16,14 @@ const nextConfig: NextConfig = {
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60,
     remotePatterns: [
-      new URL('https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png'),
+      {
+        protocol: 'https',
+        hostname: 'cdn.buymeacoffee.com',
+        pathname: '/buttons/v2/default-yellow.png',
+      },
     ],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-          common: {
-            name: 'common',
-            minChunks: 2,
-            chunks: 'all',
-            enforce: true,
-          },
-        },
-      };
-    }
-    return config;
-  },
-};
-
-export default nextConfig;
+});

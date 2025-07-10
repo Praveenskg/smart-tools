@@ -1,5 +1,4 @@
-import type { Metadata } from 'next';
-import type { Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -21,13 +20,19 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
+const APP_NAME = 'Smart Tools';
+const APP_DEFAULT_TITLE = 'Smart Tools - Professional Calculator Suite';
+const APP_TITLE_TEMPLATE = '%s - Smart Tools';
+const APP_DESCRIPTION =
+  'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.';
+
 export const metadata: Metadata = {
+  applicationName: APP_NAME,
   title: {
-    default: `Smart Tools - Professional Calculator Suite`,
-    template: `%s - Smart Tools`,
+    default: APP_DEFAULT_TITLE,
+    template: APP_TITLE_TEMPLATE,
   },
-  description:
-    'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.',
+  description: APP_DESCRIPTION,
   metadataBase: new URL('https://tools.praveensingh.online'),
   icons: {
     icon: [
@@ -59,37 +64,41 @@ export const metadata: Metadata = {
   authors: [{ name: 'Praveen Singh' }],
   creator: 'Praveen Singh',
   publisher: 'Smart Tools',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: APP_DEFAULT_TITLE,
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://tools.praveensingh.online',
-    title: 'Smart Tools - Professional Calculator Suite',
-    description:
-      'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.',
-    siteName: 'Smart Tools',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Smart Tools - Professional Calculator Suite',
-      },
-    ],
+    siteName: APP_NAME,
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Smart Tools - Professional Calculator Suite',
-    description:
-      'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.',
+    card: 'summary',
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
     creator: '@its_praveen_s',
     images: ['/og-image.png'],
   },
   robots: {
     index: true,
     follow: true,
+    nocache: true,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: true,
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
