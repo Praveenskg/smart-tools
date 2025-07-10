@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
+'use client';
 
-interface PWAInstallPrompt {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
-}
+import { useState, useEffect } from 'react';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -11,15 +8,11 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 export function usePWA() {
-  const [deferredPrompt, setDeferredPrompt] = useState<PWAInstallPrompt | null>(
-    null,
-  );
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
   const [isInstallable, setIsInstallable] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
-  const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [registration, setRegistration] =
-    useState<ServiceWorkerRegistration | null>(null);
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
@@ -34,13 +27,6 @@ export function usePWA() {
       }
     };
 
-    const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      setIsInstallable(true);
-      setShowBanner(true);
-    };
-
     const handleAppInstalled = () => {
       setIsInstalled(true);
       setIsInstallable(false);
@@ -50,39 +36,15 @@ export function usePWA() {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    const registerServiceWorker = async () => {
-      if ('serviceWorker' in navigator) {
-        try {
-          const reg = await navigator.serviceWorker.register('/sw.js');
-          setRegistration(reg);
-          console.log('SW registered: ', reg);
-
-          reg.onupdatefound = () => {
-            const installingWorker = reg.installing;
-            if (installingWorker) {
-              installingWorker.onstatechange = () => {
-                if (
-                  installingWorker.state === 'installed' &&
-                  navigator.serviceWorker.controller
-                ) {
-                  setUpdateAvailable(true);
-                }
-              };
-            }
-          };
-        } catch (error) {
-          console.log('SW registration failed: ', error);
-        }
-      }
-    };
-
     checkIfInstalled();
-    registerServiceWorker();
-
-    window.addEventListener('beforeinstallprompt', e => {
+    const handleBeforeInstallPrompt = (e: Event) => {
       const event = e as BeforeInstallPromptEvent;
-      handleBeforeInstallPrompt(event);
-    });
+      event.preventDefault();
+      setDeferredPrompt(event);
+      setIsInstallable(true);
+      setShowBanner(true);
+    };
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     window.addEventListener('appinstalled', handleAppInstalled);
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
@@ -90,22 +52,14 @@ export function usePWA() {
     setIsOnline(navigator.onLine);
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', e => {
-        const event = e as BeforeInstallPromptEvent;
-        handleBeforeInstallPrompt(event);
-      });
+      window.removeEventListener(
+        'beforeinstallprompt',
+        handleBeforeInstallPrompt,
+      );
       window.removeEventListener('appinstalled', handleAppInstalled);
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, []);
-
-  useEffect(() => {
-    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        window.location.reload();
-      });
-    }
   }, []);
 
   const installApp = async () => {
@@ -157,7 +111,5 @@ export function usePWA() {
     requestNotificationPermission,
     showNotification,
     showBanner,
-    updateAvailable,
-    registration,
   };
 }

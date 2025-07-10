@@ -8,7 +8,6 @@ import {
   Sun,
   Bell,
   Trash,
-  RefreshCcw,
   Settings,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -32,8 +31,6 @@ export function MobilePWAMenu() {
     installApp,
     requestNotificationPermission,
     showNotification,
-    updateAvailable,
-    registration,
   } = usePWA();
   const [isInstalling, setIsInstalling] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
@@ -74,26 +71,43 @@ export function MobilePWAMenu() {
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem('notifications');
-    const isGranted = Notification.permission === 'granted';
-    if (stored === 'enabled' && isGranted) {
-      setNotificationsEnabled(true);
-    } else {
+    try {
+      const stored = localStorage.getItem('notifications');
+      const isGranted = Notification.permission === 'granted';
+      if (stored === 'enabled' && isGranted) {
+        setNotificationsEnabled(true);
+      } else {
+        setNotificationsEnabled(false);
+      }
+      if (
+        typeof window !== 'undefined' &&
+        isInstallable &&
+        /iPhone|iPad|iPod/.test(navigator.userAgent) &&
+        !navigator.standalone
+      ) {
+        toast.info(
+          'To install this app on iOS, tap "Share" and then "Add to Home Screen".',
+        );
+      }
+    } catch {
       setNotificationsEnabled(false);
     }
-  }, []);
+  }, [isInstallable]);
 
   const handleClearCache = async () => {
-    const keys = await caches.keys();
-    await Promise.all(keys.map(key => caches.delete(key)));
-    location.reload();
-  };
-
-  const handleUpdate = () => {
-    if (registration?.waiting) {
-      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-      location.reload();
+    if ('caches' in window) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map(key => caches.delete(key)));
     }
+
+    if ('serviceWorker' in navigator) {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      for (const reg of registrations) {
+        await reg.unregister();
+      }
+    }
+
+    location.reload();
   };
 
   return (
@@ -126,12 +140,7 @@ export function MobilePWAMenu() {
           </DropdownMenuItem>
         )}
 
-        {isInstalled && updateAvailable ? (
-          <DropdownMenuItem onClick={handleUpdate}>
-            <RefreshCcw className="h-4 w-4 mr-2 text-blue-600" />
-            Update App
-          </DropdownMenuItem>
-        ) : isInstalled ? (
+        {isInstalled ? (
           <DropdownMenuItem disabled>
             <Download className="h-4 w-4 mr-2 text-green-600" />
             App Installed
