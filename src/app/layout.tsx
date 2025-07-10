@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -28,7 +29,6 @@ export const metadata: Metadata = {
   description:
     'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.',
   metadataBase: new URL('https://tools.praveensingh.online'),
-  themeColor: '#7c3aed',
   manifest: '/manifest.json',
   icons: {
     icon: [
@@ -104,6 +104,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tools.praveensingh.online',
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#7c3aed',
 };
 
 export default function RootLayout({
