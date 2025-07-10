@@ -127,7 +127,7 @@ export default function RootLayout({
         <meta name="application-name" content="Smart Tools" />
         <meta name="msapplication-TileColor" content="#7c3aed" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="mask-icon" href="/favicon.svg" color="#7c3aed" />
       </head>
       <body
