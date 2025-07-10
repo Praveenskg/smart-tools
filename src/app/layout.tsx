@@ -5,7 +5,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from '@vercel/analytics/next';
-import { PWAAutoUpdate } from '@/components/pwa-auto-update';
+// import { PWAAutoUpdate } from '@/components/pwa-auto-update';
 import BackToTopButton from '@/components/BackToTopButton';
 
 const geistSans = Geist({
@@ -28,7 +28,6 @@ export const metadata: Metadata = {
   description:
     'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.',
   metadataBase: new URL('https://tools.praveensingh.online'),
-  manifest: '/manifest.json',
   icons: {
     icon: [
       { url: '/favicon.png', type: 'image/png' },
@@ -37,11 +36,6 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-touch-icon.png',
     shortcut: '/favicon.ico',
-  },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'Smart Tools',
   },
   keywords: [
     'calculator',
@@ -128,7 +122,7 @@ export default function RootLayout({
         >
           {children}
           <BackToTopButton />
-          <PWAAutoUpdate />
+          {/* <PWAAutoUpdate /> */}
           <Toaster position="top-right" expand={true} richColors closeButton />
           <Analytics />
         </ThemeProvider>
