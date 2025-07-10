@@ -28,10 +28,16 @@ export const metadata: Metadata = {
   description:
     'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.',
   metadataBase: new URL('https://tools.praveensingh.online'),
+  themeColor: '#7c3aed',
+  manifest: '/manifest.json',
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
+    icon: [
+      { url: '/favicon.png', type: 'image/png' },
+      { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
     apple: '/apple-touch-icon.png',
+    shortcut: '/favicon.ico',
   },
   appleWebApp: {
     capable: true,
@@ -54,6 +60,7 @@ export const metadata: Metadata = {
     'online calculator',
     'free calculator',
     'professional tools',
+    'timer tools',
   ],
   authors: [{ name: 'Praveen Singh' }],
   creator: 'Praveen Singh',
