@@ -7,7 +7,12 @@ export function PWAAutoUpdate() {
   const hasShownToast = useRef(false);
 
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
+    const isIOS =
+      typeof window !== 'undefined' &&
+      /iPad|iPhone|iPod/.test(navigator.userAgent) &&
+      !('MSStream' in window);
+
+    if ('serviceWorker' in navigator && !isIOS) {
       navigator.serviceWorker.getRegistration().then(reg => {
         if (reg?.waiting && !hasShownToast.current) {
           showUpdateToast();
@@ -34,13 +39,17 @@ export function PWAAutoUpdate() {
           showUpdateToast();
         }
       });
+    } else if (isIOS) {
+      console.log(
+        'Skipping service worker on iOS (to avoid white screen bugs)',
+      );
     }
   }, []);
 
   const showUpdateToast = () => {
     hasShownToast.current = true;
     toast('A new version is available!', {
-      description: 'Click below to  update.',
+      description: 'Click below to update.',
       action: {
         label: 'Update Now',
         onClick: () => window.location.reload(),
