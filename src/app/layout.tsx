@@ -120,6 +120,7 @@ export default function RootLayout({
       lang="en"
       className={geistSans.variable + ' ' + geistMono.variable}
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
     >
       <body className="antialiased">
         <ThemeProvider
