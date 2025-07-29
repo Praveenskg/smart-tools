@@ -153,10 +153,12 @@ export function MobilePWAMenu() {
             ? 'Disable Notifications'
             : 'Enable Notifications'}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleClearCache}>
-          <Trash className="h-4 w-4 mr-2" />
-          Clear App Cache
-        </DropdownMenuItem>
+        {isInstalled && (
+          <DropdownMenuItem onClick={handleClearCache}>
+            <Trash className="h-4 w-4 mr-2" />
+            Clear App Cache
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         >

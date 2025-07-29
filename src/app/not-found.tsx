@@ -6,7 +6,7 @@ export default function NotFoundPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background px-4 text-center">
       <div className="relative mb-6">
-        <div className="absolute -inset-1 blur-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full opacity-40 animate-pulse"></div>
+        <div className="absolute -inset-1 blur-xl bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full opacity-40 animate-pulse"></div>
         <div className="relative z-10 mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/20 animate-bounce">
           <Ghost className="h-10 w-10 text-indigo-600 dark:text-indigo-400" />
         </div>
