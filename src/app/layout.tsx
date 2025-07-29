@@ -5,6 +5,9 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from '@vercel/analytics/next';
 import BackToTopButton from '@/components/BackToTopButton';
+import Header from '@/components/header';
+import Footer from '@/components/footer';
+import { InstallBanner } from '@/components/InstallBanner';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -71,15 +74,26 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
+    locale: 'en_US',
     siteName: APP_NAME,
     title: {
       default: APP_DEFAULT_TITLE,
       template: APP_TITLE_TEMPLATE,
     },
     description: APP_DESCRIPTION,
+    url: 'https://tools.praveensingh.online',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Smart Tools – All-in-one Calculator Suite',
+        type: 'image/png',
+      },
+    ],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: {
       default: APP_DEFAULT_TITLE,
       template: APP_TITLE_TEMPLATE,
@@ -129,7 +143,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <InstallBanner />
+          <Header />
           {children}
+          <Footer />
           <BackToTopButton />
           <Toaster position="top-right" expand={true} richColors closeButton />
           <Analytics />

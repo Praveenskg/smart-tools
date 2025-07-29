@@ -1,35 +1,19 @@
-'use client';
-
-import { CheckSquare } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import Footer from '@/components/footer';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
-import Header from '@/components/header';
-import { useDynamicTitle } from '@/hooks/use-dynamic-title';
 import TodoList from '@/components/tools/todo-list';
 
 export default function TodoPage() {
-  useDynamicTitle({
-    currentTool: {
-      id: 'todo-list',
-      name: 'Todo List',
-      category: 'Productivity',
-      description: 'Create, manage, and complete your daily tasks efficiently',
-    },
-    selectedCategory: 'Productivity',
-    baseTitle: 'Smart Tools',
-  });
-
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header title="Todo List" icon={CheckSquare} />
       <main className="flex-1">
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
-            <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">Todo List</h1>
+            <div className="text-center group">
+              <h1 className="text-3xl font-bold tracking-tight bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:brightness-110 group-hover:saturate-150 transition duration-300">
+                Todo List
+              </h1>
               <p className="text-lg text-muted-foreground">
                 Create, manage, and complete your daily tasks efficiently
               </p>
@@ -50,7 +34,48 @@ export default function TodoPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
+
+export const metadata = {
+  title: 'To-Do List - Simple Task Manager | Tools by Praveen Singh',
+  description:
+    'Stay organized with this minimal and effective online to-do list. Add, delete, and manage your daily tasks with ease.',
+  keywords: [
+    'to-do list',
+    'task manager',
+    'online checklist',
+    'daily planner',
+    'todo app',
+    'task organizer',
+    'productivity tool',
+    'simple todo',
+    'personal tasks',
+    'notes and tasks',
+  ],
+  openGraph: {
+    title: 'To-Do List - Simple Task Manager | Tools by Praveen Singh',
+    description:
+      'Manage your daily tasks with this free and simple to-do list. Designed for clarity and productivity.',
+    url: 'https://tools.praveensingh.online/todo-list',
+    siteName: 'Tools by Praveen Singh',
+    locale: 'en_IN',
+    type: 'website',
+    images: [
+      {
+        url: 'https://tools.praveensingh.online/og/todo-list.png',
+        width: 1200,
+        height: 630,
+        alt: 'To-Do List OpenGraph Banner',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'To-Do List - Simple Task Manager | Tools by Praveen Singh',
+    description:
+      'Free online to-do list to manage tasks, goals, and personal reminders. Clean interface for better focus.',
+    images: ['https://tools.praveensingh.online/og/todo-list.png'],
+  },
+};

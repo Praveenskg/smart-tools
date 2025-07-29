@@ -154,7 +154,7 @@ export default function DOBCalculator() {
             <div className="space-y-2">
               <Label>Age Unit</Label>
               <Select value={ageUnit} onValueChange={setAgeUnit}>
-                <SelectTrigger>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select unit" />
                 </SelectTrigger>
                 <SelectContent>

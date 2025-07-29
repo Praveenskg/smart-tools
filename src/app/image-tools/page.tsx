@@ -1,35 +1,17 @@
-'use client';
-
-import { ArrowLeft, Image } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useDynamicTitle } from '@/hooks/use-dynamic-title';
-import Footer from '@/components/footer';
-import Header from '@/components/header';
 import Link from 'next/link';
 import ImageTools from '@/components/tools/image-tools';
 
 export default function ImageToolsPage() {
-  useDynamicTitle({
-    currentTool: {
-      id: 'image-tools',
-      name: 'Image Tools',
-      category: 'Image Processing',
-      description:
-        'Professional image editing and processing tools including resizer, converter, compressor, and more.',
-    },
-    selectedCategory: 'Image Processing',
-    baseTitle: 'Smart Tools',
-  });
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header title="Image Tools" icon={Image} />
       <main className="flex-1">
         <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
           <div className="w-full mx-auto">
-            <div className="text-center">
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
-                {' '}
+            <div className="text-center group">
+              <h1 className="text-3xl font-bold tracking-tight bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:brightness-110 group-hover:saturate-150 transition duration-300">
                 Image Processing Tools
               </h1>
               <p className="text-base sm:text-lg text-muted-foreground mt-2">
@@ -56,7 +38,48 @@ export default function ImageToolsPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
+
+export const metadata = {
+  title: 'Image Tools - Convert, Resize, Compress, and More',
+  description:
+    'Explore a range of free online image tools to convert, resize, compress, crop, and optimize images easily on tools.praveensingh.online.',
+  keywords: [
+    'image tools',
+    'image converter',
+    'resize image',
+    'compress image',
+    'crop image',
+    'optimize image',
+    'free online tools',
+    'tools.praveensingh.online',
+    'image editing online',
+    'image format converter',
+  ],
+  openGraph: {
+    title: 'Image Tools - Convert, Resize, Compress, and More',
+    description:
+      'A suite of powerful and free image tools to help you convert, resize, compress, crop, and optimize images quickly and efficiently.',
+    url: 'https://tools.praveensingh.online/image-tools',
+    siteName: 'Tools by Praveen Singh',
+    type: 'website',
+    locale: 'en_IN',
+    images: [
+      {
+        url: 'https://tools.praveensingh.online/og-image-tools.png',
+        width: 1200,
+        height: 630,
+        alt: 'Image Tools - tools.praveensingh.online',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Image Tools - Convert, Resize, Compress, and More',
+    description:
+      'Convert, resize, compress, crop, and optimize your images easily using the free Image Tools at tools.praveensingh.online.',
+    images: ['https://tools.praveensingh.online/og-image-tools.png'],
+  },
+};

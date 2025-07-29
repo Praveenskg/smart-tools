@@ -1,37 +1,18 @@
-'use client';
-
-import { DollarSign } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import CurrencyConverter from '@/components/tools/currency-converter';
-import { useDynamicTitle } from '@/hooks/use-dynamic-title';
-
-import Footer from '@/components/footer';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
-import Header from '@/components/header';
+import { Metadata } from 'next';
 
 export default function CurrencyConverterPage() {
-  useDynamicTitle({
-    currentTool: {
-      id: 'currency-converter',
-      name: 'Currency Converter',
-      category: 'Financial',
-      description:
-        'Convert between different currencies with real-time exchange rates',
-    },
-    selectedCategory: 'Financial',
-    baseTitle: 'Smart Tools',
-  });
-
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header title="Currency Converter" icon={DollarSign} />
       <main className="flex-1">
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
-            <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
+            <div className="text-center group">
+              <h1 className="text-3xl font-bold tracking-tight bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:brightness-110 group-hover:saturate-150 transition duration-300">
                 Currency Converter
               </h1>
               <p className="text-lg text-muted-foreground">
@@ -55,7 +36,55 @@ export default function CurrencyConverterPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: 'Currency Converter',
+  description:
+    'Convert between currencies instantly using real-time exchange rates. Simple, accurate, and completely free currency converter tool.',
+  keywords: [
+    'currency converter',
+    'exchange rate calculator',
+    'real-time currency exchange',
+    'convert USD to INR',
+    'currency conversion tool',
+    'online currency calculator',
+  ],
+  alternates: {
+    canonical: 'https://tools.praveensingh.online/currency-converter',
+  },
+  metadataBase: new URL('https://tools.praveensingh.online'),
+  applicationName: 'Smart Tools',
+  category: 'utilities',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Currency Converter | Smart Tools',
+    description:
+      'Convert currencies instantly with up-to-date exchange rates. Fast, free, and accurate currency calculator by Smart Tools.',
+    url: 'https://tools.praveensingh.online/currency-converter',
+    type: 'website',
+    siteName: 'Smart Tools',
+    locale: 'en_US',
+    images: [
+      {
+        url: 'https://tools.praveensingh.online/og/currency-converter.png',
+        width: 1200,
+        height: 630,
+        alt: 'Currency Converter Tool',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Currency Converter | Smart Tools',
+    description:
+      'Easily convert between currencies using live exchange rates. A fast and accurate tool by Smart Tools.',
+    creator: '@its_praveen_s',
+    images: ['https://tools.praveensingh.online/og/currency-converter.png'],
+  },
+};

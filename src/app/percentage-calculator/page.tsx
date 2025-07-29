@@ -1,35 +1,18 @@
-'use client';
-
-import { TrendingUp } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import PercentageCalculator from '@/components/tools/percentage-calculator';
-import { useDynamicTitle } from '@/hooks/use-dynamic-title';
-import Footer from '@/components/footer';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
-import Header from '@/components/header';
+import { Metadata } from 'next';
 
 export default function PercentageCalculatorPage() {
-  useDynamicTitle({
-    currentTool: {
-      id: 'percentage-calculator',
-      name: 'Percentage Calculator',
-      category: 'Math',
-      description: 'Calculate percentages, increase, and decrease',
-    },
-    selectedCategory: 'Math',
-    baseTitle: 'Smart Tools',
-  });
-
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header title="Percentage Calculator" icon={TrendingUp} />
       <main className="flex-1">
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
-            <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
+            <div className="text-center group">
+              <h1 className="text-3xl font-bold tracking-tight bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:brightness-110 group-hover:saturate-150 transition duration-300">
                 Percentage Calculator
               </h1>
               <p className="text-lg text-muted-foreground">
@@ -52,7 +35,56 @@ export default function PercentageCalculatorPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: 'Percentage Calculator',
+  description:
+    'Quickly calculate percentages, percentage increase or decrease, and more. A free, easy-to-use percentage calculator for everyday math.',
+  keywords: [
+    'percentage calculator',
+    'calculate percentage',
+    'percentage increase',
+    'percentage decrease',
+    'percent math',
+    'online percentage calculator',
+    'smart tools',
+  ],
+  alternates: {
+    canonical: 'https://tools.praveensingh.online/percentage-calculator',
+  },
+  metadataBase: new URL('https://tools.praveensingh.online'),
+  applicationName: 'Smart Tools',
+  category: 'utilities',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Percentage Calculator | Smart Tools',
+    description:
+      'Free online percentage calculator to find percent of a number, increase or decrease values, and more.',
+    url: 'https://tools.praveensingh.online/percentage-calculator',
+    type: 'website',
+    siteName: 'Smart Tools',
+    locale: 'en_US',
+    images: [
+      {
+        url: 'https://tools.praveensingh.online/og/percentage-calculator.png',
+        width: 1200,
+        height: 630,
+        alt: 'Percentage Calculator Tool',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Percentage Calculator | Smart Tools',
+    description:
+      'Calculate percentage of values, increases, decreases and more — with this free, simple online tool.',
+    creator: '@its_praveen_s',
+    images: ['https://tools.praveensingh.online/og/percentage-calculator.png'],
+  },
+};

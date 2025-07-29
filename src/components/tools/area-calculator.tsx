@@ -261,7 +261,7 @@ export default function AreaCalculator() {
                 setResult(null);
               }}
             >
-              <SelectTrigger>
+              <SelectTrigger className="w-1/2">
                 <SelectValue placeholder="Select shape" />
               </SelectTrigger>
               <SelectContent>

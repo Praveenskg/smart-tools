@@ -1,18 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-
-import Header from '@/components/header';
-import Footer from '@/components/footer';
-import { useDynamicTitle } from '@/hooks/use-dynamic-title';
 import { tools } from '@/lib/tools';
-
 import { HeroSection } from '@/components/homepage/HeroSection';
 import { FeaturedTools } from '@/components/homepage/FeaturedTools';
 import { NewsletterSignup } from '@/components/homepage/NewsletterSignup';
 import { ToolSearch } from '@/components/homepage/ToolSearch';
 import { ToolGrid } from '@/components/homepage/ToolGrid';
-import { InstallBanner } from '@/components/InstallBanner';
 
 const categories = [
   { name: 'All Tools', count: tools.length },
@@ -44,12 +38,6 @@ export default function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState('All Tools');
   const [searchTerm, setSearchTerm] = useState('');
 
-  useDynamicTitle({
-    currentTool: undefined,
-    selectedCategory,
-    baseTitle: 'Smart Tools',
-  });
-
   const filteredTools = tools.filter(tool => {
     const matchesCategory =
       selectedCategory === 'All Tools' || tool.category === selectedCategory;
@@ -63,11 +51,8 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <InstallBanner />
-      <Header isHome={true} />
       <HeroSection />
       <FeaturedTools tools={featuredTools} />
-
       <main className="flex-1">
         <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
           <ToolSearch
@@ -80,9 +65,7 @@ export default function Dashboard() {
           <ToolGrid tools={filteredTools} />
         </div>
       </main>
-
       <NewsletterSignup />
-      <Footer />
     </div>
   );
 }

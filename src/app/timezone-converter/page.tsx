@@ -1,35 +1,17 @@
-'use client';
-
-import { Globe, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import TimeZoneConverter from '@/components/tools/timezone-converter';
-import { useDynamicTitle } from '@/hooks/use-dynamic-title';
-import Footer from '@/components/footer';
-import Header from '@/components/header';
 import Link from 'next/link';
 
 export default function TimeZoneConverterPage() {
-  useDynamicTitle({
-    currentTool: {
-      id: 'timezone-converter',
-      name: 'Timezone Converter',
-      category: 'Date & Time',
-      description:
-        'Convert time between different timezones and track world clocks',
-    },
-    selectedCategory: 'Date & Time',
-    baseTitle: 'Smart Tools',
-  });
-
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header title="Timezone Converter" icon={Globe} />
       <main className="flex-1">
         <div className="container mx-auto px-4 py-8">
           <div className="w-full mx-auto">
-            <div className="text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
+            <div className="text-center group">
+              <h1 className="text-3xl font-bold tracking-tight bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:brightness-110 group-hover:saturate-150 transition duration-300">
                 Timezone Converter
               </h1>
               <p className="text-lg text-muted-foreground">
@@ -52,7 +34,51 @@ export default function TimeZoneConverterPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
+
+export const metadata = {
+  title:
+    'Timezone Converter - Convert Time Across Zones | Tools by Praveen Singh',
+  description:
+    'Easily convert time between different timezones. Supports all major cities and countries. Great for scheduling global meetings.',
+  keywords: [
+    'timezone converter',
+    'convert timezone',
+    'world clock',
+    'global time converter',
+    'india to usa time',
+    'meeting scheduler',
+    'time difference calculator',
+    'international time',
+    'time zone tool',
+    'timezone calculator',
+  ],
+  openGraph: {
+    title:
+      'Timezone Converter - Convert Time Across Zones | Tools by Praveen Singh',
+    description:
+      'Convert time between multiple timezones easily. Supports real-time and future time comparison with location support.',
+    url: 'https://tools.praveensingh.online/timezone-converter',
+    siteName: 'Tools by Praveen Singh',
+    locale: 'en_IN',
+    type: 'website',
+    images: [
+      {
+        url: 'https://tools.praveensingh.online/og/timezone-converter.png',
+        width: 1200,
+        height: 630,
+        alt: 'Timezone Converter OpenGraph Banner',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title:
+      'Timezone Converter - Convert Time Across Zones | Tools by Praveen Singh',
+    description:
+      'Easily convert time between cities and countries. Perfect for remote teams, global meetings, and travelers.',
+    images: ['https://tools.praveensingh.online/og/timezone-converter.png'],
+  },
+};
