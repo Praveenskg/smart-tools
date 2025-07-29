@@ -15,6 +15,7 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@google/genai": "^1.11.0",
     "@serwist/next": "^9.1.1",
     "@types/qrcode": "^1.5.5",
     "@vercel/analytics": "^1.5.0",
@@ -35,7 +36,9 @@
     "react-day-picker": "^9.8.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
+    "react-markdown": "^10.1.0",
     "recharts": "^3.1.0",
+    "rehype-highlight": "^7.0.2",
     "sonner": "^2.0.6",
     "tailwind-merge": "^3.3.1"
   },
