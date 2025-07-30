@@ -1,24 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import {
-  Download,
-  WifiOff,
-  Moon,
-  Sun,
-  Bell,
-  Trash,
-  Settings,
-} from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Bell, Download, Moon, Settings, Sun, Trash, WifiOff } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { usePWA } from '@/hooks/use-pwa';
 import { toast } from 'sonner';
@@ -85,9 +77,7 @@ export function MobilePWAMenu() {
         /iPhone|iPad|iPod/.test(navigator.userAgent) &&
         !navigator.standalone
       ) {
-        toast.info(
-          'To install this app on iOS, tap "Share" and then "Add to Home Screen".',
-        );
+        toast.info('To install this app on iOS, tap "Share" and then "Add to Home Screen".');
       }
     } catch {
       setNotificationsEnabled(false);
@@ -97,7 +87,7 @@ export function MobilePWAMenu() {
   const handleClearCache = async () => {
     if ('caches' in window) {
       const keys = await caches.keys();
-      await Promise.all(keys.map(key => caches.delete(key)));
+      await Promise.all(keys.map((key) => caches.delete(key)));
     }
 
     if ('serviceWorker' in navigator) {
@@ -113,60 +103,49 @@ export function MobilePWAMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="sm:hidden">
-          <Settings className="h-4 w-4" />
+        <Button variant='ghost' size='sm' className='sm:hidden'>
+          <Settings className='h-4 w-4' />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="end"
-        className="w-56 animate-in fade-in slide-in-from-top-2"
-      >
-        <p className="px-3 py-1.5 text-xs text-muted-foreground font-semibold uppercase tracking-wide">
+      <DropdownMenuContent align='end' className='animate-in fade-in slide-in-from-top-2 w-56'>
+        <p className='text-muted-foreground px-3 py-1.5 text-xs font-semibold tracking-wide uppercase'>
           App Settings
         </p>
 
         <DropdownMenuSeparator />
         {!isOnline && (
           <DropdownMenuItem disabled>
-            <WifiOff className="h-4 w-4 mr-2 text-yellow-600" />
+            <WifiOff className='mr-2 h-4 w-4 text-yellow-600' />
             Offline Mode
           </DropdownMenuItem>
         )}
 
         {isInstallable && !isInstalled && (
           <DropdownMenuItem onClick={handleInstall} disabled={isInstalling}>
-            <Download className="h-4 w-4 mr-2" />
+            <Download className='mr-2 h-4 w-4' />
             {isInstalling ? 'Installing...' : 'Install App'}
           </DropdownMenuItem>
         )}
 
         {isInstalled ? (
           <DropdownMenuItem disabled>
-            <Download className="h-4 w-4 mr-2 text-green-600" />
+            <Download className='mr-2 h-4 w-4 text-green-600' />
             App Installed
           </DropdownMenuItem>
         ) : null}
 
         <DropdownMenuItem onClick={handleToggleNotification}>
-          <Bell className="h-4 w-4 mr-2" />
-          {notificationsEnabled
-            ? 'Disable Notifications'
-            : 'Enable Notifications'}
+          <Bell className='mr-2 h-4 w-4' />
+          {notificationsEnabled ? 'Disable Notifications' : 'Enable Notifications'}
         </DropdownMenuItem>
         {isInstalled && (
           <DropdownMenuItem onClick={handleClearCache}>
-            <Trash className="h-4 w-4 mr-2" />
+            <Trash className='mr-2 h-4 w-4' />
             Clear App Cache
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-        >
-          {theme === 'dark' ? (
-            <Sun className="h-4 w-4 mr-2" />
-          ) : (
-            <Moon className="h-4 w-4 mr-2" />
-          )}
+        <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+          {theme === 'dark' ? <Sun className='mr-2 h-4 w-4' /> : <Moon className='mr-2 h-4 w-4' />}
           {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
         </DropdownMenuItem>
       </DropdownMenuContent>

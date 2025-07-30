@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
   SelectContent,
@@ -14,14 +13,15 @@ import {
 } from '@/components/ui/select';
 import {
   ArrowRight,
-  RefreshCw,
+  CircleDollarSign,
   DollarSign,
   Euro,
-  PoundSterling,
-  CircleDollarSign,
-  IndianRupee,
   Globe,
+  IndianRupee,
+  PoundSterling,
+  RefreshCw,
 } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface ExchangeRate {
   [key: string]: number;
@@ -141,7 +141,7 @@ export default function CurrencyConverter() {
   };
 
   const getCurrencySymbol = (code: string) => {
-    const currency = popularCurrencies.find(c => c.code === code);
+    const currency = popularCurrencies.find((c) => c.code === code);
     return currency?.symbol || code;
   };
 
@@ -160,44 +160,42 @@ export default function CurrencyConverter() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card className="modern-card">
+    <div className='space-y-6'>
+      <div className='grid gap-6 md:grid-cols-2'>
+        <Card className='modern-card'>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Globe className="h-5 w-5" />
+            <CardTitle className='flex items-center gap-2'>
+              <Globe className='h-5 w-5' />
               Currency Converter
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="amount">Amount</Label>
+          <CardContent className='space-y-4'>
+            <div className='space-y-2'>
+              <Label htmlFor='amount'>Amount</Label>
               <Input
-                id="amount"
-                type="text"
-                placeholder="Enter amount"
+                id='amount'
+                type='text'
+                placeholder='Enter amount'
                 value={amount}
                 onChange={handleAmountChange}
-                className="text-lg font-semibold"
+                className='text-lg font-semibold'
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
+            <div className='grid grid-cols-2 gap-4'>
+              <div className='space-y-2'>
                 <Label>From</Label>
                 <Select value={fromCurrency} onValueChange={setFromCurrency}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {popularCurrencies.map(currency => (
+                    {popularCurrencies.map((currency) => (
                       <SelectItem key={currency.code} value={currency.code}>
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium">{currency.symbol}</span>
+                        <div className='flex items-center gap-2'>
+                          <span className='font-medium'>{currency.symbol}</span>
                           <span>{currency.code}</span>
-                          <span className="text-muted-foreground">
-                            {currency.name}
-                          </span>
+                          <span className='text-muted-foreground'>{currency.name}</span>
                         </div>
                       </SelectItem>
                     ))}
@@ -205,21 +203,19 @@ export default function CurrencyConverter() {
                 </Select>
               </div>
 
-              <div className="space-y-2">
+              <div className='space-y-2'>
                 <Label>To</Label>
                 <Select value={toCurrency} onValueChange={setToCurrency}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {popularCurrencies.map(currency => (
+                    {popularCurrencies.map((currency) => (
                       <SelectItem key={currency.code} value={currency.code}>
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium">{currency.symbol}</span>
+                        <div className='flex items-center gap-2'>
+                          <span className='font-medium'>{currency.symbol}</span>
                           <span>{currency.code}</span>
-                          <span className="text-muted-foreground">
-                            {currency.name}
-                          </span>
+                          <span className='text-muted-foreground'>{currency.name}</span>
                         </div>
                       </SelectItem>
                     ))}
@@ -228,48 +224,38 @@ export default function CurrencyConverter() {
               </div>
             </div>
 
-            <Button
-              onClick={handleSwapCurrencies}
-              variant="outline"
-              className="w-full"
-            >
-              <ArrowRight className="h-4 w-4 mr-2" />
+            <Button onClick={handleSwapCurrencies} variant='outline' className='w-full'>
+              <ArrowRight className='mr-2 h-4 w-4' />
               Swap Currencies
             </Button>
 
             <Button
               onClick={fetchExchangeRates}
-              variant="outline"
+              variant='outline'
               disabled={isLoading}
-              className="w-full"
+              className='w-full'
             >
-              <RefreshCw
-                className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`}
-              />
+              <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
               {isLoading ? 'Updating...' : 'Refresh Rates'}
             </Button>
 
-            {error && (
-              <div className="text-sm text-red-500 bg-red-50 p-2 rounded">
-                {error}
-              </div>
-            )}
+            {error && <div className='rounded bg-red-50 p-2 text-sm text-red-500'>{error}</div>}
 
             {lastUpdated && (
-              <div className="text-xs text-muted-foreground text-center">
+              <div className='text-muted-foreground text-center text-xs'>
                 Last updated: {lastUpdated.toLocaleTimeString()}
               </div>
             )}
           </CardContent>
         </Card>
 
-        <Card className="modern-card">
+        <Card className='modern-card'>
           <CardHeader>
             <CardTitle>Conversion Result</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="text-center space-y-2">
-              <div className="text-3xl font-bold text-primary">
+          <CardContent className='space-y-4'>
+            <div className='space-y-2 text-center'>
+              <div className='text-primary text-3xl font-bold'>
                 {convertedAmount ? (
                   <>
                     {getCurrencySymbol(toCurrency)}
@@ -279,42 +265,35 @@ export default function CurrencyConverter() {
                   '0.00'
                 )}
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className='text-muted-foreground text-sm'>
                 {amount} {fromCurrency} = {convertedAmount} {toCurrency}
               </div>
             </div>
 
             {exchangeRates[toCurrency] && (
-              <div className="space-y-2">
-                <div className="text-sm font-medium">Exchange Rate</div>
-                <div className="text-lg font-semibold">
-                  1 {fromCurrency} = {exchangeRates[toCurrency].toFixed(4)}{' '}
-                  {toCurrency}
+              <div className='space-y-2'>
+                <div className='text-sm font-medium'>Exchange Rate</div>
+                <div className='text-lg font-semibold'>
+                  1 {fromCurrency} = {exchangeRates[toCurrency].toFixed(4)} {toCurrency}
                 </div>
-                <div className="text-sm text-muted-foreground">
-                  1 {toCurrency} = {(1 / exchangeRates[toCurrency]).toFixed(4)}{' '}
-                  {fromCurrency}
+                <div className='text-muted-foreground text-sm'>
+                  1 {toCurrency} = {(1 / exchangeRates[toCurrency]).toFixed(4)} {fromCurrency}
                 </div>
               </div>
             )}
 
-            <div className="pt-4 border-t">
-              <div className="text-sm font-medium mb-2">
-                Popular Conversions
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                {popularCurrencies.slice(0, 6).map(currency => (
+            <div className='border-t pt-4'>
+              <div className='mb-2 text-sm font-medium'>Popular Conversions</div>
+              <div className='grid grid-cols-2 gap-2 text-xs'>
+                {popularCurrencies.slice(0, 6).map((currency) => (
                   <div
                     key={currency.code}
-                    className="flex justify-between items-center p-2 bg-muted/50 rounded"
+                    className='bg-muted/50 flex items-center justify-between rounded p-2'
                   >
                     <span>{currency.code}</span>
-                    <span className="font-medium">
+                    <span className='font-medium'>
                       {exchangeRates[currency.code]
-                        ? (
-                            parseFloat(amount || '1') *
-                            exchangeRates[currency.code]
-                          ).toFixed(2)
+                        ? (parseFloat(amount || '1') * exchangeRates[currency.code]).toFixed(2)
                         : '—'}
                     </span>
                   </div>
@@ -330,63 +309,59 @@ export default function CurrencyConverter() {
           <CardTitle>Currency Information</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <DollarSign className="h-4 w-4 text-green-500" />
-                <span className="font-medium">USD - US Dollar</span>
+          <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
+            <div className='space-y-2'>
+              <div className='flex items-center gap-2'>
+                <DollarSign className='h-4 w-4 text-green-500' />
+                <span className='font-medium'>USD - US Dollar</span>
               </div>
-              <p className="text-sm text-muted-foreground">
-                The world&apos;s primary reserve currency and most traded
-                currency.
+              <p className='text-muted-foreground text-sm'>
+                The world&apos;s primary reserve currency and most traded currency.
               </p>
             </div>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Euro className="h-4 w-4 text-blue-500" />
-                <span className="font-medium">EUR - Euro</span>
+            <div className='space-y-2'>
+              <div className='flex items-center gap-2'>
+                <Euro className='h-4 w-4 text-blue-500' />
+                <span className='font-medium'>EUR - Euro</span>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className='text-muted-foreground text-sm'>
                 Official currency of the Eurozone, used by 19 EU countries.
               </p>
             </div>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <PoundSterling className="h-4 w-4 text-purple-500" />
-                <span className="font-medium">GBP - British Pound</span>
+            <div className='space-y-2'>
+              <div className='flex items-center gap-2'>
+                <PoundSterling className='h-4 w-4 text-purple-500' />
+                <span className='font-medium'>GBP - British Pound</span>
               </div>
-              <p className="text-sm text-muted-foreground">
-                One of the oldest currencies still in use, UK&apos;s official
-                currency.
+              <p className='text-muted-foreground text-sm'>
+                One of the oldest currencies still in use, UK&apos;s official currency.
               </p>
             </div>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <CircleDollarSign className="h-4 w-4 text-red-500" />
-                <span className="font-medium">JPY - Japanese Yen</span>
+            <div className='space-y-2'>
+              <div className='flex items-center gap-2'>
+                <CircleDollarSign className='h-4 w-4 text-red-500' />
+                <span className='font-medium'>JPY - Japanese Yen</span>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className='text-muted-foreground text-sm'>
                 Major currency in Asia, known for low interest rates.
               </p>
             </div>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <IndianRupee className="h-4 w-4 text-orange-500" />
-                <span className="font-medium">INR - Indian Rupee</span>
+            <div className='space-y-2'>
+              <div className='flex items-center gap-2'>
+                <IndianRupee className='h-4 w-4 text-orange-500' />
+                <span className='font-medium'>INR - Indian Rupee</span>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Official currency of India, one of the fastest growing
-                economies.
+              <p className='text-muted-foreground text-sm'>
+                Official currency of India, one of the fastest growing economies.
               </p>
             </div>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Globe className="h-4 w-4 text-cyan-500" />
-                <span className="font-medium">Real-time Rates</span>
+            <div className='space-y-2'>
+              <div className='flex items-center gap-2'>
+                <Globe className='h-4 w-4 text-cyan-500' />
+                <span className='font-medium'>Real-time Rates</span>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Exchange rates are updated automatically for accurate
-                conversions.
+              <p className='text-muted-foreground text-sm'>
+                Exchange rates are updated automatically for accurate conversions.
               </p>
             </div>
           </div>

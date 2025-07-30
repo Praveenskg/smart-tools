@@ -1,14 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -18,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useState } from 'react';
 
 interface DOBResult {
   dateOfBirth: string;
@@ -131,60 +125,58 @@ export default function DOBCalculator() {
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <Card className="modern-card">
+    <div className='grid gap-8 lg:grid-cols-2'>
+      <Card className='modern-card'>
         <CardHeader>
           <CardTitle>Age Information</CardTitle>
-          <CardDescription>
-            Enter current age to find date of birth
-          </CardDescription>
+          <CardDescription>Enter current age to find date of birth</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="currentAge">Current Age</Label>
+        <CardContent className='space-y-6'>
+          <div className='grid gap-4 sm:grid-cols-2'>
+            <div className='space-y-2'>
+              <Label htmlFor='currentAge'>Current Age</Label>
               <Input
-                id="currentAge"
-                type="number"
-                placeholder="Enter current age"
+                id='currentAge'
+                type='number'
+                placeholder='Enter current age'
                 value={currentAge}
-                onChange={e => setCurrentAge(e.target.value)}
+                onChange={(e) => setCurrentAge(e.target.value)}
               />
             </div>
-            <div className="space-y-2">
+            <div className='space-y-2'>
               <Label>Age Unit</Label>
               <Select value={ageUnit} onValueChange={setAgeUnit}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select unit" />
+                <SelectTrigger className='w-full'>
+                  <SelectValue placeholder='Select unit' />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="years">Years</SelectItem>
-                  <SelectItem value="months">Months</SelectItem>
-                  <SelectItem value="weeks">Weeks</SelectItem>
-                  <SelectItem value="days">Days</SelectItem>
+                  <SelectItem value='years'>Years</SelectItem>
+                  <SelectItem value='months'>Months</SelectItem>
+                  <SelectItem value='weeks'>Weeks</SelectItem>
+                  <SelectItem value='days'>Days</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="referenceDate">Reference Date</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='referenceDate'>Reference Date</Label>
             <Input
-              id="referenceDate"
-              type="date"
+              id='referenceDate'
+              type='date'
               value={referenceDate}
-              onChange={e => setReferenceDate(e.target.value)}
+              onChange={(e) => setReferenceDate(e.target.value)}
             />
-            <p className="text-xs text-muted-foreground">
+            <p className='text-muted-foreground text-xs'>
               The date from which to calculate backwards
             </p>
           </div>
 
-          <div className="flex gap-4">
-            <Button onClick={calculateDOB} className="flex-1">
+          <div className='flex gap-4'>
+            <Button onClick={calculateDOB} className='flex-1'>
               Calculate DOB
             </Button>
-            <Button onClick={resetForm} variant="outline" className="flex-1">
+            <Button onClick={resetForm} variant='outline' className='flex-1'>
               Reset
             </Button>
           </div>
@@ -192,41 +184,35 @@ export default function DOBCalculator() {
       </Card>
 
       {result && (
-        <Card className="modern-card">
+        <Card className='modern-card'>
           <CardHeader>
             <CardTitle>Date of Birth Results</CardTitle>
             <CardDescription>Calculated birth information</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="text-center p-6 bg-primary/5 rounded-lg">
-              <div className="text-sm text-muted-foreground mb-2">
-                Date of Birth:
+          <CardContent className='space-y-6'>
+            <div className='bg-primary/5 rounded-lg p-6 text-center'>
+              <div className='text-muted-foreground mb-2 text-sm'>Date of Birth:</div>
+              <div className='text-primary mb-1 text-2xl font-bold'>{result.formattedDOB}</div>
+              <div className='text-muted-foreground text-sm'>({result.dayOfWeek})</div>
+            </div>
+
+            <div className='grid gap-4 sm:grid-cols-2'>
+              <div className='modern-card rounded-lg border p-4 text-center'>
+                <div className='font-semibold'>Zodiac Sign</div>
+                <div className='text-primary text-lg'>{result.zodiacSign}</div>
               </div>
-              <div className="text-2xl font-bold text-primary mb-1">
-                {result.formattedDOB}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                ({result.dayOfWeek})
+              <div className='modern-card rounded-lg border p-4 text-center'>
+                <div className='font-semibold'>Birthstone</div>
+                <div className='text-primary text-lg'>{result.birthstone}</div>
               </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="p-4 border rounded-lg text-center modern-card">
-                <div className="font-semibold">Zodiac Sign</div>
-                <div className="text-lg text-primary">{result.zodiacSign}</div>
-              </div>
-              <div className="p-4 border rounded-lg text-center modern-card">
-                <div className="font-semibold">Birthstone</div>
-                <div className="text-lg text-primary">{result.birthstone}</div>
-              </div>
-            </div>
-
-            <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
-              <h4 className="font-semibold mb-2">Calculation Summary:</h4>
-              <p className="text-sm text-muted-foreground">
+            <div className='rounded-lg bg-blue-50 p-4 dark:bg-blue-950/20'>
+              <h4 className='mb-2 font-semibold'>Calculation Summary:</h4>
+              <p className='text-muted-foreground text-sm'>
                 Based on being {currentAge} {ageUnit} old on{' '}
-                {new Date(referenceDate).toLocaleDateString()}, the calculated
-                date of birth is {result.formattedDOB}.
+                {new Date(referenceDate).toLocaleDateString()}, the calculated date of birth is{' '}
+                {result.formattedDOB}.
               </p>
             </div>
           </CardContent>

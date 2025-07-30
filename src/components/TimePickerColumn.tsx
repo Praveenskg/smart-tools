@@ -1,8 +1,8 @@
 // components/TimePickerColumn.tsx
 'use client';
 
-import React, { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import React, { useEffect, useRef } from 'react';
 
 interface TimePickerColumnProps {
   label: string;
@@ -26,10 +26,7 @@ export const TimePickerColumn: React.FC<TimePickerColumnProps> = ({
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const fullList = Array.from(
-    { length: repeatedItems },
-    (_, i) => i % visibleItems,
-  );
+  const fullList = Array.from({ length: repeatedItems }, (_, i) => i % visibleItems);
 
   useEffect(() => {
     if (ref.current) {
@@ -38,26 +35,21 @@ export const TimePickerColumn: React.FC<TimePickerColumnProps> = ({
   }, [middleIndex]);
 
   return (
-    <div className="flex flex-col items-center w-full">
-      <span className="text-sm font-medium text-muted-foreground mb-1">
-        {label}
-      </span>
+    <div className='flex w-full flex-col items-center'>
+      <span className='text-muted-foreground mb-1 text-sm font-medium'>{label}</span>
 
       <div
         ref={ref}
         id={id}
-        className="relative w-full h-32 overflow-y-scroll scrollbar-hide snap-y snap-mandatory max-w-[80px]  p-2"
+        className='scrollbar-hide relative h-32 w-full max-w-[80px] snap-y snap-mandatory overflow-y-scroll p-2'
       >
         {fullList.map((val, i) => (
           <div
             key={i}
-            className={cn(
-              'py-1 text-center snap-center cursor-pointer transition-colors',
-              {
-                'text-white bg-primary rounded': val === value,
-                'text-muted-foreground': val !== value,
-              },
-            )}
+            className={cn('cursor-pointer snap-center py-1 text-center transition-colors', {
+              'bg-primary rounded text-white': val === value,
+              'text-muted-foreground': val !== value,
+            })}
             onClick={() => onChange(val)}
           >
             {String(val).padStart(2, '0')}

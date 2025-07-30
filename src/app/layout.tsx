@@ -1,13 +1,13 @@
-import type { Metadata, Viewport } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
+import BackToTopButton from '@/components/BackToTopButton';
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import { InstallBanner } from '@/components/InstallBanner';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from '@vercel/analytics/next';
-import BackToTopButton from '@/components/BackToTopButton';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
-import { InstallBanner } from '@/components/InstallBanner';
+import type { Metadata, Viewport } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -107,9 +107,9 @@ export const metadata: Metadata = {
     follow: true,
     nocache: true,
     googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
+      'index': true,
+      'follow': true,
+      'noimageindex': false,
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
@@ -126,22 +126,18 @@ export const viewport: Viewport = {
   themeColor: '#7c3aed',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang="en"
+      lang='en'
       className={geistSans.variable + ' ' + geistMono.variable}
       suppressHydrationWarning
-      data-scroll-behavior="smooth"
+      data-scroll-behavior='smooth'
     >
-      <body className="antialiased">
+      <body className='antialiased'>
         <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
+          attribute='class'
+          defaultTheme='light'
           enableSystem
           disableTransitionOnChange
         >
@@ -150,7 +146,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <BackToTopButton />
-          <Toaster position="top-right" expand={true} richColors closeButton />
+          <Toaster position='top-right' expand={true} richColors closeButton />
           <Analytics />
         </ThemeProvider>
       </body>

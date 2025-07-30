@@ -80,9 +80,7 @@ export function useSEO(data: SEOData) {
 
     // Add structured data
     if (data.structuredData) {
-      let structuredDataScript = document.querySelector(
-        'script[type="application/ld+json"]',
-      );
+      let structuredDataScript = document.querySelector('script[type="application/ld+json"]');
       if (!structuredDataScript) {
         structuredDataScript = document.createElement('script');
         structuredDataScript.setAttribute('type', 'application/ld+json');
@@ -94,10 +92,8 @@ export function useSEO(data: SEOData) {
     // Cleanup function
     return () => {
       // Remove dynamically added meta tags on unmount
-      const dynamicMetaTags = document.querySelectorAll(
-        'meta[data-dynamic="true"]',
-      );
-      dynamicMetaTags.forEach(tag => tag.remove());
+      const dynamicMetaTags = document.querySelectorAll('meta[data-dynamic="true"]');
+      dynamicMetaTags.forEach((tag) => tag.remove());
     };
   }, [data]);
 }
@@ -112,17 +108,17 @@ export function generateToolStructuredData(tool: {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: tool.name,
-    description: tool.description,
-    applicationCategory: tool.category,
-    url: tool.url,
-    author: {
+    'name': tool.name,
+    'description': tool.description,
+    'applicationCategory': tool.category,
+    'url': tool.url,
+    'author': {
       '@type': 'Person',
-      name: 'Praveen Singh',
+      'name': 'Praveen Singh',
     },
-    publisher: {
+    'publisher': {
       '@type': 'Organization',
-      name: 'Smart Tools',
+      'name': 'Smart Tools',
     },
   };
 }

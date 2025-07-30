@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 export function usePerformance() {
   const logMetric = useCallback((name: string, value: number) => {
@@ -17,9 +17,9 @@ export function usePerformance() {
     if (typeof window === 'undefined') return;
 
     // First Contentful Paint
-    const fcpObserver = new PerformanceObserver(list => {
+    const fcpObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.name === 'first-contentful-paint') {
           logMetric('FCP', entry.startTime);
         }
@@ -27,7 +27,7 @@ export function usePerformance() {
     });
 
     // Largest Contentful Paint
-    const lcpObserver = new PerformanceObserver(list => {
+    const lcpObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
       const lastEntry = entries[entries.length - 1];
       if (lastEntry) {
@@ -36,9 +36,9 @@ export function usePerformance() {
     });
 
     // First Input Delay
-    const fidObserver = new PerformanceObserver(list => {
+    const fidObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         const firstInputEntry = entry as PerformanceEntry & {
           processingStart?: number;
         };
@@ -50,9 +50,9 @@ export function usePerformance() {
 
     // Cumulative Layout Shift
     let clsValue = 0;
-    const clsObserver = new PerformanceObserver(list => {
+    const clsObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         const layoutShiftEntry = entry as PerformanceEntry & {
           hadRecentInput?: boolean;
           value?: number;
@@ -78,10 +78,7 @@ export function usePerformance() {
       'navigation',
     )[0] as PerformanceNavigationTiming;
     if (navigationEntry) {
-      logMetric(
-        'TTFB',
-        navigationEntry.responseStart - navigationEntry.requestStart,
-      );
+      logMetric('TTFB', navigationEntry.responseStart - navigationEntry.requestStart);
     }
 
     return () => {
@@ -102,11 +99,7 @@ export function useRenderTime(componentName: string) {
       return () => {
         const endTime = performance.now();
         const renderTime = endTime - startTime;
-        console.log(
-          `⚡ ${componentName} render time:`,
-          renderTime.toFixed(2),
-          'ms',
-        );
+        console.log(`⚡ ${componentName} render time:`, renderTime.toFixed(2), 'ms');
       };
     }
   }, [componentName]);
@@ -123,11 +116,7 @@ export function useFunctionTimer<T extends (...args: unknown[]) => unknown>(
         const startTime = performance.now();
         const result = fn(...args);
         const endTime = performance.now();
-        console.log(
-          `⚡ ${name} execution time:`,
-          (endTime - startTime).toFixed(2),
-          'ms',
-        );
+        console.log(`⚡ ${name} execution time:`, (endTime - startTime).toFixed(2), 'ms');
         return result;
       }
       return fn(...args);

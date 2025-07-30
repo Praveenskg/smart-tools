@@ -1,15 +1,9 @@
 'use client';
 
-import React from 'react';
-import { AlertTriangle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { AlertTriangle, RefreshCw } from 'lucide-react';
+import React from 'react';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -21,10 +15,7 @@ interface ErrorBoundaryProps {
   fallback?: React.ComponentType<{ error: Error; resetError: () => void }>;
 }
 
-class ErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
@@ -46,51 +37,41 @@ class ErrorBoundary extends React.Component<
     if (this.state.hasError) {
       if (this.props.fallback) {
         const FallbackComponent = this.props.fallback;
-        return (
-          <FallbackComponent
-            error={this.state.error!}
-            resetError={this.resetError}
-          />
-        );
+        return <FallbackComponent error={this.state.error!} resetError={this.resetError} />;
       }
 
       return (
-        <div className="min-h-screen flex items-center justify-center p-4">
-          <Card className="w-full max-w-sm sm:max-w-md">
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-3 sm:mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-destructive/10">
-                <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-destructive" />
+        <div className='flex min-h-screen items-center justify-center p-4'>
+          <Card className='w-full max-w-sm sm:max-w-md'>
+            <CardHeader className='text-center'>
+              <div className='bg-destructive/10 mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full sm:mb-4 sm:h-12 sm:w-12'>
+                <AlertTriangle className='text-destructive h-5 w-5 sm:h-6 sm:w-6' />
               </div>
-              <CardTitle className="text-lg sm:text-xl">
-                Something went wrong
-              </CardTitle>
-              <CardDescription className="text-sm sm:text-base">
+              <CardTitle className='text-lg sm:text-xl'>Something went wrong</CardTitle>
+              <CardDescription className='text-sm sm:text-base'>
                 An unexpected error occurred. Please try refreshing the page.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3 sm:space-y-4">
+            <CardContent className='space-y-3 sm:space-y-4'>
               {this.state.error && (
-                <details className="text-xs sm:text-sm">
-                  <summary className="cursor-pointer text-muted-foreground">
+                <details className='text-xs sm:text-sm'>
+                  <summary className='text-muted-foreground cursor-pointer'>
                     Error details (development only)
                   </summary>
-                  <pre className="mt-2 rounded bg-muted p-2 text-xs overflow-auto">
+                  <pre className='bg-muted mt-2 overflow-auto rounded p-2 text-xs'>
                     {this.state.error.stack}
                   </pre>
                 </details>
               )}
-              <div className="flex flex-col sm:flex-row gap-2">
-                <Button
-                  onClick={this.resetError}
-                  className="flex-1 text-sm sm:text-base"
-                >
-                  <RefreshCw className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+              <div className='flex flex-col gap-2 sm:flex-row'>
+                <Button onClick={this.resetError} className='flex-1 text-sm sm:text-base'>
+                  <RefreshCw className='mr-2 h-3 w-3 sm:h-4 sm:w-4' />
                   Try Again
                 </Button>
                 <Button
-                  variant="outline"
+                  variant='outline'
                   onClick={() => window.location.reload()}
-                  className="flex-1 text-sm sm:text-base"
+                  className='flex-1 text-sm sm:text-base'
                 >
                   Refresh Page
                 </Button>

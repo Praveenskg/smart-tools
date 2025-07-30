@@ -24,12 +24,6 @@
     },
     "types": ["@serwist/next/typings"]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "types"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "types"],
   "exclude": ["node_modules", "public/sw.js"]
 }

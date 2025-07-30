@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 export function NewsletterSignup() {
@@ -23,28 +23,27 @@ export function NewsletterSignup() {
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: 0.2 }}
-      className="bg-muted/50 dark:bg-background py-12 px-4 sm:px-6 lg:px-8 text-center"
+      className='bg-muted/50 dark:bg-background px-4 py-12 text-center sm:px-6 lg:px-8'
     >
-      <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
-      <p className="text-muted-foreground mb-6 text-sm sm:text-base max-w-xl mx-auto">
-        Get the latest updates, new tools, and productivity tips straight to
-        your inbox.
+      <h3 className='mb-2 text-2xl font-bold'>Stay Updated</h3>
+      <p className='text-muted-foreground mx-auto mb-6 max-w-xl text-sm sm:text-base'>
+        Get the latest updates, new tools, and productivity tips straight to your inbox.
       </p>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col sm:flex-row justify-center gap-3 max-w-md mx-auto"
+        className='mx-auto flex max-w-md flex-col justify-center gap-3 sm:flex-row'
       >
         <input
-          type="email"
-          placeholder="you@example.com"
+          type='email'
+          placeholder='you@example.com'
           value={email}
-          onChange={e => setEmail(e.target.value)}
-          className="w-full px-4 py-2 rounded-md border shadow-sm focus:ring-2 focus:ring-primary bg-background text-foreground placeholder:text-muted-foreground"
+          onChange={(e) => setEmail(e.target.value)}
+          className='focus:ring-primary bg-background text-foreground placeholder:text-muted-foreground w-full rounded-md border px-4 py-2 shadow-sm focus:ring-2'
           required
         />
         <button
-          type="submit"
-          className="px-5 py-2 rounded-md bg-primary text-white font-medium hover:bg-primary/90 transition"
+          type='submit'
+          className='bg-primary hover:bg-primary/90 rounded-md px-5 py-2 font-medium text-white transition'
         >
           Subscribe
         </button>

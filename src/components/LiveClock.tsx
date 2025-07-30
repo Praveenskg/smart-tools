@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Badge } from '@/components/ui/badge';
 import dayjs from 'dayjs';
 import { Clock } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { useEffect, useState } from 'react';
 
 export default function LiveClock() {
   const [time, setTime] = useState<dayjs.Dayjs | null>(null);
@@ -22,23 +22,23 @@ export default function LiveClock() {
   const ampm = time.format('A');
 
   return (
-    <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg bg-background/50 border border-border/50 hover:bg-muted/30">
-      <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
-      <div className="flex items-center gap-0.5 sm:gap-1 font-mono">
-        <span className="text-xs sm:text-sm font-semibold text-muted-foreground tabular-nums">
+    <div className='bg-background/50 border-border/50 hover:bg-muted/30 flex items-center gap-1.5 rounded-lg border px-2 py-1.5 sm:gap-2 sm:px-3 sm:py-2'>
+      <Clock className='text-muted-foreground h-3 w-3 sm:h-4 sm:w-4' />
+      <div className='flex items-center gap-0.5 font-mono sm:gap-1'>
+        <span className='text-muted-foreground text-xs font-semibold tabular-nums sm:text-sm'>
           {hours}
         </span>
-        <span className="text-xs sm:text-sm text-muted-foreground">:</span>
-        <span className="text-xs sm:text-sm font-semibold text-muted-foreground tabular-nums">
+        <span className='text-muted-foreground text-xs sm:text-sm'>:</span>
+        <span className='text-muted-foreground text-xs font-semibold tabular-nums sm:text-sm'>
           {minutes}
         </span>
-        <span className="text-xs sm:text-sm text-muted-foreground">:</span>
-        <span className="text-xs sm:text-sm font-semibold text-muted-foreground tabular-nums">
+        <span className='text-muted-foreground text-xs sm:text-sm'>:</span>
+        <span className='text-muted-foreground text-xs font-semibold tabular-nums sm:text-sm'>
           {seconds}
         </span>
         <Badge
-          variant="secondary"
-          className="ml-1 sm:ml-1.5 text-[10px] sm:text-xs px-1 sm:px-1.5 py-0.5 bg-primary/10 text-primary border-primary/20 font-medium"
+          variant='secondary'
+          className='bg-primary/10 text-primary border-primary/20 ml-1 px-1 py-0.5 text-[10px] font-medium sm:ml-1.5 sm:px-1.5 sm:text-xs'
         >
           {ampm}
         </Badge>

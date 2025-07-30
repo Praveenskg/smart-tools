@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -8,8 +8,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 export function usePWA() {
-  const [deferredPrompt, setDeferredPrompt] =
-    useState<BeforeInstallPromptEvent | null>(null);
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isInstallable, setIsInstallable] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
@@ -19,10 +18,7 @@ export function usePWA() {
     if (typeof window === 'undefined') return;
 
     const checkIfInstalled = () => {
-      if (
-        window.matchMedia &&
-        window.matchMedia('(display-mode: standalone)').matches
-      ) {
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
         setIsInstalled(true);
       }
     };
@@ -52,10 +48,7 @@ export function usePWA() {
     setIsOnline(navigator.onLine);
 
     return () => {
-      window.removeEventListener(
-        'beforeinstallprompt',
-        handleBeforeInstallPrompt,
-      );
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       window.removeEventListener('appinstalled', handleAppInstalled);
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
@@ -84,8 +77,7 @@ export function usePWA() {
   };
 
   const requestNotificationPermission = async () => {
-    if (typeof window === 'undefined' || !('Notification' in window))
-      return false;
+    if (typeof window === 'undefined' || !('Notification' in window)) return false;
 
     if (Notification.permission === 'granted') return true;
     if (Notification.permission === 'denied') return false;
@@ -95,10 +87,7 @@ export function usePWA() {
   };
 
   const showNotification = (title: string, options?: NotificationOptions) => {
-    if (
-      typeof window !== 'undefined' &&
-      Notification.permission === 'granted'
-    ) {
+    if (typeof window !== 'undefined' && Notification.permission === 'granted') {
       new Notification(title, options);
     }
   };

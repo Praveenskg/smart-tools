@@ -1,17 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 interface AgeResult {
   years: number;
@@ -24,9 +18,7 @@ interface AgeResult {
 
 export default function AgeCalculator() {
   const [birthDate, setBirthDate] = useState('');
-  const [targetDate, setTargetDate] = useState(
-    new Date().toISOString().split('T')[0],
-  );
+  const [targetDate, setTargetDate] = useState(new Date().toISOString().split('T')[0]);
   const [result, setResult] = useState<AgeResult | null>(null);
 
   const calculateAge = () => {
@@ -57,9 +49,7 @@ export default function AgeCalculator() {
       months += 12;
     }
 
-    const totalDays = Math.floor(
-      (target.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24),
-    );
+    const totalDays = Math.floor((target.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
     const totalWeeks = Math.floor(totalDays / 7);
     const totalMonths = years * 12 + months;
 
@@ -77,49 +67,42 @@ export default function AgeCalculator() {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="grid gap-4 sm:gap-6 lg:gap-8 lg:grid-cols-2"
+      className='grid gap-4 sm:gap-6 lg:grid-cols-2 lg:gap-8'
     >
-      <Card className="modern-card">
+      <Card className='modern-card'>
         <CardHeader>
-          <CardTitle className="text-lg sm:text-xl">Date Information</CardTitle>
-          <CardDescription className="text-sm sm:text-base">
+          <CardTitle className='text-lg sm:text-xl'>Date Information</CardTitle>
+          <CardDescription className='text-sm sm:text-base'>
             Enter your birth date and a target date to calculate your age.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4 sm:space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="birthDate">Birth Date</Label>
+        <CardContent className='space-y-4 sm:space-y-6'>
+          <div className='space-y-2'>
+            <Label htmlFor='birthDate'>Birth Date</Label>
             <Input
-              id="birthDate"
-              type="date"
+              id='birthDate'
+              type='date'
               value={birthDate}
-              onChange={e => setBirthDate(e.target.value)}
+              onChange={(e) => setBirthDate(e.target.value)}
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="targetDate">Calculate Age On</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='targetDate'>Calculate Age On</Label>
             <Input
-              id="targetDate"
-              type="date"
+              id='targetDate'
+              type='date'
               value={targetDate}
-              onChange={e => setTargetDate(e.target.value)}
+              onChange={(e) => setTargetDate(e.target.value)}
             />
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <motion.div whileTap={{ scale: 0.97 }} className="flex-1">
-              <Button
-                onClick={calculateAge}
-                className="w-full text-sm sm:text-base"
-              >
+          <div className='flex flex-col gap-3 sm:flex-row sm:gap-4'>
+            <motion.div whileTap={{ scale: 0.97 }} className='flex-1'>
+              <Button onClick={calculateAge} className='w-full text-sm sm:text-base'>
                 Calculate Age
               </Button>
             </motion.div>
-            <motion.div whileTap={{ scale: 0.97 }} className="flex-1">
-              <Button
-                onClick={resetForm}
-                variant="outline"
-                className="w-full text-sm sm:text-base"
-              >
+            <motion.div whileTap={{ scale: 0.97 }} className='flex-1'>
+              <Button onClick={resetForm} variant='outline' className='w-full text-sm sm:text-base'>
                 Reset
               </Button>
             </motion.div>
@@ -133,52 +116,39 @@ export default function AgeCalculator() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
-          <Card className="modern-card">
+          <Card className='modern-card'>
             <CardHeader>
-              <CardTitle className="text-lg sm:text-xl">Age Result</CardTitle>
-              <CardDescription className="text-sm sm:text-base">
+              <CardTitle className='text-lg sm:text-xl'>Age Result</CardTitle>
+              <CardDescription className='text-sm sm:text-base'>
                 Breakdown of your exact age
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3 sm:space-y-4">
-              <div className="text-center p-4 sm:p-6 bg-primary/5 rounded-lg">
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-2">
-                  {result.years} Years, {result.months} Months, {result.days}{' '}
-                  Days
+            <CardContent className='space-y-3 sm:space-y-4'>
+              <div className='bg-primary/5 rounded-lg p-4 text-center sm:p-6'>
+                <div className='text-primary mb-2 text-xl font-bold sm:text-2xl lg:text-3xl'>
+                  {result.years} Years, {result.months} Months, {result.days} Days
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                <div className="text-center p-3 sm:p-4 border rounded-lg">
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold">
-                    {result.totalDays}
-                  </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">
-                    Total Days
-                  </div>
+              <div className='grid grid-cols-2 gap-3 sm:gap-4'>
+                <div className='rounded-lg border p-3 text-center sm:p-4'>
+                  <div className='text-lg font-bold sm:text-xl lg:text-2xl'>{result.totalDays}</div>
+                  <div className='text-muted-foreground text-xs sm:text-sm'>Total Days</div>
                 </div>
-                <div className="text-center p-3 sm:p-4 border rounded-lg">
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold">
+                <div className='rounded-lg border p-3 text-center sm:p-4'>
+                  <div className='text-lg font-bold sm:text-xl lg:text-2xl'>
                     {result.totalWeeks}
                   </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">
-                    Total Weeks
-                  </div>
+                  <div className='text-muted-foreground text-xs sm:text-sm'>Total Weeks</div>
                 </div>
-                <div className="text-center p-3 sm:p-4 border rounded-lg">
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold">
+                <div className='rounded-lg border p-3 text-center sm:p-4'>
+                  <div className='text-lg font-bold sm:text-xl lg:text-2xl'>
                     {result.totalMonths}
                   </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">
-                    Total Months
-                  </div>
+                  <div className='text-muted-foreground text-xs sm:text-sm'>Total Months</div>
                 </div>
-                <div className="text-center p-3 sm:p-4 border rounded-lg">
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold">
-                    {result.years}
-                  </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">
-                    Total Years
-                  </div>
+                <div className='rounded-lg border p-3 text-center sm:p-4'>
+                  <div className='text-lg font-bold sm:text-xl lg:text-2xl'>{result.years}</div>
+                  <div className='text-muted-foreground text-xs sm:text-sm'>Total Years</div>
                 </div>
               </div>
             </CardContent>
