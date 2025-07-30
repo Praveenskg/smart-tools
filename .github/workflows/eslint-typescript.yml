@@ -1,4 +1,4 @@
-name: ESLint + TypeScript Check
+name: Code Quality - Lint & Type Check
 
 on:
   pull_request:
@@ -6,7 +6,6 @@ on:
 
 jobs:
   lint-and-typecheck:
-    name: ESLint + TypeScript Check
     runs-on: ubuntu-latest
 
     permissions:
@@ -14,7 +13,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -26,12 +25,12 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: ESLint with ReviewDog
+      - name: Lint with ESLint + ReviewDog
         uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
           eslint_flags: 'src/'
 
-      - name: TypeScript Type Check
+      - name: Type Check (TypeScript)
         run: npx tsc --noEmit
