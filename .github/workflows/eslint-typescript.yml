@@ -6,6 +6,7 @@ on:
 
 jobs:
   lint-and-typecheck:
+    name: Code Quality - Lint & Type Check
     runs-on: ubuntu-latest
 
     permissions:
