@@ -10,6 +10,7 @@ import ColorPicker from '../Image-tools/ColorPicker';
 import ImageCompressor from '../Image-tools/ImageCompressor';
 import ImageConverter from '../Image-tools/ImageConverter';
 import ImageResizer from '../Image-tools/ImageResizer';
+import MetadataViewer from '../Image-tools/MetadataViewer';
 import { FileUpload } from '../ui/file-upload';
 
 export default function ImageTools() {
@@ -523,105 +524,6 @@ function ImageCropper({ selectedImage }: { selectedImage: File | null }) {
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  );
-}
-
-function MetadataViewer({ selectedImage }: { selectedImage: File | null }) {
-  const [imageDimensions, setImageDimensions] = useState<{
-    width: number;
-    height: number;
-  } | null>(null);
-  const [imageUrl, setImageUrl] = useState<string>('');
-
-  useEffect(() => {
-    if (selectedImage) {
-      const url = URL.createObjectURL(selectedImage);
-      setImageUrl(url);
-
-      const img = new window.Image();
-      img.onload = () => {
-        setImageDimensions({ width: img.width, height: img.height });
-      };
-      img.src = url;
-    }
-  }, [selectedImage]);
-
-  const getAspectRatio = () => {
-    if (!imageDimensions) return 'N/A';
-    const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
-    const divisor = gcd(imageDimensions.width, imageDimensions.height);
-    return `${imageDimensions.width / divisor}:${imageDimensions.height / divisor}`;
-  };
-
-  const getMegapixels = () => {
-    if (!imageDimensions) return 'N/A';
-    return ((imageDimensions.width * imageDimensions.height) / 1000000).toFixed(2);
-  };
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className='flex items-center gap-2'>
-          <Eye className='h-5 w-5' />
-          Metadata Viewer
-        </CardTitle>
-        <CardDescription>View image metadata and EXIF information</CardDescription>
-      </CardHeader>
-      <CardContent className='space-y-4'>
-        {!selectedImage ? (
-          <div className='text-muted-foreground py-8 text-center'>
-            Upload an image to view metadata
-          </div>
-        ) : (
-          <div className='space-y-6'>
-            <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-              <div>
-                <p className='mb-2 font-medium'>File Information</p>
-                <div className='text-muted-foreground space-y-1 text-sm'>
-                  <p>Name: {selectedImage.name}</p>
-                  <p>Size: {(selectedImage.size / 1024 / 1024).toFixed(2)} MB</p>
-                  <p>Type: {selectedImage.type || 'Unknown'}</p>
-                  <p>Last Modified: {new Date(selectedImage.lastModified).toLocaleDateString()}</p>
-                </div>
-              </div>
-              <div>
-                <p className='mb-2 font-medium'>Image Details</p>
-                <div className='text-muted-foreground space-y-1 text-sm'>
-                  <p>
-                    Dimensions:{' '}
-                    {imageDimensions
-                      ? `${imageDimensions.width} × ${imageDimensions.height}`
-                      : 'Loading...'}
-                  </p>
-                  <p>Aspect Ratio: {getAspectRatio()}</p>
-                  <p>Megapixels: {getMegapixels()}</p>
-                  <p>Color Space: sRGB</p>
-                </div>
-              </div>
-            </div>
-
-            {imageDimensions && (
-              <div className='space-y-2'>
-                <p className='font-medium'>Image Preview</p>
-                <div className='bg-muted/20 rounded-lg border p-4'>
-                  <div className='flex justify-center'>
-                    {imageUrl && (
-                      <Image
-                        src={imageUrl}
-                        height={128}
-                        width={128}
-                        alt='Original'
-                        className='rounded border object-contain'
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         )}
       </CardContent>
