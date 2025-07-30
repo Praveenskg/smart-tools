@@ -1,18 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import { Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
+import { Users } from 'lucide-react';
+import { useState } from 'react';
 
 interface TipResult {
   billAmount: number;
@@ -68,32 +62,28 @@ export default function TipCalculator() {
   const quickTipButtons = [10, 15, 18, 20, 25];
 
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <Card className="modern-card">
+    <div className='grid gap-8 lg:grid-cols-2'>
+      <Card className='modern-card'>
         <CardHeader>
           <CardTitle>Bill Information</CardTitle>
-          <CardDescription>
-            Enter bill details to calculate tip and split
-          </CardDescription>
+          <CardDescription>Enter bill details to calculate tip and split</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="billAmount">Bill Amount ($)</Label>
+        <CardContent className='space-y-6'>
+          <div className='space-y-2'>
+            <Label htmlFor='billAmount'>Bill Amount ($)</Label>
             <Input
-              id="billAmount"
-              type="number"
-              placeholder="Enter bill amount"
+              id='billAmount'
+              type='number'
+              placeholder='Enter bill amount'
               value={billAmount}
-              onChange={e => setBillAmount(e.target.value)}
+              onChange={(e) => setBillAmount(e.target.value)}
             />
           </div>
 
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
+          <div className='space-y-4'>
+            <div className='flex items-center justify-between'>
               <Label>Tip Percentage</Label>
-              <span className="text-2xl font-bold gradient-text">
-                {tipPercentage[0]}%
-              </span>
+              <span className='gradient-text text-2xl font-bold'>{tipPercentage[0]}%</span>
             </div>
             <Slider
               value={tipPercentage}
@@ -101,14 +91,14 @@ export default function TipCalculator() {
               max={30}
               min={0}
               step={1}
-              className="w-full"
+              className='w-full'
             />
-            <div className="flex gap-2 flex-wrap">
-              {quickTipButtons.map(tip => (
+            <div className='flex flex-wrap gap-2'>
+              {quickTipButtons.map((tip) => (
                 <Button
                   key={tip}
                   variant={tipPercentage[0] === tip ? 'default' : 'outline'}
-                  size="sm"
+                  size='sm'
                   onClick={() => setTipPercentage([tip])}
                   className={tipPercentage[0] === tip ? 'modern-button' : ''}
                 >
@@ -118,26 +108,26 @@ export default function TipCalculator() {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="numberOfPeople">Number of People</Label>
-            <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-muted-foreground" />
+          <div className='space-y-2'>
+            <Label htmlFor='numberOfPeople'>Number of People</Label>
+            <div className='flex items-center gap-2'>
+              <Users className='text-muted-foreground h-4 w-4' />
               <Input
-                id="numberOfPeople"
-                type="number"
-                min="1"
-                placeholder="Enter number of people"
+                id='numberOfPeople'
+                type='number'
+                min='1'
+                placeholder='Enter number of people'
                 value={numberOfPeople}
-                onChange={e => setNumberOfPeople(e.target.value)}
+                onChange={(e) => setNumberOfPeople(e.target.value)}
               />
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <Button onClick={calculateTip} className="flex-1">
+          <div className='flex gap-4'>
+            <Button onClick={calculateTip} className='flex-1'>
               Calculate Tip
             </Button>
-            <Button onClick={resetForm} variant="outline" className="flex-1">
+            <Button onClick={resetForm} variant='outline' className='flex-1'>
               Reset
             </Button>
           </div>
@@ -145,40 +135,36 @@ export default function TipCalculator() {
       </Card>
 
       {result && (
-        <Card className="modern-card">
+        <Card className='modern-card'>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full success-gradient"></div>
+            <CardTitle className='flex items-center gap-2'>
+              <div className='success-gradient h-2 w-2 rounded-full'></div>
               Tip Calculation Results
             </CardTitle>
-            <CardDescription>
-              Bill breakdown and per-person amounts
-            </CardDescription>
+            <CardDescription>Bill breakdown and per-person amounts</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <div className="p-4 bg-linear-to-r from-muted to-muted/50 rounded-xl">
-                <div className="flex justify-between items-center">
+          <CardContent className='space-y-6'>
+            <div className='space-y-4'>
+              <div className='from-muted to-muted/50 rounded-xl bg-linear-to-r p-4'>
+                <div className='flex items-center justify-between'>
                   <span>Bill Amount</span>
-                  <span className="font-semibold">
-                    {formatCurrency(result.billAmount)}
-                  </span>
+                  <span className='font-semibold'>{formatCurrency(result.billAmount)}</span>
                 </div>
               </div>
 
-              <div className="p-4 bg-linear-to-r from-primary/5 to-primary/10 rounded-xl border border-primary/20">
-                <div className="flex justify-between items-center">
+              <div className='from-primary/5 to-primary/10 border-primary/20 rounded-xl border bg-linear-to-r p-4'>
+                <div className='flex items-center justify-between'>
                   <span>Tip ({result.tipPercentage}%)</span>
-                  <span className="font-semibold text-primary">
+                  <span className='text-primary font-semibold'>
                     {formatCurrency(result.tipAmount)}
                   </span>
                 </div>
               </div>
 
-              <div className="p-4 bg-linear-to-r from-muted to-muted/50 rounded-xl border-2 border-primary/20">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">Total Amount</span>
-                  <span className="text-xl font-bold gradient-text">
+              <div className='from-muted to-muted/50 border-primary/20 rounded-xl border-2 bg-linear-to-r p-4'>
+                <div className='flex items-center justify-between'>
+                  <span className='font-medium'>Total Amount</span>
+                  <span className='gradient-text text-xl font-bold'>
                     {formatCurrency(result.totalAmount)}
                   </span>
                 </div>
@@ -186,31 +172,27 @@ export default function TipCalculator() {
             </div>
 
             {Number.parseInt(numberOfPeople) > 1 && (
-              <div className="space-y-4 border-t pt-4">
-                <h4 className="font-semibold flex items-center gap-2">
-                  <Users className="h-4 w-4" />
+              <div className='space-y-4 border-t pt-4'>
+                <h4 className='flex items-center gap-2 font-semibold'>
+                  <Users className='h-4 w-4' />
                   Per Person ({numberOfPeople} people)
                 </h4>
-                <div className="grid gap-3">
-                  <div className="flex justify-between">
+                <div className='grid gap-3'>
+                  <div className='flex justify-between'>
                     <span>Amount per person</span>
-                    <span className="font-semibold">
-                      {formatCurrency(result.perPersonAmount)}
-                    </span>
+                    <span className='font-semibold'>{formatCurrency(result.perPersonAmount)}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className='flex justify-between'>
                     <span>Tip per person</span>
-                    <span className="font-semibold">
-                      {formatCurrency(result.perPersonTip)}
-                    </span>
+                    <span className='font-semibold'>{formatCurrency(result.perPersonTip)}</span>
                   </div>
                 </div>
               </div>
             )}
 
-            <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
-              <h4 className="font-semibold mb-2">Quick Summary</h4>
-              <p className="text-sm text-muted-foreground">
+            <div className='rounded-lg bg-blue-50 p-4 dark:bg-blue-950/20'>
+              <h4 className='mb-2 font-semibold'>Quick Summary</h4>
+              <p className='text-muted-foreground text-sm'>
                 {Number.parseInt(numberOfPeople) > 1
                   ? `Each person should pay ${formatCurrency(
                       result.perPersonAmount,

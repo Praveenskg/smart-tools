@@ -1,14 +1,8 @@
 'use client';
-import { useRef } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { useRef } from 'react';
 
 interface Tool {
   id: string;
@@ -29,27 +23,25 @@ export function FeaturedTools({ tools }: { tools: Tool[] }) {
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6 }}
-      className="mb-10 container mx-auto px-3 sm:px-4 py-6 sm:py-8"
+      className='container mx-auto mb-10 px-3 py-6 sm:px-4 sm:py-8'
     >
-      <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-center">
-        Featured Tools
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        {tools.map(tool => {
+      <h2 className='mb-4 text-center text-xl font-semibold sm:text-2xl'>Featured Tools</h2>
+      <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4'>
+        {tools.map((tool) => {
           const Icon = tool.icon;
           return (
             <Link key={tool.id} href={`/${tool.id}`}>
-              <Card className="h-full hover:shadow-lg hover:border-primary transition-all duration-300 cursor-pointer group hover:scale-105">
-                <CardHeader className="pb-2">
-                  <div className="flex items-center gap-2">
-                    <Icon className="h-5 w-5 text-primary group-hover:scale-110 group-hover:rotate-3 transition-all duration-300" />
-                    <CardTitle className="text-base group-hover:text-primary transition-colors duration-300">
+              <Card className='hover:border-primary group h-full cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg'>
+                <CardHeader className='pb-2'>
+                  <div className='flex items-center gap-2'>
+                    <Icon className='text-primary h-5 w-5 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3' />
+                    <CardTitle className='group-hover:text-primary text-base transition-colors duration-300'>
                       {tool.name}
                     </CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-xs sm:text-sm group-hover:text-foreground transition-colors duration-300">
+                  <CardDescription className='group-hover:text-foreground text-xs transition-colors duration-300 sm:text-sm'>
                     {tool.description}
                   </CardDescription>
                 </CardContent>

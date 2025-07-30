@@ -1,17 +1,12 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Calendar } from '@/components/ui/calendar';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   Select,
   SelectContent,
@@ -19,18 +14,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
 import {
+  Calendar as CalendarIcon,
   Clock,
+  Copy,
   Globe,
   MapPin,
-  Calendar as CalendarIcon,
   Plus,
-  X,
-  Copy,
   Search,
+  X,
 } from 'lucide-react';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
+import { useCallback, useEffect, useState } from 'react';
 
 interface TimeZone {
   name: string;
@@ -179,8 +175,8 @@ export default function TimeZoneConverter() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setWorldClocks(prev =>
-        prev.map(clock => ({
+      setWorldClocks((prev) =>
+        prev.map((clock) => ({
           ...clock,
           time: new Date(),
         })),
@@ -196,9 +192,7 @@ export default function TimeZoneConverter() {
       const dateTime = new Date(selectedDate);
       dateTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
-      const toDate = new Date(
-        dateTime.toLocaleString('en-US', { timeZone: toTimeZone }),
-      );
+      const toDate = new Date(dateTime.toLocaleString('en-US', { timeZone: toTimeZone }));
 
       const options: Intl.DateTimeFormatOptions = {
         weekday: 'long',
@@ -222,27 +216,22 @@ export default function TimeZoneConverter() {
   }, [convertTime]);
 
   const addWorldClock = () => {
-    if (
-      newClockTimezone &&
-      !worldClocks.find(clock => clock.timezone === newClockTimezone)
-    ) {
-      const timezone = popularTimeZones.find(
-        tz => tz.name === newClockTimezone,
-      );
+    if (newClockTimezone && !worldClocks.find((clock) => clock.timezone === newClockTimezone)) {
+      const timezone = popularTimeZones.find((tz) => tz.name === newClockTimezone);
       const newClock: WorldClock = {
         id: Date.now().toString(),
         timezone: newClockTimezone,
         name: timezone?.region || newClockTimezone,
         time: new Date(),
       };
-      setWorldClocks(prev => [...prev, newClock]);
+      setWorldClocks((prev) => [...prev, newClock]);
       setNewClockTimezone('');
       setShowAddClock(false);
     }
   };
 
   const removeWorldClock = (id: string) => {
-    setWorldClocks(prev => prev.filter(clock => clock.id !== id));
+    setWorldClocks((prev) => prev.filter((clock) => clock.id !== id));
   };
 
   const copyTime = (time: string) => {
@@ -292,36 +281,36 @@ export default function TimeZoneConverter() {
   };
 
   const filteredTimeZones = popularTimeZones.filter(
-    tz =>
+    (tz) =>
       tz.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tz.region.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tz.abbreviation.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
-    <div className="space-y-6">
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card className="modern-card">
+    <div className='space-y-6'>
+      <div className='grid gap-6 md:grid-cols-2'>
+        <Card className='modern-card'>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Clock className="h-5 w-5" />
+            <CardTitle className='flex items-center gap-2'>
+              <Clock className='h-5 w-5' />
               Time Zone Converter
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2 w-full">
+          <CardContent className='space-y-4'>
+            <div className='grid grid-cols-2 gap-4'>
+              <div className='w-full space-y-2'>
                 <Label>From Time Zone</Label>
                 <Select value={fromTimeZone} onValueChange={setFromTimeZone}>
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className='w-full'>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {popularTimeZones.map(tz => (
+                    {popularTimeZones.map((tz) => (
                       <SelectItem key={tz.name} value={tz.name}>
-                        <div className="flex flex-col">
-                          <span className="font-medium">{tz.region}</span>
-                          <span className="text-xs text-muted-foreground">
+                        <div className='flex flex-col'>
+                          <span className='font-medium'>{tz.region}</span>
+                          <span className='text-muted-foreground text-xs'>
                             {tz.name} ({tz.abbreviation})
                           </span>
                         </div>
@@ -331,18 +320,18 @@ export default function TimeZoneConverter() {
                 </Select>
               </div>
 
-              <div className="space-y-2 w-full">
+              <div className='w-full space-y-2'>
                 <Label>To Time Zone</Label>
                 <Select value={toTimeZone} onValueChange={setToTimeZone}>
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className='w-full'>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {popularTimeZones.map(tz => (
+                    {popularTimeZones.map((tz) => (
                       <SelectItem key={tz.name} value={tz.name}>
-                        <div className="flex flex-col">
-                          <span className="font-medium">{tz.region}</span>
-                          <span className="text-xs text-muted-foreground">
+                        <div className='flex flex-col'>
+                          <span className='font-medium'>{tz.region}</span>
+                          <span className='text-muted-foreground text-xs'>
                             {tz.name} ({tz.abbreviation})
                           </span>
                         </div>
@@ -353,8 +342,8 @@ export default function TimeZoneConverter() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
+            <div className='grid grid-cols-2 gap-4'>
+              <div className='space-y-2'>
                 <Label>Date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -365,72 +354,66 @@ export default function TimeZoneConverter() {
                         !selectedDate && 'text-muted-foreground',
                       )}
                     >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {selectedDate ? (
-                        format(selectedDate, 'PPP')
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
+                      <CalendarIcon className='mr-2 h-4 w-4' />
+                      {selectedDate ? format(selectedDate, 'PPP') : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
+                  <PopoverContent className='w-auto p-0'>
                     <Calendar
-                      mode="single"
+                      mode='single'
                       selected={selectedDate}
-                      onSelect={date => date && setSelectedDate(date)}
+                      onSelect={(date) => date && setSelectedDate(date)}
                       autoFocus
                     />
                   </PopoverContent>
                 </Popover>
               </div>
 
-              <div className="space-y-2">
+              <div className='space-y-2'>
                 <Label>Time</Label>
                 <Input
-                  type="time"
+                  type='time'
                   value={selectedTime}
-                  onChange={e => setSelectedTime(e.target.value)}
+                  onChange={(e) => setSelectedTime(e.target.value)}
                 />
               </div>
             </div>
 
-            <div className="pt-4 border-t">
-              <div className="text-sm font-medium mb-2">Current Time Zones</div>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
+            <div className='border-t pt-4'>
+              <div className='mb-2 text-sm font-medium'>Current Time Zones</div>
+              <div className='space-y-2 text-sm'>
+                <div className='flex justify-between'>
                   <span>From ({fromTimeZone}):</span>
-                  <span className="font-mono">
+                  <span className='font-mono'>
                     {formatTimeInTimezone(new Date(), fromTimeZone)}
                   </span>
                 </div>
-                <div className="flex justify-between">
+                <div className='flex justify-between'>
                   <span>To ({toTimeZone}):</span>
-                  <span className="font-mono">
-                    {formatTimeInTimezone(new Date(), toTimeZone)}
-                  </span>
+                  <span className='font-mono'>{formatTimeInTimezone(new Date(), toTimeZone)}</span>
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="modern-card">
+        <Card className='modern-card'>
           <CardHeader>
             <CardTitle>Converted Time</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="text-center space-y-2">
-              <div className="text-2xl font-bold text-primary">
+          <CardContent className='space-y-4'>
+            <div className='space-y-2 text-center'>
+              <div className='text-primary text-2xl font-bold'>
                 {convertedTime || 'Select time to convert'}
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className='text-muted-foreground text-sm'>
                 {format(selectedDate, 'PPP')} at {selectedTime}
               </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="text-sm font-medium">Time Difference</div>
-              <div className="text-sm text-muted-foreground">
+            <div className='space-y-2'>
+              <div className='text-sm font-medium'>Time Difference</div>
+              <div className='text-muted-foreground text-sm'>
                 {(() => {
                   try {
                     const fromOffset = new Date().toLocaleString('en-US', {
@@ -449,12 +432,8 @@ export default function TimeZoneConverter() {
               </div>
             </div>
 
-            <Button
-              onClick={() => copyTime(convertedTime)}
-              variant="outline"
-              className="w-full"
-            >
-              <Copy className="h-4 w-4 mr-2" />
+            <Button onClick={() => copyTime(convertedTime)} variant='outline' className='w-full'>
+              <Copy className='mr-2 h-4 w-4' />
               Copy Converted Time
             </Button>
           </CardContent>
@@ -463,95 +442,83 @@ export default function TimeZoneConverter() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Globe className="h-5 w-5" />
+          <CardTitle className='flex items-center justify-between'>
+            <div className='flex items-center gap-2'>
+              <Globe className='h-5 w-5' />
               World Clock
             </div>
-            <Button
-              onClick={() => setShowAddClock(!showAddClock)}
-              variant="outline"
-              size="sm"
-            >
-              <Plus className="h-4 w-4 mr-2" />
+            <Button onClick={() => setShowAddClock(!showAddClock)} variant='outline' size='sm'>
+              <Plus className='mr-2 h-4 w-4' />
               Add Clock
             </Button>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className='space-y-4'>
           {showAddClock && (
-            <div className="p-4 border rounded-lg space-y-4">
-              <div className="space-y-2">
+            <div className='space-y-4 rounded-lg border p-4'>
+              <div className='space-y-2'>
                 <Label>Search Time Zones</Label>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <div className='relative'>
+                  <Search className='text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform' />
                   <Input
-                    placeholder="Search time zones..."
+                    placeholder='Search time zones...'
                     value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    className="pl-10"
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className='pl-10'
                   />
                 </div>
               </div>
 
-              <div className="max-h-40 overflow-y-auto space-y-2">
-                {filteredTimeZones.map(tz => (
+              <div className='max-h-40 space-y-2 overflow-y-auto'>
+                {filteredTimeZones.map((tz) => (
                   <div
                     key={tz.name}
-                    className="flex items-center justify-between p-2 hover:bg-muted/50 rounded cursor-pointer"
+                    className='hover:bg-muted/50 flex cursor-pointer items-center justify-between rounded p-2'
                     onClick={() => setNewClockTimezone(tz.name)}
                   >
                     <div>
-                      <div className="font-medium">{tz.region}</div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className='font-medium'>{tz.region}</div>
+                      <div className='text-muted-foreground text-sm'>
                         {tz.name} ({tz.abbreviation})
                       </div>
                     </div>
-                    <Badge variant="outline">{tz.offset}</Badge>
+                    <Badge variant='outline'>{tz.offset}</Badge>
                   </div>
                 ))}
               </div>
 
-              <div className="flex gap-2">
+              <div className='flex gap-2'>
                 <Button onClick={addWorldClock} disabled={!newClockTimezone}>
                   Add Clock
                 </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => setShowAddClock(false)}
-                >
+                <Button variant='outline' onClick={() => setShowAddClock(false)}>
                   Cancel
                 </Button>
               </div>
             </div>
           )}
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 ">
-            {worldClocks.map(clock => (
-              <div
-                key={clock.id}
-                className="p-4 border rounded-lg space-y-2 relative modern-card"
-              >
+          <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
+            {worldClocks.map((clock) => (
+              <div key={clock.id} className='modern-card relative space-y-2 rounded-lg border p-4'>
                 <Button
                   onClick={() => removeWorldClock(clock.id)}
-                  variant="ghost"
-                  size="sm"
-                  className="absolute top-2 right-2 h-6 w-6 p-0"
+                  variant='ghost'
+                  size='sm'
+                  className='absolute top-2 right-2 h-6 w-6 p-0'
                 >
-                  <X className="h-3 w-3" />
+                  <X className='h-3 w-3' />
                 </Button>
 
-                <div className="space-y-1">
-                  <div className="font-medium text-lg">
+                <div className='space-y-1'>
+                  <div className='text-lg font-medium'>
                     {formatTimeInTimezone(clock.time, clock.timezone)}
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className='text-muted-foreground text-sm'>
                     {formatDateInTimezone(clock.time, clock.timezone)}
                   </div>
-                  <div className="text-xs text-muted-foreground">
-                    {clock.name}
-                  </div>
-                  <Badge variant="outline" className="text-xs">
+                  <div className='text-muted-foreground text-xs'>{clock.name}</div>
+                  <Badge variant='outline' className='text-xs'>
                     {getTimezoneOffset(clock.timezone)}
                   </Badge>
                 </div>
@@ -566,14 +533,14 @@ export default function TimeZoneConverter() {
           <CardTitle>Popular Time Zones</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {popularTimeZones.slice(0, 9).map(tz => (
-              <div key={tz.name} className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-blue-500" />
-                  <span className="font-medium">{tz.region}</span>
+          <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
+            {popularTimeZones.slice(0, 9).map((tz) => (
+              <div key={tz.name} className='space-y-2'>
+                <div className='flex items-center gap-2'>
+                  <MapPin className='h-4 w-4 text-blue-500' />
+                  <span className='font-medium'>{tz.region}</span>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className='text-muted-foreground text-sm'>
                   {tz.name} ({tz.abbreviation}) {tz.offset}
                 </p>
               </div>

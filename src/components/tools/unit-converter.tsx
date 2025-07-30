@@ -1,15 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { ArrowRightLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -20,6 +12,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ArrowRightLeft } from 'lucide-react';
+import { useState } from 'react';
 
 interface UnitData {
   name: string;
@@ -139,13 +133,13 @@ export default function UnitConverter() {
   const currentCategory = conversions[category as keyof typeof conversions];
 
   return (
-    <div className="space-y-6">
-      <Tabs value={category} onValueChange={setCategory} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="length">Length</TabsTrigger>
-          <TabsTrigger value="weight">Weight</TabsTrigger>
-          <TabsTrigger value="temperature">Temperature</TabsTrigger>
-          <TabsTrigger value="area">Area</TabsTrigger>
+    <div className='space-y-6'>
+      <Tabs value={category} onValueChange={setCategory} className='space-y-6'>
+        <TabsList className='grid w-full grid-cols-4'>
+          <TabsTrigger value='length'>Length</TabsTrigger>
+          <TabsTrigger value='weight'>Weight</TabsTrigger>
+          <TabsTrigger value='temperature'>Temperature</TabsTrigger>
+          <TabsTrigger value='area'>Area</TabsTrigger>
         </TabsList>
 
         {Object.entries(conversions).map(([key, categoryData]) => (
@@ -154,91 +148,82 @@ export default function UnitConverter() {
               <CardHeader>
                 <CardTitle>{categoryData.name} Converter</CardTitle>
                 <CardDescription>
-                  Convert between different {categoryData.name.toLowerCase()}{' '}
-                  units
+                  Convert between different {categoryData.name.toLowerCase()} units
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
+              <CardContent className='space-y-6'>
+                <div className='grid gap-4 sm:grid-cols-2'>
+                  <div className='space-y-2'>
                     <Label>From</Label>
                     <Select value={fromUnit} onValueChange={setFromUnit}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select unit" />
+                        <SelectValue placeholder='Select unit' />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(categoryData.units).map(
-                          ([unitKey, unitData]) => (
-                            <SelectItem key={unitKey} value={unitKey}>
-                              {unitData.name}
-                            </SelectItem>
-                          ),
-                        )}
+                        {Object.entries(categoryData.units).map(([unitKey, unitData]) => (
+                          <SelectItem key={unitKey} value={unitKey}>
+                            {unitData.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className='space-y-2'>
                     <Label>To</Label>
                     <Select value={toUnit} onValueChange={setToUnit}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select unit" />
+                        <SelectValue placeholder='Select unit' />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(categoryData.units).map(
-                          ([unitKey, unitData]) => (
-                            <SelectItem key={unitKey} value={unitKey}>
-                              {unitData.name}
-                            </SelectItem>
-                          ),
-                        )}
+                        {Object.entries(categoryData.units).map(([unitKey, unitData]) => (
+                          <SelectItem key={unitKey} value={unitKey}>
+                            {unitData.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="inputValue">Value</Label>
-                  <div className="flex gap-2">
+                <div className='space-y-2'>
+                  <Label htmlFor='inputValue'>Value</Label>
+                  <div className='flex gap-2'>
                     <Input
-                      id="inputValue"
-                      type="number"
-                      placeholder="Enter value to convert"
+                      id='inputValue'
+                      type='number'
+                      placeholder='Enter value to convert'
                       value={inputValue}
-                      onChange={e => setInputValue(e.target.value)}
-                      className="flex-1"
+                      onChange={(e) => setInputValue(e.target.value)}
+                      className='flex-1'
                     />
                     <Button
-                      variant="outline"
-                      size="icon"
+                      variant='outline'
+                      size='icon'
                       onClick={swapUnits}
                       disabled={!fromUnit || !toUnit}
                     >
-                      <ArrowRightLeft className="h-4 w-4" />
+                      <ArrowRightLeft className='h-4 w-4' />
                     </Button>
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <Button onClick={convertUnits} className="flex-1">
+                <div className='flex gap-4'>
+                  <Button onClick={convertUnits} className='flex-1'>
                     Convert
                   </Button>
-                  <Button
-                    onClick={resetForm}
-                    variant="outline"
-                    className="flex-1"
-                  >
+                  <Button onClick={resetForm} variant='outline' className='flex-1'>
                     Reset
                   </Button>
                 </div>
 
                 {result !== null && fromUnit && toUnit && (
-                  <div className="p-6 bg-primary/5 rounded-lg">
-                    <div className="text-center space-y-2">
-                      <div className="text-sm text-muted-foreground">
+                  <div className='bg-primary/5 rounded-lg p-6'>
+                    <div className='space-y-2 text-center'>
+                      <div className='text-muted-foreground text-sm'>
                         {inputValue} {currentCategory.units[fromUnit]?.name} =
                       </div>
-                      <div className="text-3xl font-bold text-primary">
+                      <div className='text-primary text-3xl font-bold'>
                         {result.toFixed(6).replace(/\.?0+$/, '')}{' '}
                         {currentCategory.units[toUnit]?.name}
                       </div>

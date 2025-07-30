@@ -1,8 +1,8 @@
 'use client';
 
-import { WifiOff } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { usePWA } from '@/hooks/use-pwa';
+import { WifiOff } from 'lucide-react';
 
 export function OfflineIndicator() {
   const { isOnline } = usePWA();
@@ -12,11 +12,8 @@ export function OfflineIndicator() {
   }
 
   return (
-    <Badge
-      variant="secondary"
-      className="bg-yellow-100 text-yellow-800 border-yellow-200"
-    >
-      <WifiOff className="h-3 w-3 mr-1" />
+    <Badge variant='secondary' className='border-yellow-200 bg-yellow-100 text-yellow-800'>
+      <WifiOff className='mr-1 h-3 w-3' />
       Offline Mode
     </Badge>
   );

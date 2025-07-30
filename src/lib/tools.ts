@@ -1,27 +1,26 @@
 import {
   Calculator,
   Calendar,
-  DollarSign,
-  Heart,
   Clock,
-  Percent,
-  Scale,
-  Ruler,
-  Target,
-  TrendingUp,
-  QrCode,
+  DollarSign,
   Globe,
+  Heart,
   Image,
   ListTodo,
+  Percent,
+  QrCode,
+  Ruler,
+  Scale,
+  Target,
   TimerReset,
+  TrendingUp,
 } from 'lucide-react';
 
 export const tools = [
   {
     id: 'image-tools',
     name: 'Image Tools',
-    description:
-      'Professional image processing tools - resize, convert, compress, and more',
+    description: 'Professional image processing tools - resize, convert, compress, and more',
     icon: Image,
     category: 'Utility',
     popular: true,
@@ -37,8 +36,7 @@ export const tools = [
   {
     id: 'emi-calculator',
     name: 'EMI Calculator',
-    description:
-      'Quickly estimate monthly EMIs for any loan with interest and tenure',
+    description: 'Quickly estimate monthly EMIs for any loan with interest and tenure',
     icon: Calculator,
     category: 'Financial',
     popular: true,
@@ -54,8 +52,7 @@ export const tools = [
   {
     id: 'gst-calculator',
     name: 'GST Calculator',
-    description:
-      'Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals',
+    description: 'Easily compute GST amounts, reverse GST, and inclusive/exclusive tax totals',
     icon: Percent,
     category: 'Financial',
     popular: false,
@@ -103,8 +100,7 @@ export const tools = [
   {
     id: 'tip-calculator',
     name: 'Tip Calculator',
-    description:
-      'Calculate restaurant tips and split bills effortlessly with friends',
+    description: 'Calculate restaurant tips and split bills effortlessly with friends',
     icon: DollarSign,
     category: 'Financial',
     popular: false,
@@ -128,8 +124,7 @@ export const tools = [
   {
     id: 'currency-converter',
     name: 'Currency Converter',
-    description:
-      'Convert between different currencies with real-time exchange rates',
+    description: 'Convert between different currencies with real-time exchange rates',
     icon: DollarSign,
     category: 'Financial',
     popular: true,
@@ -137,8 +132,7 @@ export const tools = [
   {
     id: 'timezone-converter',
     name: 'Timezone Converter',
-    description:
-      'Convert time between different timezones and track world clocks',
+    description: 'Convert time between different timezones and track world clocks',
     icon: Globe,
     category: 'Date & Time',
     popular: false,

@@ -1,17 +1,11 @@
 'use client';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Download, CalendarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Calendar } from '@/components/ui/calendar';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   Table,
   TableBody,
@@ -20,24 +14,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Calendar } from '@/components/ui/calendar';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+import { CalendarIcon, Download } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 interface EMIResult {
   emi: number;
   totalInterest: number;
@@ -89,16 +72,8 @@ export default function EMICalculator() {
     let currentDate = startDate ? new Date(startDate) : null;
     const getNextEMIDate = (current: Date): Date => {
       const desiredDay = current.getDate();
-      const nextMonth = new Date(
-        current.getFullYear(),
-        current.getMonth() + 1,
-        1,
-      );
-      const lastDay = new Date(
-        nextMonth.getFullYear(),
-        nextMonth.getMonth() + 1,
-        0,
-      ).getDate();
+      const nextMonth = new Date(current.getFullYear(), current.getMonth() + 1, 1);
+      const lastDay = new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 0).getDate();
       const safeDay = Math.min(desiredDay, lastDay);
       return new Date(nextMonth.getFullYear(), nextMonth.getMonth(), safeDay);
     };
@@ -155,11 +130,7 @@ export default function EMICalculator() {
     const principalAmountText = `Principal Amount: ${totalPrincipal.toFixed(2)}`;
     const interestRateText = `Interest Rate: ${(annualInterestRate * 100).toFixed(2)}%`;
     doc.text(principalAmountText, 15, 35);
-    doc.text(
-      interestRateText,
-      pageWidth - 15 - doc.getTextWidth(interestRateText),
-      35,
-    );
+    doc.text(interestRateText, pageWidth - 15 - doc.getTextWidth(interestRateText), 35);
     const loanTenureText = `Loan Tenure: ${tenureMonths} months`;
     doc.text(loanTenureText, 15, 40);
     if (showGst) {
@@ -170,11 +141,7 @@ export default function EMICalculator() {
     doc.text(emiAmountText, 15, 45);
     doc.setFontSize(12);
     const generatedText = `Generated on: ${date}`;
-    doc.text(
-      generatedText,
-      pageWidth - 15 - doc.getTextWidth(generatedText),
-      45,
-    );
+    doc.text(generatedText, pageWidth - 15 - doc.getTextWidth(generatedText), 45);
     const columns = [
       { header: 'Sr. No', dataKey: 'month' },
       ...(startDate ? [{ header: 'EMI Date', dataKey: 'date' }] : []),
@@ -190,23 +157,16 @@ export default function EMICalculator() {
       },
     ];
 
-    const rows = amortization.map(item => ({
+    const rows = amortization.map((item) => ({
       month: item.month,
-      date:
-        startDate && item.nextEMIDate
-          ? format(item.nextEMIDate, 'dd/MM/yyyy')
-          : '',
+      date: startDate && item.nextEMIDate ? format(item.nextEMIDate, 'dd/MM/yyyy') : '',
       openingBalance: item.openingBalance.toFixed(2),
       emi: item.emi.toFixed(2),
       principal: item.principal.toFixed(2),
       interest: item.interest.toFixed(2),
       gst: showGst ? item.gst.toFixed(2) : '',
       balance: item.balance.toFixed(2),
-      total: (
-        item.principal +
-        item.interest +
-        (showGst ? item.gst : 0)
-      ).toFixed(2),
+      total: (item.principal + item.interest + (showGst ? item.gst : 0)).toFixed(2),
     }));
 
     const totalRow = {
@@ -218,11 +178,7 @@ export default function EMICalculator() {
       interest: totalInterestPayable.toFixed(2),
       gst: showGst ? gstAmount.toFixed(2) : '',
       balance: '',
-      total: (
-        totalPrincipal +
-        totalInterestPayable +
-        (showGst ? gstAmount : 0)
-      ).toFixed(2),
+      total: (totalPrincipal + totalInterestPayable + (showGst ? gstAmount : 0)).toFixed(2),
     };
     rows.push(totalRow);
 
@@ -284,9 +240,7 @@ export default function EMICalculator() {
       { align: 'center' },
     );
 
-    const filename = showGst
-      ? 'amortization-schedule-gst.pdf'
-      : 'amortization-schedule.pdf';
+    const filename = showGst ? 'amortization-schedule-gst.pdf' : 'amortization-schedule.pdf';
     doc.save(filename);
   };
   useEffect(() => {
@@ -305,148 +259,138 @@ export default function EMICalculator() {
     return [...base, ...gstInterest];
   }, [principal, result, includeGST]);
   return (
-    <div className="space-y-8">
-      <div className="grid gap-8 lg:grid-cols-2">
-        <Card className="modern-card">
+    <div className='space-y-8'>
+      <div className='grid gap-8 lg:grid-cols-2'>
+        <Card className='modern-card'>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-linear-to-r from-primary to-primary/80"></div>
+            <CardTitle className='flex items-center gap-2'>
+              <div className='from-primary to-primary/80 h-2 w-2 rounded-full bg-linear-to-r'></div>
               Loan Details
             </CardTitle>
-            <CardDescription>
-              Enter your loan information to calculate EMI
-            </CardDescription>
+            <CardDescription>Enter your loan information to calculate EMI</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="principal">Principal Amount (₹)</Label>
+          <CardContent className='space-y-6'>
+            <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+              <div className='space-y-2'>
+                <Label htmlFor='principal'>Principal Amount (₹)</Label>
                 <Input
-                  id="principal"
-                  type="number"
-                  placeholder="Enter loan amount"
+                  id='principal'
+                  type='number'
+                  placeholder='Enter loan amount'
                   value={principal}
-                  onChange={e => setPrincipal(e.target.value)}
+                  onChange={(e) => setPrincipal(e.target.value)}
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="interest">Interest Rate (%)</Label>
+              <div className='space-y-2'>
+                <Label htmlFor='interest'>Interest Rate (%)</Label>
                 <Input
-                  id="interest"
-                  type="number"
-                  step="0.1"
-                  placeholder="Enter annual interest rate"
+                  id='interest'
+                  type='number'
+                  step='0.1'
+                  placeholder='Enter annual interest rate'
                   value={interestRate}
-                  onChange={e => setInterestRate(e.target.value)}
+                  onChange={(e) => setInterestRate(e.target.value)}
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="tenure">Loan Tenure (Months)</Label>
+              <div className='space-y-2'>
+                <Label htmlFor='tenure'>Loan Tenure (Months)</Label>
                 <Input
-                  id="tenure"
-                  type="number"
-                  placeholder="Enter loan tenure"
+                  id='tenure'
+                  type='number'
+                  placeholder='Enter loan tenure'
                   value={tenure}
-                  onChange={e => setTenure(e.target.value)}
+                  onChange={(e) => setTenure(e.target.value)}
                 />
               </div>
-              <div className="space-y-2">
+              <div className='space-y-2'>
                 <Label>Start Date (optional)</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
-                      variant="outline"
+                      variant='outline'
                       className={cn(
                         'w-full justify-start text-left font-normal',
                         !startDate && 'text-muted-foreground',
                       )}
                     >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {startDate
-                        ? format(startDate, 'PPP')
-                        : 'Pick a start date'}
+                      <CalendarIcon className='mr-2 h-4 w-4' />
+                      {startDate ? format(startDate, 'PPP') : 'Pick a start date'}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
+                  <PopoverContent className='w-auto p-0' align='start'>
                     <Calendar
-                      mode="single"
+                      mode='single'
                       selected={startDate}
                       onSelect={setStartDate}
-                      disabled={date => date < new Date()}
+                      disabled={(date) => date < new Date()}
                       autoFocus
                     />
                   </PopoverContent>
                 </Popover>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className='flex items-center space-x-2'>
               <Checkbox
-                id="gst"
+                id='gst'
                 checked={includeGST}
-                onCheckedChange={checked => setIncludeGST(checked as boolean)}
+                onCheckedChange={(checked) => setIncludeGST(checked as boolean)}
               />
-              <Label htmlFor="gst">Include GST (18%)</Label>
+              <Label htmlFor='gst'>Include GST (18%)</Label>
             </div>
-            <div className="flex gap-4">
-              <Button onClick={calculateEMI} className="flex-1 modern-button">
+            <div className='flex gap-4'>
+              <Button onClick={calculateEMI} className='modern-button flex-1'>
                 Calculate EMI
               </Button>
-              <Button onClick={resetForm} variant="outline" className="flex-1">
+              <Button onClick={resetForm} variant='outline' className='flex-1'>
                 Reset
               </Button>
             </div>
           </CardContent>
         </Card>
         {result && (
-          <Card className="modern-card animate-in fade-in slide-in-from-bottom-2 duration-500 shadow-md">
+          <Card className='modern-card animate-in fade-in slide-in-from-bottom-2 shadow-md duration-500'>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full success-gradient"></div>
+              <CardTitle className='flex items-center gap-2'>
+                <div className='success-gradient h-2 w-2 rounded-full'></div>
                 EMI Calculation Results
               </CardTitle>
               <CardDescription>Your loan payment breakdown</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="lg:flex lg:gap-6">
-                <div className="flex-1 space-y-4">
-                  <div className="flex justify-between items-center p-4 bg-linear-to-r from-primary/5 to-primary/10 rounded-xl border border-primary/20">
-                    <span className="font-medium">Monthly EMI</span>
-                    <span className="text-2xl font-bold text-primary">
+            <CardContent className='space-y-4'>
+              <div className='lg:flex lg:gap-6'>
+                <div className='flex-1 space-y-4'>
+                  <div className='from-primary/5 to-primary/10 border-primary/20 flex items-center justify-between rounded-xl border bg-linear-to-r p-4'>
+                    <span className='font-medium'>Monthly EMI</span>
+                    <span className='text-primary text-2xl font-bold'>
                       {formatCurrency(result.emi)}
                     </span>
                   </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
+                  <div className='space-y-3'>
+                    <div className='flex justify-between'>
                       <span>Total Interest</span>
-                      <span className="font-semibold">
-                        {formatCurrency(result.totalInterest)}
-                      </span>
+                      <span className='font-semibold'>{formatCurrency(result.totalInterest)}</span>
                     </div>
                     {includeGST && (
-                      <div className="flex justify-between">
+                      <div className='flex justify-between'>
                         <span>GST on Interest Amount</span>
-                        <span className="font-semibold">
-                          {formatCurrency(result.gstAmount)}
-                        </span>
+                        <span className='font-semibold'>{formatCurrency(result.gstAmount)}</span>
                       </div>
                     )}
-                    <div className="flex justify-between border-t pt-2">
-                      <span className="font-medium">Total Payment</span>
-                      <span className="font-bold">
-                        {formatCurrency(result.totalPayment)}
-                      </span>
+                    <div className='flex justify-between border-t pt-2'>
+                      <span className='font-medium'>Total Payment</span>
+                      <span className='font-bold'>{formatCurrency(result.totalPayment)}</span>
                     </div>
                   </div>
                 </div>
-                <div className=" rounded-md border flex-1 mt-6 lg:mt-0 hidden md:block">
-                  <ResponsiveContainer width="100%" height={250}>
+                <div className='mt-6 hidden flex-1 rounded-md border md:block lg:mt-0'>
+                  <ResponsiveContainer width='100%' height={250}>
                     <PieChart>
                       <Pie
                         data={chartData}
-                        dataKey="value"
-                        nameKey="name"
-                        cx="50%"
-                        cy="100%"
+                        dataKey='value'
+                        nameKey='name'
+                        cx='50%'
+                        cy='100%'
                         startAngle={180}
                         endAngle={0}
                         innerRadius={50}
@@ -456,31 +400,21 @@ export default function EMICalculator() {
                           <Cell
                             key={`cell-${index}`}
                             fill={
-                              [
-                                '#1abc9c',
-                                '#3498db',
-                                '#e67e22',
-                                '#9b59b6',
-                                '#e74c3c',
-                                '#f1c40f',
-                              ][index % 6]
+                              ['#1abc9c', '#3498db', '#e67e22', '#9b59b6', '#e74c3c', '#f1c40f'][
+                                index % 6
+                              ]
                             }
                           />
                         ))}
                       </Pie>
-                      <Tooltip
-                        formatter={(value: number) => `₹${value.toFixed(2)}`}
-                      />
+                      <Tooltip formatter={(value: number) => `₹${value.toFixed(2)}`} />
                       <Legend
                         content={({ payload }) => (
-                          <ul className="flex flex-wrap justify-center gap-4 text-sm mt-4">
+                          <ul className='mt-4 flex flex-wrap justify-center gap-4 text-sm'>
                             {payload?.map((entry, i) => {
                               const dataItem = chartData[i];
                               return (
-                                <li
-                                  key={`item-${i}`}
-                                  className="flex items-center gap-2"
-                                >
+                                <li key={`item-${i}`} className='flex items-center gap-2'>
                                   <div
                                     style={{
                                       width: 12,
@@ -489,8 +423,7 @@ export default function EMICalculator() {
                                     }}
                                   />
                                   <span>
-                                    {dataItem?.name}: ₹
-                                    {dataItem?.value?.toFixed(2) ?? '0.00'}
+                                    {dataItem?.name}: ₹{dataItem?.value?.toFixed(2) ?? '0.00'}
                                   </span>
                                 </li>
                               );
@@ -502,12 +435,8 @@ export default function EMICalculator() {
                   </ResponsiveContainer>
                 </div>
               </div>
-              <Button
-                onClick={downloadPDF}
-                variant="outline"
-                className="w-full"
-              >
-                <Download className="h-4 w-4 mr-2" />
+              <Button onClick={downloadPDF} variant='outline' className='w-full'>
+                <Download className='mr-2 h-4 w-4' />
                 Export to PDF
               </Button>
             </CardContent>
@@ -518,78 +447,54 @@ export default function EMICalculator() {
         <Card>
           <CardHeader>
             <CardTitle>Amortization Schedule</CardTitle>
-            <CardDescription>
-              Monthly payment breakdown over the loan tenure
-            </CardDescription>
+            <CardDescription>Monthly payment breakdown over the loan tenure</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="rounded-md border overflow-x-auto">
+            <div className='overflow-x-auto rounded-md border'>
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-muted text-muted-foreground text-sm uppercase text-center">
-                    <TableHead className="text-center">Sr. No</TableHead>
-                    {startDate && (
-                      <TableHead className="text-center">EMI Date</TableHead>
-                    )}
-                    <TableHead className="text-center">
-                      Opening Balance
-                    </TableHead>
-                    <TableHead className="text-center">EMI</TableHead>
-                    <TableHead className="text-center">Principal</TableHead>
-                    <TableHead className="text-center">Interest</TableHead>
-                    {includeGST && (
-                      <TableHead className="text-center">GST</TableHead>
-                    )}
-                    <TableHead className="text-center">Balance</TableHead>
-                    <TableHead className="text-center">
+                  <TableRow className='bg-muted text-muted-foreground text-center text-sm uppercase'>
+                    <TableHead className='text-center'>Sr. No</TableHead>
+                    {startDate && <TableHead className='text-center'>EMI Date</TableHead>}
+                    <TableHead className='text-center'>Opening Balance</TableHead>
+                    <TableHead className='text-center'>EMI</TableHead>
+                    <TableHead className='text-center'>Principal</TableHead>
+                    <TableHead className='text-center'>Interest</TableHead>
+                    {includeGST && <TableHead className='text-center'>GST</TableHead>}
+                    <TableHead className='text-center'>Balance</TableHead>
+                    <TableHead className='text-center'>
                       Total (Principal + Interest{includeGST ? ' + GST' : ''})
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {amortization.map(row => (
+                  {amortization.map((row) => (
                     <TableRow
                       key={row.month}
-                      className="even:bg-muted/40 hover:bg-muted/60 transition-colors text-center"
+                      className='even:bg-muted/40 hover:bg-muted/60 text-center transition-colors'
                     >
                       <TableCell>{row.month}</TableCell>
                       {startDate && (
                         <TableCell>
-                          {row.nextEMIDate
-                            ? format(row.nextEMIDate, 'dd/MM/yyyy')
-                            : '-'}
+                          {row.nextEMIDate ? format(row.nextEMIDate, 'dd/MM/yyyy') : '-'}
                         </TableCell>
                       )}
-                      <TableCell>
-                        {formatCurrency(row.openingBalance)}
-                      </TableCell>
+                      <TableCell>{formatCurrency(row.openingBalance)}</TableCell>
                       <TableCell>{formatCurrency(row.emi)}</TableCell>
                       <TableCell>{formatCurrency(row.principal)}</TableCell>
                       <TableCell>{formatCurrency(row.interest)}</TableCell>
-                      {includeGST && (
-                        <TableCell>{formatCurrency(row.gst)}</TableCell>
-                      )}
+                      {includeGST && <TableCell>{formatCurrency(row.gst)}</TableCell>}
                       <TableCell>{formatCurrency(row.balance)}</TableCell>
                       <TableCell>
-                        {formatCurrency(
-                          row.principal +
-                            row.interest +
-                            (includeGST ? row.gst : 0),
-                        )}
+                        {formatCurrency(row.principal + row.interest + (includeGST ? row.gst : 0))}
                       </TableCell>
                     </TableRow>
                   ))}
-                  <TableRow className="font-semibold bg-primary/5 text-center">
+                  <TableRow className='bg-primary/5 text-center font-semibold'>
                     <TableCell colSpan={startDate ? 4 : 3}>Total</TableCell>
                     <TableCell>{formatCurrency(Number(principal))}</TableCell>
-                    <TableCell>
-                      {formatCurrency(result?.totalInterest ?? 0)}
-                    </TableCell>
-                    {includeGST && (
-                      <TableCell>
-                        {formatCurrency(result?.gstAmount ?? 0)}
-                      </TableCell>
-                    )}
+                    <TableCell>{formatCurrency(result?.totalInterest ?? 0)}</TableCell>
+                    {includeGST && <TableCell>{formatCurrency(result?.gstAmount ?? 0)}</TableCell>}
                     <TableCell />
                     <TableCell>
                       {formatCurrency(

@@ -1,8 +1,8 @@
 'use client';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 
 interface ToolSearchProps {
   selectedCategory: string;
@@ -25,22 +25,22 @@ export function ToolSearch({
   return (
     <motion.div
       ref={ref}
-      id="tools"
+      id='tools'
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-      <div className="max-w-md mx-auto mb-6 sm:mb-8">
+      <div className='mx-auto mb-6 max-w-md sm:mb-8'>
         <input
-          type="search"
-          placeholder="Search tools..."
+          type='search'
+          placeholder='Search tools...'
           value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:scale-[1.01] transition duration-200 ease-in-out bg-background text-foreground placeholder:text-muted-foreground"
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className='focus:ring-primary bg-background text-foreground placeholder:text-muted-foreground w-full rounded-md border px-4 py-2 shadow-sm transition duration-200 ease-in-out focus:scale-[1.01] focus:ring-2 focus:outline-none'
         />
       </div>
 
-      <div className="flex flex-wrap gap-1 sm:gap-2 mb-6 sm:mb-8 justify-center">
+      <div className='mb-6 flex flex-wrap justify-center gap-1 sm:mb-8 sm:gap-2'>
         {categories.map((category, i) => (
           <motion.div
             key={category.name}
@@ -49,15 +49,13 @@ export function ToolSearch({
             transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
           >
             <Button
-              variant={
-                selectedCategory === category.name ? 'default' : 'outline'
-              }
-              size="sm"
+              variant={selectedCategory === category.name ? 'default' : 'outline'}
+              size='sm'
               onClick={() => setSelectedCategory(category.name)}
-              className="text-xs sm:text-sm"
+              className='text-xs sm:text-sm'
             >
               {category.name}
-              <Badge variant="secondary" className="ml-1 sm:ml-2 text-xs">
+              <Badge variant='secondary' className='ml-1 text-xs sm:ml-2'>
                 {category.count}
               </Badge>
             </Button>

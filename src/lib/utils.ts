@@ -6,11 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // Currency formatting
-export function formatCurrency(
-  amount: number,
-  currency = 'INR',
-  locale = 'en-IN',
-): string {
+export function formatCurrency(amount: number, currency = 'INR', locale = 'en-IN'): string {
   return new Intl.NumberFormat(locale, {
     style: 'currency',
     currency,
@@ -31,10 +27,7 @@ export function formatPercentage(value: number, decimals = 2): string {
 }
 
 // Date formatting
-export function formatDate(
-  date: Date | string,
-  options?: Intl.DateTimeFormatOptions,
-): string {
+export function formatDate(date: Date | string, options?: Intl.DateTimeFormatOptions): string {
   const dateObj = typeof date === 'string' ? new Date(date) : date;
   return new Intl.DateTimeFormat('en-IN', {
     year: 'numeric',
@@ -163,11 +156,7 @@ export function calculateAge(
 
   if (days < 0) {
     months--;
-    const lastMonth = new Date(
-      targetDate.getFullYear(),
-      targetDate.getMonth(),
-      0,
-    );
+    const lastMonth = new Date(targetDate.getFullYear(), targetDate.getMonth(), 0);
     days += lastMonth.getDate();
   }
 
