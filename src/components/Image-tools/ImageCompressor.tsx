@@ -93,7 +93,20 @@ export default function ImageCompressor({ selectedImage }: { selectedImage: File
   return (
     <div className='space-y-6 rounded-2xl border p-4 shadow-sm'>
       {!selectedImage ? (
-        <div className='text-destructive py-8 text-center'>Upload an image to compress</div>
+        <>
+          <Card className='border-none shadow-none'>
+            <CardHeader>
+              <CardTitle className='flex items-center gap-2'>
+                <Zap className='h-5 w-5' />
+                Image Compressor
+              </CardTitle>
+              <CardDescription>Compress images to reduce file size</CardDescription>
+            </CardHeader>
+          </Card>
+          <div className='text-destructive flex items-center justify-center py-8 text-center'>
+            Upload an image to compress
+          </div>
+        </>
       ) : (
         <>
           <div className='grid grid-cols-1 items-stretch gap-4 md:grid-cols-2'>
@@ -105,60 +118,52 @@ export default function ImageCompressor({ selectedImage }: { selectedImage: File
                 </CardTitle>
                 <CardDescription>Compress images to reduce file size</CardDescription>
               </CardHeader>
-              <CardContent className='flex flex-1 flex-col'>
-                {!selectedImage ? (
-                  <div className='text-muted-foreground flex flex-1 items-center justify-center py-12'>
-                    Upload an image to compress
+              <CardContent className='space-y-4'>
+                <div className='space-y-6'>
+                  <div>
+                    <Label className='mb-1 block'>Compression Quality: {compressionLevel}%</Label>
+                    <Slider
+                      min={10}
+                      max={100}
+                      step={1}
+                      value={[compressionLevel]}
+                      onValueChange={([val]) => setCompressionLevel(val)}
+                    />
+                    <p className='text-muted-foreground mt-2 text-xs'>
+                      Lower quality = smaller file size
+                    </p>
                   </div>
-                ) : (
-                  <div className='space-y-6'>
-                    <div>
-                      <Label className='mb-1 block'>Compression Quality: {compressionLevel}%</Label>
-                      <Slider
-                        min={10}
-                        max={100}
-                        step={1}
-                        value={[compressionLevel]}
-                        onValueChange={([val]) => setCompressionLevel(val)}
-                      />
-                      <p className='text-muted-foreground mt-2 text-xs'>
-                        Lower quality = smaller file size
-                      </p>
+                  <div className='bg-muted/20 space-y-2 rounded-lg border p-4 text-sm'>
+                    <div className='flex justify-between'>
+                      <span>Original Size:</span>
+                      <span>{(originalSize / 1024 / 1024).toFixed(2)} MB</span>
                     </div>
-
-                    {/* Stats */}
-                    <div className='bg-muted/20 space-y-2 rounded-lg border p-4 text-sm'>
-                      <div className='flex justify-between'>
-                        <span>Original Size:</span>
-                        <span>{(originalSize / 1024 / 1024).toFixed(2)} MB</span>
-                      </div>
-                      {compressedSize > 0 && (
-                        <>
-                          <div className='flex justify-between'>
-                            <span>Compressed Size:</span>
-                            <span>{(compressedSize / 1024 / 1024).toFixed(2)} MB</span>
-                          </div>
-                          <div className='flex justify-between font-medium text-green-600'>
-                            <span>Size Reduction:</span>
-                            <span>
-                              {getSizeReduction()} MB ({getCompressionRatio()}%)
-                            </span>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                    <div className='text-muted-foreground space-y-1 pt-2 text-sm'>
-                      <p>
-                        <strong>Recommended:</strong>
-                      </p>
-                      <ul className='list-inside list-disc space-y-1'>
-                        <li>90–95%: High quality, minimal compression</li>
-                        <li>70–85%: Good balance of quality and size</li>
-                        <li>50–70%: Significant compression, quality loss</li>
-                      </ul>
-                    </div>
+                    {compressedSize > 0 && (
+                      <>
+                        <div className='flex justify-between'>
+                          <span>Compressed Size:</span>
+                          <span>{(compressedSize / 1024 / 1024).toFixed(2)} MB</span>
+                        </div>
+                        <div className='flex justify-between font-medium text-green-600'>
+                          <span>Size Reduction:</span>
+                          <span>
+                            {getSizeReduction()} MB ({getCompressionRatio()}%)
+                          </span>
+                        </div>
+                      </>
+                    )}
                   </div>
-                )}
+                  <div className='text-muted-foreground space-y-1 pt-2 text-sm'>
+                    <p>
+                      <strong>Recommended:</strong>
+                    </p>
+                    <ul className='list-inside list-disc space-y-1'>
+                      <li>90–95%: High quality, minimal compression</li>
+                      <li>70–85%: Good balance of quality and size</li>
+                      <li>50–70%: Significant compression, quality loss</li>
+                    </ul>
+                  </div>
+                </div>
               </CardContent>
             </Card>
             {imageUrl && (

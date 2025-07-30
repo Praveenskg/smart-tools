@@ -83,7 +83,22 @@ export default function ImageConverter({ selectedImage }: { selectedImage: File 
   return (
     <div className='space-y-6 rounded-2xl border p-4 shadow-sm'>
       {!selectedImage ? (
-        <div className='text-destructive py-8 text-center'>Upload an image to convert format</div>
+        <>
+          <Card className='border-none shadow-none'>
+            <CardHeader>
+              <CardTitle className='flex items-center gap-2'>
+                <FileImage className='h-5 w-5' />
+                Format Converter
+              </CardTitle>
+              <CardDescription>
+                Convert your image to different formats (JPEG, PNG, WebP)
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <div className='text-destructive flex items-center justify-center py-8 text-center'>
+            Upload an image to convert
+          </div>
+        </>
       ) : (
         <>
           <div className='grid grid-cols-1 items-stretch gap-4 md:grid-cols-2'>

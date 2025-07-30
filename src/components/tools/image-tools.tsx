@@ -6,6 +6,7 @@ import { Crop, Download, Eye, FileImage, ImagesIcon, Palette, Settings, Zap } fr
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import ColorPicker from '../Image-tools/ColorPicker';
 import ImageCompressor from '../Image-tools/ImageCompressor';
 import ImageConverter from '../Image-tools/ImageConverter';
 import ImageResizer from '../Image-tools/ImageResizer';
@@ -21,7 +22,7 @@ export default function ImageTools() {
   return (
     <div className='space-y-6'>
       <Tabs value={activeTab} onValueChange={setActiveTab} className='w-full'>
-        <TabsList className='mb-6 grid w-full grid-cols-4 lg:grid-cols-8'>
+        <TabsList className='mb-2 grid w-full grid-cols-4'>
           <TabsTrigger value='resizer' className='flex items-center gap-2'>
             <Crop className='h-4 w-4' />
             <span className='hidden sm:inline'>Resizer</span>
@@ -38,6 +39,8 @@ export default function ImageTools() {
             <Palette className='h-4 w-4' />
             <span className='hidden sm:inline'>Colors</span>
           </TabsTrigger>
+        </TabsList>
+        <TabsList className='mb-6 grid w-full grid-cols-4'>
           <TabsTrigger value='background-remover' className='flex items-center gap-2'>
             <ImagesIcon className='h-4 w-4' />
             <span className='hidden sm:inline'>BG Remove</span>
@@ -98,226 +101,29 @@ export default function ImageTools() {
         <TabsContent value='resizer' className='space-y-4'>
           <ImageResizer selectedImage={selectedImage} />
         </TabsContent>
-
         <TabsContent value='converter' className='space-y-4'>
           <ImageConverter selectedImage={selectedImage} />
         </TabsContent>
-
         <TabsContent value='compressor' className='space-y-4'>
           <ImageCompressor selectedImage={selectedImage} />
         </TabsContent>
-
         <TabsContent value='color-picker' className='space-y-4'>
           <ColorPicker selectedImage={selectedImage} />
         </TabsContent>
-
         <TabsContent value='background-remover' className='space-y-4'>
           <BackgroundRemover selectedImage={selectedImage} />
         </TabsContent>
-
         <TabsContent value='cropper' className='space-y-4'>
           <ImageCropper selectedImage={selectedImage} />
         </TabsContent>
-
         <TabsContent value='metadata' className='space-y-4'>
           <MetadataViewer selectedImage={selectedImage} />
         </TabsContent>
-
         <TabsContent value='filters' className='space-y-4'>
           <ImageFilters selectedImage={selectedImage} />
         </TabsContent>
       </Tabs>
     </div>
-  );
-}
-
-function ColorPicker({ selectedImage }: { selectedImage: File | null }) {
-  const [colors, setColors] = useState<string[]>([]);
-  const [selectedColor, setSelectedColor] = useState<string>('');
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [isExtracting, setIsExtracting] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (selectedImage) {
-      const url = URL.createObjectURL(selectedImage);
-      setImageUrl(url);
-      setColors([]);
-      setSelectedColor('');
-    }
-  }, [selectedImage]);
-
-  const extractColors = () => {
-    setIsExtracting(true);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const img = new window.Image();
-
-    img.onload = () => {
-      // Scale down for faster processing
-      const scale = Math.min(1, 200 / Math.max(img.width, img.height));
-      canvas.width = img.width * scale;
-      canvas.height = img.height * scale;
-
-      ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-      const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
-      if (imageData) {
-        const colorMap = new Map<string, number>();
-
-        for (let i = 0; i < imageData.data.length; i += 4) {
-          const r = imageData.data[i];
-          const g = imageData.data[i + 1];
-          const b = imageData.data[i + 2];
-
-          // Skip transparent pixels
-          if (imageData.data[i + 3] < 128) continue;
-
-          // Quantize colors to reduce noise
-          const quantizedR = Math.round(r / 32) * 32;
-          const quantizedG = Math.round(g / 32) * 32;
-          const quantizedB = Math.round(b / 32) * 32;
-
-          const color = `rgb(${quantizedR}, ${quantizedG}, ${quantizedB})`;
-          colorMap.set(color, (colorMap.get(color) || 0) + 1);
-        }
-
-        // Sort by frequency and get top colors
-        const sortedColors = Array.from(colorMap.entries())
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 12)
-          .map(([color]) => color);
-
-        setColors(sortedColors);
-        if (sortedColors.length > 0) {
-          setSelectedColor(sortedColors[0]);
-        }
-      }
-      setIsExtracting(false);
-    };
-
-    img.src = imageUrl;
-  };
-
-  const copyToClipboard = (color: string) => {
-    navigator.clipboard.writeText(color);
-  };
-
-  const getHexColor = (rgbColor: string) => {
-    const match = rgbColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
-    if (match) {
-      const r = parseInt(match[1]);
-      const g = parseInt(match[2]);
-      const b = parseInt(match[3]);
-      return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-    }
-    return rgbColor;
-  };
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className='flex items-center gap-2'>
-          <Palette className='h-5 w-5' />
-          Color Picker
-        </CardTitle>
-        <CardDescription>Extract colors from your image</CardDescription>
-      </CardHeader>
-      <CardContent className='space-y-4'>
-        {!selectedImage ? (
-          <div className='text-muted-foreground py-8 text-center'>
-            Upload an image to extract colors
-          </div>
-        ) : (
-          <div className='space-y-6'>
-            <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-              <div className='space-y-4'>
-                <Button onClick={extractColors} disabled={isExtracting} className='w-full'>
-                  {isExtracting ? (
-                    <>
-                      <div className='mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white'></div>
-                      Extracting Colors...
-                    </>
-                  ) : (
-                    <>
-                      <Palette className='mr-2 h-4 w-4' />
-                      Extract Colors
-                    </>
-                  )}
-                </Button>
-
-                {colors.length > 0 && (
-                  <div className='space-y-3'>
-                    <h4 className='font-medium'>Color Palette</h4>
-                    <div className='grid grid-cols-3 gap-2'>
-                      {colors.map((color, index) => (
-                        <div
-                          key={index}
-                          className='group relative cursor-pointer'
-                          onClick={() => setSelectedColor(color)}
-                        >
-                          <div
-                            className='border-muted-foreground/20 hover:border-muted-foreground/50 h-16 w-full rounded-lg border-2 transition-colors'
-                            style={{ backgroundColor: color }}
-                          />
-                          <div className='absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100'>
-                            <Button
-                              size='sm'
-                              variant='secondary'
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                copyToClipboard(getHexColor(color));
-                              }}
-                            >
-                              Copy
-                            </Button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className='space-y-4'>
-                <div className='space-y-2'>
-                  <label className='text-sm font-medium'>Selected Color</label>
-                  {selectedColor ? (
-                    <div className='space-y-2'>
-                      <div
-                        className='h-20 w-full rounded-lg border'
-                        style={{ backgroundColor: selectedColor }}
-                      />
-                      <div className='space-y-1 text-sm'>
-                        <div className='flex justify-between'>
-                          <span>RGB:</span>
-                          <span>{selectedColor}</span>
-                        </div>
-                        <div className='flex justify-between'>
-                          <span>HEX:</span>
-                          <span>{getHexColor(selectedColor)}</span>
-                        </div>
-                      </div>
-                      <Button
-                        variant='outline'
-                        size='sm'
-                        onClick={() => copyToClipboard(getHexColor(selectedColor))}
-                        className='w-full'
-                      >
-                        Copy HEX
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className='bg-muted/20 text-muted-foreground flex h-20 w-full items-center justify-center rounded-lg border'>
-                      No color selected
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </CardContent>
-    </Card>
   );
 }
 
