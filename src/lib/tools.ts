@@ -11,12 +11,21 @@ import {
   QrCode,
   Ruler,
   Scale,
+  Sparkles,
   Target,
   TimerReset,
   TrendingUp,
 } from 'lucide-react';
 
 export const tools = [
+  {
+    id: 'prompt-generator',
+    name: 'Prompt Generator',
+    description: 'Generate powerful, tailored AI prompts instantly for various use-cases',
+    icon: Sparkles,
+    category: 'AI Tools',
+    popular: true,
+  },
   {
     id: 'image-tools',
     name: 'Image Tools',
