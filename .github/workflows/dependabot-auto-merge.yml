@@ -3,14 +3,17 @@ name: Auto-merge Dependabot PRs
 on:
   pull_request:
     types:
+      - opened
       - labeled
+      - synchronize
 
 jobs:
   automerge:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
-      - uses: "pascalgn/automerge-action@v0.16.4"
+      - name: Auto-merge Dependabot PR
+        uses: pascalgn/automerge-action@v0.16.4
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: "automerge"
