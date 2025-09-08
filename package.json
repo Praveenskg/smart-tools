@@ -37,7 +37,7 @@
     "qrcode": "^1.5.4",
     "radix-ui": "^1.4.3",
     "react": "^19.1.1",
-    "react-day-picker": "^9.8.1",
+    "react-day-picker": "^9.9.0",
     "react-dom": "^19.1.1",
     "react-dropzone": "^14.3.8",
     "react-easy-crop": "^5.5.0",
