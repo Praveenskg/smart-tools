@@ -120,9 +120,8 @@ export default function GeneratePrompt() {
   return (
     <div className='space-y-6'>
       <div className='grid gap-6 md:grid-cols-2'>
-        {/* Prompt Generator */}
-        <Card className='modern-card'>
-          <CardHeader>
+        <Card className='shadow-none'>
+          <CardHeader className='px-2'>
             <CardTitle className='flex items-center gap-2'>
               <Bot className='h-5 w-5' />
               Prompt Generator
@@ -131,7 +130,7 @@ export default function GeneratePrompt() {
               Generate creative, funny, formal, or professional AI prompts instantly!
             </CardDescription>
           </CardHeader>
-          <CardContent className='space-y-4'>
+          <CardContent className='space-y-4 p-2'>
             <div className='space-y-2'>
               <Label>Prompt Style</Label>
               <Select value={style} onValueChange={(val: PromptStyle) => setStyle(val)}>

@@ -29,8 +29,8 @@ export default function PromptGeneratorPage() {
                 </Button>
               </Link>
             </div>
-            <Card className='border-border border shadow-md'>
-              <CardContent className='p-6'>
+            <Card>
+              <CardContent className='p-2'>
                 <GeneratePrompt />
               </CardContent>
             </Card>
