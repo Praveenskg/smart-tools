@@ -79,33 +79,76 @@ export function throttle<T extends (...args: unknown[]) => unknown>(
   };
 }
 
-// Local storage utilities
+// Local storage utilities with enhanced error handling
 export function getFromStorage<T>(key: string, defaultValue: T): T {
   if (typeof window === 'undefined') return defaultValue;
+
   try {
     const item = window.localStorage.getItem(key);
-    return item ? JSON.parse(item) : defaultValue;
-  } catch (error) {
-    console.error(`Error reading localStorage key "${key}":`, error);
+    if (item === null) return defaultValue;
+
+    const parsed = JSON.parse(item);
+    return parsed;
+  } catch {
+    // If parsing fails, remove the corrupted data and return default
+    try {
+      window.localStorage.removeItem(key);
+    } catch {
+      // Ignore removal errors
+    }
     return defaultValue;
   }
 }
 
-export function setToStorage<T>(key: string, value: T): void {
-  if (typeof window === 'undefined') return;
+export function setToStorage<T>(key: string, value: T): boolean {
+  if (typeof window === 'undefined') return false;
+
   try {
-    window.localStorage.setItem(key, JSON.stringify(value));
+    const serialized = JSON.stringify(value);
+    window.localStorage.setItem(key, serialized);
+    return true;
   } catch (error) {
-    console.error(`Error setting localStorage key "${key}":`, error);
+    // Handle quota exceeded or other storage errors
+    if (error instanceof DOMException && error.code === 22) {
+      // Quota exceeded - try to clear some space
+      try {
+        // Clear old data if possible
+        const keys = Object.keys(window.localStorage);
+        if (keys.length > 0) {
+          window.localStorage.removeItem(keys[0]);
+          window.localStorage.setItem(key, JSON.stringify(value));
+          return true;
+        }
+      } catch {
+        // If clearing doesn't work, return false
+      }
+    }
+    return false;
   }
 }
 
-export function removeFromStorage(key: string): void {
-  if (typeof window === 'undefined') return;
+export function removeFromStorage(key: string): boolean {
+  if (typeof window === 'undefined') return false;
+
   try {
     window.localStorage.removeItem(key);
-  } catch (error) {
-    console.error(`Error removing localStorage key "${key}":`, error);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// Check if localStorage is available and working
+export function isStorageAvailable(): boolean {
+  if (typeof window === 'undefined') return false;
+
+  try {
+    const testKey = '__storage_test__';
+    window.localStorage.setItem(testKey, 'test');
+    window.localStorage.removeItem(testKey);
+    return true;
+  } catch {
+    return false;
   }
 }
 
@@ -129,8 +172,8 @@ export async function copyToClipboard(text: string): Promise<boolean> {
       textArea.remove();
       return result;
     }
-  } catch (error) {
-    console.error('Failed to copy text: ', error);
+  } catch {
+    // Failed to copy text
     return false;
   }
 }

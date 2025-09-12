@@ -1,7 +1,7 @@
 import imageCompression from 'browser-image-compression';
 import { Download, ImagePlay, Loader2, Zap } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Label } from '../ui/label';
@@ -14,40 +14,41 @@ export default function ImageCompressor({ selectedImage }: { selectedImage: File
   const [imageUrl, setImageUrl] = useState<string>('');
   const [isCompressing, setIsCompressing] = useState<boolean>(false);
 
-  const updatePreviewImage = async (image: File, quality: number) => {
-    const options = {
-      maxSizeMB: 1,
-      maxWidthOrHeight: 1920,
-      useWebWorker: true,
-      initialQuality: quality / 100,
-    };
+  const updatePreviewImage = useCallback(
+    async (image: File, quality: number) => {
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+        initialQuality: quality / 100,
+      };
 
-    try {
-      const compressedBlob = await imageCompression(image, options);
-      setCompressedSize(compressedBlob.size);
+      try {
+        const compressedBlob = await imageCompression(image, options);
+        setCompressedSize(compressedBlob.size);
 
-      const newUrl = URL.createObjectURL(compressedBlob);
-      if (imageUrl) URL.revokeObjectURL(imageUrl);
-      setImageUrl(newUrl);
-    } catch (error) {
-      console.error('Preview compression failed:', error);
-    }
-  };
+        const newUrl = URL.createObjectURL(compressedBlob);
+        if (imageUrl) URL.revokeObjectURL(imageUrl);
+        setImageUrl(newUrl);
+      } catch {
+        // Preview compression failed
+      }
+    },
+    [imageUrl],
+  );
 
   useEffect(() => {
     if (selectedImage) {
       setOriginalSize(selectedImage.size);
       updatePreviewImage(selectedImage, compressionLevel);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedImage]);
+  }, [selectedImage, compressionLevel, updatePreviewImage]);
 
   useEffect(() => {
     if (selectedImage) {
       updatePreviewImage(selectedImage, compressionLevel);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [compressionLevel]);
+  }, [selectedImage, compressionLevel, updatePreviewImage]);
 
   const compressImage = async () => {
     if (!selectedImage) return;

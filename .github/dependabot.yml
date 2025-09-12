@@ -1,25 +1,25 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"                 
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "03:30"               
+      interval: 'weekly'
+      day: 'monday'
+      time: '03:30'
     open-pull-requests-limit: 5
     allow:
-      - dependency-type: "direct"
+      - dependency-type: 'direct'
     labels:
-      - "dependencies"
-      - "automerge"
+      - 'dependencies'
+      - 'automerge'
 
-  - package-ecosystem: "github-actions"
-    directory: "/"                
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "03:30"               
+      interval: 'weekly'
+      day: 'monday'
+      time: '03:30'
     open-pull-requests-limit: 3
     labels:
-      - "dependencies"
-      - "automerge"
+      - 'dependencies'
+      - 'automerge'

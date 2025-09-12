@@ -82,7 +82,7 @@ export default function CurrencyConverter() {
             break;
           }
         } catch {
-          console.log(`API ${apiUrl} failed, trying next...`);
+          // API failed, trying next...
           continue;
         }
       }
@@ -94,8 +94,8 @@ export default function CurrencyConverter() {
       const rates = data.rates || data.conversion_rates || {};
       setExchangeRates(rates);
       setLastUpdated(new Date());
-    } catch (err) {
-      console.error('Error fetching exchange rates:', err);
+    } catch {
+      // Error fetching exchange rates
       setError('Failed to fetch live rates. Using cached rates.');
 
       const mockRates: ExchangeRate = {

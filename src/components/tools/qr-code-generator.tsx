@@ -23,6 +23,7 @@ import {
   Smartphone,
   X,
 } from 'lucide-react';
+import NextImage from 'next/image';
 import QRCode from 'qrcode';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -125,8 +126,8 @@ export default function QRCodeGenerator() {
         setQrCodeDataUrl(dataUrl);
         setIsGenerating(false);
       }
-    } catch (error) {
-      console.error('Error generating QR code:', error);
+    } catch {
+      // Error generating QR code
       setIsGenerating(false);
     }
   }, [text, size, errorCorrection, foregroundColor, backgroundColor, logoImage, logoSize]);
@@ -148,8 +149,8 @@ export default function QRCodeGenerator() {
       await navigator.clipboard.writeText(qrCodeDataUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      console.error('Failed to copy:', error);
+    } catch {
+      // Failed to copy to clipboard
     }
   };
   const getInputType = (text: string) => {
@@ -265,10 +266,11 @@ export default function QRCodeGenerator() {
                   <div className='space-y-2'>
                     {logoImage ? (
                       <div className='flex items-center gap-2'>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <NextImage
                           src={logoImage}
                           alt='Logo preview'
+                          width={48}
+                          height={48}
                           className='h-12 w-12 rounded border'
                         />
                         <span className='text-muted-foreground flex-1 text-sm'>Logo uploaded</span>
@@ -325,10 +327,11 @@ export default function QRCodeGenerator() {
                 </div>
               ) : qrCodeDataUrl ? (
                 <div className='space-y-4 text-center'>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <NextImage
                     src={qrCodeDataUrl}
                     alt='Generated QR Code'
+                    width={280}
+                    height={280}
                     className='mx-auto h-auto max-w-full rounded-lg shadow-lg'
                     style={{ maxHeight: '280px' }}
                   />

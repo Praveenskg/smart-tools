@@ -7,7 +7,7 @@ export default function ForceUnregisterSW() {
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         registrations.forEach((reg) => {
           reg.unregister().then(() => {
-            console.log('Service worker unregistered');
+            // Service worker unregistered
           });
         });
       });

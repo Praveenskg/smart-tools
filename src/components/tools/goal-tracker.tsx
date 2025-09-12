@@ -67,7 +67,6 @@ export default function GoalTracker() {
     if (typeof window !== 'undefined') {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(goalsToSave));
-        console.log('Saved goals to localStorage:', goalsToSave);
       } catch (error) {
         console.error('Error saving goals to localStorage:', error);
       }
@@ -80,14 +79,13 @@ export default function GoalTracker() {
         try {
           const parsedGoals = JSON.parse(savedGoals);
           setGoals(parsedGoals);
-          console.log('Loaded goals from localStorage:', parsedGoals);
           return parsedGoals;
         } catch (error) {
           console.error('Error loading goals from localStorage:', error);
           localStorage.removeItem(STORAGE_KEY);
         }
       } else {
-        console.log('No saved goals found in localStorage');
+        // No saved goals found in localStorage
       }
     }
     return [];

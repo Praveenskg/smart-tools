@@ -14,14 +14,24 @@ export const TypewriterMarkdown = ({ text, speed = 10 }: Props) => {
   const [displayedText, setDisplayedText] = useState('');
 
   useEffect(() => {
+    setDisplayedText(''); // Reset displayed text when text changes
     let i = 0;
-    const interval = setInterval(() => {
+    let interval: NodeJS.Timeout | null = null;
+
+    interval = setInterval(() => {
       setDisplayedText((prev) => prev + text.charAt(i));
       i++;
-      if (i >= text.length) clearInterval(interval);
+      if (i >= text.length && interval) {
+        clearInterval(interval);
+        interval = null;
+      }
     }, speed);
 
-    return () => clearInterval(interval);
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, [text, speed]);
 
   return (

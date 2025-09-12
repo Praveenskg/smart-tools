@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { getFromStorage, isStorageAvailable, setToStorage } from '@/lib/utils';
 import { format, isPast, isToday, parseISO } from 'date-fns';
 import { Calendar as CalendarIcon, Check, CheckSquare, Pencil, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -50,34 +51,24 @@ export default function TodoList() {
   const [editingTodoId, setEditingTodoId] = useState<string | null>(null);
 
   const saveTodosToLocalStorage = (todosToSave: TodoItem[]) => {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(todosToSave));
-        console.log('Saved todos to localStorage:', todosToSave);
-      } catch (error) {
-        console.error('Error saving todos to localStorage:', error);
-      }
+    if (!isStorageAvailable()) {
+      return;
+    }
+
+    const success = setToStorage(STORAGE_KEY, todosToSave);
+    if (!success) {
+      // Could show a toast notification here if needed
     }
   };
 
   const loadFromLocalStorage = (): TodoItem[] => {
-    if (typeof window !== 'undefined') {
-      const savedTodos = localStorage.getItem(STORAGE_KEY);
-      if (savedTodos) {
-        try {
-          const parsed = JSON.parse(savedTodos);
-          setTodos(parsed);
-          console.log('Loaded from localStorage:', parsed);
-          return parsed;
-        } catch (error) {
-          console.error('Error loading from localStorage:', error);
-          localStorage.removeItem(STORAGE_KEY);
-        }
-      } else {
-        console.log('No data found in localStorage');
-      }
+    if (!isStorageAvailable()) {
+      return [];
     }
-    return [];
+
+    const savedTodos = getFromStorage(STORAGE_KEY, []);
+    setTodos(savedTodos);
+    return savedTodos;
   };
 
   useEffect(() => {
