@@ -1,6 +1,6 @@
 # 🚀 Smart Tools - Professional Calculator Suite
 
-A modern, responsive web application built with Next.js 15 and TypeScript, featuring a comprehensive collection of 13 practical tools and calculators for professionals, students, and everyday use.
+A modern, responsive web application built with Next.js 15 and TypeScript, featuring a comprehensive collection of 17 practical tools and calculators for professionals, students, and everyday use.
 
 ![Smart Tools](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
@@ -10,7 +10,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 
 ## ✨ Features
 
-### 🏦 Financial Tools (4 Tools)
+### 🏦 Financial Tools (5 Tools)
 
 #### **EMI Calculator** ⭐ Popular
 
@@ -45,6 +45,14 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Tax calculation support
 - Per-person amount breakdown
 
+#### **Invoice Generator**
+
+- Create professional invoices
+- Add multiple line items
+- Calculate totals and taxes
+- Client and business information
+- PDF export functionality
+
 ### 📊 Planning & Tracking
 
 #### **Goal Tracker** ⭐ Popular
@@ -58,6 +66,17 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Progress percentage calculation
 - Days remaining/overdue tracking
 - Interactive charts and progress bars
+
+#### **ToDo List** ⭐ Popular
+
+- Create and manage tasks with priorities
+- Due date tracking and reminders
+- Task completion status
+- Priority levels (High, Medium, Low)
+- Local storage persistence
+- Filter by completion status
+- Edit and delete functionality
+- Clean, intuitive interface
 
 ### 🧮 Mathematical Tools (2 Tools)
 
@@ -82,7 +101,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Unit conversion support
 - Visual shape representation
 
-### 📅 Date & Time Tools (3 Tools)
+### 📅 Date & Time Tools (4 Tools)
 
 #### **Age Calculator**
 
@@ -107,6 +126,15 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Date and time selection
 - Copy functionality for converted times
 
+#### **Timers** ⭐ Popular
+
+- Countdown timer with customizable duration
+- Stopwatch with lap functionality
+- Visual progress indicators
+- Audio alerts and notifications
+- Pause, resume, and reset functionality
+- Mobile-friendly interface
+
 ### 🏥 Health & Fitness
 
 #### **BMI Calculator**
@@ -130,6 +158,30 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Tabbed interface for different categories
 - Clean, organized layout
 
+### 🤖 AI Tools
+
+#### **Prompt Generator** ⭐ Popular
+
+- Generate powerful, tailored AI prompts instantly
+- Multiple prompt styles (Creative, Technical, Business, etc.)
+- Real-time prompt generation using AI
+- Copy to clipboard functionality
+- Prompt history and management
+- Professional prompt engineering
+
+### 🖼️ Image Tools
+
+#### **Image Tools** ⭐ Popular
+
+- **Image Resizer** - Resize images to specific dimensions
+- **Image Converter** - Convert between different formats (JPEG, PNG, WebP)
+- **Image Compressor** - Reduce file size while maintaining quality
+- **Color Picker** - Extract colors from images
+- **Metadata Viewer** - View image EXIF data and properties
+- Batch processing capabilities
+- Real-time preview
+- Download processed images
+
 ### 🛠️ Utility Tools
 
 #### **QR Code Generator** ⭐ Popular
@@ -137,6 +189,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Create custom QR codes for URLs, text, emails, and more
 - Multiple QR code formats
 - Customizable colors and sizes
+- Logo overlay support
 - Download functionality
 - Real-time preview
 - Error correction levels
@@ -169,10 +222,23 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - **qrcode** - QR code generation library
 - **@types/qrcode** - TypeScript definitions
 
+### Image Processing
+
+- **browser-image-compression** - Client-side image compression
+- **exifr** - EXIF data extraction
+- **react-easy-crop** - Image cropping functionality
+
+### AI Integration
+
+- **@google/genai** - Google Gemini AI integration
+- **react-markdown** - Markdown rendering
+- **rehype-highlight** - Syntax highlighting
+
 ### Date Handling
 
 - **date-fns** - Modern date utility library
 - **react-day-picker** - Date picker component
+- **dayjs** - Lightweight date library
 
 ### Analytics
 
@@ -273,30 +339,38 @@ smart-tools/
 │   │   ├── globals.css         # Global styles
 │   │   ├── layout.tsx          # Root layout with metadata
 │   │   ├── page.tsx            # Main dashboard
-│   │   └── [tool]/             # Individual tool pages
-│   │       └── page.tsx        # Tool-specific pages
+│   │   ├── manifest.json       # PWA manifest
+│   │   ├── sw.ts              # Service worker
+│   │   ├── api/               # API routes
+│   │   │   └── generate-prompt/ # AI prompt generation
+│   │   └── [tool]/            # Individual tool pages (17 tools)
+│   │       └── page.tsx       # Tool-specific pages
 │   ├── components/
-│   │   ├── ui/                 # Shadcn/ui components
-│   │   ├── tools/              # Tool components (13 tools)
-│   │   ├── theme-provider.tsx  # Theme context
-│   │   ├── theme-toggle.tsx    # Theme switcher
-│   │   ├── header.tsx          # Navigation header
-│   │   ├── footer.tsx          # Footer component
-│   │   ├── clock.tsx           # Clock component
-│   │   ├── loading.tsx         # Loading states
-│   │   └── error-boundary.tsx  # Error handling
-│   ├── hooks/                  # Custom React hooks
+│   │   ├── ui/                # Shadcn/ui components
+│   │   ├── tools/             # Tool components (17 tools)
+│   │   ├── Image-tools/       # Image processing components
+│   │   ├── homepage/          # Homepage components
+│   │   ├── theme-provider.tsx # Theme context
+│   │   ├── theme-toggle.tsx   # Theme switcher
+│   │   ├── header.tsx         # Navigation header
+│   │   ├── footer.tsx         # Footer component
+│   │   ├── LiveClock.tsx      # Live clock component
+│   │   ├── loading.tsx        # Loading states
+│   │   └── error-boundary.tsx # Error handling
+│   ├── hooks/                 # Custom React hooks
 │   │   ├── use-dynamic-title.ts
 │   │   ├── use-mobile.ts
 │   │   ├── use-performance.ts
+│   │   ├── use-pwa.ts
 │   │   └── use-seo.ts
-│   └── lib/                    # Utility functions
-│       └── utils.ts            # Helper functions
-├── public/                     # Static assets
-├── components.json             # Shadcn/ui configuration
-├── tailwind.config.js          # Tailwind configuration
-├── next.config.ts              # Next.js configuration
-└── package.json               # Dependencies and scripts
+│   └── lib/                   # Utility functions
+│       ├── utils.ts           # Helper functions
+│       └── tools.ts           # Tools configuration
+├── public/                    # Static assets
+├── components.json            # Shadcn/ui configuration
+├── tailwind.config.js         # Tailwind configuration
+├── next.config.ts             # Next.js configuration
+└── package.json              # Dependencies and scripts
 ```
 
 ## 🎯 Key Features
@@ -310,10 +384,11 @@ smart-tools/
 
 ### Export Functionality
 
-- **PDF Export** - Download detailed reports
+- **PDF Export** - Download detailed reports and invoices
 - **Professional Formatting** - Clean, printable documents
 - **Complete Data** - All calculations and schedules included
 - **QR Code Downloads** - Save generated QR codes
+- **Image Downloads** - Save processed images in various formats
 
 ### Performance
 
@@ -329,16 +404,24 @@ smart-tools/
 - **Vercel Analytics** - Performance tracking
 - **Open Graph** - Social media sharing
 
+### AI & Image Processing
+
+- **AI-Powered Prompts** - Generate professional prompts using Google Gemini
+- **Image Processing** - Resize, convert, compress, and analyze images
+- **Real-time Processing** - Instant results with client-side processing
+- **Multiple Formats** - Support for various image and document formats
+
 ## 🔧 Customization
 
 ### Adding New Tools
 
 1. Create a new component in `src/components/tools/`
-2. Add the tool to the tools array in `src/app/page.tsx`
+2. Add the tool to the tools array in `src/lib/tools.ts`
 3. Create a page in `src/app/[tool-name]/page.tsx`
 4. Include proper TypeScript interfaces
 5. Add responsive design considerations
 6. Implement error handling
+7. Add to appropriate category (Financial, Math, Utility, etc.)
 
 ### Styling
 
@@ -374,6 +457,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Vercel** - Deployment platform
 - **Lucide** - Beautiful icons
 - **Recharts** - Charting library
+- **Google Gemini** - AI prompt generation
+- **browser-image-compression** - Image processing
+- **jsPDF** - PDF generation
+- **qrcode** - QR code generation
 
 ## 📞 Support
 
