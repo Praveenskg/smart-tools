@@ -2,49 +2,8 @@ import InvoiceGenerator from '@/components/tools/invoice-generator';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
-
-export const metadata = {
-  title: 'Free Invoice Generator Tool',
-  description:
-    'Create professional invoices quickly and easily using our free online invoice generator. Customize, preview, and download PDF invoices in seconds.',
-  keywords: [
-    'invoice generator',
-    'create invoice',
-    'free invoice template',
-    'online billing tool',
-    'PDF invoice generator',
-    'invoice maker',
-    'tools.praveensingh.online',
-    'GST invoice',
-    'freelancer invoice',
-    'business invoice tool',
-  ],
-  openGraph: {
-    title: 'Free Invoice Generator Tool',
-    description:
-      'Generate professional invoices instantly. Free, customizable, and ready to download as PDF. No signup required.',
-    url: 'https://tools.praveensingh.online/invoice-generator',
-    siteName: 'Tools by Praveen Singh',
-    type: 'website',
-    locale: 'en_IN',
-    images: [
-      {
-        url: 'https://tools.praveensingh.online/og-invoice.png',
-        width: 1200,
-        height: 630,
-        alt: 'Invoice Generator - tools.praveensingh.online',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Free Invoice Generator Tool',
-    description:
-      'Create and download invoices online in just a few clicks. Ideal for freelancers, startups, and small businesses.',
-    images: ['https://tools.praveensingh.online/og-invoice.png'],
-  },
-};
 
 export default function InvoiceGeneratorPage() {
   return (
@@ -57,10 +16,9 @@ export default function InvoiceGeneratorPage() {
                 Invoice Generator
               </h1>
               <p className='text-muted-foreground text-lg'>
-                Create, preview, and download professional invoices online in seconds.
+                Create professional invoices with multiple currencies, templates, and PDF export
               </p>
             </div>
-
             <div className='my-4 flex w-full justify-center sm:justify-start'>
               <Link href='/' className='w-full sm:w-auto'>
                 <Button variant='outline' size='sm' className='w-full'>
@@ -69,7 +27,6 @@ export default function InvoiceGeneratorPage() {
                 </Button>
               </Link>
             </div>
-
             <Card className='border-border border shadow-md'>
               <CardContent className='p-6'>
                 <InvoiceGenerator />
@@ -81,3 +38,57 @@ export default function InvoiceGeneratorPage() {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: 'Invoice Generator',
+  description:
+    'Create professional invoices with multiple currencies, tax rates, templates, and PDF export. Perfect for freelancers, small businesses, and developers.',
+  keywords: [
+    'invoice generator',
+    'create invoice',
+    'free invoice template',
+    'online billing tool',
+    'PDF invoice generator',
+    'invoice maker',
+    'multiple currencies',
+    'tax calculator',
+    'freelancer invoice',
+    'business invoice tool',
+    'smart tools',
+  ],
+  alternates: {
+    canonical: 'https://tools.praveensingh.online/invoice-generator',
+  },
+  metadataBase: new URL('https://tools.praveensingh.online'),
+  applicationName: 'Smart Tools',
+  category: 'business',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Invoice Generator | Smart Tools',
+    description:
+      'Create professional invoices with multiple currencies, templates, and PDF export. Perfect for freelancers and small businesses.',
+    url: 'https://tools.praveensingh.online/invoice-generator',
+    type: 'website',
+    siteName: 'Smart Tools',
+    locale: 'en_US',
+    images: [
+      {
+        url: 'https://tools.praveensingh.online/og/invoice-generator.png',
+        width: 1200,
+        height: 630,
+        alt: 'Invoice Generator Tool',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Invoice Generator | Smart Tools',
+    description:
+      'Create and download professional invoices online with multiple currencies and templates. Perfect for freelancers and businesses.',
+    creator: '@its_praveen_s',
+    images: ['https://tools.praveensingh.online/og/invoice-generator.png'],
+  },
+};

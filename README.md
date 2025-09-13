@@ -1,6 +1,6 @@
 # 🚀 Smart Tools - Professional Calculator Suite
 
-A modern, responsive web application built with Next.js 15 and TypeScript, featuring a comprehensive collection of 17 practical tools and calculators for professionals, students, and everyday use.
+A modern, responsive web application built with Next.js 15 and TypeScript, featuring a comprehensive collection of 17 practical tools and calculators for professionals, students, and everyday use. Includes a professional invoice generator with multi-currency support, template management, and PDF export capabilities.
 
 ![Smart Tools](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
@@ -45,13 +45,22 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Tax calculation support
 - Per-person amount breakdown
 
-#### **Invoice Generator**
+#### **Invoice Generator** ⭐ Popular
 
-- Create professional invoices
-- Add multiple line items
-- Calculate totals and taxes
-- Client and business information
-- PDF export functionality
+- **Professional Invoice Creation** - Complete business invoicing solution
+- **Multi-Currency Support** - 8 major currencies (USD, EUR, GBP, INR, CAD, AUD, JPY, CNY)
+- **Advanced Tax & Discount System** - Flexible tax rates (0%-25%) and percentage discounts
+- **Template Management** - Save, load, and manage invoice templates with localStorage
+- **Company & Client Management** - Complete contact and address information
+- **Itemized Billing** - Add multiple products/services with individual tax rates
+- **Real-time Calculations** - Automatic subtotal, discount, tax, and total calculations
+- **Professional PDF Export** - Business-ready PDF invoices with jsPDF
+- **React Hook Form Integration** - Advanced form validation with Zod schema
+- **Shadcn Day Picker** - Beautiful date selection for invoice and due dates
+- **Live Preview** - Real-time invoice preview before PDF generation
+- **Responsive Design** - Works perfectly on all devices
+- **Tabbed Interface** - Organized workflow with Create, Templates, and Preview tabs
+- **Perfect for Freelancers & Small Businesses** - Professional invoicing solution without external dependencies
 
 ### 📊 Planning & Tracking
 
@@ -216,6 +225,8 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 
 - **jsPDF** - Client-side PDF generation
 - **jspdf-autotable** - Table generation in PDFs
+- **Professional invoice layouts** with company branding
+- **Multi-currency support** in PDF exports
 
 ### QR Code Generation
 
@@ -239,6 +250,13 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - **date-fns** - Modern date utility library
 - **react-day-picker** - Date picker component
 - **dayjs** - Lightweight date library
+
+### Form Management & Validation
+
+- **react-hook-form** - Performant, flexible forms with easy validation
+- **@hookform/resolvers** - Validation resolvers for react-hook-form
+- **zod** - TypeScript-first schema validation
+- **Shadcn/ui form components** - Professional form elements
 
 ### Analytics
 
@@ -384,9 +402,11 @@ smart-tools/
 
 ### Export Functionality
 
-- **PDF Export** - Download detailed reports and invoices
-- **Professional Formatting** - Clean, printable documents
+- **PDF Export** - Download detailed reports and professional invoices
+- **Professional Formatting** - Clean, printable documents with business branding
 - **Complete Data** - All calculations and schedules included
+- **Multi-Currency Support** - Export invoices in 8 major currencies
+- **Template Management** - Save and reuse invoice templates
 - **QR Code Downloads** - Save generated QR codes
 - **Image Downloads** - Save processed images in various formats
 
@@ -410,6 +430,16 @@ smart-tools/
 - **Image Processing** - Resize, convert, compress, and analyze images
 - **Real-time Processing** - Instant results with client-side processing
 - **Multiple Formats** - Support for various image and document formats
+
+### Business & Professional Tools
+
+- **Professional Invoicing** - Complete business invoicing solution with multi-currency support
+- **Template Management** - Save and reuse invoice templates for efficiency
+- **Advanced Calculations** - Automatic tax, discount, and total calculations
+- **Form Validation** - Comprehensive validation with react-hook-form and Zod
+- **PDF Generation** - Professional PDF invoices with business branding
+- **Real-time Preview** - Live invoice preview before export
+- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
 
 ## 🔧 Customization
 
@@ -461,6 +491,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **browser-image-compression** - Image processing
 - **jsPDF** - PDF generation
 - **qrcode** - QR code generation
+- **react-hook-form** - Advanced form management
+- **Zod** - TypeScript-first schema validation
+- **date-fns** - Modern date utilities
+- **react-day-picker** - Beautiful date picker component
 
 ## 📞 Support
 
