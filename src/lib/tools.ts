@@ -3,6 +3,7 @@ import {
   Calendar,
   Clock,
   DollarSign,
+  FileText,
   Globe,
   Heart,
   Image,
@@ -161,6 +162,14 @@ export const tools = [
     description: 'Generate secure, customizable passwords with strength analysis',
     icon: Key,
     category: 'Security',
+    popular: true,
+  },
+  {
+    id: 'invoice-generator',
+    name: 'Invoice Generator',
+    description: 'Create professional invoices with multiple currencies, templates, and PDF export',
+    icon: FileText,
+    category: 'Business',
     popular: true,
   },
 ];
