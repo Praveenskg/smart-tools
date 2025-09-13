@@ -4,18 +4,22 @@ on:
   pull_request:
     types:
       - opened
-      - labeled
       - synchronize
+      - reopened
+      - labeled
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   automerge:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
-      - name: Auto-merge Dependabot PR
-        uses: pascalgn/automerge-action@v0.16.4
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          MERGE_LABELS: 'automerge'
-          MERGE_METHOD: 'squash'
-          MERGE_DELETE_BRANCH: 'true'
+      - name: Check automerge label
+        if: contains(github.event.pull_request.labels.*.name, 'automerge')
+        uses: fastify/github-action-merge-dependabot@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: squash
