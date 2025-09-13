@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://tools.praveensingh.online
+
+# Sitemaps
+Sitemap: https://tools.praveensingh.online/sitemap.xml
