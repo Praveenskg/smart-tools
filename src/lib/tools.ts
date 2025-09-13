@@ -6,6 +6,7 @@ import {
   Globe,
   Heart,
   Image,
+  Key,
   ListTodo,
   Percent,
   QrCode,
@@ -153,5 +154,13 @@ export const tools = [
     icon: TimerReset,
     category: 'Date & Time',
     popular: false,
+  },
+  {
+    id: 'password-generator',
+    name: 'Password Generator',
+    description: 'Generate secure, customizable passwords with strength analysis',
+    icon: Key,
+    category: 'Security',
+    popular: true,
   },
 ];
