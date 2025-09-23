@@ -17,9 +17,11 @@ jobs:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
-      - name: Check automerge label
+      - name: Merge Dependabot PRs with automerge label
         if: contains(github.event.pull_request.labels.*.name, 'automerge')
         uses: fastify/github-action-merge-dependabot@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           merge-method: squash
+          approve-only: false
+          use-github-auto-merge: true
