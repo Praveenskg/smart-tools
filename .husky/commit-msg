@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "📝 Validating commit message..."
+
+# Check if commitlint is available
+if ! command -v commitlint &> /dev/null; then
+  echo "⚠️ commitlint not found. Installing..."
+  npm install --save-dev @commitlint/cli @commitlint/config-conventional
+fi
+
+# Validate commit message
+npx --no -- commitlint --edit $1 || {
+  echo "❌ Invalid commit message format."
+  echo "💡 Use conventional commits format: type(scope): description"
+  echo "💡 Examples:"
+  echo "   feat: add new feature"
+  echo "   fix: resolve bug"
+  echo "   docs: update documentation"
+  echo "   style: format code"
+  echo "   refactor: restructure code"
+  echo "   test: add tests"
+  echo "   chore: update dependencies"
+  exit 1
+}
+
+echo "✅ Commit message is valid!"

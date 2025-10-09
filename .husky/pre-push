@@ -1,0 +1,50 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🚀 Running pre-push checks..."
+
+# Run full test suite
+if npm run test --dry-run >/dev/null 2>&1; then
+  echo "🧪 Running full test suite..."
+  npm test || {
+    echo "❌ Tests failed. Push aborted."
+    echo "💡 Run 'npm test' to see test failures"
+    exit 1
+  }
+else
+  echo "⚠️ No test script found. Skipping tests."
+fi
+
+# Run build
+echo "🏗️ Building application..."
+npm run build || {
+  echo "❌ Build failed. Push aborted."
+  echo "💡 Run 'npm run build' to see build errors"
+  exit 1
+}
+
+# Run type check
+echo "🔍 Type checking..."
+npm run type-check || {
+  echo "❌ TypeScript errors found. Push aborted."
+  echo "💡 Run 'npm run type-check' to see type errors"
+  exit 1
+}
+
+# Run linting
+echo "🔧 Linting..."
+npm run lint || {
+  echo "❌ Linting errors found. Push aborted."
+  echo "💡 Run 'npm run lint:fix' to auto-fix issues"
+  exit 1
+}
+
+# Security audit
+echo "🔒 Security audit..."
+npm audit --audit-level=moderate || {
+  echo "❌ Security vulnerabilities found. Push aborted."
+  echo "💡 Run 'npm audit fix' to auto-fix issues"
+  exit 1
+}
+
+echo "✅ All pre-push checks passed!"

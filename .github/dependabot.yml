@@ -7,10 +7,10 @@ updates:
     groups:
       actions-all:
         patterns:
-          - "*"
+          - '*'
     labels:
-      - "dependencies"
-      - "automerge"
+      - 'dependencies'
+      - 'automerge'
 
   - package-ecosystem: npm
     directory: /
@@ -23,7 +23,7 @@ updates:
     groups:
       npm-all:
         patterns:
-          - "*"
+          - '*'
     labels:
-      - "dependencies"
-      - "automerge"
+      - 'dependencies'
+      - 'automerge'
