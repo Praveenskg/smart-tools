@@ -17,6 +17,27 @@ const eslintConfig = [
       'jsx-a11y/alt-text': 'off',
     },
   },
+  {
+    ignores: [
+      'node_modules/',
+      '.next/',
+      'out/',
+      'build/',
+      'dist/',
+      'public/sw.js',
+      'public/sw.js.map',
+      '*.tsbuildinfo',
+      '.env*',
+      '*.log',
+      'coverage/',
+      '.vscode/',
+      '.idea/',
+      '.DS_Store',
+      'Thumbs.db',
+      '*.tmp',
+      '*.temp',
+    ],
+  },
 ];
 
 export default eslintConfig;

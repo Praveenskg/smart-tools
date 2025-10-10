@@ -24,6 +24,13 @@
     },
     "types": ["@serwist/next/typings", "jest", "@testing-library/jest-dom"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "types"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "types",
+    "__tests__/**/*"
+  ],
   "exclude": ["node_modules", "public/sw.js"]
 }
