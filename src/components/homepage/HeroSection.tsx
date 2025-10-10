@@ -12,7 +12,7 @@ export function HeroSection() {
           transition={{ delay: 0.1, duration: 0.5 }}
           className='bg-primary/10 text-primary mb-4 inline-flex items-center justify-center gap-2 rounded-full px-3 py-1 text-sm font-medium'
         >
-          🔥 15+ Tools. One Smart Suite.
+          🔬 18+ Tools. One Professional Lab.
         </motion.div>
 
         <motion.h1
@@ -21,7 +21,7 @@ export function HeroSection() {
           transition={{ delay: 0.2, duration: 0.5 }}
           className='text-foreground mx-auto max-w-4xl text-3xl leading-snug font-bold tracking-tight sm:text-4xl lg:text-5xl'
         >
-          All-in-One <span className='text-primary'>Calculator Suite</span> for Everyday Use
+          Your Professional <span className='text-primary'>Tool Laboratory</span> for Everything
         </motion.h1>
 
         <motion.p
@@ -30,8 +30,8 @@ export function HeroSection() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className='text-muted-foreground mx-auto mt-4 max-w-xl text-base sm:text-lg'
         >
-          From finance to health, productivity to planning—Smart Tools gives you everything you need
-          in one fast, privacy-first app.
+          From finance to health, productivity to planning—ToolifyLab gives you everything you need
+          in one fast, privacy-first laboratory.
         </motion.p>
 
         <motion.div
@@ -42,7 +42,7 @@ export function HeroSection() {
         >
           <Link href='#tools'>
             <button className='bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-6 py-3 font-medium transition'>
-              Explore Tools
+              Explore Lab
             </button>
           </Link>
         </motion.div>

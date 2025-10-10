@@ -1,7 +1,7 @@
 {
-  "name": "Smart Tools - Professional Calculator Suite",
-  "short_name": "Smart Tools",
-  "description": "Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.",
+  "name": "ToolifyLab - Professional Tool Laboratory",
+  "short_name": "ToolifyLab",
+  "description": "Your professional tool laboratory - comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

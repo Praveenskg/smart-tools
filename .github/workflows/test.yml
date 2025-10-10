@@ -102,13 +102,13 @@ jobs:
         run: |
           # Test build time
           time npm run build
-          
+
           # Test bundle size
           npm run build 2>&1 | grep -E "(First Load JS|Route.*Size)" || true
-          
+
           # Test type checking performance
           time npm run type-check
-          
+
           # Test linting performance
           time npm run lint
 

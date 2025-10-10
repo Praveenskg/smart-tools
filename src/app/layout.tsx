@@ -20,11 +20,11 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
-const APP_NAME = 'Smart Tools';
-const APP_DEFAULT_TITLE = 'Smart Tools - Professional Calculator Suite';
-const APP_TITLE_TEMPLATE = '%s - Smart Tools';
+const APP_NAME = 'ToolifyLab';
+const APP_DEFAULT_TITLE = 'ToolifyLab - Professional Tool Laboratory';
+const APP_TITLE_TEMPLATE = '%s - ToolifyLab';
 const APP_DESCRIPTION =
-  'Access a comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.';
+  'Your professional tool laboratory - comprehensive collection of calculators and utilities designed for professionals, students, and everyday use.';
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,

@@ -54,7 +54,7 @@ jobs:
           echo "## 📦 Build Size Analysis" >> $GITHUB_STEP_SUMMARY
           echo "| Route | Size | First Load JS |" >> $GITHUB_STEP_SUMMARY
           echo "|-------|------|---------------|" >> $GITHUB_STEP_SUMMARY
-          
+
           # Extract build sizes from Next.js output
           npm run build 2>&1 | grep -E "Route.*Size.*First Load JS" | while read line; do
             echo "| $line |" >> $GITHUB_STEP_SUMMARY
@@ -176,18 +176,18 @@ jobs:
         run: |
           echo "## ⏱️ Build Performance Metrics" >> $GITHUB_STEP_SUMMARY
           echo "Measuring build performance..." >> $GITHUB_STEP_SUMMARY
-          
+
           # Clean build
           rm -rf .next out
-          
+
           # Measure build time
           start_time=$(date +%s)
           npm run build
           end_time=$(date +%s)
           build_time=$((end_time - start_time))
-          
+
           echo "**Build Time:** ${build_time}s" >> $GITHUB_STEP_SUMMARY
-          
+
           # Measure bundle size
           if [ -d ".next" ]; then
             bundle_size=$(du -sh .next | cut -f1)

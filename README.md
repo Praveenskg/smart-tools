@@ -1,8 +1,8 @@
-# 🚀 Smart Tools - Professional Calculator Suite
+# 🔬 ToolifyLab - Professional Tool Laboratory
 
 A modern, responsive web application built with Next.js 15 and TypeScript, featuring a comprehensive collection of 17 practical tools and calculators for professionals, students, and everyday use. Includes a professional invoice generator with multi-currency support, template management, and PDF export capabilities.
 
-![Smart Tools](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
+![ToolifyLab](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)
 ![Shadcn/ui](https://img.shields.io/badge/Shadcn/ui-2.7-000000?style=for-the-badge)

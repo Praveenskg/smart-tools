@@ -46,7 +46,7 @@ jobs:
         run: |
           # Get the previous tag
           PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
-          
+
           if [ -z "$PREVIOUS_TAG" ]; then
             echo "No previous tag found, generating full changelog"
             CHANGELOG=$(git log --pretty=format:"- %s (%h)" --no-merges)
@@ -54,7 +54,7 @@ jobs:
             echo "Generating changelog from $PREVIOUS_TAG"
             CHANGELOG=$(git log --pretty=format:"- %s (%h)" --no-merges $PREVIOUS_TAG..HEAD)
           fi
-          
+
           echo "changelog<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGELOG" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -68,23 +68,23 @@ jobs:
           release_name: Release ${{ github.ref_name || inputs.version }}
           body: |
             ## 🚀 What's New
-            
+
             ${{ steps.changelog.outputs.changelog }}
-            
+
             ## 📦 Installation
-            
+
             ```bash
-            npm install smart-tools@${{ github.ref_name || inputs.version }}
+            npm install toolifylab@${{ github.ref_name || inputs.version }}
             ```
-            
+
             ## 🔗 Links
-            
+
             - [Live Demo](https://tools.praveensingh.online)
             - [Documentation](https://github.com/Praveenskg/smart-tools#readme)
             - [Report Issues](https://github.com/Praveenskg/smart-tools/issues)
-            
+
             ## 📊 Build Info
-            
+
             - **Node.js:** 22
             - **Build Time:** $(date -u)
             - **Commit:** ${{ github.sha }}
