@@ -1,0 +1,122 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Run Tests
+
+    strategy:
+      matrix:
+        node-version: [20, 22]
+
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: npm test -- --coverage --watchAll=false
+
+      - name: Upload Coverage to Codecov
+        if: matrix.node-version == 22
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+      - name: Comment Coverage on PR
+        if: github.event_name == 'pull_request' && matrix.node-version == 22
+        uses: romeovs/lcov-reporter-action@v0.3.1
+        with:
+          lcov-file: ./coverage/lcov.info
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          delete-old-comments: true
+
+  test-watch:
+    runs-on: ubuntu-latest
+    name: Test Watch Mode
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests in Watch Mode (5 minutes)
+        run: timeout 300 npm test -- --watch --verbose || true
+
+  test-performance:
+    runs-on: ubuntu-latest
+    name: Performance Tests
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Run Performance Tests
+        run: |
+          # Test build time
+          time npm run build
+          
+          # Test bundle size
+          npm run build 2>&1 | grep -E "(First Load JS|Route.*Size)" || true
+          
+          # Test type checking performance
+          time npm run type-check
+          
+          # Test linting performance
+          time npm run lint
+
+      - name: Upload Performance Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-results
+          path: |
+            .next/
+            coverage/
+          retention-days: 7

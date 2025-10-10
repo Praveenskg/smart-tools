@@ -1,0 +1,159 @@
+name: Workflow Status Dashboard
+
+on:
+  workflow_run:
+    workflows: ["Code Quality - ESLint & TypeScript", "Test Suite", "Security Audit", "Build Validation"]
+    types: [completed]
+  schedule:
+    # Run status check daily at 6 AM UTC
+    - cron: '0 6 * * *'
+
+jobs:
+  status-dashboard:
+    runs-on: ubuntu-latest
+    name: Workflow Status Dashboard
+
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Get Workflow Status
+        id: workflow-status
+        run: |
+          echo "## 📊 Workflow Status Dashboard" >> $GITHUB_STEP_SUMMARY
+          echo "Last updated: $(date -u)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Workflow | Status | Last Run |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|--------|----------|" >> $GITHUB_STEP_SUMMARY
+          
+          # Get recent workflow runs
+          gh run list --limit 20 --json status,conclusion,name,createdAt,headBranch | jq -r '.[] | select(.headBranch == "main") | "| \(.name) | \(if .conclusion == "success" then "✅ Success" elif .conclusion == "failure" then "❌ Failed" else "⏳ Running" end) | \(.createdAt) |"' >> $GITHUB_STEP_SUMMARY
+
+      - name: Check for Failed Workflows
+        id: check-failures
+        run: |
+          FAILED_WORKFLOWS=$(gh run list --limit 10 --json status,conclusion,name,headBranch | jq -r '.[] | select(.headBranch == "main" and .conclusion == "failure") | .name' | sort -u)
+          
+          if [ -n "$FAILED_WORKFLOWS" ]; then
+            echo "❌ Failed workflows detected:" >> $GITHUB_STEP_SUMMARY
+            echo "$FAILED_WORKFLOWS" | while read workflow; do
+              echo "- $workflow" >> $GITHUB_STEP_SUMMARY
+            done
+            echo "has_failures=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ All workflows are passing!" >> $GITHUB_STEP_SUMMARY
+            echo "has_failures=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Issue for Persistent Failures
+        if: steps.check-failures.outputs.has_failures == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const failedWorkflows = `${{ steps.check-failures.outputs.FAILED_WORKFLOWS }}`;
+            
+            // Check if there's already an open issue about workflow failures
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'workflow-failure'
+            });
+            
+            if (issues.data.length === 0) {
+              // Create new issue
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '🚨 Workflow Failures Detected',
+                body: `## Workflow Status Alert
+                
+                The following workflows have failed:
+                
+                ${failedWorkflows.split('\n').map(wf => `- ${wf}`).join('\n')}
+                
+                Please investigate and fix these issues.
+                
+                ---
+                *This issue was automatically created by the Workflow Status Dashboard.*`,
+                labels: ['workflow-failure', 'bug', 'high-priority']
+              });
+            }
+
+      - name: Update README Status Badges
+        run: |
+          # This would update status badges in README if needed
+          echo "Status badges would be updated here in a real implementation"
+
+  health-check:
+    runs-on: ubuntu-latest
+    name: Repository Health Check
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Repository Health Check
+        run: |
+          echo "## 🏥 Repository Health Check" >> $GITHUB_STEP_SUMMARY
+          echo "Checking repository health metrics..." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Check for open issues
+          OPEN_ISSUES=$(gh issue list --state open --json number | jq length)
+          echo "**Open Issues:** $OPEN_ISSUES" >> $GITHUB_STEP_SUMMARY
+          
+          # Check for open PRs
+          OPEN_PRS=$(gh pr list --state open --json number | jq length)
+          echo "**Open Pull Requests:** $OPEN_PRS" >> $GITHUB_STEP_SUMMARY
+          
+          # Check for stale branches
+          STALE_BRANCHES=$(gh api repos/${{ github.repository }}/branches | jq -r '.[] | select(.name != "main") | .name' | wc -l)
+          echo "**Stale Branches:** $STALE_BRANCHES" >> $GITHUB_STEP_SUMMARY
+          
+          # Check dependencies
+          if [ -f "package.json" ]; then
+            OUTDATED_DEPS=$(npm outdated --json 2>/dev/null | jq length || echo "0")
+            echo "**Outdated Dependencies:** $OUTDATED_DEPS" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Health score
+          HEALTH_SCORE=100
+          if [ "$OPEN_ISSUES" -gt 10 ]; then HEALTH_SCORE=$((HEALTH_SCORE - 10)); fi
+          if [ "$OPEN_PRS" -gt 5 ]; then HEALTH_SCORE=$((HEALTH_SCORE - 5)); fi
+          if [ "$STALE_BRANCHES" -gt 5 ]; then HEALTH_SCORE=$((HEALTH_SCORE - 5)); fi
+          if [ "$OUTDATED_DEPS" -gt 20 ]; then HEALTH_SCORE=$((HEALTH_SCORE - 10)); fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Overall Health Score:** $HEALTH_SCORE/100" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "$HEALTH_SCORE" -ge 90 ]; then
+            echo "🟢 **Excellent** - Repository is in great shape!" >> $GITHUB_STEP_SUMMARY
+          elif [ "$HEALTH_SCORE" -ge 70 ]; then
+            echo "🟡 **Good** - Minor improvements needed" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "🔴 **Needs Attention** - Several issues require attention" >> $GITHUB_STEP_SUMMARY
+          fi

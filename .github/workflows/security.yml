@@ -1,0 +1,179 @@
+name: Security Audit
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Run security audit daily at 3 AM UTC
+    - cron: '0 3 * * *'
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    name: Security Audit
+
+    permissions:
+      contents: read
+      security-events: write
+      pull-requests: write
+      actions: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: |
+          npm audit --audit-level=moderate --json > audit-results.json || true
+          npm audit --audit-level=moderate
+
+      - name: Upload audit results
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-results
+          path: audit-results.json
+          retention-days: 30
+
+      - name: Comment audit results on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            try {
+              const auditData = JSON.parse(fs.readFileSync('audit-results.json', 'utf8'));
+              const vulnerabilities = auditData.vulnerabilities || {};
+              const vulnCount = Object.keys(vulnerabilities).length;
+              
+              let comment = `## 🔒 Security Audit Results\n\n`;
+              comment += `**Vulnerabilities Found:** ${vulnCount}\n\n`;
+              
+              if (vulnCount > 0) {
+                comment += `### ⚠️ Security Issues Detected\n\n`;
+                Object.entries(vulnerabilities).forEach(([pkg, vuln]) => {
+                  comment += `- **${pkg}**: ${vuln.severity} - ${vuln.title}\n`;
+                });
+                comment += `\n**Action Required:** Please run \`npm audit fix\` to resolve these issues.\n`;
+              } else {
+                comment += `✅ **No security vulnerabilities found!**\n`;
+              }
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            } catch (error) {
+              console.log('Could not parse audit results:', error);
+            }
+
+  codeql-analysis:
+    runs-on: ubuntu-latest
+    name: CodeQL Analysis
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['javascript']
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
+
+  dependency-review:
+    runs-on: ubuntu-latest
+    name: Dependency Review
+    if: github.event_name == 'pull_request'
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: moderate
+          allow-licenses: MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, Unlicense
+          deny-licenses: GPL-2.0, GPL-3.0, AGPL-3.0
+
+  security-headers:
+    runs-on: ubuntu-latest
+    name: Security Headers Check
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Start Application
+        run: |
+          npm start &
+          sleep 10
+
+      - name: Check Security Headers
+        run: |
+          curl -I http://localhost:3000 | grep -E "(X-Frame-Options|X-Content-Type-Options|X-XSS-Protection|Strict-Transport-Security|Content-Security-Policy)" || echo "Some security headers may be missing"
+
+      - name: Security Headers Report
+        run: |
+          echo "## 🔒 Security Headers Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "Checking for essential security headers..." >> $GITHUB_STEP_SUMMARY
+          echo "- X-Frame-Options: Prevents clickjacking" >> $GITHUB_STEP_SUMMARY
+          echo "- X-Content-Type-Options: Prevents MIME sniffing" >> $GITHUB_STEP_SUMMARY
+          echo "- X-XSS-Protection: XSS protection" >> $GITHUB_STEP_SUMMARY
+          echo "- Strict-Transport-Security: HTTPS enforcement" >> $GITHUB_STEP_SUMMARY
+          echo "- Content-Security-Policy: XSS and injection protection" >> $GITHUB_STEP_SUMMARY

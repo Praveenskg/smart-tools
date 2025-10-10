@@ -1,0 +1,205 @@
+name: Build Validation
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Run build validation daily at 4 AM UTC
+    - cron: '0 4 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Production Build
+
+    strategy:
+      matrix:
+        node-version: [20, 22]
+
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts-node-${{ matrix.node-version }}
+          path: |
+            .next/
+            out/
+          retention-days: 7
+
+      - name: Build Size Analysis
+        if: matrix.node-version == 22
+        run: |
+          echo "## 📦 Build Size Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "| Route | Size | First Load JS |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|------|---------------|" >> $GITHUB_STEP_SUMMARY
+          
+          # Extract build sizes from Next.js output
+          npm run build 2>&1 | grep -E "Route.*Size.*First Load JS" | while read line; do
+            echo "| $line |" >> $GITHUB_STEP_SUMMARY
+          done
+
+  bundle-analysis:
+    runs-on: ubuntu-latest
+    name: Bundle Analysis
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Bundle Analyzer
+        run: npm install --save-dev @next/bundle-analyzer
+
+      - name: Build with Bundle Analysis
+        run: |
+          ANALYZE=true npm run build
+
+      - name: Upload Bundle Analysis
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-analysis
+          path: |
+            .next/analyze/
+          retention-days: 7
+
+  lighthouse-ci:
+    runs-on: ubuntu-latest
+    name: Lighthouse CI
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Start Application
+        run: |
+          npm start &
+          sleep 15
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          configPath: './.lighthouserc.json'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Comment Lighthouse Results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            try {
+              const lighthouseResults = JSON.parse(fs.readFileSync('.lighthouseci/assertion-results.json', 'utf8'));
+              
+              let comment = `## 🚀 Lighthouse Performance Report\n\n`;
+              comment += `### Core Web Vitals\n\n`;
+              
+              lighthouseResults.forEach(result => {
+                comment += `**${result.url}**\n`;
+                comment += `- Performance: ${result.assertions['performance']?.actual || 'N/A'}\n`;
+                comment += `- Accessibility: ${result.assertions['accessibility']?.actual || 'N/A'}\n`;
+                comment += `- Best Practices: ${result.assertions['best-practices']?.actual || 'N/A'}\n`;
+                comment += `- SEO: ${result.assertions['seo']?.actual || 'N/A'}\n\n`;
+              });
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            } catch (error) {
+              console.log('Could not parse Lighthouse results:', error);
+            }
+
+  build-performance:
+    runs-on: ubuntu-latest
+    name: Build Performance
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Measure Build Time
+        run: |
+          echo "## ⏱️ Build Performance Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "Measuring build performance..." >> $GITHUB_STEP_SUMMARY
+          
+          # Clean build
+          rm -rf .next out
+          
+          # Measure build time
+          start_time=$(date +%s)
+          npm run build
+          end_time=$(date +%s)
+          build_time=$((end_time - start_time))
+          
+          echo "**Build Time:** ${build_time}s" >> $GITHUB_STEP_SUMMARY
+          
+          # Measure bundle size
+          if [ -d ".next" ]; then
+            bundle_size=$(du -sh .next | cut -f1)
+            echo "**Bundle Size:** ${bundle_size}" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Performance Regression Check
+        run: |
+          # Check if build time is within acceptable limits
+          if [ $build_time -gt 120 ]; then
+            echo "⚠️ Build time exceeded 2 minutes: ${build_time}s"
+            exit 1
+          else
+            echo "✅ Build time is acceptable: ${build_time}s"
+          fi

@@ -1,0 +1,134 @@
+name: Deploy Preview
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    name: Deploy Preview
+
+    permissions:
+      contents: read
+      pull-requests: write
+      deployments: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Deploy to Vercel Preview
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+
+      - name: Comment Preview URL
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const previewUrl = process.env.VERCEL_URL;
+            if (previewUrl) {
+              const comment = `## 🚀 Preview Deployment Ready!
+              
+              **Preview URL:** https://${previewUrl}
+              
+              This preview will be automatically updated when you push new commits to this PR.
+              
+              ### 🔍 What's included:
+              - ✅ Latest code changes
+              - ✅ Production build
+              - ✅ All optimizations applied
+              
+              ---
+              *This preview will be automatically deleted when the PR is closed.*`;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
+  performance-check:
+    runs-on: ubuntu-latest
+    name: Performance Check
+    needs: deploy-preview
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Wait for Deployment
+        run: sleep 30
+
+      - name: Run Lighthouse on Preview
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            https://${{ needs.deploy-preview.outputs.preview-url }}
+          configPath: './.lighthouserc.json'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Performance Report
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            try {
+              const lighthouseResults = JSON.parse(fs.readFileSync('.lighthouseci/assertion-results.json', 'utf8'));
+              
+              let comment = `## 📊 Performance Report for Preview
+              
+              ### Core Web Vitals
+              
+              `;
+              
+              lighthouseResults.forEach(result => {
+                const url = result.url.replace('https://', '');
+                comment += `**${url}**\n`;
+                comment += `- Performance: ${result.assertions['performance']?.actual || 'N/A'}\n`;
+                comment += `- Accessibility: ${result.assertions['accessibility']?.actual || 'N/A'}\n`;
+                comment += `- Best Practices: ${result.assertions['best-practices']?.actual || 'N/A'}\n`;
+                comment += `- SEO: ${result.assertions['seo']?.actual || 'N/A'}\n\n`;
+              });
+              
+              comment += `---
+              *Performance checks help ensure your changes don't negatively impact user experience.*`;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            } catch (error) {
+              console.log('Could not parse Lighthouse results:', error);
+            }
