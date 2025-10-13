@@ -40,7 +40,7 @@ jobs:
           vercel-args: '--prod'
 
       - name: Comment Preview URL
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const previewUrl = process.env.VERCEL_URL;
@@ -89,7 +89,7 @@ jobs:
         run: sleep 30
 
       - name: Run Lighthouse on Preview
-        uses: treosh/lighthouse-ci-action@v10
+        uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
             https://${{ needs.deploy-preview.outputs.preview-url }}
@@ -98,7 +98,7 @@ jobs:
           temporaryPublicStorage: true
 
       - name: Performance Report
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');

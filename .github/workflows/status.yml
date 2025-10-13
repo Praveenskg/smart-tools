@@ -62,7 +62,7 @@ jobs:
 
       - name: Create Issue for Persistent Failures
         if: steps.check-failures.outputs.has_failures == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const failedWorkflows = `${{ steps.check-failures.outputs.FAILED_WORKFLOWS }}`;
