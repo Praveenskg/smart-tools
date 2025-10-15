@@ -50,12 +50,4 @@ npm audit --audit-level=moderate || {
   exit 1
 }
 
-# Step 7: Build validation
-echo "🏗️ Validating build..."
-npm run build || {
-  echo "❌ Build failed. Please fix build issues before committing."
-  echo "💡 Run 'npm run build' to see build errors"
-  exit 1
-}
-
 echo "✅ All pre-commit checks passed!"

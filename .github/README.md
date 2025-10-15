@@ -1,263 +1,85 @@
-# 🚀 CI/CD Pipeline Documentation
+# 🔧 GitHub Actions - Simple Setup
 
-This repository uses a comprehensive GitHub Actions CI/CD pipeline to ensure code quality, security, and reliability.
+This repository uses a **minimal GitHub Actions setup** with just **1 essential workflow**.
 
 ## 📋 Workflow Overview
 
-### 🔍 Code Quality - ESLint & TypeScript
+### **Code Quality Check** (`ci.yml`)
 
-- **Triggers**: Push to main/develop, PRs, daily at 1 AM UTC
-- **Purpose**: Linting, type checking, and code formatting
-- **Matrix**: Node.js 20 & 22
-- **Features**:
-  - ESLint with ReviewDog integration
-  - TypeScript type checking
-  - Prettier formatting validation
-  - PR review comments for issues
+**Triggers**: Push to main/develop, PRs
 
-### 🧪 Test Suite
+**What it does**:
 
-- **Triggers**: Push to main/develop, PRs, daily at 2 AM UTC
-- **Purpose**: Comprehensive testing and coverage
-- **Matrix**: Node.js 20 & 22
-- **Features**:
-  - Jest test execution
-  - Coverage reporting with Codecov
-  - Performance testing
-  - Test watch mode for PRs
+- ✅ TypeScript type checking
+- ✅ ESLint code quality checks
 
-### 🔒 Security Audit
+**That's it!** No complex deployments, no security audits, no performance testing - just the essential code quality checks.
 
-- **Triggers**: Push to main/develop, PRs, daily at 3 AM UTC
-- **Purpose**: Security vulnerability scanning
-- **Features**:
-  - npm audit with detailed reporting
-  - CodeQL analysis
-  - Dependency review
-  - Security headers validation
+## 🚀 Workflow Triggers
 
-### 🏗️ Build Validation
-
-- **Triggers**: Push to main/develop, PRs, daily at 4 AM UTC
-- **Purpose**: Production build verification
-- **Matrix**: Node.js 20 & 22
-- **Features**:
-  - Production build testing
-  - Bundle size analysis
-  - Lighthouse CI performance checks
-  - Build performance metrics
-
-### 🚀 Deploy Preview
-
-- **Triggers**: PRs to main/develop
-- **Purpose**: Preview deployments for PRs
-- **Features**:
-  - Vercel preview deployment
-  - Performance testing on preview
-  - Automatic PR comments with preview URL
-
-### 📦 Release
-
-- **Triggers**: Git tags, manual dispatch
-- **Purpose**: Automated releases
-- **Features**:
-  - Changelog generation
-  - GitHub release creation
-  - Build artifact upload
-  - Release notifications
-
-### 📊 Workflow Status Dashboard
-
-- **Triggers**: Workflow completions, daily at 6 AM UTC
-- **Purpose**: Monitor workflow health
-- **Features**:
-  - Workflow status tracking
-  - Failure detection and alerting
-  - Repository health metrics
-  - Automatic issue creation for persistent failures
-
-## 🛠️ Local Development
-
-### Prerequisites
-
-- Node.js 20+
-- npm 9+
-
-### Setup
-
-```bash
-# Install dependencies
-npm ci
-
-# Run tests
-npm test
-
-# Run linting
-npm run lint
-
-# Run type checking
-npm run type-check
-
-# Run security audit
-npm run audit
-
-# Build application
-npm run build
+```yaml
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
 ```
 
-### Pre-commit Hooks
+## 📊 Benefits of Simple Setup
 
-The repository uses Husky for pre-commit hooks:
+### **Ultra-Minimal**:
 
-- Code formatting with Prettier
-- Linting with ESLint
-- Type checking with TypeScript
-- Security audit
-- Test execution
-- Build validation
+- ✅ 1 workflow file only
+- ✅ 2 essential checks
+- ✅ No complex configurations
+- ✅ No secrets required
+- ✅ Fast execution (~2-3 minutes)
+- ✅ Easy to understand and maintain
 
-### Commit Message Format
+## 🎯 What Gets Checked
 
-We use conventional commits:
+1. **TypeScript Check** (`npm run type-check`)
+   - Validates all TypeScript types
+   - Catches type errors before merge
 
-```
-feat: add new feature
-fix: fix bug
-docs: update documentation
-style: formatting changes
-refactor: code refactoring
-test: add tests
-chore: maintenance tasks
-```
+2. **ESLint Check** (`npm run lint`)
+   - Code quality and style
+   - Catches potential bugs
+   - Enforces coding standards
 
-## 🔧 Configuration Files
+## 🛠️ Customization
 
-### ESLint
+### **Adding More Checks**
 
-- `eslint.config.mjs` - ESLint configuration
-- Supports Next.js, TypeScript, and accessibility rules
+If you want to add more checks later, just add steps to `ci.yml`:
 
-### Prettier
-
-- `.prettierrc` - Code formatting rules
-- Integrated with ESLint for consistent formatting
-
-### Jest
-
-- `jest.config.js` - Test configuration
-- `jest.setup.js` - Test environment setup
-- Coverage thresholds and reporting
-
-### Husky
-
-- `.husky/pre-commit` - Pre-commit validation
-- `.husky/commit-msg` - Commit message validation
-- `.husky/pre-push` - Pre-push validation
-
-### Lint-staged
-
-- `.lintstagedrc.json` - Staged file processing
-- Runs linters only on changed files
-
-## 📈 Monitoring & Metrics
-
-### Code Quality Metrics
-
-- ESLint error/warning counts
-- TypeScript type coverage
-- Code formatting compliance
-- Test coverage percentage
-
-### Performance Metrics
-
-- Build time tracking
-- Bundle size monitoring
-- Lighthouse performance scores
-- Core Web Vitals tracking
-
-### Security Metrics
-
-- Vulnerability count
-- Dependency health
-- Security header compliance
-- CodeQL analysis results
-
-## 🚨 Troubleshooting
-
-### Common Issues
-
-#### Workflow Failures
-
-1. Check the workflow logs in GitHub Actions
-2. Run the same commands locally to reproduce
-3. Check for dependency issues with `npm audit`
-4. Verify Node.js version compatibility
-
-#### Pre-commit Hook Failures
-
-```bash
-# Fix formatting issues
-npm run format
-
-# Fix linting issues
-npm run lint:fix
-
-# Check types
-npm run type-check
-
-# Run security audit
-npm run audit
+```yaml
+- name: Your New Check
+  run: your-command-here
 ```
 
-#### Test Failures
+### **Changing Triggers**
 
-```bash
-# Run tests locally
-npm test
+Update the `on:` section:
 
-# Run with coverage
-npm run test:coverage
-
-# Debug tests
-npm run test:debug
+```yaml
+on:
+  push:
+    branches: [main, develop, feature/*]
+  pull_request:
+    branches: [main]
 ```
 
-### Getting Help
+## 📈 Performance
 
-- Check workflow logs in GitHub Actions
-- Review the [GitHub Actions documentation](https://docs.github.com/en/actions)
-- Open an issue for persistent problems
-
-## 🔄 Workflow Dependencies
-
-```mermaid
-graph TD
-    A[Code Quality] --> B[Test Suite]
-    B --> C[Security Audit]
-    C --> D[Build Validation]
-    D --> E[Deploy Preview]
-    E --> F[Release]
-
-    G[Status Dashboard] --> A
-    G --> B
-    G --> C
-    G --> D
-```
-
-## 📊 Performance Benchmarks
-
-### Target Metrics
-
-- **Build Time**: < 2 minutes
-- **Test Coverage**: > 70%
-- **Lighthouse Performance**: > 80
-- **Bundle Size**: < 500KB (First Load JS)
-- **Security Vulnerabilities**: 0
-
-### Current Status
-
-Check the [Workflow Status Dashboard](https://github.com/Praveenskg/smart-tools/actions) for real-time metrics.
+| Metric               | Value           |
+| -------------------- | --------------- |
+| **Workflow Files**   | 1               |
+| **Execution Time**   | ~2-3 minutes    |
+| **Dependencies**     | Node.js 20 only |
+| **Secrets Required** | None            |
+| **Maintenance**      | Minimal         |
 
 ---
 
-_This documentation is automatically updated with workflow changes._
+**Note**: This setup focuses on the essentials - just making sure your code is properly typed and follows quality standards. Perfect for a simple, fast development workflow!

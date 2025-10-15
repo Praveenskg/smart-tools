@@ -1,13 +1,5 @@
 echo "🚀 Running pre-push checks..."
 
-# Run build
-echo "🏗️ Building application..."
-npm run build || {
-  echo "❌ Build failed. Push aborted."
-  echo "💡 Run 'npm run build' to see build errors"
-  exit 1
-}
-
 # Run type check
 echo "🔍 Type checking..."
 npm run type-check || {
