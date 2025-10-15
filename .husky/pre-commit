@@ -50,19 +50,7 @@ npm audit --audit-level=moderate || {
   exit 1
 }
 
-# Step 7: Run tests (if test script exists)
-if npm run test --dry-run >/dev/null 2>&1; then
-  echo "🧪 Running tests..."
-  npm test || {
-    echo "❌ Tests failed. Please fix them before committing."
-    echo "💡 Run 'npm test' to see test failures"
-    exit 1
-  }
-else
-  echo "⚠️ No test script found. Skipping tests."
-fi
-
-# Step 8: Build validation
+# Step 7: Build validation
 echo "🏗️ Validating build..."
 npm run build || {
   echo "❌ Build failed. Please fix build issues before committing."

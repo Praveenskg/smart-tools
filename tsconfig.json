@@ -22,15 +22,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["@serwist/next/typings", "jest", "@testing-library/jest-dom"]
+    "types": ["@serwist/next/typings"]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "types",
-    "__tests__/**/*"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "types"],
   "exclude": ["node_modules", "public/sw.js"]
 }

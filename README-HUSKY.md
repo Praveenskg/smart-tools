@@ -10,7 +10,6 @@ This document explains the enhanced Husky and pre-commit setup for the Smart Too
 - ✅ **Linting**: ESLint with auto-fix
 - ✅ **Type Checking**: TypeScript validation
 - ✅ **Security Audit**: npm audit for vulnerabilities
-- ✅ **Testing**: Runs tests if available
 - ✅ **Build Validation**: Ensures build works
 - ✅ **Smart Error Messages**: Clear, actionable feedback
 
@@ -22,7 +21,6 @@ This document explains the enhanced Husky and pre-commit setup for the Smart Too
 
 ### 3. **Pre-push Hook** (`.husky/pre-push`)
 
-- ✅ **Full Test Suite**: Runs all tests before push
 - ✅ **Build Validation**: Ensures build works
 - ✅ **Type Checking**: TypeScript validation
 - ✅ **Linting**: Code quality checks
@@ -34,24 +32,7 @@ This document explains the enhanced Husky and pre-commit setup for the Smart Too
 - ✅ **File Type Support**: JS, TS, JSON, MD, CSS, HTML
 - ✅ **Auto-fix**: Automatically fixes issues when possible
 
-### 5. **Testing Setup**
-
-- ✅ **Jest Configuration**: Ready for testing
-- ✅ **Test Scripts**: Multiple test commands
-- ✅ **Coverage**: Test coverage reporting
-- ✅ **Example Tests**: Sample test files
-
 ## 🚀 Available Commands
-
-### Testing
-
-```bash
-npm run test              # Run tests
-npm run test:setup        # Set up testing environment
-npm run test:ci           # Run tests in CI mode
-npm run test:watch        # Run tests in watch mode
-npm run test:coverage     # Run tests with coverage
-```
 
 ### Security
 
@@ -125,14 +106,6 @@ Runs full validation before pushing to remote.
 - Added lint-staged configuration
 - Added commitlint configuration
 
-### `jest.config.js`
-
-Jest configuration for testing.
-
-### `jest.setup.js`
-
-Jest setup file with mocks and global configurations.
-
 ### `.commitlintrc.js`
 
 Commitlint configuration for conventional commits.
@@ -145,12 +118,10 @@ Commitlint configuration for conventional commits.
 2. **Linting** (ESLint)
 3. **Type Checking** (TypeScript)
 4. **Security Audit** (npm audit)
-5. **Testing** (if available)
-6. **Build Validation**
+5. **Build Validation**
 
 ### Pre-push Checks
 
-1. **Full Test Suite**
 2. **Build Validation**
 3. **Type Checking**
 4. **Linting**
@@ -204,7 +175,6 @@ This will install:
 - **Code Quality**: Consistent formatting and linting
 - **Type Safety**: TypeScript validation
 - **Security**: Vulnerability scanning
-- **Testing**: Automated test execution
 - **Build Safety**: Ensures builds work
 - **Commit History**: Clean, conventional commits
 - **Developer Experience**: Clear error messages and auto-fixes
@@ -220,10 +190,9 @@ You can customize the hooks by editing the files in `.husky/` directory:
 
 ## 🚀 Next Steps
 
-1. **Set up testing**: Run `npm run test:setup`
-2. **Write tests**: Add tests to `__tests__/` directory
-3. **Customize rules**: Adjust linting and commit rules as needed
-4. **Add more hooks**: Consider adding `pre-rebase` or `post-commit` hooks
+1. **Customize rules**: Adjust linting and commit rules as needed
+2. **Customize rules**: Adjust linting and commit rules as needed
+3. **Add more hooks**: Consider adding `pre-rebase` or `post-commit` hooks
 
 ---
 

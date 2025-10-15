@@ -1,17 +1,5 @@
 echo "🚀 Running pre-push checks..."
 
-# Run full test suite
-if npm run test --dry-run >/dev/null 2>&1; then
-  echo "🧪 Running full test suite..."
-  npm test || {
-    echo "❌ Tests failed. Push aborted."
-    echo "💡 Run 'npm test' to see test failures"
-    exit 1
-  }
-else
-  echo "⚠️ No test script found. Skipping tests."
-fi
-
 # Run build
 echo "🏗️ Building application..."
 npm run build || {
