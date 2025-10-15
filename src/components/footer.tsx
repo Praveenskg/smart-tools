@@ -19,7 +19,7 @@ function Footer() {
           <div className='space-y-1'>
             <p className='text-xs sm:text-sm'>
               © {new Date().getFullYear()}{' '}
-              <span className='text-foreground font-medium'>Smart Tools</span>. Built with{' '}
+              <span className='text-foreground font-medium'>ToolifyLab</span>. Built with{' '}
               <span className='text-destructive'>❤️</span> by{' '}
               <Link
                 href='https://www.linkedin.com/in/praveenskg'

@@ -33,7 +33,7 @@ export default function Header() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
-                Smart Tools
+                ToolifyLab
               </motion.span>
               <span className='text-muted-foreground text-[10px] sm:text-xs lg:text-sm'>
                 Professional Calculator Suite

@@ -1,6 +1,6 @@
 # 🔧 Husky & Pre-commit Setup
 
-This document explains the enhanced Husky and pre-commit setup for the Smart Tools project.
+This document explains the enhanced Husky and pre-commit setup for the ToolifyLab project.
 
 ## 📋 What's Included
 

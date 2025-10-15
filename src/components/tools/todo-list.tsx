@@ -37,7 +37,7 @@ interface TodoItem {
   edited?: boolean;
 }
 
-const STORAGE_KEY = 'smart-tools-todos';
+const STORAGE_KEY = 'toolifylab-todos';
 
 export default function TodoList() {
   const [todos, setTodos] = useState<TodoItem[]>([]);

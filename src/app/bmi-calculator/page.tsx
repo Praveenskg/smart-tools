@@ -57,19 +57,19 @@ export const metadata: Metadata = {
     canonical: 'https://tools.praveensingh.online/bmi-calculator',
   },
   metadataBase: new URL('https://tools.praveensingh.online'),
-  applicationName: 'Smart Tools',
+  applicationName: 'ToolifyLab',
   category: 'health',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'BMI Calculator | Smart Tools',
+    title: 'BMI Calculator | ToolifyLab',
     description:
       'Easily calculate your BMI (Body Mass Index) and understand your health status. Quick, free, and reliable online BMI calculator.',
     url: 'https://tools.praveensingh.online/bmi-calculator',
     type: 'website',
-    siteName: 'Smart Tools',
+    siteName: 'ToolifyLab',
     locale: 'en_US',
     images: [
       {
@@ -82,9 +82,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BMI Calculator | Smart Tools',
+    title: 'BMI Calculator | ToolifyLab',
     description:
-      'Instantly calculate your BMI and understand if you’re underweight, normal, or overweight. A free and accurate tool by Smart Tools.',
+      'Instantly calculate your BMI and understand if you’re underweight, normal, or overweight. A free and accurate tool by ToolifyLab.',
     creator: '@its_praveen_s',
     images: ['https://tools.praveensingh.online/og/bmi-calculator.png'],
   },

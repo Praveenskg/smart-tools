@@ -57,19 +57,19 @@ export const metadata: Metadata = {
     canonical: 'https://tools.praveensingh.online/password-generator',
   },
   metadataBase: new URL('https://tools.praveensingh.online'),
-  applicationName: 'Smart Tools',
+  applicationName: 'ToolifyLab',
   category: 'security',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'Password Generator | Smart Tools',
+    title: 'Password Generator | ToolifyLab',
     description:
       'Generate secure, customizable passwords with strength analysis. Create strong passwords for all your accounts.',
     url: 'https://tools.praveensingh.online/password-generator',
     type: 'website',
-    siteName: 'Smart Tools',
+    siteName: 'ToolifyLab',
     locale: 'en_US',
     images: [
       {
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Password Generator | Smart Tools',
+    title: 'Password Generator | ToolifyLab',
     description:
       'Generate secure passwords with customizable options and strength analysis. Perfect for creating strong passwords for all your accounts.',
     creator: '@its_praveen_s',

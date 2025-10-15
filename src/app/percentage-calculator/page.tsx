@@ -56,19 +56,19 @@ export const metadata: Metadata = {
     canonical: 'https://tools.praveensingh.online/percentage-calculator',
   },
   metadataBase: new URL('https://tools.praveensingh.online'),
-  applicationName: 'Smart Tools',
+  applicationName: 'ToolifyLab',
   category: 'utilities',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'Percentage Calculator | Smart Tools',
+    title: 'Percentage Calculator | ToolifyLab',
     description:
       'Free online percentage calculator to find percent of a number, increase or decrease values, and more.',
     url: 'https://tools.praveensingh.online/percentage-calculator',
     type: 'website',
-    siteName: 'Smart Tools',
+    siteName: 'ToolifyLab',
     locale: 'en_US',
     images: [
       {
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Percentage Calculator | Smart Tools',
+    title: 'Percentage Calculator | ToolifyLab',
     description:
       'Calculate percentage of values, increases, decreases and more — with this free, simple online tool.',
     creator: '@its_praveen_s',

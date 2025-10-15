@@ -56,19 +56,19 @@ export const metadata: Metadata = {
     canonical: 'https://tools.praveensingh.online/area-calculator',
   },
   metadataBase: new URL('https://tools.praveensingh.online'),
-  applicationName: 'Smart Tools',
+  applicationName: 'ToolifyLab',
   category: 'utilities',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'Area Calculator | Smart Tools',
+    title: 'Area Calculator | ToolifyLab',
     description:
       'Instantly calculate the area of shapes like circles, triangles, and rectangles online for free.',
     url: 'https://tools.praveensingh.online/area-calculator',
     type: 'website',
-    siteName: 'Smart Tools',
+    siteName: 'ToolifyLab',
     locale: 'en_US',
     images: [
       {
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Area Calculator | Smart Tools',
+    title: 'Area Calculator | ToolifyLab',
     description: 'Calculate the area of different geometric shapes online with ease and accuracy.',
     creator: '@its_praveen_s',
     images: ['https://tools.praveensingh.online/og/area-calculator.png'],

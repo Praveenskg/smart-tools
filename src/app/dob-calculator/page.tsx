@@ -53,19 +53,19 @@ export const metadata: Metadata = {
     canonical: 'https://tools.praveensingh.online/dob-calculator',
   },
   metadataBase: new URL('https://tools.praveensingh.online'),
-  applicationName: 'Smart Tools',
+  applicationName: 'ToolifyLab',
   category: 'utilities',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'DOB Calculator | Smart Tools',
+    title: 'DOB Calculator | ToolifyLab',
     description:
       'Find your exact date of birth from your current age using this easy-to-use and free DOB calculator.',
     url: 'https://tools.praveensingh.online/dob-calculator',
     type: 'website',
-    siteName: 'Smart Tools',
+    siteName: 'ToolifyLab',
     locale: 'en_US',
     images: [
       {
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DOB Calculator | Smart Tools',
+    title: 'DOB Calculator | ToolifyLab',
     description:
       'Calculate your birthdate from age instantly using our free and precise DOB calculator.',
     creator: '@its_praveen_s',

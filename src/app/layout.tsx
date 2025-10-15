@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Praveen Singh' }],
   creator: 'Praveen Singh',
-  publisher: 'Smart Tools',
+  publisher: 'ToolifyLab',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Smart Tools – All-in-one Calculator Suite',
+        alt: 'ToolifyLab – Professional Tool Laboratory',
         type: 'image/png',
       },
     ],

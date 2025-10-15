@@ -16,7 +16,7 @@ interface UseDynamicTitleProps {
 export function useDynamicTitle({
   currentTool,
   selectedCategory,
-  baseTitle = 'Smart Tools',
+  baseTitle = 'ToolifyLab',
 }: UseDynamicTitleProps) {
   useEffect(() => {
     let title: string;

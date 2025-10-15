@@ -38,7 +38,7 @@ interface Goal {
   deadline: string;
   createdAt: string;
 }
-const STORAGE_KEY = 'smart-tools-goals';
+const STORAGE_KEY = 'toolifylab-goals';
 export default function GoalTracker() {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [isAddingGoal, setIsAddingGoal] = useState(false);

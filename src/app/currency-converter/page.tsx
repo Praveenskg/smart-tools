@@ -55,19 +55,19 @@ export const metadata: Metadata = {
     canonical: 'https://tools.praveensingh.online/currency-converter',
   },
   metadataBase: new URL('https://tools.praveensingh.online'),
-  applicationName: 'Smart Tools',
+  applicationName: 'ToolifyLab',
   category: 'utilities',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'Currency Converter | Smart Tools',
+    title: 'Currency Converter | ToolifyLab',
     description:
-      'Convert currencies instantly with up-to-date exchange rates. Fast, free, and accurate currency calculator by Smart Tools.',
+      'Convert currencies instantly with up-to-date exchange rates. Fast, free, and accurate currency calculator by ToolifyLab.',
     url: 'https://tools.praveensingh.online/currency-converter',
     type: 'website',
-    siteName: 'Smart Tools',
+    siteName: 'ToolifyLab',
     locale: 'en_US',
     images: [
       {
@@ -80,9 +80,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Currency Converter | Smart Tools',
+    title: 'Currency Converter | ToolifyLab',
     description:
-      'Easily convert between currencies using live exchange rates. A fast and accurate tool by Smart Tools.',
+      'Easily convert between currencies using live exchange rates. A fast and accurate tool by ToolifyLab.',
     creator: '@its_praveen_s',
     images: ['https://tools.praveensingh.online/og/currency-converter.png'],
   },

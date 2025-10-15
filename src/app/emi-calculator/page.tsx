@@ -24,19 +24,19 @@ export const metadata: Metadata = {
     canonical: 'https://tools.praveensingh.online/emi-calculator',
   },
   metadataBase: new URL('https://tools.praveensingh.online'),
-  applicationName: 'Smart Tools',
+  applicationName: 'ToolifyLab',
   category: 'financial',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'EMI Calculator | Smart Tools',
+    title: 'EMI Calculator | ToolifyLab',
     description:
       'Easily calculate monthly EMIs for home loans, car loans, personal loans, and credit card payments with our accurate online EMI calculator.',
     url: 'https://tools.praveensingh.online/emi-calculator',
     type: 'website',
-    siteName: 'Smart Tools',
+    siteName: 'ToolifyLab',
     locale: 'en_US',
     images: [
       {
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EMI Calculator | Smart Tools',
+    title: 'EMI Calculator | ToolifyLab',
     description:
       'Free EMI Calculator for home, car, personal loans, and credit card payments. Plan your finances with ease.',
     creator: '@its_praveen_s',

@@ -73,7 +73,7 @@ export function LoadingPage() {
       <div className='space-y-3 text-center sm:space-y-4'>
         <div className='flex items-center justify-center gap-1 sm:gap-2'>
           <Sparkles className='text-primary h-6 w-6 animate-pulse sm:h-8 sm:w-8' />
-          <h1 className='text-primary text-xl font-bold sm:text-2xl'>Smart Tools</h1>
+          <h1 className='text-primary text-xl font-bold sm:text-2xl'>ToolifyLab</h1>
           <Sparkles
             className='text-primary h-6 w-6 animate-pulse sm:h-8 sm:w-8'
             style={{ animationDelay: '0.5s' }}

@@ -58,19 +58,19 @@ export const metadata: Metadata = {
     canonical: 'https://tools.praveensingh.online/prompt-generator',
   },
   metadataBase: new URL('https://tools.praveensingh.online'),
-  applicationName: 'Smart Tools',
+  applicationName: 'ToolifyLab',
   category: 'utilities',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'Prompt Generator | Smart Tools',
+    title: 'Prompt Generator | ToolifyLab',
     description:
       'Generate AI prompts easily for chat, creativity, writing, and more. Select styles like funny, formal, or creative!',
     url: 'https://tools.praveensingh.online/prompt-generator',
     type: 'website',
-    siteName: 'Smart Tools',
+    siteName: 'ToolifyLab',
     locale: 'en_US',
     images: [
       {
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Prompt Generator | Smart Tools',
+    title: 'Prompt Generator | ToolifyLab',
     description:
       'Free prompt generator tool to create ChatGPT prompts in different styles like funny, formal, or creative.',
     creator: '@its_praveen_s',

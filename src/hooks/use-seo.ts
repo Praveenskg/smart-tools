@@ -118,7 +118,7 @@ export function generateToolStructuredData(tool: {
     },
     'publisher': {
       '@type': 'Organization',
-      'name': 'Smart Tools',
+      'name': 'ToolifyLab',
     },
   };
 }

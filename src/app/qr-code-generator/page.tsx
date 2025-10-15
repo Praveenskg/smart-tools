@@ -56,19 +56,19 @@ export const metadata: Metadata = {
     canonical: 'https://tools.praveensingh.online/qr-code-generator',
   },
   metadataBase: new URL('https://tools.praveensingh.online'),
-  applicationName: 'Smart Tools',
+  applicationName: 'ToolifyLab',
   category: 'utilities',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'QR Code Generator | Smart Tools',
+    title: 'QR Code Generator | ToolifyLab',
     description:
       'Create QR codes for websites, text, email, contact info, and more. Quick, customizable, and completely free.',
     url: 'https://tools.praveensingh.online/qr-code-generator',
     type: 'website',
-    siteName: 'Smart Tools',
+    siteName: 'ToolifyLab',
     locale: 'en_US',
     images: [
       {
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'QR Code Generator | Smart Tools',
+    title: 'QR Code Generator | ToolifyLab',
     description:
       'Generate custom QR codes online for free — perfect for links, WiFi, contact cards, and more.',
     creator: '@its_praveen_s',

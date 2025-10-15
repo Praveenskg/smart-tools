@@ -309,8 +309,8 @@ The application is fully responsive and optimized for:
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/praveenskg/smart-tools.git
-   cd smart-tools
+   git clone https://github.com/praveenskg/toolifylab.git
+   cd toolifylab
    ```
 
 2. **Install dependencies**
@@ -351,7 +351,7 @@ npm run clean        # Clean build files
 ## 📁 Project Structure
 
 ```
-smart-tools/
+toolifylab/
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── globals.css         # Global styles
@@ -506,7 +506,7 @@ If you have any questions or need help:
 
 ## 🌟 Live Demo
 
-Visit the live application: [Smart Tools](https://tools.praveensingh.online)
+Visit the live application: [ToolifyLab](https://tools.praveensingh.online)
 
 ---
 

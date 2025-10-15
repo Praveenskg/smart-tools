@@ -28,7 +28,7 @@ export function InstallBanner() {
     >
       <div className='container flex w-full flex-row flex-wrap items-center justify-between gap-3 pr-8'>
         <div className='flex flex-col'>
-          <p className='text-md font-medium'>Install Smart Tools?</p>
+          <p className='text-md font-medium'>Install ToolifyLab?</p>
           <p className='text-sm opacity-80'>Use it like a native app!</p>
         </div>
         <div className='flex items-center gap-2'>
