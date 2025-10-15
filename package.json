@@ -13,15 +13,10 @@
     "format": "prettier --write .",
     "prepare": "husky",
     "postbuild": "next-sitemap",
-    "safe-upgrade": "npx npm-check-updates -u && npm install",
     "audit": "npm audit",
     "audit:fix": "npm audit fix",
     "security": "npm audit --audit-level=moderate",
-    "pre-commit": "lint-staged",
-    "validate": "npm run type-check && npm run lint && npm run build",
-    "analyze": "ANALYZE=true npm run build",
-    "lighthouse": "lighthouse-ci",
-    "health-check": "npm audit && npm run type-check && npm run lint"
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "@google/genai": "^1.25.0",

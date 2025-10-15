@@ -37,7 +37,6 @@ npm run security          # Run security check
 ### Quality Assurance
 
 ```bash
-npm run validate          # Run all quality checks
 npm run pre-commit        # Run lint-staged
 ```
 
