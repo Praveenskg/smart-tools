@@ -12,19 +12,13 @@ This document explains the enhanced Husky and pre-commit setup for the Smart Too
 - ✅ **Security Audit**: npm audit for vulnerabilities
 - ✅ **Smart Error Messages**: Clear, actionable feedback
 
-### 2. **Commit Message Validation** (`.husky/commit-msg`)
-
-- ✅ **Conventional Commits**: Enforces standard commit format
-- ✅ **Auto-installation**: Installs commitlint if missing
-- ✅ **Clear Examples**: Shows proper commit message format
-
-### 3. **Pre-push Hook** (`.husky/pre-push`)
+### 2. **Pre-push Hook** (`.husky/pre-push`)
 
 - ✅ **Type Checking**: TypeScript validation
 - ✅ **Linting**: Code quality checks
 - ✅ **Security Audit**: Vulnerability scanning
 
-### 4. **Lint-staged Configuration**
+### 3. **Lint-staged Configuration**
 
 - ✅ **Performance**: Only processes staged files
 - ✅ **File Type Support**: JS, TS, JSON, MD, CSS, HTML
@@ -47,52 +41,11 @@ npm run validate          # Run all quality checks
 npm run pre-commit        # Run lint-staged
 ```
 
-## 📝 Commit Message Format
-
-Use conventional commits format:
-
-```
-type(scope): description
-
-[optional body]
-
-[optional footer]
-```
-
-### Types
-
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes
-- `refactor`: Code refactoring
-- `perf`: Performance improvements
-- `test`: Adding or updating tests
-- `chore`: Maintenance tasks
-- `ci`: CI/CD changes
-- `build`: Build system changes
-- `revert`: Reverting changes
-
-### Examples
-
-```bash
-feat: add new calculator tool
-fix: resolve currency conversion bug
-docs: update README with new features
-style: format code with prettier
-test: add unit tests for utility functions
-chore: update dependencies
-```
-
 ## 🔧 Configuration Files
 
 ### `.husky/pre-commit`
 
 Enhanced pre-commit hook with comprehensive checks.
-
-### `.husky/commit-msg`
-
-Validates commit messages using conventional commits.
 
 ### `.husky/pre-push`
 
@@ -100,13 +53,7 @@ Runs full validation before pushing to remote.
 
 ### `package.json`
 
-- Added test scripts
 - Added lint-staged configuration
-- Added commitlint configuration
-
-### `.commitlintrc.js`
-
-Commitlint configuration for conventional commits.
 
 ## 🎯 Quality Gates
 
@@ -172,7 +119,6 @@ This will install:
 - **Type Safety**: TypeScript validation
 - **Security**: Vulnerability scanning
 - **Build Safety**: Ensures builds work
-- **Commit History**: Clean, conventional commits
 - **Developer Experience**: Clear error messages and auto-fixes
 
 ## 🔧 Customization
@@ -180,7 +126,6 @@ This will install:
 You can customize the hooks by editing the files in `.husky/` directory:
 
 - Modify `.husky/pre-commit` to add/remove checks
-- Update `.husky/commit-msg` to change commit message rules
 - Edit `.husky/pre-push` to modify push validation
 - Adjust `package.json` scripts for different behaviors
 

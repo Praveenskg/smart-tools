@@ -60,8 +60,6 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.1.0",
-    "@commitlint/config-conventional": "^20.0.0",
     "@eslint/css": "^0.12.0",
     "@eslint/eslintrc": "^3",
     "@eslint/js": "^9.37.0",
@@ -100,49 +98,5 @@
     "*.{ts,tsx}": [
       "tsc --noEmit"
     ]
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
-    "rules": {
-      "type-enum": [
-        2,
-        "always",
-        [
-          "feat",
-          "fix",
-          "docs",
-          "style",
-          "refactor",
-          "perf",
-          "test",
-          "chore",
-          "ci",
-          "build",
-          "revert"
-        ]
-      ],
-      "subject-case": [
-        2,
-        "never",
-        [
-          "sentence-case",
-          "start-case",
-          "pascal-case",
-          "upper-case"
-        ]
-      ],
-      "subject-max-length": [
-        2,
-        "always",
-        100
-      ],
-      "body-max-line-length": [
-        2,
-        "always",
-        100
-      ]
-    }
   }
 }
