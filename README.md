@@ -1,14 +1,105 @@
-# 🔬 ToolifyLab - Professional Tool Laboratory
+# 🔬 ToolifyLab - Your Professional Tool Laboratory
 
-A modern, responsive web application built with Next.js 15 and TypeScript, featuring a comprehensive collection of 17 practical tools and calculators for professionals, students, and everyday use. Includes a professional invoice generator with multi-currency support, template management, and PDF export capabilities.
+A modern, responsive web application built with Next.js 15 and TypeScript, featuring a comprehensive collection of 19 professional tools and calculators designed for professionals, students, and everyday use. From finance to health, productivity to planning—ToolifyLab gives you everything you need in one fast, privacy-first laboratory. Includes a professional invoice generator with multi-currency support, template management, and PDF export capabilities.
 
-![ToolifyLab](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)
+![ToolifyLab](https://img.shields.io/badge/Next.js-15.5.5-black?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?style=for-the-badge&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.14-38B2AC?style=for-the-badge&logo=tailwind-css)
 ![Shadcn/ui](https://img.shields.io/badge/Shadcn/ui-2.7-000000?style=for-the-badge)
-![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
+![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=for-the-badge&logo=react)
+![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg?style=for-the-badge)
+![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/praveenskg/toolifylab?style=for-the-badge&logo=github)
+![GitHub forks](https://img.shields.io/github/forks/praveenskg/toolifylab?style=for-the-badge&logo=github)
+
+## 📋 Table of Contents
+
+- [📜 Code of Conduct](#-code-of-conduct)
+- [✨ Features](#-features)
+- [🚀 Getting Started](#-getting-started)
+- [🛠️ Technology Stack](#️-technology-stack)
+- [🧪 Testing](#-testing)
+- [🚀 Deployment](#-deployment)
+- [🎨 Design Features](#-design-features)
+- [📱 Responsive Design](#-responsive-design)
+- [🔒 Security](#-security)
+- [🤝 Contributing](#-contributing)
+- [📝 License](#-license)
+- [📈 Roadmap](#-roadmap)
+- [❓ FAQ](#-faq)
+- [📞 Community & Support](#-community--support)
+- [📋 Changelog](#-changelog)
+- [🙏 Acknowledgments](#-acknowledgments)
+- [🌟 Live Demo](#-live-demo)
+
+## 📜 Code of Conduct
+
+This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md) to ensure a welcoming environment for all contributors and users. By participating, you agree to:
+
+### 🤝 Our Standards
+
+**Positive Behavior:**
+
+- Being respectful and inclusive
+- Providing constructive feedback
+- Accepting responsibility for mistakes
+- Focusing on what is best for the community
+- Showing empathy towards other community members
+
+**Unacceptable Behavior:**
+
+- Harassment, discrimination, or offensive comments
+- Personal attacks or trolling
+- Publishing others' private information
+- Any other conduct that could reasonably be considered inappropriate
+
+### 🚨 Reporting Issues
+
+If you experience or witness unacceptable behavior, or have any other concerns, please email the project maintainers or create a private issue report.
+
+### 📋 Enforcement
+
+Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned with this Code of Conduct.
 
 ## ✨ Features
+
+### 🤖 AI Tools (1 Tool)
+
+#### **Prompt Generator** ⭐ Popular
+
+- Generate powerful, tailored AI prompts instantly
+- Multiple prompt styles (Creative, Technical, Business, etc.)
+- Real-time prompt generation using AI
+- Copy to clipboard functionality
+- Prompt history and management
+- Professional prompt engineering
+
+### 🖼️ Image Tools (1 Tool)
+
+#### **Image Tools** ⭐ Popular
+
+- **Image Resizer** - Resize images to specific dimensions
+- **Image Converter** - Convert between different formats (JPEG, PNG, WebP)
+- **Image Compressor** - Reduce file size while maintaining quality
+- **Color Picker** - Extract colors from images
+- **Metadata Viewer** - View image EXIF data and properties
+- Batch processing capabilities
+- Real-time preview
+- Download processed images
+
+### 🛠️ Utility Tools (2 Tools)
+
+#### **QR Code Generator** ⭐ Popular
+
+- Create custom QR codes for URLs, text, emails, and more
+- Multiple QR code formats
+- Customizable colors and sizes
+- Logo overlay support
+- Download functionality
+- Real-time preview
+- Error correction levels
 
 ### 🏦 Financial Tools (5 Tools)
 
@@ -45,6 +136,8 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Tax calculation support
 - Per-person amount breakdown
 
+### 💼 Business Tools (1 Tool)
+
 #### **Invoice Generator** ⭐ Popular
 
 - **Professional Invoice Creation** - Complete business invoicing solution
@@ -62,7 +155,7 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - **Tabbed Interface** - Organized workflow with Create, Templates, and Preview tabs
 - **Perfect for Freelancers & Small Businesses** - Professional invoicing solution without external dependencies
 
-### 📊 Planning & Tracking
+### 📊 Planning & Tracking (2 Tools)
 
 #### **Goal Tracker** ⭐ Popular
 
@@ -155,7 +248,18 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Metric and imperial units support
 - Visual health status display
 
-### 🔄 Conversion Tools
+### 🔐 Security Tools (1 Tool)
+
+#### **Password Generator** ⭐ Popular
+
+- Generate secure, customizable passwords
+- Strength analysis and validation
+- Multiple character set options
+- Length customization
+- Copy to clipboard functionality
+- Password history
+
+### 🔄 Conversion Tools (1 Tool)
 
 #### **Unit Converter**
 
@@ -178,41 +282,19 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - Prompt history and management
 - Professional prompt engineering
 
-### 🖼️ Image Tools
-
-#### **Image Tools** ⭐ Popular
-
-- **Image Resizer** - Resize images to specific dimensions
-- **Image Converter** - Convert between different formats (JPEG, PNG, WebP)
-- **Image Compressor** - Reduce file size while maintaining quality
-- **Color Picker** - Extract colors from images
-- **Metadata Viewer** - View image EXIF data and properties
-- Batch processing capabilities
-- Real-time preview
-- Download processed images
-
-### 🛠️ Utility Tools
-
-#### **QR Code Generator** ⭐ Popular
-
-- Create custom QR codes for URLs, text, emails, and more
-- Multiple QR code formats
-- Customizable colors and sizes
-- Logo overlay support
-- Download functionality
-- Real-time preview
-- Error correction levels
-
 ## 🛠️ Technology Stack
 
 ### Frontend
 
-- **Next.js 15** - React framework with App Router
-- **React 19** - Latest React version
-- **TypeScript 5** - Type-safe JavaScript
-- **Tailwind CSS 4** - Utility-first CSS framework
+- **Next.js 15.5.5** - React framework with App Router
+- **React 19.2.0** - Latest React version
+- **TypeScript 5.6** - Type-safe JavaScript
+- **Tailwind CSS 4.1.14** - Utility-first CSS framework
 - **Shadcn/ui** - Modern component library
 - **Lucide React** - Beautiful icons
+- **Motion 12.23.24** - Animation library for smooth interactions
+- **Next Themes 0.4.6** - Theme management for dark/light modes
+- **Sonner 2.0.7** - Toast notifications
 
 ### Charts & Visualization
 
@@ -244,6 +326,12 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - **@google/genai** - Google Gemini AI integration
 - **react-markdown** - Markdown rendering
 - **rehype-highlight** - Syntax highlighting
+- **remove-markdown** - Strip markdown formatting
+
+### File Upload & Processing
+
+- **react-dropzone** - Drag and drop file uploads
+- **react-easy-crop** - Image cropping functionality
 
 ### Date Handling
 
@@ -258,6 +346,11 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - **zod** - TypeScript-first schema validation
 - **Shadcn/ui form components** - Professional form elements
 
+### PWA & Service Workers
+
+- **@serwist/next 9.2.1** - Service worker for PWA functionality
+- **Serwist 9.2.1** - Progressive Web App framework
+
 ### Analytics
 
 - **@vercel/analytics** - Web analytics
@@ -267,6 +360,85 @@ A modern, responsive web application built with Next.js 15 and TypeScript, featu
 - **React Hooks** - useState, useEffect, useCallback, useMemo
 - **Local Storage** - Client-side data persistence
 - **Custom Hooks** - useDynamicTitle, useMobile, usePerformance, useSEO
+
+## 🧪 Testing
+
+### Current Testing Setup
+
+ToolifyLab currently uses manual testing and linting for code quality. We are working on implementing a comprehensive testing strategy.
+
+### 🛠️ Code Quality Tools
+
+```bash
+# Run ESLint for code linting
+npm run lint
+
+# Fix ESLint issues automatically
+npm run lint:fix
+
+# Type checking with TypeScript
+npm run type-check
+
+# Format code with Prettier
+npm run format
+```
+
+### 🚀 Future Testing Implementation
+
+We plan to implement:
+
+- **Unit Tests**: Jest + React Testing Library for component testing
+- **Integration Tests**: Testing tool functionality and user workflows
+- **E2E Tests**: Playwright or Cypress for full user journey testing
+- **Visual Regression Tests**: Chromatic or similar for UI consistency
+- **Performance Tests**: Lighthouse CI for performance monitoring
+
+### 🤝 Contributing to Testing
+
+Help us improve test coverage by:
+
+- Adding unit tests for new components
+- Creating integration tests for complex features
+- Setting up E2E test scenarios
+- Improving test documentation
+
+## 🚀 Deployment
+
+### Production Build
+
+```bash
+# Create production build
+npm run build
+
+# Start production server
+npm run start
+
+# Build and serve with one command
+npm run build && npm run start
+```
+
+### Deployment Platforms
+
+ToolifyLab is designed to work with modern deployment platforms:
+
+- **Vercel** (Recommended) - Automatic deployments, preview deployments
+- **Netlify** - Static site hosting with form handling
+- **Railway** - Full-stack deployment with database support
+- **AWS Amplify** - Scalable hosting with CI/CD
+- **GitHub Pages** - Free static hosting
+
+### Environment Variables
+
+Create a `.env.local` file for local development:
+
+```env
+# Add your environment variables here
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+### PWA Deployment
+
+ToolifyLab includes PWA features that work automatically when deployed to HTTPS domains.
 
 ## 🎨 Design Features
 
@@ -346,6 +518,13 @@ npm run lint         # Run ESLint
 npm run lint:fix     # Fix ESLint issues
 npm run type-check   # TypeScript type checking
 npm run clean        # Clean build files
+npm run format       # Format code with Prettier
+npm run prepare      # Set up Husky for git hooks
+npm run postbuild    # Generate sitemap after build
+npm run audit        # Run npm security audit
+npm run audit:fix    # Fix npm security vulnerabilities
+npm run security     # Run security audit with moderate level
+npm run pre-commit   # Run pre-commit hooks (lint-staged)
 ```
 
 ## 📁 Project Structure
@@ -361,11 +540,11 @@ toolifylab/
 │   │   ├── sw.ts              # Service worker
 │   │   ├── api/               # API routes
 │   │   │   └── generate-prompt/ # AI prompt generation
-│   │   └── [tool]/            # Individual tool pages (17 tools)
-│   │       └── page.tsx       # Tool-specific pages
-│   ├── components/
-│   │   ├── ui/                # Shadcn/ui components
-│   │   ├── tools/             # Tool components (17 tools)
+   │   │   └── [tool]/            # Individual tool pages (19 tools)
+   │   │       └── page.tsx       # Tool-specific pages
+   │   ├── components/
+   │   │   ├── ui/                # Shadcn/ui components
+   │   │   ├── tools/             # Tool components (19 tools)
 │   │   ├── Image-tools/       # Image processing components
 │   │   ├── homepage/          # Homepage components
 │   │   ├── theme-provider.tsx # Theme context
@@ -384,10 +563,18 @@ toolifylab/
 │   └── lib/                   # Utility functions
 │       ├── utils.ts           # Helper functions
 │       └── tools.ts           # Tools configuration
-├── public/                    # Static assets
+├── public/                    # Static assets and PWA icons
 ├── components.json            # Shadcn/ui configuration
-├── tailwind.config.js         # Tailwind configuration
+├── tailwind.config.ts         # Tailwind configuration
 ├── next.config.ts             # Next.js configuration
+├── next-sitemap.config.js     # Sitemap generation config
+├── eslint.config.mjs          # ESLint configuration
+├── postcss.config.mjs         # PostCSS configuration
+├── tsconfig.json              # TypeScript configuration
+├── README-HUSKY.md            # Husky git hooks documentation
+├── BRAND.md                   # Brand guidelines
+├── types/                     # Global type definitions
+│   └── global.d.ts           # Global TypeScript declarations
 └── package.json              # Dependencies and scripts
 ```
 
@@ -467,17 +654,178 @@ toolifylab/
 - Smooth color transitions
 - Professional micro-interactions
 
+## 🔒 Security
+
+We take security seriously. If you discover a security vulnerability, please follow these steps:
+
+### 🚨 Reporting Security Vulnerabilities
+
+**Do not** create public GitHub issues for security vulnerabilities.
+
+Instead, please report security vulnerabilities by emailing:
+
+- **Email**: [security@toolifylab.com](mailto:security@toolifylab.com)
+- **Subject**: `[SECURITY] ToolifyLab Vulnerability Report`
+
+Include the following information in your report:
+
+- A clear description of the vulnerability
+- Steps to reproduce the issue
+- Potential impact
+- Any suggested fixes (optional)
+
+### 🛡️ Security Best Practices
+
+- All user data is processed client-side and never stored on servers
+- No user authentication or personal data collection
+- Regular security audits and dependency updates
+- Content Security Policy (CSP) implementation
+- HTTPS enforcement
+
+### 🔄 Vulnerability Disclosure
+
+We will:
+
+- Acknowledge receipt of your report within 48 hours
+- Provide a more detailed response within 7 days indicating next steps
+- Keep you informed about our progress throughout the process
+- Credit you (if desired) once the issue is resolved
+
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+We welcome contributions from the community! Please read our [Contributing Guide](CONTRIBUTING.md) for detailed information on:
+
+- Development setup and workflow
+- Code style and standards
+- Submitting pull requests
+- Types of contributions we accept
+
+Here's a quick overview of how you can help:
+
+### 🚀 Quick Start
+
+1. **Fork** the repository
+2. **Clone** your fork: `git clone https://github.com/your-username/toolifylab.git`
+3. **Create** a feature branch: `git checkout -b feature/amazing-feature`
+4. **Install** dependencies: `npm install`
+5. **Start** development: `npm run dev`
+
+### 📝 Development Guidelines
+
+- Follow the existing code style and conventions
+- Write clear, concise commit messages
+- Add tests for new features
+- Update documentation as needed
+- Ensure all tests pass before submitting
+
+### 🐛 Bug Reports & Feature Requests
+
+- **Bug Reports**: Use the [Bug Report template](.github/ISSUE_TEMPLATE/bug_report.md)
+- **Feature Requests**: Use the [Feature Request template](.github/ISSUE_TEMPLATE/feature_request.md)
+- **Questions**: Check the [FAQ](#-faq) first, then create a discussion
+
+### 💻 Pull Request Process
+
+1. Update the README.md with details of changes if needed
+2. Update the version numbers in relevant files
+3. Follow conventional commit format for PR titles
+4. Ensure CI/CD checks pass
+5. Request review from maintainers
+
+### 🎯 Types of Contributions
+
+- 🐛 **Bug fixes** - Fix existing issues
+- ✨ **Features** - Add new functionality
+- 📚 **Documentation** - Improve docs and guides
+- 🧪 **Tests** - Add or improve test coverage
+- 🎨 **UI/UX** - Improve user interface and experience
+- 🌐 **Internationalization** - Add language support
 
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📈 Roadmap
+
+### 🚀 Short-term Goals (Next 3-6 months)
+
+- [ ] **Testing Infrastructure**: Implement Jest + React Testing Library
+- [ ] **Performance Optimization**: Code splitting and lazy loading improvements
+- [ ] **Offline Support**: Enhanced PWA features with better caching
+- [ ] **Accessibility**: WCAG 2.1 AA compliance improvements
+- [ ] **Internationalization**: Multi-language support (starting with Hindi, Spanish, French)
+
+### 🎯 Medium-term Goals (6-12 months)
+
+- [ ] **Mobile App**: React Native companion app
+- [ ] **API Integration**: Currency exchange rates, weather data, stock prices
+- [ ] **Advanced Analytics**: User behavior tracking and tool usage statistics
+- [ ] **Collaboration Features**: Shared tool instances and team workspaces
+- [ ] **Plugin System**: Third-party tool integrations
+
+### 🌟 Long-term Vision (1-2 years)
+
+- [ ] **AI Integration**: Advanced AI-powered tools and recommendations
+- [ ] **Enterprise Features**: SSO, audit logs, compliance certifications
+- [ ] **White-label Solutions**: Custom branding for organizations
+- [ ] **API Platform**: RESTful APIs for tool integrations
+- [ ] **Advanced Customization**: User dashboards and personalized tool sets
+
+### 📊 Feature Requests & Voting
+
+Have an idea for ToolifyLab? Check out our [feature request board](https://github.com/praveenskg/toolifylab/discussions/categories/feature-requests) and vote on existing suggestions!
+
+## ❓ FAQ
+
+### General Questions
+
+**Q: Is ToolifyLab free to use?**
+A: Yes! ToolifyLab is completely free and open source. All tools work offline and don't require any registration.
+
+**Q: Do I need to create an account?**
+A: No accounts required! All your data stays on your device using local storage.
+
+**Q: Is my data secure?**
+A: Absolutely. ToolifyLab processes everything client-side and never sends data to external servers.
+
+**Q: Can I use ToolifyLab offline?**
+A: Yes! Install it as a PWA and use all tools without internet connection.
+
+### Technical Questions
+
+**Q: Which browsers are supported?**
+A: Modern browsers including Chrome, Firefox, Safari, and Edge (last 2 versions).
+
+**Q: How do I report a bug?**
+A: Create an issue on GitHub using the [Bug Report template](.github/ISSUE_TEMPLATE/bug_report.md).
+
+**Q: Can I contribute code?**
+A: Definitely! See our [Contributing Guide](#-contributing) for details.
+
+**Q: How do I suggest a new tool?**
+A: Open a [Feature Request discussion](https://github.com/praveenskg/toolifylab/discussions/new?category=feature-requests).
+
+### Development Questions
+
+**Q: What technologies does ToolifyLab use?**
+A: Built with Next.js 15, React 19, TypeScript, and Tailwind CSS. See [Technology Stack](#️-technology-stack) for details.
+
+**Q: How do I run ToolifyLab locally?**
+A: Clone the repo, run `npm install`, then `npm run dev`. See [Getting Started](#-getting-started).
+
+**Q: Can I deploy ToolifyLab to my own server?**
+A: Yes! It's a standard Next.js app that can be deployed to Vercel, Netlify, or any hosting platform.
+
+### Tool-specific Questions
+
+**Q: Why do some calculations seem different from other apps?**
+A: Each tool follows industry-standard formulas. If you notice discrepancies, please report them with specific examples.
+
+**Q: Can I export my data from ToolifyLab?**
+A: Yes! Tools like Invoice Generator and Goal Tracker support PDF exports. Data is also stored locally in your browser.
+
+**Q: How accurate are the currency conversions?**
+A: We use reliable exchange rate APIs, but rates fluctuate. For financial decisions, always verify with official sources.
 
 ## 🙏 Acknowledgments
 
@@ -488,6 +836,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Lucide** - Beautiful icons
 - **Recharts** - Charting library
 - **Google Gemini** - AI prompt generation
+- **Motion** - Smooth animations and transitions
+- **Serwist** - Progressive Web App framework
 - **browser-image-compression** - Image processing
 - **jsPDF** - PDF generation
 - **qrcode** - QR code generation
@@ -495,14 +845,110 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Zod** - TypeScript-first schema validation
 - **date-fns** - Modern date utilities
 - **react-day-picker** - Beautiful date picker component
+- **react-dropzone** - Drag and drop file uploads
+- **Sonner** - Elegant toast notifications
 
-## 📞 Support
+## 📞 Community & Support
 
-If you have any questions or need help:
+### 🤝 Getting Help
 
-- Open an issue on GitHub
-- Check the documentation
-- Review the code examples
+If you have questions or need help:
+
+- 📖 **Documentation**: Check this README and our [Wiki](https://github.com/praveenskg/toolifylab/wiki)
+- 🐛 **Bug Reports**: [Create an issue](https://github.com/praveenskg/toolifylab/issues/new?template=bug_report.md)
+- 💡 **Feature Requests**: [Start a discussion](https://github.com/praveenskg/toolifylab/discussions/new?category=feature-requests)
+- 💬 **General Questions**: [Q&A Discussions](https://github.com/praveenskg/toolifylab/discussions/categories/q-a)
+- 📧 **Security Issues**: [security@toolifylab.com](mailto:security@toolifylab.com)
+
+### 🌐 Community Resources
+
+- **GitHub Discussions**: Join conversations with other users and contributors
+- **GitHub Issues**: Track bugs, features, and improvements
+- **Pull Requests**: Contribute code and get feedback from maintainers
+- **Wiki**: Detailed guides and documentation
+
+### 📢 Stay Updated
+
+- **⭐ Star** this repo to show your support and stay updated
+- **👁️ Watch** releases and announcements
+- **🔄 Fork** to create your own version or contribute back
+
+### 🤗 Contributing to the Community
+
+Help make ToolifyLab better for everyone:
+
+- Answer questions in discussions
+- Review pull requests
+- Share ToolifyLab with others
+- Report bugs and suggest improvements
+- Contribute code, documentation, or translations
+
+## 📋 Changelog
+
+### Version 1.0.8 (Latest)
+
+- ✨ Enhanced README with comprehensive open source documentation
+- 🔒 Added security policy and vulnerability reporting guidelines
+- 📜 Implemented Code of Conduct for community standards
+- 🧪 Added testing infrastructure documentation
+- 🚀 Improved deployment guides and platform support
+- 📈 Created detailed roadmap for future development
+- ❓ Added comprehensive FAQ section
+- 🤝 Enhanced contributing guidelines with detailed setup instructions
+
+### Version 1.0.7
+
+- 🎨 Improved UI/UX with modern design patterns
+- 📱 Enhanced mobile responsiveness
+- ⚡ Performance optimizations
+- 🛠️ Added new development tools and scripts
+
+### Version 1.0.6
+
+- 🆕 Added Password Generator tool
+- 🔧 Improved tool organization and categorization
+- 📊 Enhanced analytics and error tracking
+
+### Version 1.0.5
+
+- 🎯 Added Goal Tracker tool
+- 💰 Enhanced financial tools with better calculations
+- 🌐 Improved internationalization support
+
+### Version 1.0.4
+
+- 📄 Added professional Invoice Generator
+- 🖼️ Implemented comprehensive Image Tools suite
+- 🤖 Integrated AI-powered Prompt Generator
+
+### Version 1.0.3
+
+- 🏗️ Major architecture improvements
+- 🎨 UI redesign with modern components
+- 📱 PWA implementation for offline use
+
+### Version 1.0.2
+
+- ➕ Added multiple new calculation tools
+- 🔄 Improved currency conversion accuracy
+- 📊 Added data visualization components
+
+### Version 1.0.1
+
+- 🐛 Bug fixes and stability improvements
+- 📈 Performance enhancements
+- 🎯 Better user experience
+
+### Version 1.0.0 (Initial Release)
+
+- 🚀 Launch with 10 core tools
+- 💻 Modern tech stack (Next.js, React, TypeScript)
+- 🎨 Clean, responsive design
+- 📱 Mobile-first approach
+
+---
+
+_For older versions, see [CHANGELOG.md](CHANGELOG.md) or [Releases](https://github.com/praveenskg/toolifylab/releases)_
 
 ## 🌟 Live Demo
 
