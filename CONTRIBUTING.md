@@ -7,6 +7,7 @@ We welcome contributions from developers of all skill levels. Whether you're fix
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
+- [Reporting Issues](#reporting-issues)
 - [Getting Started](#getting-started)
 - [Development Setup](#development-setup)
 - [Project Structure](#project-structure)
@@ -19,6 +20,58 @@ We welcome contributions from developers of all skill levels. Whether you're fix
 ## Code of Conduct
 
 This project follows a [Code of Conduct](CODE_OF_CONDUCT.md) to ensure a welcoming environment for all contributors. By participating, you agree to uphold this code.
+
+## Reporting Issues
+
+We use GitHub Issues to track bugs, feature requests, and general questions. To help us respond efficiently, please use the appropriate issue template:
+
+### 🐛 Bug Reports
+
+Found a bug? Use the [Bug Report template](https://github.com/praveenskg/toolifylab/issues/new?template=bug-report.yml) and provide:
+
+- Tool name and version information
+- Steps to reproduce the issue
+- Expected vs. actual behavior
+- Browser, OS, and device details
+- Screenshots or console errors (if applicable)
+
+### ✨ Feature Requests
+
+Have an idea for a new tool or feature? Use the [Feature Request template](https://github.com/praveenskg/toolifylab/issues/new?template=feature-request.yml) and include:
+
+- Clear problem statement
+- Proposed solution with details
+- Alternative approaches considered
+- Use cases or examples
+
+### 📚 Documentation Issues
+
+Issues with documentation? Use the [Documentation template](https://github.com/praveenskg/toolifylab/issues/new?template=documentation.yml) for:
+
+- Outdated information
+- Missing instructions
+- Unclear explanations
+- Broken links or examples
+
+### ❓ Questions & Support
+
+Need help or have a question? Use the [Question template](https://github.com/praveenskg/toolifylab/issues/new?template=question.yml) for:
+
+- How-to questions
+- Technical inquiries
+- Setup assistance
+- General support
+
+### 🔒 Security Issues
+
+**Never report security vulnerabilities through public GitHub issues.** Email [security@toolifylab.com](mailto:security@toolifylab.com) directly instead.
+
+### Issue Guidelines
+
+- **Search First**: Check if the issue already exists before creating a new one
+- **Be Specific**: Provide detailed information to help us understand and reproduce issues
+- **One Issue Per Report**: Create separate issues for different problems
+- **Stay Updated**: Follow your issue for updates and provide additional information if requested
 
 ## Getting Started
 

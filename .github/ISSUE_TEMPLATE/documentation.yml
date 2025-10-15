@@ -1,0 +1,76 @@
+name: Documentation Issue
+description: Report issues with documentation, README, or help content
+title: "[DOCS] Brief description of the documentation issue"
+labels: ["documentation", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us improve our documentation! Please report any issues, unclear sections, or missing information.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation has the issue?
+      options:
+        - README.md
+        - Tool-specific documentation
+        - API documentation
+        - Contributing guidelines
+        - Installation/setup instructions
+        - User guide/tutorial
+        - Other (please specify)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue Type
+      description: What kind of documentation issue is this?
+      options:
+        - Outdated information
+        - Missing information
+        - Unclear/inaccurate instructions
+        - Broken links
+        - Formatting issues
+        - Code examples don't work
+        - Other (please specify)
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-description
+    attributes:
+      label: Current Documentation
+      description: Quote or describe the current documentation that's problematic
+      placeholder: "Copy the relevant text from the documentation here..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-fix
+    attributes:
+      label: Suggested Fix
+      description: How should the documentation be improved?
+      placeholder: "Provide your suggested correction or improvement..."
+    validations:
+      required: true
+
+  - type: input
+    id: doc-location
+    attributes:
+      label: Location
+      description: Where is this documentation located? (file path, URL, section name, etc.)
+      placeholder: "e.g., README.md#installation, or /docs/api-reference.md"
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any additional context or information that would be helpful
+      placeholder: |
+        - Why is this documentation confusing?
+        - What were you trying to accomplish?
+        - Any error messages you encountered

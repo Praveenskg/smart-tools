@@ -1,0 +1,79 @@
+name: Question / Support
+description: Ask a question or request help
+title: "[QUESTION] Brief description of your question"
+labels: ["question", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about ToolifyLab? Need help with something? We're here to help!
+
+  - type: dropdown
+    id: question-category
+    attributes:
+      label: Question Category
+      description: What is your question about?
+      options:
+        - How to use a tool
+        - Technical question
+        - Installation/setup
+        - Contributing to the project
+        - Feature clarification
+        - Bug verification
+        - General inquiry
+        - Other (please specify)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tool-name
+    attributes:
+      label: Related Tool (if applicable)
+      description: Which tool is your question about?
+      options:
+        - Age Calculator
+        - Area Calculator
+        - BMI Calculator
+        - Currency Converter
+        - DOB Calculator
+        - EMI Calculator
+        - Goal Tracker
+        - GST Calculator
+        - Image Tools
+        - Invoice Generator
+        - Password Generator
+        - Percentage Calculator
+        - Prompt Generator
+        - QR Code Generator
+        - Timezone Converter
+        - Tip Calculator
+        - Todo List
+        - Unit Converter
+        - Timers Tools
+        - General question (not tool-specific)
+    validations:
+      required: false
+
+  - type: textarea
+    id: question-details
+    attributes:
+      label: Question Details
+      description: Please provide as much detail as possible about your question
+      placeholder: |
+        What are you trying to accomplish?
+        What have you tried so far?
+        What results are you seeing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any additional context that might help us answer your question
+      placeholder: |
+        - Browser and version
+        - Operating system
+        - Screenshots
+        - Error messages
+        - Steps you've already tried

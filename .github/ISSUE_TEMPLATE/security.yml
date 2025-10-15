@@ -1,0 +1,28 @@
+name: Security Issue
+description: Report a security vulnerability
+title: "[SECURITY] Brief description of the security issue"
+labels: ["security"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ **Important:** Please do not report security vulnerabilities through public GitHub issues.
+
+        If you discover a security vulnerability, please email us directly at [security@toolifylab.com](mailto:security@toolifylab.com) instead of creating a public issue.
+
+        This helps us:
+        - Respond quickly and appropriately
+        - Avoid exposing other users to the same vulnerability
+        - Coordinate the fix and disclosure properly
+
+  - type: textarea
+    id: vulnerability-details
+    attributes:
+      label: Vulnerability Details
+      description: Please describe the security vulnerability you found
+      placeholder: |
+        **Important:** This form is for reporting security issues privately. Please email security@toolifylab.com instead.
+
+        If you're unsure whether something is a security issue, please email us at security@toolifylab.com to discuss.
+    validations:
+      required: true
