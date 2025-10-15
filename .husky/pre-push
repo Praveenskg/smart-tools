@@ -1,6 +1,6 @@
 echo "🚀 Running pre-push checks..."
 
-# Run type check
+# Step 1: TypeScript check
 echo "🔍 Type checking..."
 npm run type-check || {
   echo "❌ TypeScript errors found. Push aborted."
@@ -8,15 +8,15 @@ npm run type-check || {
   exit 1
 }
 
-# Run linting
-echo "🔧 Linting..."
+# Step 2: ESLint check
+echo "🧹 Linting..."
 npm run lint || {
   echo "❌ Linting errors found. Push aborted."
   echo "💡 Run 'npm run lint:fix' to auto-fix issues"
   exit 1
 }
 
-# Security audit
+# Step 3: Security audit
 echo "🔒 Security audit..."
 npm audit --audit-level=moderate || {
   echo "❌ Security vulnerabilities found. Push aborted."
