@@ -1,4 +1,4 @@
-name: 🔍 Code Quality & Type Safety
+name: Code Quality & Type Safety
 
 on:
   push:
@@ -13,7 +13,7 @@ env:
 
 jobs:
   code-quality:
-    name: 🚀 Quality Assurance Pipeline
+    name: Quality Assurance Pipeline
     runs-on: ubuntu-latest
     
     permissions:
@@ -27,54 +27,54 @@ jobs:
         check: [typescript, eslint]
 
     steps:
-      - name: 📥 Checkout Repository
+      - name: Checkout Repository
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: 🟢 Setup Node.js ${{ env.NODE_VERSION }}
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
 
-      - name: 📦 Install Dependencies
+      - name: Install Dependencies
         run: |
           echo "Installing dependencies..."
           npm ci --prefer-offline --no-audit
           echo "Dependencies installed successfully"
 
-      - name: 🔍 TypeScript Type Check
+      - name: TypeScript Type Check
         if: matrix.check == 'typescript'
         run: |
-          echo "🔍 Running TypeScript type checking..."
+          echo "Running TypeScript type checking..."
           npm run type-check
-          echo "✅ TypeScript check completed successfully"
+          echo "TypeScript check completed successfully"
 
-      - name: 🧹 ESLint Code Quality Check
+      - name: ESLint Code Quality Check
         if: matrix.check == 'eslint'
         run: |
-          echo "🧹 Running ESLint code quality check..."
+          echo "Running ESLint code quality check..."
           npm run lint
-          echo "✅ ESLint check completed successfully"
+          echo "ESLint check completed successfully"
 
-      - name: 📊 Generate Quality Report
+      - name: Generate Quality Report
         if: always()
         run: |
-          echo "## 📊 Code Quality Report" >> $GITHUB_STEP_SUMMARY
+          echo "## Code Quality Report" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| TypeScript | ${{ matrix.check == 'typescript' && '✅ Passed' || '⏭️ Skipped' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| ESLint | ${{ matrix.check == 'eslint' && '✅ Passed' || '⏭️ Skipped' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| TypeScript | ${{ matrix.check == 'typescript' && 'Passed' || 'Skipped' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| ESLint | ${{ matrix.check == 'eslint' && 'Passed' || 'Skipped' }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Workflow**: ${{ github.workflow }}" >> $GITHUB_STEP_SUMMARY
           echo "**Branch**: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
           echo "**Commit**: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
 
   pr-comment:
-    name: 💬 PR Status Comment
+    name: PR Status Comment
     runs-on: ubuntu-latest
     needs: code-quality
     if: github.event_name == 'pull_request'
@@ -83,7 +83,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: 💬 Comment PR with Results
+      - name: Comment PR with Results
         uses: actions/github-script@v7
         with:
           script: |
@@ -105,17 +105,17 @@ jobs:
             
             const run = runs.workflow_runs[0];
             const status = run.conclusion || run.status;
-            const emoji = status === 'success' ? '✅' : status === 'failure' ? '❌' : '⏳';
+            const statusText = status === 'success' ? 'SUCCESS' : status === 'failure' ? 'FAILURE' : 'RUNNING';
             
-            const body = `## 🔍 Code Quality Check Results
+            const body = `## Code Quality Check Results
             
-            ${emoji} **Status**: ${status.toUpperCase()}
+            **Status**: ${statusText}
             
-            ### 📊 Quality Checks:
-            - ✅ **TypeScript**: Type safety validation
-            - ✅ **ESLint**: Code quality and style checks
+            ### Quality Checks:
+            - **TypeScript**: Type safety validation
+            - **ESLint**: Code quality and style checks
             
-            ### 📋 Details:
+            ### Details:
             - **Workflow**: [\`${{ github.sha }}\`](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
             - **Branch**: \`${{ github.head_ref }}\`
             - **Author**: ${{ github.actor }}
@@ -131,7 +131,7 @@ jobs:
             });
             
             const botComment = comments.find(comment => 
-              comment.user.type === 'Bot' && comment.body.includes('## 🔍 Code Quality Check Results')
+              comment.user.type === 'Bot' && comment.body.includes('## Code Quality Check Results')
             );
             
             if (botComment) {
