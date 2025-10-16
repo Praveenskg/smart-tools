@@ -1,11 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 💬 Join our Discord Community
-    url: https://discord.gg/toolifylab
-    about: Connect with other users and the development team
-  - name: 📧 Email Support
-    url: mailto:support@toolifylab.com
-    about: For private support requests or sensitive issues
-  - name: 🐛 Report Security Vulnerability
-    url: mailto:security@toolifylab.com
-    about: Please email us directly for security issues (do not use public issues)
+  - name: Get Help
+    url: https://github.com/Praveenskg/toolifylab/discussions/new?category=general
+    about: If you can't get something to work the way you expect, open a question in our discussion forums.
