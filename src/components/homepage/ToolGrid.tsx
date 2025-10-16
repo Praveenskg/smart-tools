@@ -116,9 +116,6 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                           </svg>
                         </motion.div>
                       </div>
-
-                      {/* Hover effect line */}
-                      <div className='bg-primary absolute bottom-0 left-0 h-0.5 w-0 transition-all duration-500 group-hover:w-full' />
                     </CardContent>
                   </Card>
                 </Link>
