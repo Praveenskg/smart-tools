@@ -9,29 +9,53 @@ fi
 
 echo "🔍 Running pre-commit checks..."
 
-# Step 1: Prettier auto fix
-echo "📝 Formatting code..."
-echo "$STAGED_FILES" | grep -E '\.(js|jsx|ts|tsx|json|md|css|html)$' \
-  | xargs --no-run-if-empty npx prettier --write --ignore-unknown
+# Step 1: Format code with Prettier (only on supported files)
+echo "📝 Formatting code with Prettier..."
+FORMATTABLE_FILES=$(echo "$STAGED_FILES" | grep -E '\.(js|jsx|ts|tsx|json|md|css|html)$' || true)
 
-# Step 2: ESLint auto fix
-echo "🔧 Linting code..."
-echo "$STAGED_FILES" | grep -E '\.(js|jsx|ts|tsx)$' \
-  | xargs --no-run-if-empty npx eslint --fix --quiet
+if [ -n "$FORMATTABLE_FILES" ]; then
+  echo "$FORMATTABLE_FILES" | xargs --no-run-if-empty npx prettier --write --ignore-unknown
 
-# Step 3: Add fixed files
-echo "$STAGED_FILES" | xargs git add
+  # Check if prettier made any changes and add them
+  if ! git diff --quiet -- "$FORMATTABLE_FILES" 2>/dev/null; then
+    echo "📝 Prettier made changes, adding formatted files..."
+    echo "$FORMATTABLE_FILES" | xargs git add
+  else
+    echo "✅ Code already properly formatted"
+  fi
+else
+  echo "ℹ️ No formattable files in staged changes"
+fi
 
-# Step 4: Final ESLint check
+# Step 2: ESLint auto fix (only on JS/TS files)
+echo "🔧 Running ESLint auto-fix..."
+LINTABLE_FILES=$(echo "$STAGED_FILES" | grep -E '\.(js|jsx|ts|tsx)$' || true)
+
+if [ -n "$LINTABLE_FILES" ]; then
+  echo "$LINTABLE_FILES" | xargs --no-run-if-empty npx eslint --fix --quiet
+
+  # Check if eslint made any changes and add them
+  if ! git diff --quiet -- "$LINTABLE_FILES" 2>/dev/null; then
+    echo "🔧 ESLint made changes, adding fixed files..."
+    echo "$LINTABLE_FILES" | xargs git add
+  fi
+else
+  echo "ℹ️ No lintable files in staged changes"
+fi
+
+# Step 3: Final ESLint check
 echo "✅ Final lint check..."
-echo "$STAGED_FILES" | grep -E '\.(js|jsx|ts|tsx)$' \
-  | xargs --no-run-if-empty npx eslint --max-warnings=0 || {
-  echo "❌ ESLint errors found. Please fix them before committing."
-  echo "💡 Run 'npm run lint:fix' to auto-fix issues"
-  exit 1
-}
+if [ -n "$LINTABLE_FILES" ]; then
+  echo "$LINTABLE_FILES" | xargs --no-run-if-empty npx eslint --max-warnings=0 || {
+    echo "❌ ESLint errors found. Please fix them before committing."
+    echo "💡 Run 'npm run lint:fix' to auto-fix issues"
+    exit 1
+  }
+else
+  echo "ℹ️ No lintable files to check"
+fi
 
-# Step 5: TypeScript check
+# Step 4: TypeScript check
 echo "🔍 Type checking..."
 npx tsc --noEmit || {
   echo "❌ TypeScript errors found. Please fix them before committing."
@@ -39,7 +63,7 @@ npx tsc --noEmit || {
   exit 1
 }
 
-# Step 6: Security audit
+# Step 5: Security audit
 echo "🔒 Security audit..."
 npm audit --audit-level=moderate || {
   echo "❌ Security vulnerabilities found. Please fix them before committing."
