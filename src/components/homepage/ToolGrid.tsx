@@ -18,52 +18,107 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
   return (
     <motion.div
       layout
-      className='grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4'
+      className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'
     >
-      <AnimatePresence>
+      <AnimatePresence mode='popLayout'>
         {tools
           .sort((a, b) => (a.popular === b.popular ? 0 : a.popular ? -1 : 1))
-          .map((tool) => {
+          .map((tool, index) => {
             const Icon = tool.icon;
             return (
               <motion.div
                 key={tool.id}
                 layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                transition={{
+                  duration: 0.4,
+                  delay: index * 0.05,
+                  ease: 'easeOut',
+                  layout: { duration: 0.3 }
+                }}
+                whileHover={{
+                  y: -8,
+                  transition: { duration: 0.2 }
+                }}
               >
                 <Link href={`/${tool.id}`}>
-                  <Card className='hover:border-primary group h-full cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl'>
-                    <CardHeader className='pb-3'>
-                      <div className='flex items-center gap-2 sm:gap-3'>
-                        <Icon className='text-primary h-5 w-5 shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 sm:h-6 sm:w-6' />
-                        <CardTitle className='group-hover:text-primary text-base transition-colors duration-300 sm:text-lg'>
-                          {tool.name}
-                        </CardTitle>
+                  <Card className='group relative h-full cursor-pointer overflow-hidden border-0 bg-gradient-to-br from-card to-card/50 shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10'>
+                    {/* Animated background gradient */}
+                    <div className='absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
+
+                    {/* Popular badge glow effect */}
+                    {tool.popular && (
+                      <div className='absolute -inset-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 opacity-20 blur-sm' />
+                    )}
+
+                    <CardHeader className='relative pb-4'>
+                      <div className='flex items-start justify-between'>
+                        <motion.div
+                          className='flex items-center gap-3'
+                          whileHover={{ scale: 1.02 }}
+                        >
+                          <div className='relative'>
+                            <div className='bg-primary/10 absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
+                            <Icon className='text-primary relative z-10 h-6 w-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 sm:h-7 sm:w-7' />
+                          </div>
+                          <div className='flex-1'>
+                            <CardTitle className='group-hover:text-primary text-lg font-semibold transition-colors duration-300 sm:text-xl'>
+                              {tool.name}
+                            </CardTitle>
+                            {tool.popular && (
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className='mt-1'
+                              >
+                                <Badge className='bg-gradient-to-r from-yellow-400 to-orange-400 text-xs font-medium text-white shadow-sm'>
+                                  ⭐ Popular
+                                </Badge>
+                              </motion.div>
+                            )}
+                          </div>
+                        </motion.div>
                       </div>
                     </CardHeader>
-                    <CardContent>
-                      <CardDescription className='group-hover:text-foreground/80 mb-3 text-xs transition-colors duration-300 sm:text-sm'>
+
+                    <CardContent className='relative'>
+                      <CardDescription className='group-hover:text-foreground/90 mb-4 text-sm leading-relaxed transition-colors duration-300'>
                         {tool.description}
                       </CardDescription>
-                      <div className='flex flex-wrap gap-1 sm:gap-2'>
+
+                      <div className='flex items-center justify-between'>
                         <Badge
                           variant='outline'
-                          className='group-hover:bg-primary/10 group-hover:border-primary text-xs transition-all duration-300'
+                          className='group-hover:bg-primary/10 group-hover:border-primary/50 group-hover:text-primary border-primary/30 text-xs font-medium transition-all duration-300'
                         >
                           {tool.category}
                         </Badge>
-                        {tool.popular && (
-                          <Badge
-                            variant='secondary'
-                            className='group-hover:bg-secondary/80 text-xs transition-all duration-300'
+
+                        <motion.div
+                          className='opacity-0 transition-opacity duration-300 group-hover:opacity-100'
+                          initial={{ x: -10 }}
+                          whileHover={{ x: 0 }}
+                        >
+                          <svg
+                            className='text-primary h-4 w-4'
+                            fill='none'
+                            stroke='currentColor'
+                            viewBox='0 0 24 24'
                           >
-                            Popular
-                          </Badge>
-                        )}
+                            <path
+                              strokeLinecap='round'
+                              strokeLinejoin='round'
+                              strokeWidth={2}
+                              d='M9 5l7 7-7 7'
+                            />
+                          </svg>
+                        </motion.div>
                       </div>
+
+                      {/* Hover effect line */}
+                      <div className='bg-primary absolute bottom-0 left-0 h-0.5 w-0 transition-all duration-500 group-hover:w-full' />
                     </CardContent>
                   </Card>
                 </Link>
