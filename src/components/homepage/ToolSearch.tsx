@@ -1,7 +1,7 @@
 'use client';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { motion, useInView } from 'framer-motion';
 import { Search, X } from 'lucide-react';
 import { useRef, useState } from 'react';
@@ -43,7 +43,7 @@ export function ToolSearch({
         >
           <h2 className='mb-4 text-3xl font-bold sm:text-4xl md:text-5xl'>
             Discover Your{' '}
-            <span className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent'>
+            <span className='bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent'>
               Perfect Tool
             </span>
           </h2>
@@ -59,37 +59,45 @@ export function ToolSearch({
           transition={{ delay: 0.4, duration: 0.5 }}
           className='relative mx-auto mb-8 max-w-lg'
         >
-          <div className='relative'>
-            <Search
-              className={`absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transition-colors ${
-                isFocused ? 'text-primary' : 'text-muted-foreground'
-              }`}
-            />
-            <Input
-              type='search'
+          <InputGroup
+            className={`bg-background/50 hover:bg-background/80 backdrop-blur-sm transition-all duration-300 ${
+              isFocused
+                ? 'border-primary shadow-primary/20 shadow-lg'
+                : 'border-border hover:border-primary/50'
+            }`}
+          >
+            <InputGroupAddon align='inline-start'>
+              <Search
+                className={`h-5 w-5 transition-colors ${
+                  isFocused ? 'text-primary' : 'text-muted-foreground'
+                }`}
+              />
+            </InputGroupAddon>
+
+            <InputGroupInput
+              type='text'
               placeholder='Search tools, calculators, converters...'
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              className={`bg-background/50 hover:bg-background/80 border-2 pr-10 pl-10 text-base backdrop-blur-sm transition-all duration-300 ${
-                isFocused
-                  ? 'border-primary shadow-primary/20 shadow-lg'
-                  : 'border-border hover:border-primary/50'
-              }`}
+              className='text-base'
             />
+
             {searchTerm && (
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                onClick={() => setSearchTerm('')}
-                className='text-muted-foreground hover:bg-muted hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1'
-              >
-                <X className='h-4 w-4' />
-              </motion.button>
+              <InputGroupAddon align='inline-end'>
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  onClick={() => setSearchTerm('')}
+                  className='text-muted-foreground hover:bg-muted hover:text-foreground rounded-full p-1 transition-colors'
+                >
+                  <X className='h-4 w-4' />
+                </motion.button>
+              </InputGroupAddon>
             )}
-          </div>
+          </InputGroup>
 
           {/* Search suggestions */}
           {searchTerm && (
@@ -119,35 +127,6 @@ export function ToolSearch({
           transition={{ delay: 0.6, duration: 0.5 }}
           className='flex flex-wrap justify-center gap-2 sm:gap-3'
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.7, duration: 0.3 }}
-          >
-            <Button
-              variant={selectedCategory === 'all' ? 'default' : 'outline'}
-              size='sm'
-              onClick={() => setSelectedCategory('all')}
-              className={`transition-all duration-300 ${
-                selectedCategory === 'all'
-                  ? 'from-primary to-primary/80 shadow-primary/25 bg-gradient-to-r shadow-lg'
-                  : 'hover:bg-primary/10 hover:border-primary/50'
-              }`}
-            >
-              <motion.span
-                className='mr-2'
-                animate={{ rotate: selectedCategory === 'all' ? 360 : 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                ✨
-              </motion.span>
-              All Tools
-              <Badge variant='secondary' className='ml-2 text-xs'>
-                {categories.reduce((sum, cat) => sum + cat.count, 0)}
-              </Badge>
-            </Button>
-          </motion.div>
-
           {categories.map((category, i) => (
             <motion.div
               key={category.name}
@@ -163,7 +142,7 @@ export function ToolSearch({
                 onClick={() => setSelectedCategory(category.name)}
                 className={`transition-all duration-300 ${
                   selectedCategory === category.name
-                    ? 'from-primary to-primary/80 shadow-primary/25 bg-gradient-to-r shadow-lg'
+                    ? 'from-primary to-primary/80 shadow-primary/25 bg-linear-to-r shadow-lg'
                     : 'hover:bg-primary/10 hover:border-primary/50'
                 }`}
               >
