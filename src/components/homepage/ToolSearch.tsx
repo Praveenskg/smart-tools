@@ -60,9 +60,11 @@ export function ToolSearch({
           className='relative mx-auto mb-8 max-w-lg'
         >
           <div className='relative'>
-            <Search className={`absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transition-colors ${
-              isFocused ? 'text-primary' : 'text-muted-foreground'
-            }`} />
+            <Search
+              className={`absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transition-colors ${
+                isFocused ? 'text-primary' : 'text-muted-foreground'
+              }`}
+            />
             <Input
               type='search'
               placeholder='Search tools, calculators, converters...'
@@ -70,9 +72,9 @@ export function ToolSearch({
               onChange={(e) => setSearchTerm(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              className={`bg-background/50 backdrop-blur-sm border-2 pl-10 pr-10 text-base transition-all duration-300 hover:bg-background/80 ${
+              className={`bg-background/50 hover:bg-background/80 border-2 pr-10 pl-10 text-base backdrop-blur-sm transition-all duration-300 ${
                 isFocused
-                  ? 'border-primary shadow-lg shadow-primary/20'
+                  ? 'border-primary shadow-primary/20 shadow-lg'
                   : 'border-border hover:border-primary/50'
               }`}
             />
@@ -82,7 +84,7 @@ export function ToolSearch({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 onClick={() => setSearchTerm('')}
-                className='absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground'
+                className='text-muted-foreground hover:bg-muted hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1'
               >
                 <X className='h-4 w-4' />
               </motion.button>
@@ -95,11 +97,11 @@ export function ToolSearch({
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className='absolute left-0 right-0 top-full z-10 mt-2 rounded-lg border bg-card p-2 shadow-lg'
+              className='bg-card absolute top-full right-0 left-0 z-10 mt-2 rounded-lg border p-2 shadow-lg'
             >
-              <div className='text-xs text-muted-foreground'>
-                {categories.find(cat =>
-                  cat.name.toLowerCase().includes(searchTerm.toLowerCase())
+              <div className='text-muted-foreground text-xs'>
+                {categories.find((cat) =>
+                  cat.name.toLowerCase().includes(searchTerm.toLowerCase()),
                 ) ? (
                   <span>Try filtering by category below</span>
                 ) : (
@@ -128,7 +130,7 @@ export function ToolSearch({
               onClick={() => setSelectedCategory('all')}
               className={`transition-all duration-300 ${
                 selectedCategory === 'all'
-                  ? 'bg-gradient-to-r from-primary to-primary/80 shadow-lg shadow-primary/25'
+                  ? 'from-primary to-primary/80 shadow-primary/25 bg-gradient-to-r shadow-lg'
                   : 'hover:bg-primary/10 hover:border-primary/50'
               }`}
             >
@@ -161,7 +163,7 @@ export function ToolSearch({
                 onClick={() => setSelectedCategory(category.name)}
                 className={`transition-all duration-300 ${
                   selectedCategory === category.name
-                    ? 'bg-gradient-to-r from-primary to-primary/80 shadow-lg shadow-primary/25'
+                    ? 'from-primary to-primary/80 shadow-primary/25 bg-gradient-to-r shadow-lg'
                     : 'hover:bg-primary/10 hover:border-primary/50'
                 }`}
               >
@@ -182,15 +184,11 @@ export function ToolSearch({
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className='mt-6 text-sm text-muted-foreground'
+            className='text-muted-foreground mt-6 text-sm'
           >
-            {categories.some(cat =>
-              cat.name.toLowerCase().includes(searchTerm.toLowerCase())
-            ) ? (
-              'Filtering by search and category...'
-            ) : (
-              'Searching across all tools...'
-            )}
+            {categories.some((cat) => cat.name.toLowerCase().includes(searchTerm.toLowerCase()))
+              ? 'Filtering by search and category...'
+              : 'Searching across all tools...'}
           </motion.div>
         )}
       </div>

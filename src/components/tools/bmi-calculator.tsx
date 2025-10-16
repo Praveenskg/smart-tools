@@ -63,21 +63,6 @@ export default function BMICalculator() {
     setResult(null);
   };
 
-  const getBMIColor = (status: string) => {
-    switch (status) {
-      case 'underweight':
-        return 'text-blue-600';
-      case 'normal':
-        return 'text-green-600';
-      case 'overweight':
-        return 'text-yellow-600';
-      case 'obese':
-        return 'text-red-600';
-      default:
-        return 'text-gray-600';
-    }
-  };
-
   const getBMIProgress = (bmi: number) => {
     if (bmi < 18.5) return (bmi / 18.5) * 25;
     if (bmi < 25) return 25 + ((bmi - 18.5) / (25 - 18.5)) * 25;
@@ -93,15 +78,15 @@ export default function BMICalculator() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Card className='border-0 bg-gradient-to-br from-card to-card/50 shadow-xl backdrop-blur-sm'>
+          <Card className='from-card to-card/50 border-0 bg-gradient-to-br shadow-xl backdrop-blur-sm'>
             <CardHeader className='pb-6'>
               <div className='flex items-center gap-3'>
                 <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg'>
-                  <span className='text-white font-bold text-xl'>⚖️</span>
+                  <span className='text-xl font-bold text-white'>⚖️</span>
                 </div>
                 <div>
                   <CardTitle className='text-xl sm:text-2xl'>Body Measurements</CardTitle>
-                  <CardDescription className='text-sm sm:text-base mt-1'>
+                  <CardDescription className='mt-1 text-sm sm:text-base'>
                     Enter your height and weight to calculate BMI
                   </CardDescription>
                 </div>
@@ -109,7 +94,10 @@ export default function BMICalculator() {
             </CardHeader>
             <CardContent className='space-y-6'>
               <div className='space-y-3'>
-                <Label htmlFor='weight' className='text-sm font-medium text-foreground sm:text-base'>
+                <Label
+                  htmlFor='weight'
+                  className='text-foreground text-sm font-medium sm:text-base'
+                >
                   Weight (kg)
                 </Label>
                 <Input
@@ -118,12 +106,15 @@ export default function BMICalculator() {
                   placeholder='Enter your weight in kg'
                   value={weight}
                   onChange={(e) => setWeight(e.target.value)}
-                  className='h-12 text-base transition-all duration-200 focus:ring-2 focus:ring-primary/20 focus:border-primary'
+                  className='focus:ring-primary/20 focus:border-primary h-12 text-base transition-all duration-200 focus:ring-2'
                 />
               </div>
 
               <div className='space-y-3'>
-                <Label htmlFor='height' className='text-sm font-medium text-foreground sm:text-base'>
+                <Label
+                  htmlFor='height'
+                  className='text-foreground text-sm font-medium sm:text-base'
+                >
                   Height (cm)
                 </Label>
                 <Input
@@ -132,11 +123,11 @@ export default function BMICalculator() {
                   placeholder='Enter your height in cm'
                   value={height}
                   onChange={(e) => setHeight(e.target.value)}
-                  className='h-12 text-base transition-all duration-200 focus:ring-2 focus:ring-primary/20 focus:border-primary'
+                  className='focus:ring-primary/20 focus:border-primary h-12 text-base transition-all duration-200 focus:ring-2'
                 />
               </div>
 
-              <div className='flex flex-col gap-4 sm:flex-row sm:gap-6 pt-2'>
+              <div className='flex flex-col gap-4 pt-2 sm:flex-row sm:gap-6'>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -144,7 +135,7 @@ export default function BMICalculator() {
                 >
                   <Button
                     onClick={calculateBMI}
-                    className='h-12 w-full bg-gradient-to-r from-primary to-primary/80 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300'
+                    className='from-primary to-primary/80 h-12 w-full bg-gradient-to-r text-base font-semibold shadow-lg transition-all duration-300 hover:shadow-xl'
                   >
                     Calculate BMI
                   </Button>
@@ -157,7 +148,7 @@ export default function BMICalculator() {
                   <Button
                     onClick={resetForm}
                     variant='outline'
-                    className='h-12 w-full text-base font-medium border-2 hover:bg-muted/50 transition-all duration-300'
+                    className='hover:bg-muted/50 h-12 w-full border-2 text-base font-medium transition-all duration-300'
                   >
                     Reset
                   </Button>
@@ -173,15 +164,15 @@ export default function BMICalculator() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            <Card className='border-0 bg-gradient-to-br from-card to-card/50 shadow-xl backdrop-blur-sm'>
+            <Card className='from-card to-card/50 border-0 bg-gradient-to-br shadow-xl backdrop-blur-sm'>
               <CardHeader className='pb-6'>
                 <div className='flex items-center gap-3'>
                   <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-green-500 to-green-600 shadow-lg'>
-                    <span className='text-white font-bold text-xl'>📊</span>
+                    <span className='text-xl font-bold text-white'>📊</span>
                   </div>
                   <div>
                     <CardTitle className='text-xl sm:text-2xl'>BMI Results</CardTitle>
-                    <CardDescription className='text-sm sm:text-base mt-1'>
+                    <CardDescription className='mt-1 text-sm sm:text-base'>
                       Your body mass index and health status
                     </CardDescription>
                   </div>
@@ -190,17 +181,17 @@ export default function BMICalculator() {
               <CardContent className='space-y-8'>
                 {/* Main BMI Display */}
                 <div className='relative'>
-                  <div className='bg-gradient-to-br from-primary/10 via-primary/5 to-primary/10 border border-primary/20 rounded-2xl p-6 text-center shadow-inner'>
+                  <div className='from-primary/10 via-primary/5 to-primary/10 border-primary/20 rounded-2xl border bg-gradient-to-br p-6 text-center shadow-inner'>
                     <motion.div
                       initial={{ scale: 0.5, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: 0.2, duration: 0.5, ease: 'easeOut' }}
                     >
-                      <div className='text-4xl sm:text-5xl lg:text-6xl font-bold text-primary mb-3'>
+                      <div className='text-primary mb-3 text-4xl font-bold sm:text-5xl lg:text-6xl'>
                         {result.bmi.toFixed(1)}
                       </div>
                       <Badge
-                        className={`text-sm font-semibold px-4 py-2 ${
+                        className={`px-4 py-2 text-sm font-semibold ${
                           result.status === 'underweight'
                             ? 'bg-blue-500 hover:bg-blue-600'
                             : result.status === 'normal'
@@ -218,17 +209,16 @@ export default function BMICalculator() {
 
                 {/* BMI Scale Visualization */}
                 <div className='space-y-4'>
-                  <div className='flex justify-between items-center'>
-                    <h4 className='text-sm font-semibold text-foreground'>BMI Scale</h4>
-                    <span className='text-sm text-muted-foreground'>Current: {result.bmi.toFixed(1)}</span>
+                  <div className='flex items-center justify-between'>
+                    <h4 className='text-foreground text-sm font-semibold'>BMI Scale</h4>
+                    <span className='text-muted-foreground text-sm'>
+                      Current: {result.bmi.toFixed(1)}
+                    </span>
                   </div>
 
                   <div className='relative'>
-                    <Progress
-                      value={getBMIProgress(result.bmi)}
-                      className='h-3 bg-muted'
-                    />
-                    <div className='absolute -bottom-6 left-0 right-0 flex justify-between text-xs text-muted-foreground'>
+                    <Progress value={getBMIProgress(result.bmi)} className='bg-muted h-3' />
+                    <div className='text-muted-foreground absolute right-0 -bottom-6 left-0 flex justify-between text-xs'>
                       <span>Underweight</span>
                       <span>Normal</span>
                       <span>Overweight</span>
@@ -245,15 +235,16 @@ export default function BMICalculator() {
                     transition={{ delay: 0.4, duration: 0.5 }}
                     className='rounded-xl border bg-gradient-to-r from-blue-50/50 to-indigo-50/50 p-4 dark:from-blue-950/20 dark:to-indigo-950/20'
                   >
-                    <div className='flex items-center gap-3 mb-2'>
-                      <div className='h-8 w-8 rounded-lg bg-blue-500 flex items-center justify-center'>
-                        <span className='text-white text-sm'>⚖️</span>
+                    <div className='mb-2 flex items-center gap-3'>
+                      <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500'>
+                        <span className='text-sm text-white'>⚖️</span>
                       </div>
-                      <h4 className='font-semibold text-sm sm:text-base'>Ideal Weight Range</h4>
+                      <h4 className='text-sm font-semibold sm:text-base'>Ideal Weight Range</h4>
                     </div>
-                    <p className='text-sm text-muted-foreground'>
-                      <span className='font-medium text-foreground'>
-                        {result.idealWeightRange.min.toFixed(1)} kg - {result.idealWeightRange.max.toFixed(1)} kg
+                    <p className='text-muted-foreground text-sm'>
+                      <span className='text-foreground font-medium'>
+                        {result.idealWeightRange.min.toFixed(1)} kg -{' '}
+                        {result.idealWeightRange.max.toFixed(1)} kg
                       </span>
                     </p>
                   </motion.div>
@@ -264,21 +255,23 @@ export default function BMICalculator() {
                     transition={{ delay: 0.6, duration: 0.5 }}
                     className={`rounded-xl border p-4 ${
                       result.status === 'normal'
-                        ? 'bg-gradient-to-r from-green-50/50 to-emerald-50/50 border-green-200 dark:from-green-950/20 dark:to-emerald-950/20'
-                        : 'bg-gradient-to-r from-amber-50/50 to-orange-50/50 border-amber-200 dark:from-amber-950/20 dark:to-orange-950/20'
+                        ? 'border-green-200 bg-gradient-to-r from-green-50/50 to-emerald-50/50 dark:from-green-950/20 dark:to-emerald-950/20'
+                        : 'border-amber-200 bg-gradient-to-r from-amber-50/50 to-orange-50/50 dark:from-amber-950/20 dark:to-orange-950/20'
                     }`}
                   >
-                    <div className='flex items-center gap-3 mb-2'>
-                      <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${
-                        result.status === 'normal' ? 'bg-green-500' : 'bg-amber-500'
-                      }`}>
-                        <span className='text-white text-sm'>
+                    <div className='mb-2 flex items-center gap-3'>
+                      <div
+                        className={`flex h-8 w-8 items-center justify-center rounded-lg ${
+                          result.status === 'normal' ? 'bg-green-500' : 'bg-amber-500'
+                        }`}
+                      >
+                        <span className='text-sm text-white'>
                           {result.status === 'normal' ? '✅' : '💡'}
                         </span>
                       </div>
-                      <h4 className='font-semibold text-sm sm:text-base'>Health Recommendation</h4>
+                      <h4 className='text-sm font-semibold sm:text-base'>Health Recommendation</h4>
                     </div>
-                    <p className='text-sm text-muted-foreground leading-relaxed'>
+                    <p className='text-muted-foreground text-sm leading-relaxed'>
                       {result.status === 'normal'
                         ? 'Great! You have a healthy BMI. Maintain your current lifestyle with balanced nutrition and regular exercise.'
                         : result.status === 'underweight'
@@ -298,11 +291,11 @@ export default function BMICalculator() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.6 }}
       >
-        <Card className='border-0 bg-gradient-to-br from-card to-card/50 shadow-xl backdrop-blur-sm'>
-          <CardHeader className='text-center pb-6'>
-            <div className='flex items-center justify-center gap-3 mb-2'>
+        <Card className='from-card to-card/50 border-0 bg-gradient-to-br shadow-xl backdrop-blur-sm'>
+          <CardHeader className='pb-6 text-center'>
+            <div className='mb-2 flex items-center justify-center gap-3'>
               <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg'>
-                <span className='text-white font-bold text-xl'>📋</span>
+                <span className='text-xl font-bold text-white'>📋</span>
               </div>
               <div>
                 <CardTitle className='text-xl sm:text-2xl'>BMI Categories</CardTitle>
@@ -319,25 +312,28 @@ export default function BMICalculator() {
                   category: 'Underweight',
                   range: 'Below 18.5',
                   color: 'from-blue-500 to-blue-600',
-                  bgColor: 'from-blue-50/50 to-blue-100/50 dark:from-blue-950/20 dark:to-blue-900/20',
+                  bgColor:
+                    'from-blue-50/50 to-blue-100/50 dark:from-blue-950/20 dark:to-blue-900/20',
                   icon: '⚖️',
-                  description: 'May indicate malnutrition or other health concerns'
+                  description: 'May indicate malnutrition or other health concerns',
                 },
                 {
                   category: 'Normal Weight',
                   range: '18.5 - 24.9',
                   color: 'from-green-500 to-green-600',
-                  bgColor: 'from-green-50/50 to-green-100/50 dark:from-green-950/20 dark:to-green-900/20',
+                  bgColor:
+                    'from-green-50/50 to-green-100/50 dark:from-green-950/20 dark:to-green-900/20',
                   icon: '✅',
-                  description: 'Generally considered healthy weight range'
+                  description: 'Generally considered healthy weight range',
                 },
                 {
                   category: 'Overweight',
                   range: '25.0 - 29.9',
                   color: 'from-yellow-500 to-yellow-600',
-                  bgColor: 'from-yellow-50/50 to-yellow-100/50 dark:from-yellow-950/20 dark:to-yellow-900/20',
+                  bgColor:
+                    'from-yellow-50/50 to-yellow-100/50 dark:from-yellow-950/20 dark:to-yellow-900/20',
                   icon: '⚠️',
-                  description: 'May increase risk of certain health conditions'
+                  description: 'May increase risk of certain health conditions',
                 },
                 {
                   category: 'Obese',
@@ -345,8 +341,8 @@ export default function BMICalculator() {
                   color: 'from-red-500 to-red-600',
                   bgColor: 'from-red-50/50 to-red-100/50 dark:from-red-950/20 dark:to-red-900/20',
                   icon: '🚨',
-                  description: 'Higher risk of serious health complications'
-                }
+                  description: 'Higher risk of serious health complications',
+                },
               ].map((item, index) => (
                 <motion.div
                   key={item.category}
@@ -356,28 +352,34 @@ export default function BMICalculator() {
                   whileHover={{ scale: 1.02, y: -2 }}
                   className={`group relative overflow-hidden rounded-xl border bg-gradient-to-br p-4 text-center transition-all duration-300 hover:shadow-lg ${item.bgColor}`}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-300 group-hover:opacity-10 ${item.color}`} />
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-300 group-hover:opacity-10 ${item.color}`}
+                  />
 
                   <div className='relative z-10'>
-                    <div className={`mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br shadow-lg ${item.color}`}>
+                    <div
+                      className={`mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br shadow-lg ${item.color}`}
+                    >
                       <span className='text-xl'>{item.icon}</span>
                     </div>
 
-                    <h4 className={`mb-2 text-lg font-bold ${item.color.split(' ')[0].replace('from-', 'text-')}`}>
+                    <h4
+                      className={`mb-2 text-lg font-bold ${item.color.split(' ')[0].replace('from-', 'text-')}`}
+                    >
                       {item.category}
                     </h4>
 
-                    <div className='mb-2 text-sm font-semibold text-foreground'>
-                      {item.range}
-                    </div>
+                    <div className='text-foreground mb-2 text-sm font-semibold'>{item.range}</div>
 
-                    <p className='text-xs text-muted-foreground leading-relaxed'>
+                    <p className='text-muted-foreground text-xs leading-relaxed'>
                       {item.description}
                     </p>
                   </div>
 
                   {/* Hover effect line */}
-                  <div className={`absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r transition-all duration-500 group-hover:w-full ${item.color}`} />
+                  <div
+                    className={`absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r transition-all duration-500 group-hover:w-full ${item.color}`}
+                  />
                 </motion.div>
               ))}
             </div>

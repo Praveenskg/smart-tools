@@ -7,7 +7,7 @@ export function HeroSection() {
     <section className='from-background via-primary/5 to-background relative w-full overflow-hidden bg-linear-to-br py-16 sm:py-24 lg:py-32'>
       {/* Animated background elements */}
       <div className='absolute inset-0 overflow-hidden'>
-        <div className='bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 absolute inset-0 animate-pulse' />
+        <div className='absolute inset-0 animate-pulse bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10' />
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -18,7 +18,7 @@ export function HeroSection() {
             repeat: Infinity,
             ease: 'linear',
           }}
-          className='bg-gradient-to-br from-indigo-500/20 to-purple-500/20 absolute -top-40 -right-40 h-80 w-80 rounded-full blur-3xl'
+          className='absolute -top-40 -right-40 h-80 w-80 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 blur-3xl'
         />
         <motion.div
           animate={{
@@ -30,7 +30,7 @@ export function HeroSection() {
             repeat: Infinity,
             ease: 'linear',
           }}
-          className='bg-gradient-to-br from-purple-500/15 to-pink-500/15 absolute -bottom-40 -left-40 h-80 w-80 rounded-full blur-3xl'
+          className='absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-gradient-to-br from-purple-500/15 to-pink-500/15 blur-3xl'
         />
         <motion.div
           animate={{
@@ -42,7 +42,7 @@ export function HeroSection() {
             repeat: Infinity,
             ease: 'linear',
           }}
-          className='bg-gradient-to-br from-pink-500/10 to-indigo-500/10 absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl'
+          className='absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-pink-500/10 to-indigo-500/10 blur-3xl'
         />
       </div>
 
@@ -51,7 +51,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: -20, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.1, duration: 0.6, ease: 'easeOut' }}
-          className='bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 text-primary mb-6 inline-flex items-center justify-center gap-2 rounded-full border border-primary/20 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur-sm'
+          className='text-primary border-primary/20 mb-6 inline-flex items-center justify-center gap-2 rounded-full border bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur-sm'
         >
           <motion.div
             animate={{ rotate: [0, 360] }}
@@ -66,7 +66,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8, ease: 'easeOut' }}
-          className='bg-gradient-to-r from-foreground via-foreground to-foreground bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl'
+          className='from-foreground via-foreground to-foreground bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl'
         >
           Your Professional{' '}
           <motion.span
@@ -102,12 +102,9 @@ export function HeroSection() {
           transition={{ delay: 0.7, duration: 0.6, ease: 'easeOut' }}
           className='mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6'
         >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link href='#tools'>
-              <button className='bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 rounded-xl px-8 py-4 text-lg font-semibold shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-primary/25'>
+              <button className='hover:shadow-primary/25 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 hover:shadow-xl'>
                 Explore Lab
                 <motion.span
                   className='ml-2 inline-block'
@@ -120,12 +117,9 @@ export function HeroSection() {
             </Link>
           </motion.div>
 
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link href='/bmi-calculator'>
-              <button className='border-primary/20 text-primary hover:bg-primary/5 rounded-xl border px-6 py-4 text-lg font-medium transition-all duration-300 hover:border-primary/40'>
+              <button className='border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 rounded-xl border px-6 py-4 text-lg font-medium transition-all duration-300'>
                 Try BMI Calculator
               </button>
             </Link>
@@ -152,12 +146,10 @@ export function HeroSection() {
               transition={{ delay: 1 + index * 0.1, duration: 0.5 }}
               className='text-center'
             >
-              <div className='text-2xl font-bold text-primary sm:text-3xl md:text-4xl'>
+              <div className='text-primary text-2xl font-bold sm:text-3xl md:text-4xl'>
                 {stat.number}
               </div>
-              <div className='text-muted-foreground mt-1 text-sm sm:text-base'>
-                {stat.label}
-              </div>
+              <div className='text-muted-foreground mt-1 text-sm sm:text-base'>{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>

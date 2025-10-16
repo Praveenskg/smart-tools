@@ -36,17 +36,17 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                   duration: 0.4,
                   delay: index * 0.05,
                   ease: 'easeOut',
-                  layout: { duration: 0.3 }
+                  layout: { duration: 0.3 },
                 }}
                 whileHover={{
                   y: -8,
-                  transition: { duration: 0.2 }
+                  transition: { duration: 0.2 },
                 }}
               >
                 <Link href={`/${tool.id}`}>
-                  <Card className='group relative h-full cursor-pointer overflow-hidden border-0 bg-gradient-to-br from-card to-card/50 shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10'>
+                  <Card className='group from-card to-card/50 hover:shadow-primary/10 relative h-full cursor-pointer overflow-hidden border-0 bg-gradient-to-br shadow-lg transition-all duration-500 hover:shadow-2xl'>
                     {/* Animated background gradient */}
-                    <div className='absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
+                    <div className='from-primary/5 to-primary/5 absolute inset-0 bg-gradient-to-br via-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
                     {/* Popular badge glow effect */}
                     {tool.popular && (

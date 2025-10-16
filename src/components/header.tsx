@@ -20,11 +20,11 @@ export default function Header() {
       className='border-border/40 bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur-xl'
     >
       {/* Animated gradient border */}
-      <div className='absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-primary/50 to-transparent' />
-      <div className='absolute bottom-0 left-0 h-[1px] w-full animate-pulse bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-60' />
+      <div className='via-primary/50 absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent to-transparent' />
+      <div className='via-primary/30 absolute bottom-0 left-0 h-[1px] w-full animate-pulse bg-gradient-to-r from-transparent to-transparent opacity-60' />
 
       {/* Subtle background pattern */}
-      <div className='absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 opacity-50' />
+      <div className='from-primary/5 to-primary/5 absolute inset-0 bg-gradient-to-r via-transparent opacity-50' />
 
       <div className='relative container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8'>
         {/* Logo Section */}
@@ -33,9 +33,12 @@ export default function Header() {
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}
         >
-          <Link href='/' className='group flex items-center space-x-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 rounded-lg'>
+          <Link
+            href='/'
+            className='group focus-visible:ring-primary/50 flex items-center space-x-3 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
+          >
             <motion.div
-              className='relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-lg shadow-primary/25'
+              className='shadow-primary/25 relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-lg'
               whileHover={{ rotate: 12, scale: 1.1 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
             >
@@ -71,7 +74,7 @@ export default function Header() {
                 ToolifyLab
               </motion.span>
               <motion.span
-                className='text-muted-foreground text-xs font-medium transition-colors duration-300 group-hover:text-primary/70 sm:text-sm'
+                className='text-muted-foreground group-hover:text-primary/70 text-xs font-medium transition-colors duration-300 sm:text-sm'
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
@@ -112,10 +115,7 @@ export default function Header() {
           </motion.div>
 
           {/* Mobile Menu */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <MobilePWAMenu />
           </motion.div>
         </div>

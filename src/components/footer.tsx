@@ -11,13 +11,13 @@ function Footer() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className='border-border/40 bg-gradient-to-br from-background to-background/95 relative z-10 border-t backdrop-blur-xl'
+      className='border-border/40 from-background to-background/95 relative z-10 border-t bg-gradient-to-br backdrop-blur-xl'
     >
       {/* Top gradient border */}
-      <div className='absolute top-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-primary/50 to-transparent' />
+      <div className='via-primary/50 absolute top-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent to-transparent' />
 
       {/* Background pattern */}
-      <div className='absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-30' />
+      <div className='from-primary/5 to-primary/5 absolute inset-0 bg-gradient-to-br via-transparent opacity-30' />
 
       <div className='relative container mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8'>
         <div className='grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12'>
@@ -31,15 +31,15 @@ function Footer() {
             <div className='flex flex-col space-y-4'>
               <div className='flex items-center space-x-3'>
                 <div className='flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-lg'>
-                  <span className='text-white font-bold text-lg'>T</span>
+                  <span className='text-lg font-bold text-white'>T</span>
                 </div>
                 <div>
-                  <h3 className='text-lg font-bold text-foreground'>ToolifyLab</h3>
-                  <p className='text-sm text-muted-foreground'>Professional Calculator Suite</p>
+                  <h3 className='text-foreground text-lg font-bold'>ToolifyLab</h3>
+                  <p className='text-muted-foreground text-sm'>Professional Calculator Suite</p>
                 </div>
               </div>
 
-              <p className='text-muted-foreground text-sm leading-relaxed max-w-xs'>
+              <p className='text-muted-foreground max-w-xs text-sm leading-relaxed'>
                 Your comprehensive toolkit for calculations, conversions, and productivity tools.
                 Built with modern web technologies for the best user experience.
               </p>
@@ -48,7 +48,7 @@ function Footer() {
                 {['React', 'Next.js', 'TypeScript', 'Tailwind'].map((tech) => (
                   <span
                     key={tech}
-                    className='rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-primary'
+                    className='bg-primary/10 text-primary rounded-full px-2 py-1 text-xs font-medium'
                   >
                     {tech}
                   </span>
@@ -64,7 +64,7 @@ function Footer() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className='lg:col-span-1'
           >
-            <h4 className='mb-4 text-sm font-semibold text-foreground uppercase tracking-wide'>
+            <h4 className='text-foreground mb-4 text-sm font-semibold tracking-wide uppercase'>
               Quick Links
             </h4>
             <div className='grid grid-cols-2 gap-3 sm:gap-4'>
@@ -94,7 +94,7 @@ function Footer() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className='lg:col-span-1'
           >
-            <h4 className='mb-4 text-sm font-semibold text-foreground uppercase tracking-wide'>
+            <h4 className='text-foreground mb-4 text-sm font-semibold tracking-wide uppercase'>
               Connect & Support
             </h4>
 
@@ -118,17 +118,13 @@ function Footer() {
                     icon: FaXTwitter,
                   },
                 ].map(({ href, label, icon: Icon }) => (
-                  <motion.div
-                    key={label}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
+                  <motion.div key={label} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
                     <Link
                       href={href}
                       target='_blank'
                       rel='noopener noreferrer'
                       aria-label={label}
-                      className='flex h-10 w-10 items-center justify-center rounded-lg bg-muted/50 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-200'
+                      className='bg-muted/50 text-muted-foreground hover:bg-primary/10 hover:text-primary flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200'
                     >
                       <Icon className='h-5 w-5' />
                     </Link>
@@ -138,7 +134,7 @@ function Footer() {
 
               {/* Buy Me a Coffee */}
               <div className='flex flex-col space-y-2'>
-                <p className='text-xs text-muted-foreground'>Support the project</p>
+                <p className='text-muted-foreground text-xs'>Support the project</p>
                 <Link
                   href='https://www.buymeacoffee.com/praveenskg'
                   target='_blank'
@@ -165,11 +161,11 @@ function Footer() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className='mt-8 border-t border-border/50 pt-6'
+          className='border-border/50 mt-8 border-t pt-6'
         >
           <div className='flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left'>
             <div className='space-y-2'>
-              <p className='text-sm text-muted-foreground'>
+              <p className='text-muted-foreground text-sm'>
                 © {new Date().getFullYear()}{' '}
                 <span className='text-foreground font-medium'>ToolifyLab</span>. Crafted with{' '}
                 <motion.span
@@ -184,12 +180,12 @@ function Footer() {
                   href='https://www.linkedin.com/in/praveenskg'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='text-primary hover:underline font-medium transition-colors'
+                  className='text-primary font-medium transition-colors hover:underline'
                 >
                   Praveen Singh
                 </Link>
               </p>
-              <div className='flex flex-wrap justify-center gap-4 text-xs text-muted-foreground sm:justify-start'>
+              <div className='text-muted-foreground flex flex-wrap justify-center gap-4 text-xs sm:justify-start'>
                 <span>Privacy First</span>
                 <span>•</span>
                 <span>No Data Collection</span>
