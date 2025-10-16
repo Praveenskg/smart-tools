@@ -59,19 +59,55 @@ export function ToolSearch({
           transition={{ delay: 0.4, duration: 0.5 }}
           className='relative mx-auto mb-8 max-w-lg'
         >
+          {/* Floating particles around search */}
+          {isFocused && (
+            <div className="absolute -inset-4 pointer-events-none">
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute h-1 w-1 rounded-full bg-primary/40"
+                  animate={{
+                    x: [0, Math.random() * 100 - 50],
+                    y: [0, Math.random() * 100 - 50],
+                    opacity: [0, 1, 0],
+                    scale: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: Math.random() * 2 + 2,
+                    repeat: Infinity,
+                    delay: Math.random() * 2,
+                    ease: 'easeInOut',
+                  }}
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                  }}
+                />
+              ))}
+            </div>
+          )}
+
           <InputGroup
             className={`bg-background/50 hover:bg-background/80 backdrop-blur-sm transition-all duration-300 ${
               isFocused
-                ? 'border-primary shadow-primary/20 shadow-lg'
+                ? 'border-primary shadow-primary/20 shadow-lg scale-105'
                 : 'border-border hover:border-primary/50'
             }`}
           >
             <InputGroupAddon align='inline-start'>
-              <Search
-                className={`h-5 w-5 transition-colors ${
-                  isFocused ? 'text-primary' : 'text-muted-foreground'
-                }`}
-              />
+              <motion.div
+                animate={isFocused ? { 
+                  scale: [1, 1.1, 1],
+                  rotate: [0, 5, -5, 0]
+                } : {}}
+                transition={{ duration: 0.5 }}
+              >
+                <Search
+                  className={`h-5 w-5 transition-colors ${
+                    isFocused ? 'text-primary' : 'text-muted-foreground'
+                  }`}
+                />
+              </motion.div>
             </InputGroupAddon>
 
             <InputGroupInput
@@ -87,9 +123,11 @@ export function ToolSearch({
             {searchTerm && (
               <InputGroupAddon align='inline-end'>
                 <motion.button
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.8, rotate: -180 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, rotate: 180 }}
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
                   onClick={() => setSearchTerm('')}
                   className='text-muted-foreground hover:bg-muted hover:text-foreground rounded-full p-1 transition-colors'
                 >
@@ -136,24 +174,43 @@ export function ToolSearch({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button
-                variant={selectedCategory === category.name ? 'default' : 'outline'}
-                size='sm'
-                onClick={() => setSelectedCategory(category.name)}
-                className={`transition-all duration-300 ${
-                  selectedCategory === category.name
-                    ? 'from-primary to-primary/80 shadow-primary/25 bg-linear-to-r shadow-lg'
-                    : 'hover:bg-primary/10 hover:border-primary/50'
-                }`}
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {category.name}
-                <Badge
-                  variant={selectedCategory === category.name ? 'default' : 'secondary'}
-                  className='ml-2 text-xs'
+                <Button
+                  variant={selectedCategory === category.name ? 'default' : 'outline'}
+                  size='sm'
+                  onClick={() => setSelectedCategory(category.name)}
+                  className={`transition-all duration-300 relative overflow-hidden group ${
+                    selectedCategory === category.name
+                      ? 'from-primary to-primary/80 shadow-primary/25 bg-gradient-to-r shadow-lg'
+                      : 'hover:bg-primary/10 hover:border-primary/50'
+                  }`}
                 >
-                  {category.count}
-                </Badge>
-              </Button>
+                  {selectedCategory === category.name && (
+                    <motion.div
+                      className='absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0'
+                      animate={{ x: ['-100%', '100%'] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                    />
+                  )}
+                  <span className='relative z-10'>{category.name}</span>
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    whileHover={{ scale: 1.1 }}
+                    className='relative z-10'
+                  >
+                    <Badge
+                      variant={selectedCategory === category.name ? 'default' : 'secondary'}
+                      className='ml-2 text-xs'
+                    >
+                      {category.count}
+                    </Badge>
+                  </motion.div>
+                </Button>
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>

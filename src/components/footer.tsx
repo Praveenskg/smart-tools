@@ -11,13 +11,13 @@ function Footer() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className='border-border/40 from-background to-background/95 relative z-10 border-t bg-gradient-to-br backdrop-blur-xl'
+      className='border-border/40 from-background to-background/95 relative z-10 border-t bg-linear-to-br backdrop-blur-xl'
     >
       {/* Top gradient border */}
-      <div className='via-primary/50 absolute top-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent to-transparent' />
+      <div className='via-primary/50 absolute top-0 left-0 h-px w-full bg-linear-to-r from-transparent to-transparent' />
 
       {/* Background pattern */}
-      <div className='from-primary/5 to-primary/5 absolute inset-0 bg-gradient-to-br via-transparent opacity-30' />
+      <div className='from-primary/5 to-primary/5 absolute inset-0 bg-linear-to-br via-transparent opacity-30' />
 
       <div className='relative container mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8'>
         <div className='grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12'>
@@ -30,7 +30,7 @@ function Footer() {
           >
             <div className='flex flex-col space-y-4'>
               <div className='flex items-center space-x-3'>
-                <div className='flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-lg'>
+                <div className='flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-lg'>
                   <span className='text-lg font-bold text-white'>T</span>
                 </div>
                 <div>
@@ -200,7 +200,7 @@ function Footer() {
       </div>
 
       {/* Bottom gradient */}
-      <div className='absolute bottom-0 left-0 h-[2px] w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-60' />
+      <div className='absolute bottom-0 left-0 h-[2px] w-full bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-60' />
     </motion.footer>
   );
 }

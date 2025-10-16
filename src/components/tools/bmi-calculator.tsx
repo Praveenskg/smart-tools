@@ -78,10 +78,10 @@ export default function BMICalculator() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Card className='from-card to-card/50 border-0 bg-gradient-to-br shadow-xl backdrop-blur-sm'>
+          <Card className='from-card to-card/50 border-0 bg-linear-to-br shadow-xl backdrop-blur-sm'>
             <CardHeader className='pb-6'>
               <div className='flex items-center gap-3'>
-                <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg'>
+                <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-500 to-blue-600 shadow-lg'>
                   <span className='text-xl font-bold text-white'>⚖️</span>
                 </div>
                 <div>
@@ -135,7 +135,7 @@ export default function BMICalculator() {
                 >
                   <Button
                     onClick={calculateBMI}
-                    className='from-primary to-primary/80 h-12 w-full bg-gradient-to-r text-base font-semibold shadow-lg transition-all duration-300 hover:shadow-xl'
+                    className='from-primary to-primary/80 h-12 w-full bg-linear-to-r text-base font-semibold shadow-lg transition-all duration-300 hover:shadow-xl'
                   >
                     Calculate BMI
                   </Button>
@@ -164,10 +164,10 @@ export default function BMICalculator() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            <Card className='from-card to-card/50 border-0 bg-gradient-to-br shadow-xl backdrop-blur-sm'>
+            <Card className='from-card to-card/50 border-0 bg-linear-to-br shadow-xl backdrop-blur-sm'>
               <CardHeader className='pb-6'>
                 <div className='flex items-center gap-3'>
-                  <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-green-500 to-green-600 shadow-lg'>
+                  <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-green-500 to-green-600 shadow-lg'>
                     <span className='text-xl font-bold text-white'>📊</span>
                   </div>
                   <div>
@@ -181,7 +181,7 @@ export default function BMICalculator() {
               <CardContent className='space-y-8'>
                 {/* Main BMI Display */}
                 <div className='relative'>
-                  <div className='from-primary/10 via-primary/5 to-primary/10 border-primary/20 rounded-2xl border bg-gradient-to-br p-6 text-center shadow-inner'>
+                  <div className='from-primary/10 via-primary/5 to-primary/10 border-primary/20 rounded-2xl border bg-linear-to-br p-6 text-center shadow-inner'>
                     <motion.div
                       initial={{ scale: 0.5, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
@@ -233,7 +233,7 @@ export default function BMICalculator() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4, duration: 0.5 }}
-                    className='rounded-xl border bg-gradient-to-r from-blue-50/50 to-indigo-50/50 p-4 dark:from-blue-950/20 dark:to-indigo-950/20'
+                    className='rounded-xl border bg-linear-to-r from-blue-50/50 to-indigo-50/50 p-4 dark:from-blue-950/20 dark:to-indigo-950/20'
                   >
                     <div className='mb-2 flex items-center gap-3'>
                       <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500'>
@@ -255,8 +255,8 @@ export default function BMICalculator() {
                     transition={{ delay: 0.6, duration: 0.5 }}
                     className={`rounded-xl border p-4 ${
                       result.status === 'normal'
-                        ? 'border-green-200 bg-gradient-to-r from-green-50/50 to-emerald-50/50 dark:from-green-950/20 dark:to-emerald-950/20'
-                        : 'border-amber-200 bg-gradient-to-r from-amber-50/50 to-orange-50/50 dark:from-amber-950/20 dark:to-orange-950/20'
+                        ? 'border-green-200 bg-linear-to-r from-green-50/50 to-emerald-50/50 dark:from-green-950/20 dark:to-emerald-950/20'
+                        : 'border-amber-200 bg-linear-to-r from-amber-50/50 to-orange-50/50 dark:from-amber-950/20 dark:to-orange-950/20'
                     }`}
                   >
                     <div className='mb-2 flex items-center gap-3'>
@@ -291,10 +291,10 @@ export default function BMICalculator() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.6 }}
       >
-        <Card className='from-card to-card/50 border-0 bg-gradient-to-br shadow-xl backdrop-blur-sm'>
+        <Card className='from-card to-card/50 border-0 bg-linear-to-br shadow-xl backdrop-blur-sm'>
           <CardHeader className='pb-6 text-center'>
             <div className='mb-2 flex items-center justify-center gap-3'>
-              <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg'>
+              <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-purple-500 to-purple-600 shadow-lg'>
                 <span className='text-xl font-bold text-white'>📋</span>
               </div>
               <div>
@@ -350,15 +350,15 @@ export default function BMICalculator() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ delay: 1 + index * 0.1, duration: 0.5 }}
                   whileHover={{ scale: 1.02, y: -2 }}
-                  className={`group relative overflow-hidden rounded-xl border bg-gradient-to-br p-4 text-center transition-all duration-300 hover:shadow-lg ${item.bgColor}`}
+                  className={`group relative overflow-hidden rounded-xl border bg-linear-to-br p-4 text-center transition-all duration-300 hover:shadow-lg ${item.bgColor}`}
                 >
                   <div
-                    className={`absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-300 group-hover:opacity-10 ${item.color}`}
+                    className={`absolute inset-0 bg-linear-to-br opacity-0 transition-opacity duration-300 group-hover:opacity-10 ${item.color}`}
                   />
 
                   <div className='relative z-10'>
                     <div
-                      className={`mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br shadow-lg ${item.color}`}
+                      className={`mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br shadow-lg ${item.color}`}
                     >
                       <span className='text-xl'>{item.icon}</span>
                     </div>
@@ -378,7 +378,7 @@ export default function BMICalculator() {
 
                   {/* Hover effect line */}
                   <div
-                    className={`absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r transition-all duration-500 group-hover:w-full ${item.color}`}
+                    className={`absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r transition-all duration-500 group-hover:w-full ${item.color}`}
                   />
                 </motion.div>
               ))}

@@ -44,14 +44,31 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                 }}
               >
                 <Link href={`/${tool.id}`}>
-                  <Card className='group from-card to-card/50 hover:shadow-primary/10 relative h-full cursor-pointer overflow-hidden border-0 bg-gradient-to-br shadow-lg transition-all duration-500 hover:shadow-2xl'>
+                  <Card className='group from-card to-card/50 hover:shadow-primary/10 relative h-full cursor-pointer overflow-hidden border-0 bg-gradient-to-br shadow-lg transition-all duration-500 hover:shadow-2xl perspective-1000 transform-3d'>
+                    {/* 3D hover effect */}
+                    <div className='absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:rotate-x-2' />
+                    
                     {/* Animated background gradient */}
                     <div className='from-primary/5 to-primary/5 absolute inset-0 bg-gradient-to-br via-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
                     {/* Popular badge glow effect */}
                     {tool.popular && (
-                      <div className='absolute -inset-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 opacity-20 blur-sm' />
+                      <motion.div 
+                        className='absolute -inset-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 opacity-20 blur-sm'
+                        animate={{ 
+                          opacity: [0.2, 0.4, 0.2],
+                          scale: [1, 1.05, 1]
+                        }}
+                        transition={{ 
+                          duration: 2, 
+                          repeat: Infinity, 
+                          ease: 'easeInOut' 
+                        }}
+                      />
                     )}
+
+                    {/* Glass morphism overlay */}
+                    <div className='absolute inset-0 glass opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
 
                     <CardHeader className='relative pb-4'>
                       <div className='flex items-start justify-between'>
@@ -60,8 +77,28 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                           whileHover={{ scale: 1.02 }}
                         >
                           <div className='relative'>
-                            <div className='bg-primary/10 absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
-                            <Icon className='text-primary relative z-10 h-6 w-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 sm:h-7 sm:w-7' />
+                            <motion.div 
+                              className='bg-primary/10 absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100'
+                              animate={{ 
+                                scale: [1, 1.1, 1],
+                                rotate: [0, 5, 0]
+                              }}
+                              transition={{ 
+                                duration: 3, 
+                                repeat: Infinity, 
+                                ease: 'easeInOut' 
+                              }}
+                            />
+                            <motion.div
+                              whileHover={{ 
+                                scale: 1.2, 
+                                rotate: [0, 10, -10, 0],
+                                y: [0, -5, 0]
+                              }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <Icon className='text-primary relative z-10 h-6 w-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 sm:h-7 sm:w-7' />
+                            </motion.div>
                           </div>
                           <div className='flex-1'>
                             <CardTitle className='group-hover:text-primary text-lg font-semibold transition-colors duration-300 sm:text-xl'>
@@ -69,13 +106,26 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                             </CardTitle>
                             {tool.popular && (
                               <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
+                                initial={{ scale: 0, rotate: -180 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                whileHover={{ scale: 1.1, rotate: 5 }}
                                 className='mt-1'
                               >
-                                <Badge className='bg-gradient-to-r from-yellow-400 to-orange-400 text-xs font-medium text-white shadow-sm'>
-                                  ⭐ Popular
-                                </Badge>
+                                <motion.div
+                                  animate={{ 
+                                    scale: [1, 1.05, 1],
+                                    rotate: [0, 2, 0]
+                                  }}
+                                  transition={{ 
+                                    duration: 2, 
+                                    repeat: Infinity, 
+                                    ease: 'easeInOut' 
+                                  }}
+                                >
+                                  <Badge className='bg-gradient-to-r from-yellow-400 to-orange-400 text-xs font-medium text-white shadow-sm pulse-glow'>
+                                    ⭐ Popular
+                                  </Badge>
+                                </motion.div>
                               </motion.div>
                             )}
                           </div>
@@ -98,14 +148,24 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
 
                         <motion.div
                           className='opacity-0 transition-opacity duration-300 group-hover:opacity-100'
-                          initial={{ x: -10 }}
-                          whileHover={{ x: 0 }}
+                          initial={{ x: -10, scale: 0.8 }}
+                          whileHover={{ x: 0, scale: 1.1 }}
+                          animate={{ 
+                            x: [0, 2, 0],
+                            scale: [1, 1.05, 1]
+                          }}
+                          transition={{ 
+                            duration: 2, 
+                            repeat: Infinity, 
+                            ease: 'easeInOut' 
+                          }}
                         >
-                          <svg
+                          <motion.svg
                             className='text-primary h-4 w-4'
                             fill='none'
                             stroke='currentColor'
                             viewBox='0 0 24 24'
+                            whileHover={{ rotate: 15 }}
                           >
                             <path
                               strokeLinecap='round'
@@ -113,7 +173,7 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                               strokeWidth={2}
                               d='M9 5l7 7-7 7'
                             />
-                          </svg>
+                          </motion.svg>
                         </motion.div>
                       </div>
                     </CardContent>
