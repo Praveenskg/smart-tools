@@ -51,7 +51,6 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                     {/* Animated background gradient */}
                     <div className='from-primary/5 to-primary/5 absolute inset-0 bg-linear-to-br via-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
-
                     {/* Glass morphism overlay */}
                     <div className='glass absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
 
