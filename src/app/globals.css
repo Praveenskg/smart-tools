@@ -627,7 +627,8 @@ input[type='number'] {
 
 /* Advanced animations */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -636,7 +637,8 @@ input[type='number'] {
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
   }
   50% {

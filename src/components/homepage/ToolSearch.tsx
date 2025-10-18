@@ -61,11 +61,11 @@ export function ToolSearch({
         >
           {/* Floating particles around search */}
           {isFocused && (
-            <div className="absolute -inset-4 pointer-events-none">
+            <div className='pointer-events-none absolute -inset-4'>
               {[...Array(8)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute h-1 w-1 rounded-full bg-primary/40"
+                  className='bg-primary/40 absolute h-1 w-1 rounded-full'
                   animate={{
                     x: [0, Math.random() * 100 - 50],
                     y: [0, Math.random() * 100 - 50],
@@ -90,16 +90,20 @@ export function ToolSearch({
           <InputGroup
             className={`bg-background/50 hover:bg-background/80 backdrop-blur-sm transition-all duration-300 ${
               isFocused
-                ? 'border-primary shadow-primary/20 shadow-lg scale-105'
+                ? 'border-primary shadow-primary/20 scale-105 shadow-lg'
                 : 'border-border hover:border-primary/50'
             }`}
           >
             <InputGroupAddon align='inline-start'>
               <motion.div
-                animate={isFocused ? { 
-                  scale: [1, 1.1, 1],
-                  rotate: [0, 5, -5, 0]
-                } : {}}
+                animate={
+                  isFocused
+                    ? {
+                        scale: [1, 1.1, 1],
+                        rotate: [0, 5, -5, 0],
+                      }
+                    : {}
+                }
                 transition={{ duration: 0.5 }}
               >
                 <Search
@@ -174,15 +178,12 @@ export function ToolSearch({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <motion.div
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
                 <Button
                   variant={selectedCategory === category.name ? 'default' : 'outline'}
                   size='sm'
                   onClick={() => setSelectedCategory(category.name)}
-                  className={`transition-all duration-300 relative overflow-hidden group ${
+                  className={`group relative overflow-hidden transition-all duration-300 ${
                     selectedCategory === category.name
                       ? 'from-primary to-primary/80 shadow-primary/25 bg-gradient-to-r shadow-lg'
                       : 'hover:bg-primary/10 hover:border-primary/50'

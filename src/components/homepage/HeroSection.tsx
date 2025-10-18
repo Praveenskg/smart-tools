@@ -8,7 +8,7 @@ export function HeroSection() {
       {/* Advanced animated background elements */}
       <div className='absolute inset-0 overflow-hidden'>
         {/* Base gradient overlay */}
-        <div className='absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10' />
+        <div className='absolute inset-0 bg-linear-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10' />
 
         {/* Floating particles */}
         {[...Array(20)].map((_, i) => (
@@ -46,7 +46,7 @@ export function HeroSection() {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className='absolute -top-40 -right-40 h-80 w-80 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 blur-3xl'
+          className='absolute -top-40 -right-40 h-80 w-80 rounded-full bg-linear-to-br from-indigo-500/20 to-purple-500/20 blur-3xl'
         />
         <motion.div
           animate={{
@@ -60,7 +60,7 @@ export function HeroSection() {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className='absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-gradient-to-br from-purple-500/15 to-pink-500/15 blur-3xl'
+          className='absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-linear-to-br from-purple-500/15 to-pink-500/15 blur-3xl'
         />
         <motion.div
           animate={{
@@ -74,7 +74,7 @@ export function HeroSection() {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className='absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-pink-500/10 to-indigo-500/10 blur-3xl'
+          className='absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-linear-to-br from-pink-500/10 to-indigo-500/10 blur-3xl'
         />
 
         {/* Additional floating elements */}
@@ -88,7 +88,7 @@ export function HeroSection() {
             repeat: Infinity,
             ease: 'linear',
           }}
-          className='absolute top-1/4 right-1/4 h-32 w-32 rounded-full bg-gradient-to-br from-blue-400/20 to-cyan-400/20 blur-2xl'
+          className='absolute top-1/4 right-1/4 h-32 w-32 rounded-full bg-linear-to-br from-blue-400/20 to-cyan-400/20 blur-2xl'
         />
         <motion.div
           animate={{
@@ -100,7 +100,7 @@ export function HeroSection() {
             repeat: Infinity,
             ease: 'linear',
           }}
-          className='absolute bottom-1/4 left-1/4 h-24 w-24 rounded-full bg-gradient-to-br from-emerald-400/20 to-teal-400/20 blur-2xl'
+          className='absolute bottom-1/4 left-1/4 h-24 w-24 rounded-full bg-linear-to-br from-emerald-400/20 to-teal-400/20 blur-2xl'
         />
       </div>
 
@@ -110,7 +110,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.1, duration: 0.6, ease: 'easeOut' }}
           whileHover={{ scale: 1.05, y: -2 }}
-          className='text-primary border-primary/20 mb-6 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur-sm'
+          className='text-primary border-primary/20 mb-6 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border bg-linear-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur-sm'
         >
           <motion.div
             animate={{ rotate: [0, 360] }}
@@ -131,7 +131,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8, ease: 'easeOut' }}
-          className='from-foreground via-foreground to-foreground bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl'
+          className='from-foreground via-foreground to-foreground bg-linear-to-r bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl'
         >
           <motion.span
             initial={{ opacity: 0, x: -50 }}
@@ -141,10 +141,10 @@ export function HeroSection() {
             Your Professional{' '}
           </motion.span>
           <motion.span
-            className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent'
+            className='bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent'
             initial={{ opacity: 0, y: 20 }}
-            animate={{ 
-              opacity: 1, 
+            animate={{
+              opacity: 1,
               y: 0,
               backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
               scale: [1, 1.02, 1],
@@ -193,9 +193,9 @@ export function HeroSection() {
             transition={{ delay: 1, duration: 0.6 }}
           >
             <Link href='#tools'>
-              <button className='hover:shadow-primary/25 group relative overflow-hidden rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 hover:shadow-xl'>
+              <button className='hover:shadow-primary/25 group relative overflow-hidden rounded-xl bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 hover:shadow-xl'>
                 <motion.div
-                  className='absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0'
+                  className='absolute inset-0 bg-linear-to-r from-white/0 via-white/20 to-white/0'
                   animate={{ x: ['-100%', '100%'] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                 />
@@ -221,7 +221,7 @@ export function HeroSection() {
             <Link href='/bmi-calculator'>
               <button className='border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 group relative overflow-hidden rounded-xl border px-6 py-4 text-lg font-medium transition-all duration-300'>
                 <motion.div
-                  className='from-primary/0 via-primary/10 to-primary/0 absolute inset-0 bg-gradient-to-r'
+                  className='from-primary/0 via-primary/10 to-primary/0 absolute inset-0 bg-linear-to-r'
                   animate={{ x: ['-100%', '100%'] }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                 />

@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg';
@@ -21,8 +21,8 @@ export function LoadingSpinner({ size = 'md', className }: LoadingSpinnerProps) 
       animate={{ rotate: 360 }}
       transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
     >
-      <div className="absolute inset-0 rounded-full border-2 border-primary/20" />
-      <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-primary" />
+      <div className='border-primary/20 absolute inset-0 rounded-full border-2' />
+      <div className='border-t-primary absolute inset-0 rounded-full border-2 border-transparent' />
     </motion.div>
   );
 }
@@ -37,7 +37,7 @@ export function LoadingDots({ className }: LoadingDotsProps) {
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
-          className="h-2 w-2 rounded-full bg-primary"
+          className='bg-primary h-2 w-2 rounded-full'
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.5, 1, 0.5],
@@ -61,7 +61,7 @@ interface LoadingPulseProps {
 export function LoadingPulse({ className }: LoadingPulseProps) {
   return (
     <motion.div
-      className={cn('h-4 w-4 rounded-full bg-primary', className)}
+      className={cn('bg-primary h-4 w-4 rounded-full', className)}
       animate={{
         scale: [1, 1.2, 1],
         opacity: [1, 0.5, 1],
@@ -85,7 +85,7 @@ export function LoadingWave({ className }: LoadingWaveProps) {
       {[0, 1, 2, 3, 4].map((i) => (
         <motion.div
           key={i}
-          className="h-4 w-1 bg-primary rounded-full"
+          className='bg-primary h-4 w-1 rounded-full'
           animate={{
             scaleY: [1, 2, 1],
             opacity: [0.5, 1, 0.5],
@@ -109,26 +109,26 @@ interface LoadingCardProps {
 export function LoadingCard({ className }: LoadingCardProps) {
   return (
     <motion.div
-      className={cn('rounded-lg border bg-card p-6 shadow-sm', className)}
+      className={cn('bg-card rounded-lg border p-6 shadow-sm', className)}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="space-y-4">
-        <div className="flex items-center space-x-4">
-          <div className="h-12 w-12 rounded-full bg-muted animate-pulse" />
-          <div className="space-y-2 flex-1">
-            <div className="h-4 w-3/4 bg-muted rounded animate-pulse" />
-            <div className="h-3 w-1/2 bg-muted rounded animate-pulse" />
+      <div className='space-y-4'>
+        <div className='flex items-center space-x-4'>
+          <div className='bg-muted h-12 w-12 animate-pulse rounded-full' />
+          <div className='flex-1 space-y-2'>
+            <div className='bg-muted h-4 w-3/4 animate-pulse rounded' />
+            <div className='bg-muted h-3 w-1/2 animate-pulse rounded' />
           </div>
         </div>
-        <div className="space-y-2">
-          <div className="h-4 w-full bg-muted rounded animate-pulse" />
-          <div className="h-4 w-4/5 bg-muted rounded animate-pulse" />
+        <div className='space-y-2'>
+          <div className='bg-muted h-4 w-full animate-pulse rounded' />
+          <div className='bg-muted h-4 w-4/5 animate-pulse rounded' />
         </div>
-        <div className="flex space-x-2">
-          <div className="h-6 w-16 bg-muted rounded-full animate-pulse" />
-          <div className="h-6 w-20 bg-muted rounded-full animate-pulse" />
+        <div className='flex space-x-2'>
+          <div className='bg-muted h-6 w-16 animate-pulse rounded-full' />
+          <div className='bg-muted h-6 w-20 animate-pulse rounded-full' />
         </div>
       </div>
     </motion.div>
@@ -142,7 +142,12 @@ interface LoadingGridProps {
 
 export function LoadingGrid({ count = 6, className }: LoadingGridProps) {
   return (
-    <div className={cn('grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5', className)}>
+    <div
+      className={cn(
+        'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5',
+        className,
+      )}
+    >
       {Array.from({ length: count }).map((_, i) => (
         <LoadingCard key={i} />
       ))}
@@ -162,15 +167,15 @@ export function LoadingOverlay({ isLoading, children, className }: LoadingOverla
       {children}
       {isLoading && (
         <motion.div
-          className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50"
+          className='bg-background/80 absolute inset-0 z-50 flex items-center justify-center backdrop-blur-sm'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-          <div className="flex flex-col items-center space-y-4">
-            <LoadingSpinner size="lg" />
-            <p className="text-muted-foreground text-sm">Loading...</p>
+          <div className='flex flex-col items-center space-y-4'>
+            <LoadingSpinner size='lg' />
+            <p className='text-muted-foreground text-sm'>Loading...</p>
           </div>
         </motion.div>
       )}

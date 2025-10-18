@@ -44,31 +44,16 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                 }}
               >
                 <Link href={`/${tool.id}`}>
-                  <Card className='group from-card to-card/50 hover:shadow-primary/10 relative h-full cursor-pointer overflow-hidden border-0 bg-gradient-to-br shadow-lg transition-all duration-500 hover:shadow-2xl perspective-1000 transform-3d'>
+                  <Card className='group from-card to-card/50 hover:shadow-primary/10 perspective-1000 relative h-full cursor-pointer overflow-hidden border-0 bg-linear-to-br shadow-lg transition-all duration-500 transform-3d hover:shadow-2xl'>
                     {/* 3D hover effect */}
-                    <div className='absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:rotate-x-2' />
-                    
-                    {/* Animated background gradient */}
-                    <div className='from-primary/5 to-primary/5 absolute inset-0 bg-gradient-to-br via-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
+                    <div className='from-primary/5 to-primary/5 absolute inset-0 bg-linear-to-br via-transparent opacity-0 transition-all duration-500 group-hover:rotate-x-2 group-hover:opacity-100' />
 
-                    {/* Popular badge glow effect */}
-                    {tool.popular && (
-                      <motion.div 
-                        className='absolute -inset-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 opacity-20 blur-sm'
-                        animate={{ 
-                          opacity: [0.2, 0.4, 0.2],
-                          scale: [1, 1.05, 1]
-                        }}
-                        transition={{ 
-                          duration: 2, 
-                          repeat: Infinity, 
-                          ease: 'easeInOut' 
-                        }}
-                      />
-                    )}
+                    {/* Animated background gradient */}
+                    <div className='from-primary/5 to-primary/5 absolute inset-0 bg-linear-to-br via-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
+
 
                     {/* Glass morphism overlay */}
-                    <div className='absolute inset-0 glass opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
+                    <div className='glass absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
 
                     <CardHeader className='relative pb-4'>
                       <div className='flex items-start justify-between'>
@@ -77,23 +62,23 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                           whileHover={{ scale: 1.02 }}
                         >
                           <div className='relative'>
-                            <motion.div 
+                            <motion.div
                               className='bg-primary/10 absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100'
-                              animate={{ 
+                              animate={{
                                 scale: [1, 1.1, 1],
-                                rotate: [0, 5, 0]
+                                rotate: [0, 5, 0],
                               }}
-                              transition={{ 
-                                duration: 3, 
-                                repeat: Infinity, 
-                                ease: 'easeInOut' 
+                              transition={{
+                                duration: 3,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
                               }}
                             />
                             <motion.div
-                              whileHover={{ 
-                                scale: 1.2, 
+                              whileHover={{
+                                scale: 1.2,
                                 rotate: [0, 10, -10, 0],
-                                y: [0, -5, 0]
+                                y: [0, -5, 0],
                               }}
                               transition={{ duration: 0.3 }}
                             >
@@ -112,17 +97,17 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                                 className='mt-1'
                               >
                                 <motion.div
-                                  animate={{ 
+                                  animate={{
                                     scale: [1, 1.05, 1],
-                                    rotate: [0, 2, 0]
+                                    rotate: [0, 2, 0],
                                   }}
-                                  transition={{ 
-                                    duration: 2, 
-                                    repeat: Infinity, 
-                                    ease: 'easeInOut' 
+                                  transition={{
+                                    duration: 2,
+                                    repeat: Infinity,
+                                    ease: 'easeInOut',
                                   }}
                                 >
-                                  <Badge className='bg-gradient-to-r from-yellow-400 to-orange-400 text-xs font-medium text-white shadow-sm pulse-glow'>
+                                  <Badge className='pulse-glow bg-linear-to-r from-yellow-400 to-orange-400 text-xs font-medium text-white shadow-sm'>
                                     ⭐ Popular
                                   </Badge>
                                 </motion.div>
@@ -150,14 +135,14 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                           className='opacity-0 transition-opacity duration-300 group-hover:opacity-100'
                           initial={{ x: -10, scale: 0.8 }}
                           whileHover={{ x: 0, scale: 1.1 }}
-                          animate={{ 
+                          animate={{
                             x: [0, 2, 0],
-                            scale: [1, 1.05, 1]
+                            scale: [1, 1.05, 1],
                           }}
-                          transition={{ 
-                            duration: 2, 
-                            repeat: Infinity, 
-                            ease: 'easeInOut' 
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
                           }}
                         >
                           <motion.svg
