@@ -89,28 +89,11 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                               {tool.name}
                             </CardTitle>
                             {tool.popular && (
-                              <motion.div
-                                initial={{ scale: 0, rotate: -180 }}
-                                animate={{ scale: 1, rotate: 0 }}
-                                whileHover={{ scale: 1.1, rotate: 5 }}
-                                className='mt-1'
-                              >
-                                <motion.div
-                                  animate={{
-                                    scale: [1, 1.05, 1],
-                                    rotate: [0, 2, 0],
-                                  }}
-                                  transition={{
-                                    duration: 2,
-                                    repeat: Infinity,
-                                    ease: 'easeInOut',
-                                  }}
-                                >
-                                  <Badge className='pulse-glow bg-linear-to-r from-yellow-400 to-orange-400 text-xs font-medium text-white shadow-sm'>
-                                    ⭐ Popular
-                                  </Badge>
-                                </motion.div>
-                              </motion.div>
+                              <div className='mt-1'>
+                                <Badge variant='secondary' className='text-xs font-medium'>
+                                  ⭐ Popular
+                                </Badge>
+                              </div>
                             )}
                           </div>
                         </motion.div>
