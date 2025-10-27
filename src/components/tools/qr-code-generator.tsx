@@ -132,9 +132,12 @@ export default function QRCodeGenerator() {
     }
   }, [text, size, errorCorrection, foregroundColor, backgroundColor, logoImage, logoSize]);
 
+  // Generate QR code on component mount
   useEffect(() => {
-    generateQRCode();
-  }, [generateQRCode]);
+    if (text.trim()) {
+      generateQRCode();
+    }
+  }, []); // Empty dependency array - only run on mount
 
   const downloadQRCode = () => {
     if (!qrCodeDataUrl) return;
@@ -160,7 +163,7 @@ export default function QRCodeGenerator() {
     if (text.includes('@') && text.includes('.')) {
       return { type: 'Email', icon: FileText, color: 'text-green-500' };
     }
-    if (text.match(/^\+?[\d\s\-\(\)]+$/)) {
+    if (text.match(/^\+?[\d\s\-()]+$/)) {
       return { type: 'Phone', icon: Smartphone, color: 'text-purple-500' };
     }
     return { type: 'Text', icon: FileText, color: 'text-gray-500' };

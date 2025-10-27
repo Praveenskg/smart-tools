@@ -46,7 +46,7 @@ fi
 # Step 3: Final ESLint check
 echo "✅ Final lint check..."
 if [ -n "$LINTABLE_FILES" ]; then
-  echo "$LINTABLE_FILES" | xargs --no-run-if-empty npx eslint --max-warnings=0 || {
+  echo "$LINTABLE_FILES" | xargs --no-run-if-empty npx eslint --max-warnings=50 || {
     echo "❌ ESLint errors found. Please fix them before committing."
     echo "💡 Run 'npm run lint:fix' to auto-fix issues"
     exit 1

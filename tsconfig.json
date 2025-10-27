@@ -11,7 +11,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "forceConsistentCasingInFileNames": true,
     "plugins": [
@@ -24,6 +24,13 @@
     },
     "types": ["@serwist/next/typings"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "types"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "types",
+    ".next/dev/types/**/*.ts"
+  ],
   "exclude": ["node_modules", "public/sw.js"]
 }
